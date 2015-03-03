@@ -59,7 +59,8 @@ import org.springframework.transaction.annotation.Transactional;
     "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
 })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext = true)
+@JUnitTemporaryDatabase
+@Transactional
 public class MinionDaoIT {
     @Autowired
     private MinionDao m_minionDao;

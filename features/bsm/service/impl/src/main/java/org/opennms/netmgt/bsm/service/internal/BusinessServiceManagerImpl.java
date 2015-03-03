@@ -124,7 +124,7 @@ public class BusinessServiceManagerImpl implements BusinessServiceManager {
     }
 
     @Override
-    public int countMatching(Criteria criteria) {
+    public long countMatching(Criteria criteria) {
         criteria = transform(criteria);
                 return getDao().countMatching(criteria);
             }

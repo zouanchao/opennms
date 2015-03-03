@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,7 +41,7 @@ import org.opennms.netmgt.model.CdpLink;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsNode.NodeType;
 import org.opennms.netmgt.model.topology.CdpTopologyLink;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.util.Assert;
 
 /**
@@ -148,7 +147,7 @@ public class CdpLinkDaoHibernate extends AbstractDaoHibernate<CdpLink, Integer> 
         return getHibernateTemplate().execute(new HibernateCallback<List<CdpTopologyLink>>() {
             @Override
             @SuppressWarnings("unchecked")
-            public List<CdpTopologyLink> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<CdpTopologyLink> doInHibernate(Session session) throws HibernateException {
                Map<String, CdpTopologyLink> mapToLink = new HashMap<String,CdpTopologyLink>();
                List<CdpTopologyLink> alllinks = convertObjectToTopologyLink(session.createSQLQuery(SQL_CDP_LINK_BASE_QUERY+";").list());
                for (CdpTopologyLink link: alllinks){
@@ -199,7 +198,7 @@ public class CdpLinkDaoHibernate extends AbstractDaoHibernate<CdpLink, Integer> 
         return getHibernateTemplate().execute(new HibernateCallback<List<CdpTopologyLink>>() {
             @Override
             @SuppressWarnings("unchecked")
-            public List<CdpTopologyLink> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<CdpTopologyLink> doInHibernate(Session session) throws HibernateException {
 
                 final StringBuilder idList = new StringBuilder();
                 String conditional = "";

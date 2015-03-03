@@ -39,15 +39,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.criteria.Alias.JoinType;
+import org.opennms.core.criteria.CriteriaBuilder;
 import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.core.spring.BeanUtils;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.api.MonitoredServiceDao;
 import org.opennms.netmgt.model.OnmsMonitoredService;
-import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +97,7 @@ public class MonitoredServiceDaoIT implements InitializingBean {
     }
 
     @Test
+    @Transactional
     public void testFindAllServices() {
         final List<OnmsMonitoredService> allSvcs = m_monitoredServiceDao.findAllServices();
         assertTrue(allSvcs.size() > 1);

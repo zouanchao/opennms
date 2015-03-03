@@ -46,6 +46,7 @@ import org.opennms.netmgt.model.ncs.NCSBuilder;
 import org.opennms.netmgt.model.ncs.NCSComponent;
 import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 import org.opennms.netmgt.model.ncs.NCSComponentRepository;
+import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -58,6 +59,7 @@ import org.springframework.transaction.annotation.Transactional;
 		"classpath:/META-INF/opennms/applicationContext-testDao.xml",
 		"file:target/classes/META-INF/opennms/component-dao.xml"
 })
+@JUnitConfigurationEnvironment
 @Transactional
 public class NCSComponentDaoIT {
 	

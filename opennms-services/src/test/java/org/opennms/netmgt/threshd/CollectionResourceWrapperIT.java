@@ -44,6 +44,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.db.XADataSourceFactory;
 import org.opennms.core.rpc.mock.MockRpcClientFactory;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
@@ -373,6 +374,7 @@ public class CollectionResourceWrapperIT {
         MockDatabase db = new MockDatabase();
         db.populate(network);
         DataSourceFactory.setInstance(db);
+        XADataSourceFactory.setInstance(db);
 
         // Create Mock Collection Agent
         SnmpCollectionAgent agent = createCollectionAgent();

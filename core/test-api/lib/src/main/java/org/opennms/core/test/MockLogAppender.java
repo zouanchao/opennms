@@ -212,6 +212,15 @@ public class MockLogAppender {
         setProperty(MockLogger.LOG_KEY_PREFIX + "com.mchange.v2", "WARN");
         setProperty(MockLogger.LOG_KEY_PREFIX + "snaq.db", "INFO");
 
+        // Tame the Atomikos logging
+        setProperty(MockLogger.LOG_KEY_PREFIX + "org.atomikos", "INFO");
+        setProperty(MockLogger.LOG_KEY_PREFIX + "com.atomikos", "INFO");
+        setProperty(MockLogger.LOG_KEY_PREFIX + "com.atomikos.datasource.pool.ConnectionPool", "ERROR");
+        setProperty(MockLogger.LOG_KEY_PREFIX + "com.atomikos.icatch", "WARN");
+        setProperty(MockLogger.LOG_KEY_PREFIX + "com.atomikos.jdbc.AbstractDataSourceBean", "WARN");
+        setProperty(MockLogger.LOG_KEY_PREFIX + "com.atomikos.jdbc.AtomikosConnectionProxy", "WARN");
+        setProperty(MockLogger.LOG_KEY_PREFIX + "com.atomikos.jdbc.JdbcConnectionProxyHelper", "ERROR");
+
         for (final Object oKey : config.keySet()) {
             final String key = ((String)oKey).replaceAll("^log4j.logger.", MockLogger.LOG_KEY_PREFIX);
             setProperty(key, config.getProperty((String)oKey));

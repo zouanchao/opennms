@@ -77,7 +77,7 @@ public class OnmsDaoContainerDatasource<T, K extends Serializable> implements On
     }
 
     @Override
-    public int countMatching(Criteria criteria) {
+    public long countMatching(Criteria criteria) {
         return dao.countMatching(criteria);
     }
 

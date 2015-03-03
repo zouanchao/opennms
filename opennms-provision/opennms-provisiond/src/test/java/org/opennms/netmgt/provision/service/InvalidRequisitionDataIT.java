@@ -39,7 +39,6 @@ import org.opennms.core.spring.BeanUtils;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.utils.InetAddressUtils;
-import org.opennms.netmgt.dao.DatabasePopulator;
 import org.opennms.netmgt.dao.api.EventDao;
 import org.opennms.netmgt.dao.mock.MockEventIpcManager;
 import org.opennms.netmgt.dao.mock.MockNodeDao;
@@ -55,6 +54,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
@@ -71,7 +71,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 @DirtiesContext
-// @Ignore("These tests are fixed in 1.13, and backporting the fixes are not worth it.  Narf.")
+@Transactional
 public class InvalidRequisitionDataIT extends ProvisioningITCase implements InitializingBean {
     
     @Autowired
@@ -88,9 +88,6 @@ public class InvalidRequisitionDataIT extends ProvisioningITCase implements Init
     
     @Autowired
     private MockEventIpcManager m_eventManager;
-
-    @Autowired
-    private DatabasePopulator m_populator;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -121,7 +118,6 @@ public class InvalidRequisitionDataIT extends ProvisioningITCase implements Init
     public void tearDown() throws Exception {
         waitForEverything();
         m_eventManager.getEventAnticipator().verifyAnticipated();
-        m_populator.resetDatabase();
     }
 
     @Test

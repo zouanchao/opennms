@@ -51,7 +51,7 @@ public interface BusinessServiceManager extends NodeManager {
 
     List<BusinessService> findMatching(Criteria criteria);
 
-    int countMatching(Criteria criteria);
+    long countMatching(Criteria criteria);
 
     BusinessService createBusinessService();
 

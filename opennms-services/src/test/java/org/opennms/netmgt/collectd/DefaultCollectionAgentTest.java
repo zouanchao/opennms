@@ -64,14 +64,13 @@ public class DefaultCollectionAgentTest {
         // Mock the other arguments required to create a DefaultCollectionAgent
         Integer ifaceId = 1;
         IpInterfaceDao ifaceDao = mock(IpInterfaceDao.class);
-        PlatformTransactionManager transMgr = mock(PlatformTransactionManager.class);
 
         OnmsIpInterface ipIface = mock(OnmsIpInterface.class, RETURNS_DEEP_STUBS);
         when(ifaceDao.load(ifaceId)).thenReturn(ipIface);
         when(ipIface.getNode().getLocation().getLocationName()).thenReturn("Ocracoke");
 
         // Retrieve the agent configuration
-        SnmpCollectionAgent agent = DefaultCollectionAgent.create(ifaceId, ifaceDao, transMgr);
+        SnmpCollectionAgent agent = DefaultCollectionAgent.create(ifaceId, ifaceDao);
         agent.getAgentConfig();
 
         // Verify
@@ -102,9 +101,7 @@ public class DefaultCollectionAgentTest {
         EasyMock.expect(ifaceDao.load(iface.getId())).andReturn(iface).times(5);
         EasyMock.replay(ifaceDao);
 
-        PlatformTransactionManager transMgr = new MockPlatformTransactionManager();
-
-        SnmpCollectionAgent agent = DefaultCollectionAgent.create(iface.getId(), ifaceDao, transMgr);
+        SnmpCollectionAgent agent = DefaultCollectionAgent.create(iface.getId(), ifaceDao);
 
         EasyMock.verify(ifaceDao);
 

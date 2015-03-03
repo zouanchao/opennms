@@ -137,7 +137,7 @@ public class NodeRestService extends OnmsRestService {
             if (filteredNodeIds.size() < 1) {
                 // The "in" criteria fails if the list of node ids is empty
                 final OnmsNodeList coll = new OnmsNodeList(Collections.emptyList());
-                coll.setTotalCount(0);
+                coll.setTotalCount(0L);
                 return coll;
             }
 

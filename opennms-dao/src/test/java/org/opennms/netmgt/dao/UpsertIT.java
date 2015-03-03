@@ -31,9 +31,9 @@ package org.opennms.netmgt.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.spring.BeanUtils;
@@ -47,6 +47,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.transaction.BeforeTransaction;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 
@@ -83,27 +87,36 @@ public class UpsertIT implements InitializingBean {
     
     @Autowired
     DatabasePopulator m_populator;
-    
+
     @Autowired
-    TransactionTemplate m_transTemplate;
-    
+    TransactionTemplate m_transactionTemplate;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
-    @Before
-    public void setUp() {
+    @BeforeTransaction
+    public void setUpDatabase() {
         m_populator.populateDatabase();
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                m_jdbcTemplate.execute("insert into accesslocks values ('SNMPINTERFACE_ACCESS')");
+            }
+        });
     }
-    
+
     @Test
     @JUnitTemporaryDatabase
+    @Transactional
     public void testInsert() {
         String newIfName = "newIf0";
+        assertEquals(1, countIfs(m_populator.getNode1().getId(), 1, "atm0"));
+        assertEquals(1, countIfs(m_populator.getNode1().getId(), 2, "eth0"));
         assertEquals(0, countIfs(m_populator.getNode1().getId(), 1001, newIfName));
 
-        // add non existent snmpiface
+        // add non-existent snmpiface
         OnmsSnmpInterface snmpIface = new OnmsSnmpInterface();
         snmpIface.setNode(m_populator.getNode1());
         snmpIface.setIfIndex(1001);
@@ -111,6 +124,8 @@ public class UpsertIT implements InitializingBean {
         
         m_upsertService.upsert(m_populator.getNode1().getId() /* nodeid */, snmpIface, 0);
         
+        assertEquals(1, countIfs(m_populator.getNode1().getId(), 1, "atm0"));
+        assertEquals(1, countIfs(m_populator.getNode1().getId(), 2, "eth0"));
         assertEquals(1, countIfs(m_populator.getNode1().getId(), 1001, newIfName));
     }
     
@@ -120,6 +135,7 @@ public class UpsertIT implements InitializingBean {
     
     @Test
     @JUnitTemporaryDatabase
+    @Transactional
     public void testUpdate() {
         String oldIfName = "eth0";
         String newIfName = "newIf0";
@@ -139,7 +155,10 @@ public class UpsertIT implements InitializingBean {
     
     @Test
     @JUnitTemporaryDatabase
+    @Transactional
     public void testConcurrentInsert() throws InterruptedException {
+        assertEquals(1, countIfs(m_populator.getNode1().getId(), 1, "atm0"));
+        assertEquals(1, countIfs(m_populator.getNode1().getId(), 2, "eth0"));
         Inserter one = new Inserter(m_upsertService, m_populator.getNode1().getId(), 1001, "ifName1");
         Inserter two = new Inserter(m_upsertService, m_populator.getNode1().getId(), 1001, "ifName2");
         
@@ -154,6 +173,7 @@ public class UpsertIT implements InitializingBean {
     }
 
     private static class Inserter extends Thread {
+        private static final AtomicInteger THREAD_ID = new AtomicInteger();
         private final UpsertService m_upsertService;
         private final int m_nodeId;
         private final int m_ifIndex;
@@ -161,6 +181,7 @@ public class UpsertIT implements InitializingBean {
         private AtomicReference<Throwable> m_throwable = new AtomicReference<>();
         
         public Inserter(UpsertService upsertService, int nodeId, int ifIndex, String ifName) {
+            super(Inserter.class.getName() + "-" + THREAD_ID.incrementAndGet());
             m_upsertService = upsertService;
             m_nodeId = nodeId;
             m_ifIndex = ifIndex;
@@ -175,6 +196,7 @@ public class UpsertIT implements InitializingBean {
                 snmpIface.setIfName(m_ifName);
                 m_upsertService.upsert(m_nodeId, snmpIface, 1000);
             } catch(Throwable t) {
+                System.err.println("Caught exception in thread: " + Thread.currentThread().getName());
                 t.printStackTrace();
                 m_throwable.set(t);
             }

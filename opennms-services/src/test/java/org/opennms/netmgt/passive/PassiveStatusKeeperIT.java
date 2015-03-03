@@ -40,6 +40,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.db.XADataSourceFactory;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
 import org.opennms.core.utils.InetAddressUtils;
@@ -126,6 +127,7 @@ public class PassiveStatusKeeperIT {
         m_db = new MockDatabase();
         m_db.populate(m_network);
         DataSourceFactory.setInstance(m_db);
+        XADataSourceFactory.setInstance(m_db);
     }
 
     private void createMockNetwork() {

@@ -58,9 +58,9 @@ public abstract class DataSourceFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactory.class);
 
-    //private static final Class<?> DEFAULT_FACTORY_CLASS = AtomikosDataSourceFactory.class;
+    private static final Class<?> DEFAULT_FACTORY_CLASS = AtomikosDataSourceFactory.class;
     //private static final Class<?> DEFAULT_FACTORY_CLASS = HikariCPConnectionFactory.class;
-    private static final Class<?> DEFAULT_FACTORY_CLASS = C3P0ConnectionFactory.class;
+    //private static final Class<?> DEFAULT_FACTORY_CLASS = C3P0ConnectionFactory.class;
 
     private static DataSourceConfigurationFactory m_dataSourceConfigFactory;
 

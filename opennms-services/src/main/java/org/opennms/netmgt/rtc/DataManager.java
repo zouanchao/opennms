@@ -670,7 +670,7 @@ public class DataManager implements AvailabilityService, InitializingBean {
      * @return the service count for the nodeid in the context of the passed
      *         category
      */
-    public synchronized int getServiceCount(int nodeid, RTCCategory category) {
+    public synchronized long getServiceCount(int nodeid, RTCCategory category) {
         return m_map.getServiceCount(nodeid, category.getLabel());
     }
 

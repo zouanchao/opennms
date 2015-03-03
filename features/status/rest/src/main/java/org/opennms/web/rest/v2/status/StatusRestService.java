@@ -120,7 +120,7 @@ public class StatusRestService {
         final Query query = new Query(queryParameters, severityFilter);
 
         final List<StatusEntity<OnmsApplication>> applications = applicationStatusService.getStatus(query);
-        final int totalCount = applicationStatusService.count(query);
+        final long totalCount = applicationStatusService.count(query);
         final int offset = queryParameters.getOffset();
 
         final List<ApplicationDTO> statusEntities = applications.stream().map(a -> {
@@ -145,7 +145,7 @@ public class StatusRestService {
         final Query query = new Query(queryParameters, severityFilter);
 
         final List<StatusEntity<BusinessService>> services = businessServiceStatusService.getStatus(query);
-        final int totalCount = businessServiceStatusService.count(query);
+        final long totalCount = businessServiceStatusService.count(query);
         final int offset = queryParameters.getOffset();
 
         final List<BusinessServiceDTO> statusEntities = services.stream().map(bs -> {
@@ -183,7 +183,7 @@ public class StatusRestService {
         }
 
         final List<StatusEntity<OnmsNode>> nodes = nodeStatusService.getStatus(query);
-        final int totalCount = nodeStatusService.count(query);
+        final long totalCount = nodeStatusService.count(query);
         final int offset = queryParameters.getOffset();
 
         final List<NodeDTO> statusEntities = nodes.stream().map(node -> {
@@ -234,7 +234,7 @@ public class StatusRestService {
         return null;
     }
 
-    private static Response createResponse(JaxbListWrapper list, int offset, int totalCount) {
+    private static Response createResponse(JaxbListWrapper<?> list, int offset, long totalCount) {
         if (list.isEmpty()) {
             return Response.noContent().build();
         } else {

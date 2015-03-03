@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +38,7 @@ import org.opennms.netmgt.dao.api.BridgeMacLinkDao;
 import org.opennms.netmgt.model.BridgeMacLink;
 import org.opennms.netmgt.model.OnmsNode.NodeType;
 import org.opennms.netmgt.model.topology.BridgeMacTopologyLink;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateCallback;
 
 
 public class BridgeMacLinkDaoHibernate extends AbstractDaoHibernate<BridgeMacLink, Integer> implements BridgeMacLinkDao {
@@ -192,7 +191,7 @@ public class BridgeMacLinkDaoHibernate extends AbstractDaoHibernate<BridgeMacLin
         return  getHibernateTemplate().execute(new HibernateCallback<List<BridgeMacTopologyLink>>() {
             @Override
             @SuppressWarnings("unchecked")
-            public List<BridgeMacTopologyLink> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<BridgeMacTopologyLink> doInHibernate(Session session) throws HibernateException {
                 return convertObjectToTopologyLink(session.createSQLQuery(SQL_GET_MAC_LINKS).list());
             }
         });
@@ -204,7 +203,7 @@ public class BridgeMacLinkDaoHibernate extends AbstractDaoHibernate<BridgeMacLin
         return  getHibernateTemplate().execute(new HibernateCallback<List<BridgeMacTopologyLink>>() {
             @SuppressWarnings("unchecked")
             @Override
-            public List<BridgeMacTopologyLink> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<BridgeMacTopologyLink> doInHibernate(Session session) throws HibernateException {
                 return convertObjectToTopologyLink(session.createSQLQuery(SQL_GET_BRIDGE_LINKS).list());
             }
         });

@@ -99,7 +99,7 @@ public class NotificationRestService extends OnmsRestService {
     @Path("count")
     @Transactional
     public String getCount() {
-        return Integer.toString(m_notifDao.countAll());
+        return Long.toString(m_notifDao.countAll());
     }
 
     /**

@@ -58,6 +58,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.collection.test.MockCollectionAgent;
 import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.db.XADataSourceFactory;
 import org.opennms.core.rpc.mock.MockRpcClientFactory;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
@@ -578,6 +579,7 @@ public class ThresholdingVisitorIT {
             db.update("insert into category_node values (?, ?)", 11, i);
         }
         DataSourceFactory.setInstance(db);
+        XADataSourceFactory.setInstance(db);
 
         // Initialize Filter DAO
         System.setProperty("opennms.home", "src/test/resources");
@@ -1173,6 +1175,7 @@ public class ThresholdingVisitorIT {
             db.update("insert into category_node values (?, ?)", 11, i);
         }
         DataSourceFactory.setInstance(db);
+        XADataSourceFactory.setInstance(db);
 
         // Initialize Filter DAO
 
@@ -1993,7 +1996,7 @@ public class ThresholdingVisitorIT {
         snmpIface.setCollectionEnabled(collectionEnabled);
         return new SnmpIfData(snmpIface);
     }
-
+    
     private static CollectionSet createAnonymousCollectionSet(long timestamp) {
         final MockCollectionAgent agent = new MockCollectionAgent(1, "node", "fs", "fid", InetAddressUtils.ONE_TWENTY_SEVEN);
         return new CollectionSetBuilder(agent)

@@ -103,7 +103,7 @@ public class EventRestService extends OnmsRestService {
     @Path("count")
     @Transactional
     public String getCount() {
-        return Integer.toString(m_eventDao.countAll());
+        return Long.toString(m_eventDao.countAll());
     }
 
     /**

@@ -39,7 +39,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.rpc.mock.MockRpcClientFactory;
 import org.opennms.core.test.MockLogAppender;
-import org.opennms.core.test.MockPlatformTransactionManager;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.CollectionResource;
@@ -59,7 +58,6 @@ import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.proxy.LocationAwareSnmpClient;
 import org.opennms.netmgt.snmp.proxy.common.LocationAwareSnmpClientRpcImpl;
 import org.opennms.test.FileAnticipator;
-import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * JUnit TestCase for PersistOperationBuilder.
@@ -71,7 +69,6 @@ public class RrdPersistOperationBuilderTest {
     private File m_snmpDirectory;
     private OnmsIpInterface m_intf;
     private OnmsNode m_node;
-    private PlatformTransactionManager m_transMgr = new MockPlatformTransactionManager();
 
     private IpInterfaceDao m_ifDao;
     private RrdStrategy<?, ?> m_rrdStrategy; 
@@ -107,7 +104,7 @@ public class RrdPersistOperationBuilderTest {
 
     private SnmpCollectionAgent getCollectionAgent() {
 
-        return DefaultCollectionAgent.create(m_intf.getId(), m_ifDao, m_transMgr);
+        return DefaultCollectionAgent.create(m_intf.getId(), m_ifDao);
     }
 
     @Test

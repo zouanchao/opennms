@@ -114,8 +114,7 @@ public abstract class CollectorComplianceTest {
 
         IpInterfaceDao ifaceDao = mock(IpInterfaceDao.class);
         when(ifaceDao.load(1)).thenReturn(iface);
-        PlatformTransactionManager transMgr = mock(PlatformTransactionManager.class);
-        final SnmpCollectionAgent agent = DefaultCollectionAgent.create(1, ifaceDao, transMgr);
+        final SnmpCollectionAgent agent = DefaultCollectionAgent.create(1, ifaceDao);
 
         // init() should execute without any exceptions
         final ServiceCollector opennmsCollector = getCollector();
@@ -154,8 +153,7 @@ public abstract class CollectorComplianceTest {
 
         IpInterfaceDao ifaceDao = mock(IpInterfaceDao.class);
         when(ifaceDao.load(1)).thenReturn(iface);
-        PlatformTransactionManager transMgr = mock(PlatformTransactionManager.class);
-        final SnmpCollectionAgent agent = DefaultCollectionAgent.create(1, ifaceDao, transMgr);
+        final SnmpCollectionAgent agent = DefaultCollectionAgent.create(1, ifaceDao);
 
         // init() should execute without any exceptions
         final ServiceCollector opennmsCollector = getCollector();

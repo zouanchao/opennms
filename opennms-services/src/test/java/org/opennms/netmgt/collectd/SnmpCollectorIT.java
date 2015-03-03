@@ -80,7 +80,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -98,9 +97,6 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.rrd.storeByGroup=false")
 @JUnitTemporaryDatabase(reuseDatabase=false) // Relies on records created in @Before so we need a fresh database for each test
 public class SnmpCollectorIT implements InitializingBean, TestContextAware {
-
-    @Autowired
-    private PlatformTransactionManager m_transactionManager;
 
     @Autowired
     private NodeDao m_nodeDao;
@@ -177,7 +173,7 @@ public class SnmpCollectorIT implements InitializingBean, TestContextAware {
         collector.initialize();
 
         m_collectionSpecification = CollectorTestUtils.createCollectionSpec("SNMP", collector, "default");
-        m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao, m_transactionManager);
+        m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao);
         m_agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.getLocalHostAddress());
     }
 
@@ -218,6 +214,7 @@ public class SnmpCollectorIT implements InitializingBean, TestContextAware {
                     }
             )
     @JUnitSnmpAgent(resource = "/org/opennms/netmgt/snmp/snmpTestData1.properties")
+    @Transactional
     public void testCollect() throws Exception {
         System.setProperty("org.opennms.netmgt.collectd.SnmpCollector.limitCollectionToInstances", "true");
 
@@ -295,7 +292,6 @@ public class SnmpCollectorIT implements InitializingBean, TestContextAware {
     }
 
     @Test
-    @Transactional
     @JUnitCollector(
                     datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", 
                     datacollectionType = "snmp",

@@ -34,6 +34,7 @@ import java.io.InputStream;
 import junit.framework.TestCase;
 
 import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.db.XADataSourceFactory;
 import org.opennms.core.test.ConfigurationTestUtils;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
@@ -53,10 +54,10 @@ public class CollectorConfigDaoImplIT extends TestCase {
         MockLogAppender.setupLogging();
 
         MockDatabase m_db = new MockDatabase();
-        //        m_db.populate(m_network);
+        // m_db.populate(m_network);
 
         DataSourceFactory.setInstance(m_db);
-
+        XADataSourceFactory.setInstance(m_db);
     }
 
     @Override

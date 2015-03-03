@@ -46,6 +46,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.opennms.core.db.DataSourceFactory;
+import org.opennms.core.db.XADataSourceFactory;
 import org.opennms.core.spring.BeanUtils;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -240,6 +242,19 @@ public class LatencyStoringServiceMonitorAdaptorIT implements TemporaryDatabaseA
         expect(m_pollerConfig.getRRAList(pkg)).andReturn(rras).anyTimes();
         expect(m_pollerConfig.getStep(pkg)).andReturn(step).anyTimes();
 
+        MockNetwork network = new MockNetwork();
+        network.setCriticalService("ICMP");
+        network.addNode(1, "testNode");
+        network.addInterface("127.0.0.1");
+        network.setIfAlias("eth0");
+        network.addService("ICMP");
+        network.addService("SNMP");
+        MockDatabase db = new MockDatabase();
+        db.populate(network);
+        db.update("update snmpinterface set snmpifname=?, snmpifdescr=? where id=?", "eth0", "eth0", 1);
+        DataSourceFactory.setInstance(db);
+        XADataSourceFactory.setInstance(db);
+        
         m_mocks.replayAll();
         LatencyStoringServiceMonitorAdaptor adaptor = new LatencyStoringServiceMonitorAdaptor(m_pollerConfig, pkg, m_persisterFactory, m_resourceStorageDao);
         // Make sure that the ThresholdingSet initializes with test settings

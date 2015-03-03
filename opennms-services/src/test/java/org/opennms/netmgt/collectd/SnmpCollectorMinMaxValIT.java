@@ -74,7 +74,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -99,9 +98,6 @@ public class SnmpCollectorMinMaxValIT implements TestContextAware, InitializingB
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectorMinMaxValIT.class);
     private static final String TEST_HOST_ADDRESS = "192.0.2.205";
     private static final String TEST_NODE_LABEL = "TestNode"; 
-
-    @Autowired
-    private PlatformTransactionManager m_transactionManager;
 
     @Autowired
     private NodeDao m_nodeDao;
@@ -178,7 +174,7 @@ public class SnmpCollectorMinMaxValIT implements TestContextAware, InitializingB
         collector.initialize();
 
         m_collectionSpecification = CollectorTestUtils.createCollectionSpec("SNMP", collector, "default");
-        m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao, m_transactionManager);
+        m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao);
     }
 
     @After

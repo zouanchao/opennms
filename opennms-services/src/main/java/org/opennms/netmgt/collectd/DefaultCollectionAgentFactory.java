@@ -38,7 +38,6 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.snmp.InetAddrUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.PlatformTransactionManager;
 
 public class DefaultCollectionAgentFactory implements CollectionAgentFactory {
 
@@ -47,9 +46,6 @@ public class DefaultCollectionAgentFactory implements CollectionAgentFactory {
 
     @Autowired
     private IpInterfaceDao ipInterfaceDao;
-
-    @Autowired
-    private PlatformTransactionManager transMgr;
 
     @Override
     public CollectionAgent createCollectionAgentAndOverrideLocation(String nodeCriteria, InetAddress ipAddr,
@@ -65,7 +61,7 @@ public class DefaultCollectionAgentFactory implements CollectionAgentFactory {
             throw new IllegalArgumentException(String.format("No interface found with IP %s on node %s",
                     InetAddrUtils.str(ipAddr), nodeCriteria));
         }
-        return DefaultCollectionAgent.create(ipInterface.getId(), ipInterfaceDao, transMgr, location);
+        return DefaultCollectionAgent.create(ipInterface.getId(), ipInterfaceDao, location);
     }
 
     @Override
@@ -75,7 +71,7 @@ public class DefaultCollectionAgentFactory implements CollectionAgentFactory {
 
     @Override
     public CollectionAgent createCollectionAgent(OnmsIpInterface ipIf) {
-        return DefaultCollectionAgent.create(ipIf.getId(), ipInterfaceDao, transMgr);
+        return DefaultCollectionAgent.create(ipIf.getId(), ipInterfaceDao);
     }
 
 }

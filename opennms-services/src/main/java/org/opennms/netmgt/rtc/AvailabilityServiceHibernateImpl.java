@@ -151,7 +151,7 @@ public class AvailabilityServiceHibernateImpl implements AvailabilityService {
             final double outageTime = getOutageTimeInWindow(outages, windowStart, windowEnd);
 
             // determine the number of services
-            final int numServices = getNumServices(nodeId, serviceNames);
+            final long numServices = getNumServices(nodeId, serviceNames);
 
             // count the number of outstanding outages
             final long numServicesDown = outages.stream()
@@ -222,7 +222,7 @@ public class AvailabilityServiceHibernateImpl implements AvailabilityService {
         return Math.min(downtimeInWindow, windowLength);
     }
 
-    private int getNumServices(int nodeId, List<String> serviceNames) {
+    private long getNumServices(int nodeId, List<String> serviceNames) {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsMonitoredService.class)
             .alias("ipInterface", "ipInterface")
             .alias("ipInterface.node", "node")

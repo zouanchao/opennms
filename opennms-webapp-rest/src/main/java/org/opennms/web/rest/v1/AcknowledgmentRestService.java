@@ -103,7 +103,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
     @Path("count")
     @Transactional
     public String getCount() {
-        return Integer.toString(m_ackDao.countAll());
+        return Long.toString(m_ackDao.countAll());
     }
 
     /**

@@ -48,12 +48,12 @@ public class UsageStatisticsReportDTO {
     private String m_version;
     private String m_packageName;
 
-    private int m_nodes;
-    private int m_ipInterfaces;
-    private int m_snmpInterfaces;
-    private int m_monitoredServices;
-    private int m_events;
-    private int m_alarms;
+    private long m_nodes;
+    private long m_ipInterfaces;
+    private long m_snmpInterfaces;
+    private long m_monitoredServices;
+    private long m_events;
+    private long m_alarms;
 
     private Map<String, Long> m_nodesBySysOid = Collections.emptyMap();
 
@@ -105,51 +105,51 @@ public class UsageStatisticsReportDTO {
         return m_packageName;
     }
 
-    public void setNodes(int nodes) {
+    public void setNodes(long nodes) {
         m_nodes = nodes;
     }
 
-    public int getNodes() {
+    public long getNodes() {
         return m_nodes;
     }
 
-    public void setIpInterfaces(int ipInterfaces) {
+    public void setIpInterfaces(long ipInterfaces) {
         m_ipInterfaces = ipInterfaces;
     }
 
-    public int getIpInterfaces() {
+    public long getIpInterfaces() {
         return m_ipInterfaces;
     }
 
-    public void setSnmpInterfaces(int snmpInterfaces) {
+    public void setSnmpInterfaces(long snmpInterfaces) {
         m_snmpInterfaces = snmpInterfaces;
     }
 
-    public int getSnmpInterfaces() {
+    public long getSnmpInterfaces() {
         return m_snmpInterfaces;
     }
 
-    public void setMonitoredServices(int monitoredServices) {
+    public void setMonitoredServices(long monitoredServices) {
         m_monitoredServices = monitoredServices;
     }
 
-    public int getMonitoredServices() {
+    public long getMonitoredServices() {
         return m_monitoredServices;
     }
 
-    public void setEvents(int events) {
+    public void setEvents(long events) {
         m_events = events;
     }
 
-    public int getEvents() {
+    public long getEvents() {
         return m_events;
     }
 
-    public void setAlarms(int alarms) {
+    public void setAlarms(long alarms) {
         m_alarms = alarms;
     }
 
-    public int getAlarms() {
+    public long getAlarms() {
         return m_alarms;
     }
 

@@ -58,7 +58,7 @@ public class ApplicationStatusService extends AbstractStatusService<OnmsApplicat
     }
 
     @Override
-    protected int countMatching(Criteria criteria) {
+    protected long countMatching(Criteria criteria) {
         return applicationDao.countMatching(criteria);
     }
 

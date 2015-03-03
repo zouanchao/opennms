@@ -222,7 +222,7 @@ public abstract class OnmsVaadinContainer<T,K extends Serializable> implements C
         size = new Size(new SizeReloadStrategy() {
             @Override
             public int reload() {
-                return m_datasource.countMatching(getCriteria(null, false));  // no paging!!!!
+                return (int)m_datasource.countMatching(getCriteria(null, false));  // no paging!!!!
             }
         });
         page = new Page(DEFAULT_PAGE_SIZE, size);

@@ -48,9 +48,9 @@ public class DaoUtils {
     public static Callable<Integer> countMatchingCallable(OnmsDao<?,?> dao, Criteria criteria) {
         return new Callable<Integer>() {
               public Integer call() throws Exception {
-                  Integer count = dao.countMatching(criteria);
+                  Long count = dao.countMatching(criteria);
                   LOG.info("Count: {}", count);
-                  return count;
+                  return count.intValue();
               }
         };
     }

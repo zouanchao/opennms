@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +39,7 @@ import org.opennms.netmgt.model.IsIsLink;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsNode.NodeType;
 import org.opennms.netmgt.model.topology.IsisTopologyLink;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.util.Assert;
 
 /**
@@ -176,7 +175,7 @@ public class IsIsLinkDaoHibernate extends AbstractDaoHibernate<IsIsLink, Integer
 
             @Override
             @SuppressWarnings("unchecked")
-            public List<IsisTopologyLink> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<IsisTopologyLink> doInHibernate(Session session) throws HibernateException {
                 return convertObjectToTopologyLink(session.createSQLQuery(SQL_GET_ISIS_LINKS).list());
             }
 

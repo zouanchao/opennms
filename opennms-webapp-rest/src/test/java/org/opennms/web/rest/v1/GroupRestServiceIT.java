@@ -216,7 +216,7 @@ public class GroupRestServiceIT extends AbstractSpringJerseyRestTestCase {
         OnmsGroupList groups = JaxbUtils.unmarshal(OnmsGroupList.class, sendRequest(GET, "/groups", 200));
         assertNotNull(groups);
         assertTrue(groups.size() > 0);
-        int initialGroupSize = groups.size();
+        long initialGroupSize = groups.size();
 
         createGroup("My little Test group");         // add group
         String xml = sendRequest(GET, "/groups", 200);

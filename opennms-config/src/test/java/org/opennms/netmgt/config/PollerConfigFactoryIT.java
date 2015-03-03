@@ -38,6 +38,7 @@ import junit.framework.TestCase;
 
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.test.ConfigurationTestUtils;
+import org.opennms.core.db.XADataSourceFactory;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.db.MockDatabase;
 import org.opennms.core.xml.JaxbUtils;
@@ -120,6 +121,7 @@ public class PollerConfigFactoryIT extends TestCase {
         MockDatabase db = new MockDatabase();
         db.populate(network);
         DataSourceFactory.setInstance(db);
+        XADataSourceFactory.setInstance(db);
         
         // Make sure it gets *our* MockDatabase
         FilterDaoFactory.setInstance(null);

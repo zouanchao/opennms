@@ -40,7 +40,6 @@ import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.opennms.core.rpc.mock.MockRpcClientFactory;
-import org.opennms.core.test.MockPlatformTransactionManager;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.mock.snmp.MockSnmpAgent;
 import org.opennms.netmgt.collection.api.CollectionAttribute;
@@ -295,7 +294,7 @@ public abstract class SnmpCollectorITCase extends OpenNMSITCase {
         
         m_easyMockUtils.replayAll();
         
-        m_agent = DefaultCollectionAgent.create(m_iface.getId(), m_ifaceDao, new MockPlatformTransactionManager());
+        m_agent = DefaultCollectionAgent.create(m_iface.getId(), m_ifaceDao);
         
     }
     

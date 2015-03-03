@@ -46,7 +46,7 @@ public interface OnmsContainerDatasource<T, K extends Serializable> {
 
     List<T> findMatching(Criteria criteria);
 
-    int countMatching(Criteria criteria);
+    long countMatching(Criteria criteria);
 
     T createInstance(Class<T> itemClass) throws IllegalAccessException, InstantiationException;
 }

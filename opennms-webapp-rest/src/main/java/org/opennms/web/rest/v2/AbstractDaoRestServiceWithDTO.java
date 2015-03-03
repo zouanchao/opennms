@@ -30,7 +30,6 @@ package org.opennms.web.rest.v2;
 
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -99,8 +98,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.concurentlocks.ReadWriteUpdateLock;
@@ -258,7 +257,7 @@ public abstract class AbstractDaoRestServiceWithDTO<T,D,Q,K extends Serializable
             crit.setLimit(null);
             crit.setOffset(null);
             crit.setOrders(new ArrayList<Order>());
-            int totalCount = getDao().countMatching(crit);
+            long totalCount = getDao().countMatching(crit);
 
             // Map the entities to the corresponding DTOs
             final List<D> collOfDtos = coll.stream()
@@ -317,7 +316,7 @@ public abstract class AbstractDaoRestServiceWithDTO<T,D,Q,K extends Serializable
         }
 
         @Override
-        public List<T> doInHibernate(Session session) throws HibernateException, SQLException {
+        public List<T> doInHibernate(Session session) throws HibernateException {
             final Query hql;
 
             // TODO: Sort by count?

@@ -122,7 +122,7 @@ public class BusinessServiceDaoIT {
     @Test
     @Transactional
     public void canCreateReadUpdateAndDeleteBusinessServices() {
-        final int ifServiceCount = m_monitoredServiceDao.countAll();
+        final long ifServiceCount = m_monitoredServiceDao.countAll();
 
         // Initially there should be no business services
         assertEquals(0, m_businessServiceDao.countAll());

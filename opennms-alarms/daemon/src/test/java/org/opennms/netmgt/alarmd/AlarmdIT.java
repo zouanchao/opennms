@@ -151,18 +151,18 @@ public class AlarmdIT implements TemporaryDatabaseAware<MockDatabase>, Initializ
     @Autowired
     private ServiceRegistry m_registry;
 
-    private MockDatabase m_database;
-
     private MockNorthbounder m_northbounder;
 
-    @Override
-    public void setTemporaryDatabase(final MockDatabase database) {
-        m_database = database;
-    }
+    private MockDatabase m_database;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
+    }
+
+    @Override
+    public void setTemporaryDatabase(MockDatabase database) {
+        m_database = database;
     }
 
     @Before
@@ -186,6 +186,7 @@ public class AlarmdIT implements TemporaryDatabaseAware<MockDatabase>, Initializ
     }
 
     @Test
+    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testPersistAlarm() throws Exception {
         final MockNode node = m_mockNetwork.getNode(1);
 
@@ -321,6 +322,7 @@ public class AlarmdIT implements TemporaryDatabaseAware<MockDatabase>, Initializ
     }
 
     @Test
+    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testNorthbounder() throws Exception {
         assertTrue(m_northbounder.isInitialized());
         assertTrue(m_northbounder.getAlarms().isEmpty());
@@ -380,6 +382,7 @@ public class AlarmdIT implements TemporaryDatabaseAware<MockDatabase>, Initializ
     }
     
     @Test
+    @JUnitTemporaryDatabase
     public void changeFields() throws InterruptedException, SQLException {
         assertEmptyAlarmTable();
 

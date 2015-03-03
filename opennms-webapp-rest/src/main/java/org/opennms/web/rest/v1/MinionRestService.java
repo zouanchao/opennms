@@ -84,7 +84,7 @@ public class MinionRestService extends OnmsRestService {
     @Path("count")
     @Transactional
     public String getCount() {
-        return Integer.toString(m_minionDao.countAll());
+        return Long.toString(m_minionDao.countAll());
     }
 
     @GET

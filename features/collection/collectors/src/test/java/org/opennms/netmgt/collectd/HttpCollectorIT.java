@@ -72,6 +72,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -93,10 +94,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 })
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.rrd.storeByGroup=false")
 @JUnitTemporaryDatabase
+@Transactional
 public class HttpCollectorIT implements TestContextAware, InitializingBean {
-
-    @Autowired
-    private PlatformTransactionManager m_transactionManager;
 
     @Autowired
     private NodeDao m_nodeDao;
@@ -175,7 +174,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
 
         m_collectionSpecification = CollectorTestUtils.createCollectionSpec("HTTP", m_collector, "default");
         m_httpsCollectionSpecification = CollectorTestUtils.createCollectionSpec("HTTPS", m_collector, "default");
-        m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao, m_transactionManager);
+        m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao);
 
         File snmpRrdDirectory = (File)m_context.getAttribute("rrdDirectory");
         m_resourceStorageDao.setRrdDirectory(snmpRrdDirectory.getParentFile());
@@ -191,6 +190,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
      *   org.opennms.netmgt.collection.api.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, Map)}.
      */
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-config.xml", datacollectionType="http",
     anticipateRrds={ "1/documentCount", "1/greatAnswer", "1/someNumber" }, anticipateFiles={ "1/strings.properties" })
@@ -201,6 +201,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-test-config.xml", datacollectionType="http",
     anticipateRrds={ "1/documentCount", "1/greatAnswer", "1/someNumber" }, anticipateFiles={ "1/strings.properties" })
@@ -209,6 +210,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"}, https=true)
     @JUnitCollector(datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-https-test-config.xml", datacollectionType="https",
     anticipateRrds={ "1/documentCount", "1/greatAnswer", "1/someNumber" }, anticipateFiles={ "1/strings.properties" })
@@ -248,6 +250,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
                     datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
@@ -294,6 +297,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
                     datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-broken-regex.xml", 
@@ -306,6 +310,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(
                     datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
@@ -331,44 +336,39 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
         m_collectd.stop();
     }
 
+    @Test
+    @JUnitTemporaryDatabase
+    @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
+    @JUnitCollector(
+        datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", 
+        datacollectionType="http",
+        anticipateRrds={ 
+            "1/TotalAccesses",
+            "1/TotalkBytes",
+            "1/CPULoad",
+            "1/Uptime",
+            "1/ReqPerSec",
+            "1/BytesPerSec",
+            "1/BytesPerReq",
+            "1/BusyWorkers",
+            "1/IdleWorkers"
+        }
+    )
     public final void testPersistApacheStatsAlternateLocale() throws Exception {
         final Locale defaultLocale = Locale.getDefault();
 
         try {
             Locale.setDefault(Locale.FRANCE);
 
-            File snmpRrdDirectory = (File)m_context.getAttribute("rrdDirectory");
-            FileAnticipator anticipator = (FileAnticipator)m_context.getAttribute("fileAnticipator");
+            testPersistApacheStats();
 
-            int numUpdates = 2;
-            int stepSizeInSecs = 1;
-
-            int stepSizeInMillis = stepSizeInSecs*1000;
-            final int rangeSizeInMillis = stepSizeInMillis + 20000;
-
-            CollectorTestUtils.collectNTimes(m_rrdStrategy, m_resourceStorageDao, m_collectionSpecification, m_collectionAgent, numUpdates);
-
-            // node level collection
-            File nodeDir = CollectorTestUtils.anticipatePath(anticipator, snmpRrdDirectory, "1");
-
-            File documentCountRrdFile = new File(nodeDir, CollectorTestUtils.rrd(m_rrdStrategy, "TotalAccesses"));
-            File someNumberRrdFile    = new File(nodeDir, CollectorTestUtils.rrd(m_rrdStrategy, "IdleWorkers"));
-            File cpuLoadRrdFile       = new File(nodeDir, CollectorTestUtils.rrd(m_rrdStrategy, "CPULoad"));
-
-            // Total Accesses: 175483
-            assertEquals("TotalAccesses", Double.valueOf(175483.0), m_rrdStrategy.fetchLastValueInRange(documentCountRrdFile.getAbsolutePath(), "TotalAccesses", stepSizeInMillis, rangeSizeInMillis));
-    
-            // IdleWorkers: 12
-            assertEquals("IdleWorkers", Double.valueOf(12.0), m_rrdStrategy.fetchLastValueInRange(someNumberRrdFile.getAbsolutePath(), "IdleWorkers", stepSizeInMillis, rangeSizeInMillis));
-
-            // CPU Load: .497069
-            assertEquals("CPULoad", Double.valueOf(0.497069), m_rrdStrategy.fetchLastValueInRange(cpuLoadRrdFile.getAbsolutePath(), "CPULoad", stepSizeInMillis, rangeSizeInMillis));
         } finally {
             Locale.setDefault(defaultLocale);
         }
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"})
     @JUnitCollector(datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-config-NMS4886.xml", datacollectionType="http",
     anticipateRrds={ "1/documentCount", "1/greatAnswer", "1/someNumber" }, anticipateFiles={ "1/strings.properties" })
@@ -377,6 +377,7 @@ public class HttpCollectorIT implements TestContextAware, InitializingBean {
     }
 
     @Test
+    @JUnitTemporaryDatabase
     @JUnitHttpServer(port=10342, vhosts={"127.0.0.1"}, https=true)
     @JUnitCollector(datacollectionConfig="/org/opennms/netmgt/config/http-datacollection-config-NMS4886-https.xml", datacollectionType="https",
     anticipateRrds={ "1/documentCount", "1/greatAnswer", "1/someNumber" }, anticipateFiles={ "1/strings.properties" })

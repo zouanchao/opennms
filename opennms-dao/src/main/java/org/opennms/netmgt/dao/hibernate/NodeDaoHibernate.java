@@ -29,7 +29,6 @@
 package org.opennms.netmgt.dao.hibernate;
 
 import java.net.InetAddress;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -60,7 +59,7 @@ import org.opennms.netmgt.model.OnmsNode.NodeType;
 import org.opennms.netmgt.model.monitoringLocations.OnmsMonitoringLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.util.StringUtils;
 
 /**
@@ -248,7 +247,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 
             @SuppressWarnings("unchecked")
             @Override
-            public List<OnmsNode> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<OnmsNode> doInHibernate(Session session) throws HibernateException {
 
                 return (List<OnmsNode>)session.createQuery("select distinct n from OnmsNode as n "
                         + "join n.categories c1 "
@@ -316,7 +315,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         return getHibernateTemplate().execute(new HibernateCallback<SurveillanceStatus>() {
 
             @Override
-            public SurveillanceStatus doInHibernate(Session session) throws HibernateException, SQLException {
+            public SurveillanceStatus doInHibernate(Session session) throws HibernateException {
                 return (SimpleSurveillanceStatus)session.createSQLQuery("select" +
                         " count(distinct case when outages.outageid is not null and monSvc.status = 'A' then monSvc.id else null end) as svcCount," +
                         " count(distinct case when outages.outageid is null and monSvc.status = 'A' then node.nodeid else null end) as upNodeCount," +
@@ -487,14 +486,14 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     @Override
     public Integer getNextNodeId (Integer nodeId) {
         Integer nextNodeId = null;
-        nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != ? order by n.id asc limit 1", nodeId, String.valueOf(NodeType.DELETED.value())).get(0);
+        nextNodeId = findObjects(Integer.class, 1, "select n.id from OnmsNode as n where n.id > ? and n.type != ? order by n.id asc", nodeId, String.valueOf(NodeType.DELETED.value())).get(0);
         return nextNodeId;
     }
 
     @Override
     public Integer getPreviousNodeId (Integer nodeId) {
         Integer nextNodeId = null;
-        nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != ? order by n.id desc limit 1", nodeId, String.valueOf(NodeType.DELETED.value())).get(0);
+        nextNodeId = findObjects(Integer.class, 1, "select n.id from OnmsNode as n where n.id < ? and n.type != ? order by n.id desc", nodeId, String.valueOf(NodeType.DELETED.value())).get(0);
         return nextNodeId;
     }
 }

@@ -118,7 +118,7 @@ public class OutageRestService extends OnmsRestService {
     @Path("count")
     @Transactional
     public String getCount() {
-        return Integer.toString(m_outageDao.countAll());
+        return Long.toString(m_outageDao.countAll());
     }
 
     /**

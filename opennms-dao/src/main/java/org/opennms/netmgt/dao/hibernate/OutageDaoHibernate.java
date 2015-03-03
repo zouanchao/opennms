@@ -28,6 +28,13 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
+import java.net.InetAddress;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.transform.ResultTransformer;
@@ -39,15 +46,7 @@ import org.opennms.netmgt.model.OnmsOutage;
 import org.opennms.netmgt.model.ServiceSelector;
 import org.opennms.netmgt.model.outage.OutageSummary;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateCallback;
-
-import java.net.InetAddress;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import org.springframework.orm.hibernate4.HibernateCallback;
 
 public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer> implements OutageDao {
 
@@ -93,7 +92,7 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
 
             @SuppressWarnings("unchecked")
             @Override
-            public Collection<OnmsOutage> doInHibernate(final Session session) throws HibernateException, SQLException {
+            public Collection<OnmsOutage> doInHibernate(final Session session) throws HibernateException {
                 return session.createCriteria(OnmsOutage.class)
                         .setFirstResult(offset)
                         .setMaxResults(limit)
@@ -172,7 +171,7 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
 
         return getHibernateTemplate().execute(new HibernateCallback<List<HeatMapElement>>() {
             @Override
-            public List<HeatMapElement> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<HeatMapElement> doInHibernate(Session session) throws HibernateException {
                 return (List<HeatMapElement>) session.createSQLQuery(
                         "select coalesce(" + entityNameColumn + ",'Uncategorized'), " + entityIdColumn + ", " +
                                 "count(distinct case when outages.outageid is not null and ifservices.status <> 'D' then ifservices.id else null end) as servicesDown, " +

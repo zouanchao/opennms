@@ -39,7 +39,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.rpc.mock.MockRpcClientFactory;
-import org.opennms.core.test.MockPlatformTransactionManager;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
 import org.opennms.netmgt.collection.api.ServiceParameters;
 import org.opennms.netmgt.config.collectd.Filter;
@@ -63,7 +62,6 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * Test class for PersistRegexSelectorStrategy
@@ -108,8 +106,7 @@ public class PersistRegexSelectorStrategyTest {
         serviceParams = new ServiceParameters(map);
 
         LocationAwareSnmpClient locationAwareSnmpClient = new LocationAwareSnmpClientRpcImpl(new MockRpcClientFactory());
-        PlatformTransactionManager ptm = new MockPlatformTransactionManager();
-        SnmpCollectionAgent agent = DefaultCollectionAgent.create(1, ipInterfaceDao, ptm);
+        SnmpCollectionAgent agent = DefaultCollectionAgent.create(1, ipInterfaceDao);
         OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(agent, serviceParams, new MockDataCollectionConfigDao(), locationAwareSnmpClient);
 
         org.opennms.netmgt.config.datacollection.ResourceType rt = new org.opennms.netmgt.config.datacollection.ResourceType();

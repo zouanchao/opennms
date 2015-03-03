@@ -107,7 +107,7 @@ public class AccessPointRestService {
     public String getCount() {
         readLock();
         try {
-            return Integer.toString(m_accessPointDao.countAll());
+            return Long.toString(m_accessPointDao.countAll());
         } finally {
             readUnlock();
         }

@@ -64,7 +64,13 @@ public class DistPollerDaoMinion implements DistPollerDao {
 	}
 
 	@Override
-	public void lock() {
+	public boolean lock() {
+		return true;
+	}
+
+	@Override
+	public String getLockName() {
+		return getClass().getSimpleName() + "_ACCESS";
 	}
 
 	@Override
@@ -80,7 +86,7 @@ public class DistPollerDaoMinion implements DistPollerDao {
 	}
 
 	@Override
-	public int countAll() {
+	public long countAll() {
 		return 1;
 	}
 
@@ -105,7 +111,7 @@ public class DistPollerDaoMinion implements DistPollerDao {
 	}
 
 	@Override
-	public int countMatching(Criteria onmsCrit) {
+	public long countMatching(Criteria onmsCrit) {
 		throw new UnsupportedOperationException();
 	}
 

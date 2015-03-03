@@ -73,7 +73,6 @@ import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
 import org.opennms.netmgt.scheduler.Scheduler;
 import org.opennms.netmgt.snmp.InetAddrUtils;
 import org.opennms.test.FileAnticipator;
-import org.springframework.transaction.PlatformTransactionManager;
 
 public class CollectableServiceTest {
 
@@ -227,7 +226,6 @@ public class CollectableServiceTest {
         spec = mock(CollectionSpecification.class);
         scheduler = mock(Scheduler.class);
         SchedulingCompletedFlag schedulingCompletedFlag = mock(SchedulingCompletedFlag.class);
-        PlatformTransactionManager transMgr = mock(PlatformTransactionManager.class);
         RrdPersisterFactory persisterFactory = new RrdPersisterFactory();
         persisterFactory.setRrdStrategy(rrdStrategy);
         ResourceStorageDao resourceStorageDao = mock(ResourceStorageDao.class);
@@ -243,7 +241,7 @@ public class CollectableServiceTest {
         when(ifaceDao.load(any())).thenReturn(iface);
         when(iface.getIpAddress()).thenReturn(InetAddrUtils.getLocalHostAddress());
 
-        service = new CollectableService(iface, ifaceDao, spec, scheduler, schedulingCompletedFlag, transMgr, persisterFactory, resourceStorageDao);
+        service = new CollectableService(iface, ifaceDao, spec, scheduler, schedulingCompletedFlag, persisterFactory, resourceStorageDao);
     }
 
     private RrdRepository createRrdRepository() throws IOException {

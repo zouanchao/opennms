@@ -103,7 +103,7 @@ public class OnmsDaoContainerIT {
         };
 
         // verify that we have all item ids we need
-        final int size = m_alarmDao.countAll();
+        final long size = m_alarmDao.countAll();
         Collection<Integer> itemIds = (Collection<Integer>) container.getItemIds();
         Assert.assertEquals(size, itemIds.size());
         Assert.assertEquals(getAlarmIds(), sort(itemIds));

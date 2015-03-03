@@ -29,14 +29,12 @@
 package org.opennms.netmgt.dao.hibernate;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Table;
 
 import org.hibernate.Criteria;
-import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
@@ -48,20 +46,27 @@ import org.opennms.netmgt.model.OnmsCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Propagation;
 
 /**
  * <p>Abstract AbstractDaoHibernate class.</p>
  *
+ * TODO: The {@link Propagation#MANDATORY} annotation should be present because all 
+ * of these methods assume that they are invoked inside a transaction that is 
+ * initiated in the service layer of the application.
+ * 
  * @author ranger
  * @version $Id: $
  */
+//@Transactional(propagation=Propagation.MANDATORY)
 public abstract class AbstractDaoHibernate<T, K extends Serializable> extends HibernateDaoSupport implements OnmsDao<T, K> {
     
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDaoHibernate.class);
     Class<T> m_entityClass;
-    private String m_lockName;
+    private final String m_lockName;
     protected final HibernateCriteriaConverter m_criteriaConverter = new HibernateCriteriaConverter();
     
     public AbstractDaoHibernate(final Class<T> entityClass) {
@@ -72,14 +77,21 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     }
 
     @Override
+    public String getLockName() {
+        return m_lockName;
+    }
+
+    @Override
     protected void initDao() throws Exception {
-        getHibernateTemplate().saveOrUpdate(new AccessLock(m_lockName));
+        HibernateTemplate template = getHibernateTemplate();
+        template.setCheckWriteOperations(false);
+        template.saveOrUpdate(new AccessLock(m_lockName));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void lock() {
-        getHibernateTemplate().get(AccessLock.class, m_lockName, LockMode.PESSIMISTIC_WRITE);
+    public boolean lock() {
+        return (getHibernateTemplate().get(AccessLock.class, m_lockName, LockMode.PESSIMISTIC_WRITE) != null);
     }
 
     /** {@inheritDoc} */
@@ -144,6 +156,27 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     }
 
     /**
+     * <p>findObjects</p>
+     *
+     * @param clazz a {@link java.lang.Class} object.
+     * @param query a {@link java.lang.String} object.
+     * @param values a {@link java.lang.Object} object.
+     * @param <S> a S object.
+     * @return a {@link java.util.List} object.
+     */
+    public <S> List<S> findObjects(final Class<S> clazz, int limit, final String query, final Object... values) {
+        HibernateTemplate template = getHibernateTemplate();
+        if (limit > 0) {
+            template.setMaxResults(limit);
+        } else {
+            LOG.warn("Query limit less than 1 specified: " + limit);
+        }
+        @SuppressWarnings("unchecked")
+        final List<S> notifs = (List<S>)template.find(query, values);
+        return notifs;
+    }
+
+    /**
      * <p>queryInt</p>
      *
      * @param query a {@link java.lang.String} object.
@@ -170,7 +203,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     protected int queryInt(final String queryString, final Object... args) {
     	final HibernateCallback<Number> callback = new HibernateCallback<Number>() {
             @Override
-            public Number doInHibernate(final Session session) throws HibernateException, SQLException {
+            public Number doInHibernate(final Session session) throws HibernateException {
             	final Query query = session.createQuery(queryString);
                 for (int i = 0; i < args.length; i++) {
                     query.setParameter(i, args[i]);
@@ -191,7 +224,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         final Class <? extends T> type = m_entityClass;
     	final HibernateCallback<T> callback = new HibernateCallback<T>() {
             @Override
-            public T doInHibernate(final Session session) throws HibernateException, SQLException {
+            public T doInHibernate(final Session session) throws HibernateException {
             	final Query query = session.createQuery(queryString);
                 for (int i = 0; i < args.length; i++) {
                     query.setParameter(i, args[i]);
@@ -210,7 +243,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * @return a int.
      */
     @Override
-    public int countAll() {
+    public long countAll() {
         return queryInt("select count(*) from " + m_entityClass.getName());
     }
 
@@ -267,7 +300,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     protected <T> HibernateCallback<List<T>> buildHibernateCallback(org.opennms.core.criteria.Criteria criteria) {
         return new HibernateCallback<List<T>>() {
             @Override
-            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
+            public List<T> doInHibernate(final Session session) throws HibernateException {
                 LOG.debug("criteria = {}", criteria);
                 final Criteria hibernateCriteria = m_criteriaConverter.convert(criteria, session);
                 return (List<T>)(hibernateCriteria.list());
@@ -277,10 +310,10 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
 
     /** {@inheritDoc} */
     @Override
-    public int countMatching(final org.opennms.core.criteria.Criteria criteria) throws DataAccessException {
+    public long countMatching(final org.opennms.core.criteria.Criteria criteria) throws DataAccessException {
         final HibernateCallback<Integer> callback = new HibernateCallback<Integer>() {
             @Override
-            public Integer doInHibernate(final Session session) throws HibernateException, SQLException {
+            public Integer doInHibernate(final Session session) throws HibernateException {
                 
                 final Criteria hibernateCriteria = m_criteriaConverter.convertForCount(criteria, session);
                 hibernateCriteria.setProjection(Projections.rowCount());
@@ -301,8 +334,9 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         
         final HibernateCallback<List<T>> callback = new HibernateCallback<List<T>>() {
             @Override
-            public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
-            	final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session);
+            public List<T> doInHibernate(final Session session) throws HibernateException {
+                // Get the concrete session instead of a proxy with session.getSessionFactory().getCurrentSession()
+                final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session.getSessionFactory().getCurrentSession());
                 if (onmsCrit.getFirstResult() != null) attachedCrit.setFirstResult(onmsCrit.getFirstResult());
                 if (onmsCrit.getMaxResults() != null) attachedCrit.setMaxResults(onmsCrit.getMaxResults());
                 return (List<T>)attachedCrit.list();
@@ -312,11 +346,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     }
     
     /** {@inheritDoc} */
-    public int countMatching(final OnmsCriteria onmsCrit) throws DataAccessException {
+    public long countMatching(final OnmsCriteria onmsCrit) throws DataAccessException {
         final HibernateCallback<Integer> callback = new HibernateCallback<Integer>() {
             @Override
-            public Integer doInHibernate(final Session session) throws HibernateException, SQLException {
-                final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session).setProjection(Projections.rowCount());
+            public Integer doInHibernate(final Session session) throws HibernateException {
+                // Get the concrete session instead of a proxy with session.getSessionFactory().getCurrentSession()
+                final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session.getSessionFactory().getCurrentSession()).setProjection(Projections.rowCount());
                 Long retval = (Long)attachedCrit.uniqueResult();
                 attachedCrit.setProjection(null);
                 attachedCrit.setResultTransformer(Criteria.ROOT_ENTITY);
@@ -424,7 +459,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
             if (cause.getMessage() != null) {
                 if (cause.getMessage().contains("duplicate key value violates unique constraint")) {
                     final ClassMetadata meta = getSessionFactory().getClassMetadata(m_entityClass);
-                    LOG.warn("Duplicate key constraint violation, class: {}, key value: {}", m_entityClass.getName(), meta.getPropertyValue(entity, meta.getIdentifierPropertyName(), EntityMode.POJO));
+                    LOG.warn("Duplicate key constraint violation, class: {}, key value: {}", m_entityClass.getName(), meta.getPropertyValue(entity, meta.getIdentifierPropertyName()));
                     break;
                 } else if (cause.getMessage().contains("given object has a null identifier")) {
                     LOG.warn("Null identifier on object, class: {}: {}", m_entityClass.getName(), entity.toString());

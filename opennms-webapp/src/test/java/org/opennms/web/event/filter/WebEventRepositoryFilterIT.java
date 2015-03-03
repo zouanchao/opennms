@@ -129,13 +129,14 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @Transactional
     public void testEventIdFilter(){
         EventIdFilter filter = new EventIdFilter(1);
         assert1Result(filter);
     }
     
     @Test
-    @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
+    @Transactional
     public void testEventIdListFilter(){
         int[] ids = {1};
         EventIdListFilter filter = new EventIdListFilter(ids);
@@ -162,7 +163,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testAfterDateFilter(){
         AfterDateFilter filter = new AfterDateFilter(yesterday());
         
@@ -180,7 +180,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testBeforeDateFilter(){
         BeforeDateFilter filter = new BeforeDateFilter(new Date());
         
@@ -189,7 +188,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testDescriptionSubstringFilterTest(){
         DescriptionSubstringFilter filter = new DescriptionSubstringFilter("test event");
         
@@ -206,7 +204,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testExactUEIFilter(){
         ExactUEIFilter filter = new ExactUEIFilter("uei.opennms.org/test2");
         
@@ -216,7 +213,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testIfIndexFilter(){
         IfIndexFilter filter = new IfIndexFilter(11);
         
@@ -228,7 +224,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
 
     @Test
-    @Transactional
     public void testInterfaceFilter(){
         InterfaceFilter filter = new InterfaceFilter("192.168.1.1");
         
@@ -239,7 +234,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testIpAddrLikeFilter(){
         IPAddrLikeFilter filter = new IPAddrLikeFilter("192.168.*.*");
         
@@ -252,7 +246,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testLogMessageMatchesAny(){
         LogMessageMatchesAnyFilter filter = new LogMessageMatchesAnyFilter("This is a");
         
@@ -261,7 +254,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testLogMessageSubstringFilter(){
         LogMessageSubstringFilter filter = new LogMessageSubstringFilter("is a test");
         
@@ -270,7 +262,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNegativeAcknowledgedByFilter(){
         NegativeAcknowledgedByFilter filter = new NegativeAcknowledgedByFilter("TestUser");
         
@@ -286,7 +277,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNegativeExactUeiFilter(){
         NegativeExactUEIFilter filter = new NegativeExactUEIFilter("uei.opennms.org/test2");
         
@@ -300,7 +290,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNegativeInterfaceFilter(){
         NegativeInterfaceFilter filter = new NegativeInterfaceFilter("192.168.1.1");
         
@@ -314,7 +303,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNegativeNodeFilter(){
         // should match the "RDU" event
         NegativeNodeFilter filter = new NegativeNodeFilter(m_dbPopulator.getNode2().getId(), m_appContext);
@@ -330,7 +318,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNegativePartialUeiFilter(){
         NegativePartialUEIFilter filter = new NegativePartialUEIFilter("uei.opennms.org");
         
@@ -358,7 +345,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNegativeSeverityFilter(){
         NegativeSeverityFilter filter = new NegativeSeverityFilter(OnmsSeverity.CRITICAL.getId());
         
@@ -389,7 +375,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testNodeNameLikeFilter(){
         NodeNameLikeFilter filter = new NodeNameLikeFilter("node1");
         
@@ -403,7 +388,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testPartialUeiFilter(){
         PartialUEIFilter filter = new PartialUEIFilter("uei.opennms.org/t");
         
@@ -431,7 +415,6 @@ public class WebEventRepositoryFilterIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     public void testSeverityFilter(){
         SeverityFilter filter = new SeverityFilter(OnmsSeverity.CLEARED.getId());
         

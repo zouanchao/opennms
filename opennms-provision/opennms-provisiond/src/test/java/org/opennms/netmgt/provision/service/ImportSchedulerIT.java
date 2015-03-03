@@ -110,7 +110,7 @@ public class ImportSchedulerIT implements InitializingBean {
         
         RequisitionDef def = m_dao.getDefs().get(0);
         
-        JobDetail detail = new JobDetailImpl("test", ImportScheduler.JOB_GROUP, ImportJob.class, false, false);
+        JobDetail detail = new JobDetailImpl("test1", ImportScheduler.JOB_GROUP, ImportJob.class, false, false);
         detail.getJobDataMap().put(ImportJob.URL, def.getImportUrlResource().orElse(null));
         detail.getJobDataMap().put(ImportJob.RESCAN_EXISTING, def.getRescanExisting());
 
@@ -176,7 +176,7 @@ public class ImportSchedulerIT implements InitializingBean {
         Calendar testCal = Calendar.getInstance();
         testCal.add(Calendar.SECOND, 5);
         
-        SimpleTriggerImpl trigger = new SimpleTriggerImpl("test", ImportScheduler.JOB_GROUP, testCal.getTime());
+        SimpleTriggerImpl trigger = new SimpleTriggerImpl("test2", ImportScheduler.JOB_GROUP, testCal.getTime());
         m_importScheduler.getScheduler().scheduleJob(detail, trigger);
         m_importScheduler.start();
         

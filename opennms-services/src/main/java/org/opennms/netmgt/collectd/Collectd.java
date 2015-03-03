@@ -522,7 +522,6 @@ public class Collectd extends AbstractServiceDaemon implements
                     spec, 
                     getScheduler(),
                     m_schedulingCompletedFlag,
-                    m_transTemplate.getTransactionManager(),
                     m_persisterFactory,
                     m_resourceStorageDao
                 );

@@ -98,8 +98,8 @@ public class NetworkElementFactoryIT implements InitializingBean {
     }
     
     @Test
-    @Transactional
     @JUnitTemporaryDatabase
+    @Transactional
     public void testGetNodeLabel() throws SQLException {
         String nodeLabel = NetworkElementFactory.getInstance(m_appContext).getNodeLabel(1);
         
@@ -108,6 +108,7 @@ public class NetworkElementFactoryIT implements InitializingBean {
     
     @Test
     @JUnitTemporaryDatabase
+    @Transactional
     public void testGetIpPrimaryAddress() throws SQLException {
         m_jdbcTemplate.update("INSERT INTO node (location, nodeId, nodeCreateTime, nodeType, nodeLabel) VALUES ('" + MonitoringLocationDao.DEFAULT_MONITORING_LOCATION_ID + "', 12, now(), 'A', 'nodeLabel')");
         m_jdbcTemplate.update("INSERT INTO ipinterface (nodeid, ipaddr, iplastcapsdpoll, issnmpprimary) VALUES (12, '172.168.1.1', now(), 'P')");
@@ -119,7 +120,6 @@ public class NetworkElementFactoryIT implements InitializingBean {
     
     @Test
     @Transactional
-    @JUnitTemporaryDatabase
     public void testGetNodesWithIpLikeOneInterface() throws Exception {
         // setUp() creates nodes by default, start with a clean slate
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -136,7 +136,7 @@ public class NetworkElementFactoryIT implements InitializingBean {
     
     // bug introduced in revision 2932
     @Test
-    @JUnitTemporaryDatabase
+    @Transactional
     public void testGetNodesWithIpLikeTwoInterfaces() throws Exception {
         // setUp() creates nodes by default, start with a clean slate
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -170,7 +170,6 @@ public class NetworkElementFactoryIT implements InitializingBean {
 
     @Test
     @Transactional
-    @JUnitTemporaryDatabase
     public void testGetActiveInterfacesOnNode() {
     	Interface[] intfs = NetworkElementFactory.getInstance(m_appContext).getActiveInterfacesOnNode(m_dbPopulator.getNode1().getId());
     	assertEquals("active interfaces", 4, intfs.length);

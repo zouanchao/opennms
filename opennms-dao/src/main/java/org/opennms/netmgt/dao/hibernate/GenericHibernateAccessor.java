@@ -38,8 +38,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.dao.api.GenericPersistenceAccessor;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate4.HibernateCallback;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 public class GenericHibernateAccessor extends HibernateDaoSupport implements GenericPersistenceAccessor {
 
@@ -117,7 +117,7 @@ public class GenericHibernateAccessor extends HibernateDaoSupport implements Gen
     public List findMatching(Criteria criteria) {
         final HibernateCallback<List> callback = new HibernateCallback<List>() {
             @Override
-            public List doInHibernate(final Session session) throws HibernateException, SQLException {
+            public List doInHibernate(final Session session) throws HibernateException {
                 final org.hibernate.Criteria hibernateCriteria = criteriaConverter.convert(criteria, session);
                 return hibernateCriteria.list();
             }

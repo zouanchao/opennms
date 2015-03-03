@@ -66,7 +66,7 @@ public class BusinessServiceContainerDatasource implements OnmsContainerDatasour
     }
 
     @Override
-    public int countMatching(Criteria criteria) {
+    public long countMatching(Criteria criteria) {
         return businessServiceManager.countMatching(criteria);
     }
 

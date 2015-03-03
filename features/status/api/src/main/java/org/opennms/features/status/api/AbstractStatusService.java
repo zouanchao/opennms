@@ -76,7 +76,7 @@ public abstract class AbstractStatusService<T, Q extends Query> {
         return queryParameters.getPage().apply(list);
     }
 
-    public int count(Q query) {
+    public long count(Q query) {
         final QueryParameters queryParameters = query.getParameters();
         final SeverityFilter filter = query.getSeverityFilter();
         final CriteriaBuilder builder = getCriteriaBuilder(queryParameters);
@@ -96,7 +96,7 @@ public abstract class AbstractStatusService<T, Q extends Query> {
         }
     }
 
-    protected abstract int countMatching(Criteria criteria);
+    protected abstract long countMatching(Criteria criteria);
 
     protected abstract List<StatusEntity<T>> findMatching(Q query, CriteriaBuilder criteriaBuilder);
 

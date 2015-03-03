@@ -117,6 +117,7 @@ public class EnhancedLinkdServiceImpl implements EnhancedLinkdService {
     volatile Map<Integer, List<BridgeMacLink>> m_nodetoBroadcastDomainMap= new HashMap<Integer, List<BridgeMacLink>>();
 
     @Override
+    @Transactional
     public List<Node> getSnmpNodeList() {
         final List<Node> nodes = new ArrayList<Node>();
 
