@@ -236,24 +236,32 @@
       <bundle dependency="true">mvn:com.google.guava/guava/${guavaOldVersion}</bundle>
     </feature>
 
-    <!-- Use name hibernate36 so that we don't collide with Karaf 2.3.5+'s hibernate feature -->
-    <feature name="hibernate36" description="Hibernate :: Hibernate ORM" version="3.6.10.Final">
+    <!-- Use name hibernate43 so that we don't collide with Karaf 2.3.5+'s hibernate feature -->
+    <feature name="hibernate43" description="Hibernate :: Hibernate ORM" version="4.3.11.Final">
+      <feature>pax-cdi</feature>
+
       <bundle dependency="true">wrap:mvn:antlr/antlr/2.7.7</bundle>
       <bundle dependency="true">wrap:mvn:dom4j/dom4j/1.6.1</bundle>
-      <!-- Use geronimo-jta_1.1_spec instead of javax.transaction because the Apache projects use it -->
-      <!-- <bundle dependency="true">wrap:mvn:javax.transaction/jta/1.1</bundle> -->
-      <bundle dependency="true">mvn:commons-collections/commons-collections/3.2.2</bundle>
-      <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
-      <bundle>wrap:mvn:org.hibernate.javax.persistence/hibernate-jpa-2.0-api/1.0.1.Final</bundle>
-      <bundle>wrap:mvn:org.hibernate/hibernate-core/3.6.10.Final$Export-Package=org.hibernate*;version="3.6.10"</bundle>
-      <bundle>wrap:mvn:org.hibernate/hibernate-commons-annotations/3.2.0.Final</bundle>
+      <bundle dependency="true">mvn:com.fasterxml/classmate/1.3.3</bundle>
+      <bundle dependency="true">mvn:org.javassist/javassist/3.18.1-GA</bundle>
+      <bundle dependency="true">wrap:mvn:org.jboss/jandex/1.1.0.Final</bundle>
+      <bundle dependency="true">mvn:org.jboss.logging/jboss-logging/3.1.3.GA</bundle>
+      <bundle dependency="true">wrap:mvn:org.jboss.logging/jboss-logging-annotations/1.2.0.Beta1</bundle>
+      <!-- TODO: Use geronimo-jta_1.1_spec instead of javax.transaction because the Apache projects use it? -->
+      <bundle dependency="true">mvn:org.jboss.spec.javax.transaction/jboss-transaction-api_1.2_spec/1.0.0.Final</bundle>
+
+      <bundle>mvn:org.hibernate/hibernate-core/4.3.11.Final</bundle>
+      <bundle>mvn:org.hibernate.common/hibernate-commons-annotations/4.0.5.Final</bundle>
+      <bundle>mvn:org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final</bundle>
     </feature>
 
-    <feature name="hibernate-validator41" description="Hibernate :: Hibernate Validator" version="4.1.0.Final">
+    <feature name="hibernate-validator43" description="Hibernate :: Hibernate Validator" version="${hibernateValidatorVersion}">
       <!-- Declare versions for all exported packages -->
       <bundle dependency="true">wrap:mvn:javax.validation/validation-api/1.0.0.GA$Bundle-SymbolicName=javax.validation:validation-api&amp;Bundle-Version=1.0.0&amp;Export-Package=javax.validation;version="1.0.0",javax.validation.bootstrap;version="1.0.0",javax.validation.constraints;version="1.0.0",javax.validation.groups;version="1.0.0",javax.validation.metadata;version="1.0.0",javax.validation.spi;version="1.0.0"</bundle>
-      <bundle>wrap:mvn:org.hibernate/hibernate-validator-annotation-processor/4.1.0.Final</bundle>
-      <bundle>wrap:mvn:org.hibernate/hibernate-validator/4.1.0.Final</bundle>
+      <bundle dependency="true">mvn:org.jboss.logging/jboss-logging/3.1.3.GA</bundle>
+
+      <bundle>mvn:org.hibernate/hibernate-validator/${hibernateValidatorVersion}</bundle>
+      <bundle>wrap:mvn:org.hibernate/hibernate-validator-annotation-processor/${hibernateValidatorVersion}</bundle>
     </feature>
 
     <feature name="java-native-access" description="Java Native Access (JNA)" version="4.2.1">
@@ -464,7 +472,7 @@
       <feature>commons-io</feature>
       <feature>commons-lang</feature>
       <feature>dnsjava</feature>
-      <feature>hibernate36</feature>
+      <feature>hibernate43</feature>
       <feature>jaxb</feature>
 
       <feature>opennms-core</feature>
@@ -515,7 +523,7 @@
 
     <feature name="opennms-config-jaxb" description="OpenNMS :: Configuration :: JAXB" version="${project.version}">
       <!-- Required for javax.persistence - some of the classes are annotated with JPA annotations -->
-      <feature>hibernate36</feature>
+      <feature>hibernate43</feature>
       <feature>commons-lang</feature>
 
       <feature>opennms-collection-api</feature>
@@ -723,7 +731,7 @@
     <feature name="opennms-poller-api" description="OpenNMS :: Poller :: API" version="${project.version}">
       <feature version="[4.2,4.3)">spring</feature>
 
-      <feature>hibernate36</feature>
+      <feature>hibernate43</feature>
 
       <feature>opennms-core</feature>
       <bundle>mvn:org.opennms.features.poller/org.opennms.features.poller.api/${project.version}</bundle>
@@ -907,7 +915,7 @@
       <feature>commons-configuration</feature>
       <feature>commons-jexl</feature>
       <feature>fop</feature>
-      <feature>hibernate-validator41</feature>
+      <feature>hibernate-validator43</feature>
       <feature>jfreechart</feature>
       <feature>jrobin</feature>
       <feature>json-lib</feature>
@@ -1042,7 +1050,7 @@
       <feature>commons-lang</feature>
       <feature>commons-net</feature>
       <feature>dnsjava</feature>
-      <feature>hibernate36</feature>
+      <feature>hibernate43</feature>
       <feature>jldap</feature>
       <feature>jolokia-client</feature>
       <feature>json-simple</feature>

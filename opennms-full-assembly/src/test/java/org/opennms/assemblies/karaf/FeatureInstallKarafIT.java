@@ -70,8 +70,8 @@ public class FeatureInstallKarafIT extends KarafTestCase {
         installFeature("dropwizard-metrics");
         installFeature("fop");
         installFeature("guava");
-        installFeature("hibernate36");
-        installFeature("hibernate-validator41");
+        installFeature("hibernate43");
+        installFeature("hibernate-validator43");
         installFeature("java-native-access");
         installFeature("jaxb");
         installFeature("jfreechart");

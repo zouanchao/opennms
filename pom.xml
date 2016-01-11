@@ -3500,6 +3500,11 @@
         <version>${hibernateValidatorVersion}</version>
       </dependency>
       <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator-annotation-processor</artifactId>
+        <version>${hibernateValidatorVersion}</version>
+      </dependency>
+      <dependency>
         <groupId>javassist</groupId>
         <artifactId>javassist</artifactId>
         <version>9999.use-org-javassist-not-javassist</version>
@@ -3524,11 +3529,11 @@
         <artifactId>mail</artifactId>
         <version>1.4.5</version>
       </dependency>
-      <!-- we want to use JPA 2.0. Do not add javax.persistence/persistence-api! -->
+      <!-- we want to use JPA 2.1. Do not add javax.persistence/persistence-api! -->
       <dependency>
         <groupId>org.hibernate.javax.persistence</groupId>
-        <artifactId>hibernate-jpa-2.0-api</artifactId>
-        <version>1.0.1.Final</version>
+        <artifactId>hibernate-jpa-2.1-api</artifactId>
+        <version>1.0.0.Final</version>
       </dependency>
       <dependency>
         <groupId>javax.samples.jnlp</groupId>

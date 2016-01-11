@@ -153,12 +153,12 @@ public class OnmsFeatureKarafIT extends KarafTestCase {
 	}
 	@Test
 	public void testInstallFeatureHibernate36() {
-		installFeature("hibernate36");
+		installFeature("hibernate43");
 		System.out.println(executeCommand("feature:list -i"));
 	}
 	@Test
 	public void testInstallFeatureHibernateValidator41() {
-		installFeature("hibernate-validator41");
+		installFeature("hibernate-validator43");
 		System.out.println(executeCommand("feature:list -i"));
 	}
 	@Test

@@ -35,7 +35,7 @@
                 <configuration>
                     <features>
                         <feature>guava</feature>
-                        <feature>hibernate36</feature> <!-- Required by opennms-web-api -->
+                        <feature>hibernate43</feature> <!-- Required by opennms-web-api -->
                         <feature>quartz</feature> <!-- Required by opennms-web-api -->
                     </features>
                     <bundles>
