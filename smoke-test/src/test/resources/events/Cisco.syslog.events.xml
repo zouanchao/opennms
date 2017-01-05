@@ -14,7 +14,7 @@
             Packets denied: %parm[packetCount]%
             &lt;/p&gt;
         </descr>
-        <logmsg dest='logndisplay'>
+        <logmsg dest='donotpersist'>
             &lt;p&gt;IP access-list %parm[aclName]% on host %nodelabel% denied %parm[packetCount]% %parm[ipProto]% packets %parm[srcAddress]%:%parm[srcPort]% -&gt; %parm[dstAddress]%:%parm[dstPort]%&lt;/p&gt;
         </logmsg>
         <severity>Warning</severity>
