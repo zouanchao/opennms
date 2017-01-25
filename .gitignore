@@ -27,3 +27,11 @@ npm-debug.log
 /features/discovery/activemq-data
 /features/topology-map/org.opennms.features.topology.app/www-test/
 /opennms-alarms/jms-northbounder/activemq-data/
+
+## AsciiBinder-specific ignores
+_preview
+_package
+*.swp
+diag-*.png
+diag-*.png.cache
+
