@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../images
+:imagesdir: ./images
 
 === Getting Started
 
@@ -18,7 +18,7 @@ Network topology is updated as nodes (a.k.a. devices or hosts) are provisioned.
 Navigate to the _Admin/Configure SNMP Community Names by IP address_ as shown below.
 
 .Configuring SNMP community names
-image:../images/provisioning/00029.png[]
+image::00029.png[]
 
 NOTE: Provisiond includes an option to add community information in the _Single Node_ provisioning interface.
 This, is equivalent of entering a single IP address in the screen with the convenience of setting the community string at the same time a node is provisioned.

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 [[ga-ticketing-jira]]
 === JIRA Ticketing Plugin

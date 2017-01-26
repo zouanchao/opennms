@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 [[ga-service-assurance-path-outage]]
 === Path Outages
@@ -28,7 +28,7 @@ All other _Node Down_ notifications are suppressed matching the _Rule/Filter_ de
 
 [[ga-service-assurance-topology-path-outage]]
 .Topology for Path Outage
-image::service-assurance/02_path-outage.png[width="600"]
+image::02_path-outage.png[width="600"]
 
 To configure a _Path Outage_ based on the example in figure <<ga-service-assurance-topology-path-outage, Topology for Path Outage>>, the configuration has to be defined as the following.
 

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 [[ga-operation-https-ssl]]
 === HTTPS / SSL

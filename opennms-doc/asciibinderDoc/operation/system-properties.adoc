@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../images
+:imagesdir: ./images
 
 The global behavior of _OpenNMS_ is configured with Property files.
 Configuration can have also effect on the _Java Virtual Machine_ underneath _OpenNMS_.

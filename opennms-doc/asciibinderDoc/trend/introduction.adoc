@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 The _Trend_ feature allows to display small inline charts of database-based statistics.
 These chart are accessible in the _Status_ menu of the _OpenNMS'_ web application.
@@ -8,7 +8,7 @@ Furthermore it is also possible to configure these charts to be displayed on the
 To achieve this alter the `org.opennms.web.console.centerUrl` property to also include the entry `/trend/trend-box.htm`.
 
 .Trend chart structure
-image:webui/trend/trend-chart.png[]
+image:trend-chart.png[]
 
 These charts can be configured and defined in the `trend-configuration.xml` file in your _OpenNMS'_ `etc` directory.
 The following sample defines a _Trend_ chart for displaying nodes with ongoing outages.

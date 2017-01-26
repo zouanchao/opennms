@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 With the introduction of __Karaf__ as an __OSGi__ application container, _{opennms-product-name}_ now has the ability to install or upgrade features on top of a running instance of _{opennms-product-name}_.
 In addition, the new distributed _OSGi_ architecture allows an _{opennms-product-name}_ system to be deployed as multiple software modules each running in their own __Karaf__ instance.

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 To support several specific applications and management agents, _Pollerd_ executes _Service Monitors_.
 This section describes all available built-in _Service Monitors_ which are available and can be configured to allow complex monitoring.

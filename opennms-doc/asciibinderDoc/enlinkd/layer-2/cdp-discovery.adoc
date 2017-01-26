@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 ==== CDP Discovery
 
@@ -75,4 +75,4 @@ Generic information about the _CDP_ process can be found in the _CDP Information
 Information gathered from these OIDs will be stored in the following database table:
 
 .Database tables related to CDP discovery
-image::enlinkd/cdp-database.png[]
+image::cdp-database.png[]

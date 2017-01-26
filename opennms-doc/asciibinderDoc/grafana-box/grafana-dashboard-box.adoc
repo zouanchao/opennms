@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 link:http://grafana.org/[Grafana] provides an API key which gives access for 3rd party application like _{opennms-product-name}_.
 The _Grafana Dashboard Box_ on the start page shows dashboards related to _{opennms-product-name}_.
@@ -11,7 +11,7 @@ The feature is by default deactivated and is configured through `opennms.propert
 works with the _Grafana API v2.5.0_.
 
 .Quick access to Grafana dashboards from the {opennms-product-name} start page
-image:webui/startpage/01_grafana-box.png[]
+image::01_grafana-box.png[]
 
 .Grafana Dashboard configuration properties
 [options="header, autowidth"]

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 ==== Transparent Bridge Discovery
 
@@ -113,4 +113,4 @@ Generic information about the _bridge_ link discovery process can be found in th
 Information gathered from this _OID_ will be stored in the following database table:
 
 .Database tables related to transparent bridge discovery
-image::enlinkd/bridge-database.png[]
+image::bridge-database.png[]

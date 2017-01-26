@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 === Installed Licences Panel
 
@@ -17,7 +17,7 @@ When a licence is installed, the licence metadata is decoded and displayed.
 NOTE: A licence may be installed before or after its associated feature is installed. 
 If a licence is installed after the feature the feature must be restarted before the licence will be read.
 
-image::plugin-manager/09_installedLicences.png[]
+image::09_installedLicences.png[]
 
 === Adding a New Licence
 
@@ -29,4 +29,4 @@ The 'Validate licence' button should be used to check the licence has been insta
 Please note that this just checks the integrity of the licence string.
 A licence is only authenticated once it is installed and the corresponding feature bundle checks it on start-up.
 
-image::plugin-manager/10_addLicence.png[]
+image::10_addLicence.png[]

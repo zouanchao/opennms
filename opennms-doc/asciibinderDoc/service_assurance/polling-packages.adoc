@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 [[ga-pollerd-packages]]
 === Poller Packages
@@ -149,7 +149,7 @@ Which _Polling Packages_ are applied to the _IP Interface_ and _Service_ can be 
 The _IP Interface_ and _Service_ page show which _Polling Package_ and _Service_ configuration is applied for this specific service.
 
 .Polling Package applied to IP interface and Service
-image::service-assurance/03_polling-package.png[]
+image::03_polling-package.png[]
 
 [[ga-pollerd-packages-test-service-manually]]
 ==== Test Services on manually

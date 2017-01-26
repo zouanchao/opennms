@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 ==== OSPF Discovery
 
@@ -51,4 +51,4 @@ Generic information about the _OSPF_ link discovery process can be found in the 
 Information gathered from these OIDs will be stored in the following database table:
 
 .Database tables related to OSPF discovery
-image::enlinkd/ospf-database.png[]
+image::ospf-database.png[]

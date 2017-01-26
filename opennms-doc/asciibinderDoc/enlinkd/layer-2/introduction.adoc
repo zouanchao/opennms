@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 [[ga-enlinkd-layer-2-link-discovery]]
 === Layer 2 Link Discovery

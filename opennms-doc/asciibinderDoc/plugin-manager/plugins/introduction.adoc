@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 === Internal Plugins supplied with _{opennms-product-name}_
 _{opennms-product-name}_ includes a number of plugins which can be installed by the Plugin Manager 

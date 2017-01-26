@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 === Installed Plugins
 
@@ -27,7 +27,7 @@ Each plugin has metadata associated with it which is used to identify and descri
 | Organisation           | The organisation issuing the plugin and/or licence.
 |===
 
-image::plugin-manager/05_installedPlugins.png[]
+image::05_installedPlugins.png[]
 
 === Available Plugins Server
 
@@ -48,7 +48,7 @@ In this case, the _Plugin Server URL_ should be pointed at http:\\localhost:8980
 The admin username and passwords are used to access the _Available Plugins Server_.
 If a shopping cart is provided for obtaining licences, the URL of the shopping cart should be filled in.
 
-image::plugin-manager/06_availablePluginsServer.png[]
+image::06_availablePluginsServer.png[]
 
 === Installing Available Plugins
 
@@ -58,7 +58,7 @@ If a plugin is installed, the system will try and start it.
 However if a corresponding licence is required and not installed, the features will be loaded but not started.
 You must restart the feature if you later install a licence key.
 
-image::plugin-manager/07_availablePlugins.png[]
+image::07_availablePlugins.png[]
 
 === Plugins Manifest
 
@@ -67,4 +67,4 @@ If the _Plugin Manager_ can communicate with the remote server, then a manifest 
 A manual manifest entry can also be created for a feature.
 This can be used to install features which are not listed in the Available Features list.
 
-image::plugin-manager/08_pluginManifest.png[]
+image::08_pluginManifest.png[]

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../images
+:imagesdir: ./images
 
 The `Data Choices` module collects and publishes anonymous usage statistics to https://stats.opennms.org.
 

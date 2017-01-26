@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 ==== IS-IS Discovery
 
@@ -39,4 +39,4 @@ Generic information about the _IS-IS_ link discovery process can be found in the
 Information gathered from this OIDs will be stored in the following database table:
 
 .Database tables related to IS-IS discovery
-image::enlinkd/is-is-database.png[]
+image::is-is-database.png[]

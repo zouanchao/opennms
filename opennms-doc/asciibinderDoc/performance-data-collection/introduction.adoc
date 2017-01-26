@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 In _OpenNMS_ collection of performance data is done by the _Collectd_ daemon.
 _Management Agents_ and protocols to access performance data is implemented in _Collectors_.

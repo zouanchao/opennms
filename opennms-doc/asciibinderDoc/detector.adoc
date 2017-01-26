@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../../images
+:imagesdir: .././images
 
 [[ga-performance-mgmt-collectors-wsman-detector]]
 ===== Detector

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 ==== Newts Monitoring
 
 This section describes the metrics _{opennms-product-name}_ collects for monitoring the _Newts_ keyspace from `org.apache.cassandra.metrics.Keyspace` on an _Cassandra_ node.

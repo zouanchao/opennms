@@ -1,6 +1,6 @@
 
 // Allow image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 Reporting on information from the _{opennms-product-name}_ monitoring system is important for strategical or operational decisions.
 _Database Reports_ give access to the embedded _JasperReports_ engine and allows to create and customize report templates.
@@ -87,19 +87,19 @@ The official _Jaspersoft Studio_ documentation and wiki covers this aspect.
 To use the _Measurements API_ it is required to add the _Measurements Datasource_ library to the build path of _JasperStudio_.
 This is achieved with right click in the `Project Explorer` and select `Configure Buildpath`.
 
-image::database-reports/1_configure-build-path-1.png[]
+image::1_configure-build-path-1.png[]
 
 . Switch to the `Libraries` tab.
 . Click `Add External JARs` and select the `opennms-jasperstudio-extension-{opennms-version}-jar-with-dependencies.jar` file located in `$OPENNMS_HOME/contrib/jasperstudio-extension`.
 . Close the file selection dialog.
 
-image::database-reports/2_configure-build-path-2.png[]
+image::2_configure-build-path-2.png[]
 
 . Close the dialog.
 . The _Measurements Datasource and Helpers_ should now be available.
 . Go to the `Dataset and Query Dialog` in _Jaspersoft Studio_ and select a language called `measurement`.
 
-image::database-reports/3_dataset-query-dialog.png[]
+image::3_dataset-query-dialog.png[]
 
 NOTE: Even if there is no `Read Fields` functionality available, the `Data preview` can be used.
       It is required the the access to the _Measurements API_ is possible using the connection parameters `MEASUREMENT_URL`, `MEASUREMENT_USERNAME` and `MEASUREMENT_PASSWORD`.

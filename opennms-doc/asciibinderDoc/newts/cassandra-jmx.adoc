@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 ==== Cassandra Monitoring
 
 This section describes some of the metrics _{opennms-product-name}_ collects from a _Cassandra_ cluster.

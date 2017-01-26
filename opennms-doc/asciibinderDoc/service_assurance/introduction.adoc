@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 In _OpenNMS_ the daemon to measures service availability and latency is done by _Pollerd_.
 To run these tests _Service Monitors_ are scheduled and run in parallel in a _Thread Pool_.

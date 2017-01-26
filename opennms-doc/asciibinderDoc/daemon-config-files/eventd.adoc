@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 [[ga-opennms-operation-daemon-config-files-eventd]]
 ==== Eventd

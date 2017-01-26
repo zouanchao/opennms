@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 ==== LLDP Discovery
 
@@ -75,4 +75,4 @@ Generic information about the _LLDP_ process can be found in the _LLDP Informati
 Information gathered from these OIDs will be stored in the following database table:
 
 .Database tables related to LLDP discovery
-image::enlinkd/lldp-database.png[]
+image::lldp-database.png[]

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 ==== Web based utility
 
@@ -27,7 +27,7 @@ The web based configuration tool can be used in the _{opennms-product-name} Web 
 At the beginning the connection to an _MBean Server_ of a _Java_ application has to be configured.
 
 .JMX connection configuration window
-image::operation/jmx-config-generator/01-webui-connection.png[]
+image::01-webui-connection.png[]
 
 * _Service name_: The name of the service to bind the _JMX_ data collection for _Collectd_
 * _Host_: IP address or _FQDN_ connecting to the _MBean Server_ to load _MBeans_ and _Composite Data_ into the generation tool
@@ -44,7 +44,7 @@ The data is loaded into the _MBeans Configuration_ screen which allows to select
 The _MBeans Configuration_ section is used to assign the _MBean_ and _Composite Data attributes_ to _RRD domain_ specific data types and data source names.
 
 .Select MBeans or Composite Data for {opennms-product-name} data collection
-image::operation/jmx-config-generator/02-webui-mbean-selection.png[]
+image::02-webui-mbean-selection.png[]
 
 The left sidebar shows the tree with the _JMX Domain_, _MBeans_ and _Composite Data_ hierarchy retrieved from the _MBean Server_.
 To select or deselect all attributes use _Mouse right click -> select/deselect_.
@@ -52,10 +52,10 @@ To select or deselect all attributes use _Mouse right click -> select/deselect_.
 The right panel shows the _MBean Attributes_ with the _RRD_ specific mapping and allows to select or deselect specific _MBean Attriubtes_ or _Composite Data Attributes_ for the data collection configuration.
 
 .Configure MBean attributes for data collection configuration
-image::operation/jmx-config-generator/03-webui-mbean-details.png[]
+image::03-webui-mbean-details.png[]
 
 .Configure Composite attributes for data collection configuration
-image::operation/jmx-config-generator/04-webui-composite-details.png[]
+image::04-webui-composite-details.png[]
 
 * _MBean Name_ or _Composite Alias_: Identifies the _MBean_ or the _Composite Data_ object
 * _Selected_: Enable/Disable the _MBean attribute_ or _Composite Member_ to be included in the data collection configuration

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 [[ga-collectd-configuration]]
 === Collectd Configuration
@@ -25,7 +25,7 @@ The configuration file is structured in the following parts:
 
 [[ga-performance-management-collectd-overview]]
 .Collectd overview for associated files and configuration
-image::performance-management/01_collectd-overview.png[]
+image::01_collectd-overview.png[]
 
 The global behavior, especially the size of the _Thread Pool_ for _Collectd_, is configured in the `collectd-configuration.xml`.
 

@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 === Edges
 
@@ -24,7 +24,7 @@ The editor changing the _Edge_ attributes is shown in figure <<ga-bsm-edge-edit,
 
 [[ga-bsm-edge-edit]]
 .Editor to add Business Service Edges
-image:bsm/02_bsm-edge-edit.png[Business Service Edge edit,400,199]
+image:02_bsm-edge-edit.png[]
 
 ==== Child Services
 

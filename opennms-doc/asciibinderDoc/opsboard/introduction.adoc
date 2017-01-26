@@ -1,5 +1,5 @@
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 In a network operation center _(NOC)_ the _Ops Board_ can be used to visualize monitoring information.
 The monitoring information for various use-cases are arranged in configurable _Dashlets_.
@@ -11,10 +11,10 @@ There are two visualisation components to display _Dashlets_:
  * _Ops Board_: Shows one _Dashlet_ at a time in rotation, e.g. for a screen wall in a NOC
 
 .Concept of _Dashlets_ displayed in _Ops Panel_
-image::webui/opsboard/01_opspanel-concept.png[]
+image::01_opspanel-concept.png[]
 
 .Concept to show _Dashlets_ in rotation on the _Ops Board_
-image::webui/opsboard/02_opsboard-concept.png[]
+image::02_opsboard-concept.png[]
 
 ==== Configuration
 
@@ -22,12 +22,12 @@ To create and configure _Ops Boards_ administration permissions are required.
 The configuration section is in admin area of {opennms-product-name} and named _Ops Board Config Web Ui_.
 
 .Navigation to the _Ops Board_ configuration
-image::webui/opsboard/03_admin-configure-opsboard.png[]
+image::03_admin-configure-opsboard.png[]
 
 Create or modify _Ops Boards_ is described in the following screenshot.
 
 .Adding a Dashlet to an existing _Ops Board_
-image::webui/opsboard/04_add-dashlet.png[]
+image::04_add-dashlet.png[]
 
  1. Create a new _Ops Board_ to organize and arrange different _Dashlets_
  2. The name to identify the _Ops Board_
@@ -46,7 +46,7 @@ image::webui/opsboard/04_add-dashlet.png[]
 The configured _Ops Board_ can be used by navigating in the main menu to _Dashboard -> Ops Board_.
 
 .Navigation to use the _Ops Board_
-image::webui/opsboard/05_opsboard-user.png[]
+image::05_opsboard-user.png[]
 
 ==== Dashlets
 

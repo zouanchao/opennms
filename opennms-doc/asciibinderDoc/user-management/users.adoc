@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 _Users_ are entities with login accounts in the _{opennms-product-name}_ system.
 Ideally each user corresponds to a person.

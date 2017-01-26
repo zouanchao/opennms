@@ -1,12 +1,12 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 === Plugin Manager UI panel
 
 The _Plugin Manager_ is accessed as an entry in the _Additional Tools_ panel of the _{opennms-product-name} Admin Gui_.
 
-image::plugin-manager/01_adminPageEntry.png[]
+image::01_adminPageEntry.png[]
 
 The _Plugin Manager_ administration page is split into six main areas as illustrated below.
 
@@ -18,7 +18,7 @@ The _Plugin Manager_ administration page is split into six main areas as illustr
    If an operation fails, the full error message can be viewed by pressing the error message button.
 5. Bottom Right is a tabbed panel which reflects the status of the plugins and licences installed in the _Karaf_ instance selected by the _Karaf_ Instance data panel.
 
-image::plugin-manager/02_pluginmgrFullPage.png[]
+image::02_pluginmgrFullPage.png[]
 
 === Setting Karaf Instance Data
 
@@ -49,11 +49,11 @@ NOTE: Remote request of configuration is not yet fully implemented and will be c
 | Allow Status Update from Remote | Allow the remote _Karaf_ instance to request an update to its remote configuration from the locally held manifest and at the same time to update its status.
 |===
 
-image::plugin-manager/03_karafInstanceData.png[]
+image::03_karafInstanceData.png[]
 
 === Manually adding a managed _Karaf_ instance
 
 The list of _Karaf_ instances can be modified using the _Karaf_ instance editor illustrated below.
 The same fields apply as above.
 
-image::plugin-manager/04_karafinstanceeditor.png[]
+image::04_karafinstanceeditor.png[]

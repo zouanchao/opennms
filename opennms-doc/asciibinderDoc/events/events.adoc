@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 Events are central to the operation of the {opennms-product-name} platform, so it's critical to have a firm grasp of this topic.
 

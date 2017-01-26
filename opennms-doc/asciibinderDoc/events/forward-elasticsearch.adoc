@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../images
+:imagesdir: ./images
 
 [[ga-events-forwarding-elastic]]
 === Forwarding Events to Elasticsearch 1.x
