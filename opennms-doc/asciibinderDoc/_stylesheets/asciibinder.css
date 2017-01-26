@@ -566,3 +566,7 @@ b.conum * { color: inherit !important; }
   .print-only { display: block !important; }
   .hide-for-print { display: none !important; }
   .show-for-print { display: inherit !important; } }
+
+.imageblock img {
+  width: 832px;
+}
