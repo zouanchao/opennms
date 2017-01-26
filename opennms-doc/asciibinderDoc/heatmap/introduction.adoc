@@ -1,6 +1,6 @@
 
 // Allow GitHub image rendering
-:imagesdir: ../../../images
+:imagesdir: ./images
 
 The _Heatmap_ can be either be used to display unacknowledged alarms or to display ongoing outages of nodes.
 Each of this visualizations can be applied on categories, foreign sources or services of nodes.
@@ -10,7 +10,7 @@ Thus, a node with fewer services will appear in a smaller box than a node with m
 The feature is by default deactivated and is configured through `opennms.properties`.
 
 .Heatmap visualizations of alarms
-image:webui/heatmap/heatmap.png[]
+image:heatmap.png[]
 
 .Heatmap dashboard configuration properties
 [options="header, autowidth"]
