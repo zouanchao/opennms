@@ -1,0 +1,434 @@
+# This configuration file dictates the organization of the topic groups and
+# topics on the main page of the doc site for this branch. Each record
+# consists of the following:
+#
+# ---                                  <= Record delimiter
+# Name: Origin of the Species          <= Display name of topic group
+# Dir:  origin_of_the_species          <= Directory name of topic group
+# Topics:
+#   - Name: The Majestic Marmoset      <= Topic name
+#     File: the_majestic_marmoset      <= Topic file under group dir +/- .adoc
+#   - Name: The Curious Crocodile      <= Topic 2 name
+#     File: the_curious_crocodile      <= Topic 2 file
+#   - Name: The Numerous Nematodes     <= Sub-topic group name
+#     Dir: the_numerous_nematodes      <= Sub-topic group dir
+#     Topics:
+#       - Name: The Wily Worm          <= Sub-topic name
+#         File: the_wily_worm          <= Sub-topic file under <group dir>/<subtopic dir>
+#       - Name: The Acrobatic Ascarid  <= Sub-topic 2 name
+#         File: the_acrobatic_ascarid  <= Sub-topic 2 file under <group dir>/<subtopic dir>
+#
+# The ordering of the records in this document determines the ordering of the
+# topic groups and topics on the main page.
+---
+Name: Documentation Project
+Dir: welcome
+Topics:
+  - Name: Welcome
+    File: index
+---
+Name: Release Notes
+Dir: release_notes
+Topics:
+  - Name: Overview
+    File: index
+  - Name: Whats new in 18
+    File: whats_new_18
+  - Name: 18.0.4-1
+    File: changelog_18.0.4-1
+---
+Name: User Management
+Dir: user-management
+Topics:
+  - Name: Users
+    File: users
+  - Name: Security Roles
+    File: security-roles
+---
+Name: Heatmap
+Dir: heatmap
+Topics:
+  - Name: Introduction
+    File: introduction
+---
+Name: Business Service Monitoring
+Dir: bsm
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Business Service Definition
+    File: business-service-definition
+  - Name: Edges
+    File: edges
+  - Name: Map Functions
+    File: map-functions
+  - Name: Reduce Functions
+    File: reduce-functions
+  - Name: BSMD
+    File: bsmd
+---
+Name: Operations Board
+Dir: opsboard
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Dashlets
+    Dir: dashlets
+    Topics:
+      - Name: Alarm Detail
+        File: alarm-detail
+      - Name: Charts
+        File: charts
+      - Name: Image
+        File: image
+      - Name: KSC Report
+        File: ksc
+      - Name: Map
+        File: map
+      - Name: RRD
+        File: rrd
+      - Name: Real Time Console
+        File: rtc
+      - Name: Summary
+        File: summary
+      - Name: Surveillance View
+        File: surveillance
+      - Name: Topology
+        File: topology
+      - Name: URL
+        File: url
+---
+Name: Database Reports
+Dir: database-reports
+Topics:
+  - Name: Jasper Reports
+    File: database
+---
+Name: Trendline
+Dir: trend
+Topics:
+  - Name: Introduction
+    File: introduction
+---
+Name: Topology Map
+Dir: topology-map
+Topics:
+  - Name: Topology
+    File: topology
+---
+Name: Service Assurance
+Dir: service_assurance
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Configuration
+    File: configuration
+  - Name: Critical Service
+    File: critical-service
+  - Name: Downtime Model
+    File: downtime-model
+  - Name: Path Outages
+    File: path-outages
+  - Name: Polling Packages
+    File: polling-packages
+  - Name: Monitors
+    Dir: monitors
+    Topics:
+      - Name: AvailabilityMonitor
+        File: AvailabilityMonitor
+      - Name: BgpSessionMonitor
+        File: BgpSessionMonitor
+      - Name: BSFMonitor
+        File: BSFMonitor
+      - Name: CiscoIpSlaMonitor
+        File: CiscoIpSlaMonitor
+      - Name: CitrixMonitor
+        File: CitrixMonitor
+      - Name: DhcpMonitor
+        File: DhcpMonitor
+      - Name: DiskUsageMonitor
+        File: DiskUsageMonitor
+      - Name: DnsMonitor
+        File: DnsMonitor
+      - Name: DNSResolutionMonitor
+        File: DNSResolutionMonitor
+      - Name: FtpMonitor
+        File: FtpMonitor
+      - Name: HostResourceSwRunMonitor
+        File: HostResourceSwRunMonitor
+      - Name: HttpMonitor 
+        File: HttpMonitor
+      - Name: HttpPostMonitor
+        File: HttpPostMonitor
+      - Name: HttpsMonitor
+        File: HttpsMonitor
+      - Name: IcmpMonitor
+        File: IcmpMonitor
+      - Name: ImapMonitor
+        File: ImapMonitor
+      - Name: ImapsMonitor
+        File: ImapsMonitor
+      - Name: JCifsMonitor
+        File: JCifsMonitor
+      - Name: JDBCMonitor
+        File: JDBCMonitor
+      - Name: JDBCStoredProcedureMonitor
+        File: JDBCStoredProcedureMonitor
+      - Name: JDBCQueryMonitor
+        File: JDBCQueryMonitor
+      - Name: JolokiaBeanMonitor
+        File: JolokiaBeanMonitor
+      - Name: LdapMonitor
+        File: LdapMonitor
+      - Name: LdapsMonitor
+        File: LdapsMonitor
+      - Name: MemcachedMonitor
+        File: MemcachedMonitor
+      - Name: NetScalerGroupHealthMonitor
+        File: NetScalerGroupHealthMonitor
+      - Name: NrpeMonitor
+        File: NrpeMonitor
+      - Name: NtpMonitor
+        File: NtpMonitor
+      - Name: OmsaStorageMonitor
+        File: OmsaStorageMonitor
+      - Name: OpenManageChassisMonitor
+        File: OpenManageChassisMonitor
+      - Name: PageSequenceMonitor
+        File: PageSequenceMonitor
+      - Name: PercMonitor
+        File: PercMonitor
+      - Name: Pop3Monitor
+        File: Pop3Monitor
+      - Name: PrTableMonitor
+        File: PrTableMonitor
+      - Name: RadiusAuthMonitor
+        File: RadiusAuthMonitor
+      - Name: SmbMonitor
+        File: SmbMonitor
+      - Name: SnmpMonitor
+        File: SnmpMonitor
+      - Name: SshMonitor
+        File: SshMonitor
+      - Name: SSLCertMonitor
+        File: SSLCertMonitor
+      - Name: StrafePingMonitor
+        File: StrafePingMonitor
+      - Name: TcpMonitor
+        File: TcpMonitor
+      - Name: SystemExecuteMonitor
+        File: SystemExecuteMonitor
+      - Name: VmwareCimMonitor
+        File: VmwareCimMonitor
+      - Name: VmwareMonitor
+        File: VmwareMonitor
+      - Name: Win32ServiceMonitor
+        File: Win32ServiceMonitor
+      - Name: WsManMonitor
+        File: WsManMonitor
+      - Name: XmpMonitor
+        File: XmpMonitor
+---
+Name: Performance Data Collection
+Dir: performance-data-collection
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Configuration
+    File: configuration
+  - Name: Collection Packages
+    File: collection-packages
+  - Name: Collectors
+    Dir: collectors
+    Topics:
+      - Name: SNMP Collector
+        File: SnmpCollector
+      - Name: WS-Management
+        File: ws-management
+      - Name: WS-Management Detector
+        File: ws-management-detector
+  - Name: Stress Testing
+    File: stress-testing
+---
+Name: Provisioning
+Dir: provisioning
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Concepts
+    File: concepts
+  - Name: Terminology
+    File: terminology
+  - Name: Scalability
+    File: scalability
+  - Name: Getting Started
+    File: getting-started
+  - Name: Import Handler
+    File: import-handler
+  - Name: Examples
+    File: examples
+  - Name: Adapters
+    File: adapters
+  - Name: Integration
+    File: integration
+  - Name: Single Node
+    File: single-node
+  - Name: Fine Grained
+    File: fine-grained
+  - Name: API Examples
+    File: api-examples
+  - Name: Detectors
+    Dir: detectors
+    Topics:
+      - Name: SNMP Detector
+        File: SnmpDetector
+---
+Name: Enhanced Linkd
+Dir: enlinkd
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Layer 2 Links
+    Dir: layer-2
+    Topics:
+      - Name: Introduction
+        File: introduction
+      - Name: LLDP Discovery
+        File: lldp-discovery
+      - Name: CDP Discovery
+        File: cdp-discovery
+      - Name: Bridge MIB Discovery
+        File: bridge-discovery
+  - Name: Layer 3 Links
+    Dir: layer-3
+    Topics:
+      - Name: Introduction
+        File: introduction
+      - Name: OSPF Discovery
+        File: ospf-discovery
+      - Name: IS-IS Discovery
+        File: is-is-discovery
+---
+Name: Events
+Dir: events
+Topics:
+  - Name: Events
+    File: events
+  - Name: Elasticsearch Forwarder
+    File: forward-elasticsearch
+---
+Name: Notifications
+Dir: notifications
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Getting Started
+    File: getting-started
+  - Name: Concepts
+    File: concepts
+  - Name: Plugins
+    Dir: plugins
+    Topics:
+      - Name: Mattermost
+        File: mattermost
+      - Name: Slack
+        File: slack
+---
+Name: Ticketing Integration
+Dir: ticketing-integration
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: JIRA
+    File: jira
+  - Name: IBM TSRM
+    File: tsrm
+---
+Name: Daemon Config Files
+Dir: daemon-config-files
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Eventd
+    File: eventd
+  - Name: Notifd
+    File: notifd
+  - Name: Pollerd
+    File: pollerd
+---
+Name: Operation
+Dir: operation
+Topics:
+  - Name: System Properties
+    File: system-properties
+  - Name: Geocoder
+    File: geocoder
+  - Name: Resource CLI
+    File: resourcecli
+  - Name: SSL Configuration
+    File: ssl-configuration
+  - Name: SNMP
+    File: snmp
+  - Name: Data Choices
+    File: datachoices
+  - Name: RMI Configuration
+    File: rmi
+---
+Name: Plugin Manager
+Dir: plugin-manager
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Setting Karaf Instance Data
+    File: setting-karaf-instance-data
+  - Name: Installing Available Plugins
+    File: installing-available-plugins
+  - Name: Installing Licences
+    File: installing-licences
+  - Name: Internal Plugins Repository
+    File: internal-plugins-repository
+  - Name: Plugins
+    Dir: plugins
+    Topics:
+      - Name: Introduction
+        File: introduction
+      - Name: Alarm Change Notifier
+        File: alarm-change-notifier
+      - Name: Elasticsearch ReST Forwarder
+        File: opennms-es-rest
+---
+Name: Grafana Dashboard Box
+Dir: grafana-box
+Topics:
+  - Name: Grafana Dashboard Box
+    File: grafana-dashboard-box
+---
+Name: JMX Configuration Generator
+Dir: jmx-config-generator
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Web Interface
+    File: webui
+  - Name: Command Line Tool
+    File: cli
+---
+Name: Newts
+Dir: newts
+Topics:
+  - Name: Introduction
+    File: introduction
+  - Name: Configuration
+    File: configuration
+  - Name: Cassandra JMX
+    File: cassandra-jmx
+  - Name: Newts JMX
+    File: cassandra-newts-jmx
+  - Name: Newts Repository Converter
+    File: newts-repository-converter
+---
+Name: Minion
+Dir: minion
+Topics:
+  - Name: Kafka
+    File: kafka

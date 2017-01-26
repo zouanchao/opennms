@@ -1,0 +1,11 @@
+---
+opennms-horizon:
+  name: OpenNMS HORIZON
+  author: OpenNMS HORIZON Documentation Project <opennms-docs@lists.sourceforge.net>
+  site: community
+  site_name: Documentation
+  site_url: http://docs.opennms.org/
+  branches:
+    master:
+      name: Latest
+      dir: latest
