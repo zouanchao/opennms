@@ -364,6 +364,10 @@ public class NetworkBuilder {
         }
     }
 
+    public void setMetaDataEntry(final String context, final String key, final String value) {
+        m_currentNode.addMetaData(context, key, value);
+    }
+
     public OnmsServiceType getServiceType(final String serviceName) {
         if (!m_serviceTypeCache.containsKey(serviceName)) {
             m_serviceTypeCache.put(serviceName, new OnmsServiceType(serviceName));

@@ -679,4 +679,16 @@ public class NodeDaoIT implements InitializingBean {
     public void testGetPreviousNodeId() {
         assertEquals(m_populator.getNode1().getId(), m_nodeDao.getPreviousNodeId(m_populator.getNode2().getId()));
     }
+
+    @Test
+    @Transactional
+    public void testSaveWithMetaData() {
+        OnmsNode node = new OnmsNode(m_locationDao.getDefaultLocation(), "SomeNode");
+        node.addMetaData("ctx", "key", "value");
+        getNodeDao().save(node);
+        getNodeDao().flush();
+
+        OnmsNode retrievedNode = getNodeDao().get(node.getId());
+        assertEquals(1, retrievedNode.getMetaData().size());
+    }
 }
