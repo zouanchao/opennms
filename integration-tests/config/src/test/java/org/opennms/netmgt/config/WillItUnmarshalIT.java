@@ -84,6 +84,7 @@ import org.opennms.netmgt.config.notifications.Notifications;
 import org.opennms.netmgt.config.opennmsDataSources.DataSourceConfiguration;
 import org.opennms.netmgt.config.poller.PollerConfiguration;
 import org.opennms.netmgt.config.poller.outages.Outages;
+import org.opennms.netmgt.config.prometheus.PrometheusDatacollectionConfig;
 import org.opennms.netmgt.config.provisiond.ProvisiondConfiguration;
 import org.opennms.netmgt.config.rancid.adapter.RancidConfiguration;
 import org.opennms.netmgt.config.reportd.ReportdConfiguration;
@@ -329,6 +330,17 @@ public class WillItUnmarshalIT {
             addFile(Source.ABSOLUTE,
                     file.getPath(),
                     WsmanDatacollectionConfig.class,
+                    Impl.JAXB);
+        }
+
+        // Add all prometheus-datacollection configuration files
+        addFile(Source.CONFIG, "prometheus-datacollection-config.xml", PrometheusDatacollectionConfig.class, Impl.JAXB);
+        for (final File file : FileUtils.listFiles(new File(getDaemonEtcDirectory(), "prometheus-datacollection.d"),
+                                                   new String[] { "xml" },
+                                                   true)) {
+            addFile(Source.ABSOLUTE,
+                    file.getPath(),
+                    PrometheusDatacollectionConfig.class,
                     Impl.JAXB);
         }
 
