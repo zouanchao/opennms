@@ -29,6 +29,7 @@ public class Summary extends Metric {
         private double sampleSum = Double.NaN;
         private List<Quantile> quantiles;
 
+        @SuppressWarnings("unchecked")
         public Summary build() {
             return new Summary(this);
         }

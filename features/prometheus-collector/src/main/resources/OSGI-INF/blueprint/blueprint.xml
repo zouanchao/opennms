@@ -9,11 +9,11 @@
         http://aries.apache.org/schemas/blueprint-ext/blueprint-ext-1.1.xsd
 ">
 
-    <bean id="prometheusCollector" class="org.opennms.netmgt.collectd.PrometheusCollector" />
-    <service ref="prometheusCollector" interface="org.opennms.netmgt.collection.api.ServiceCollector">
-        <service-properties>
-           <entry key="type" value="org.opennms.netmgt.collectd.PrometheusCollector" />
-        </service-properties>
-    </service>
+  <bean id="prometheusCollector" class="org.opennms.netmgt.collectd.PrometheusCollector" />
+  <service ref="prometheusCollector" interface="org.opennms.netmgt.collection.api.ServiceCollector">
+    <service-properties>
+      <entry key="type" value="org.opennms.netmgt.collectd.PrometheusCollector" />
+    </service-properties>
+  </service>
 
 </blueprint>

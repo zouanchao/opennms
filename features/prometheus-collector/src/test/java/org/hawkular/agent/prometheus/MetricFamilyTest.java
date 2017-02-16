@@ -30,9 +30,9 @@ public class MetricFamilyTest {
     public void testBuild() {
         Counter counter = new Counter.Builder().setName("foo").setValue(0.1).build();
         Gauge gauge = new Gauge.Builder().setName("foo").setValue(0.1).build();
-        Summary summary = new Summary.Builder().setName("foo").setSampleCount(123).setSampleSum(0.5)
+        new Summary.Builder().setName("foo").setSampleCount(123).setSampleSum(0.5)
                 .addQuantile(0.25, 100.1).addQuantile(0.75, 200.2).build();
-        Histogram histogram = new Histogram.Builder().setName("foo").setSampleCount(123).setSampleSum(0.5)
+        new Histogram.Builder().setName("foo").setSampleCount(123).setSampleSum(0.5)
                 .addBucket(0.25, 100).addBucket(1.0, 200).build();
 
         try {

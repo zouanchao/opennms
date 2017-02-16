@@ -32,9 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -42,8 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.hawkular.agent.prometheus.PrometheusScraper;
 import org.hawkular.agent.prometheus.text.TextSample;
@@ -64,6 +60,7 @@ import org.opennms.netmgt.collection.api.CollectionSet;
 import org.opennms.netmgt.collection.api.ServiceParameters.ParameterName;
 import org.opennms.netmgt.collection.support.builder.CollectionSetBuilder;
 import org.opennms.netmgt.collection.support.builder.DeferredGenericTypeResource;
+import org.opennms.netmgt.collection.support.builder.GenericTypeResource;
 import org.opennms.netmgt.collection.support.builder.NodeLevelResource;
 import org.opennms.netmgt.collection.support.builder.Resource;
 import org.opennms.netmgt.config.prometheus.Collection;
@@ -81,53 +78,28 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import com.google.common.base.Strings;
-
-/*
- * 
- * 
-       <group name="node-exporter-filesystems" resource-type="nodeExporterFilesytem"
-         filter="name matches 'node_filesystem_.*'"
-         group-by="labels[mountpoint]">
-         <numeric-attribute alias-exp="name.substring('node_filesystem_'.length())"/>
-         <string-attribute alias="fstype" value-exp="labels[fstype]"/>
-         <string-attribute alias="device" value-exp="labels[device]"/>
-       </group>
-
-
-node_filesystem_avail{device="/dev/mapper/ssd-root",fstype="ext4",mountpoint="/rootfs"} 2.10503274496e+11
-
- *     <group name="node-exporter-cpu" resource-type="nodeExporterCPU"
-         filter="#name matches 'node_cpu'"
-         group-by="#labels[cpu]"
-         with-attributes="#labels[mode]" />
-         
-         node_cpu{cpu="cpu0",mode="guest"} 0
-    node_cpu{cpu="cpu0",mode="idle"} 16594.88
-    node_cpu{cpu="cpu0",mode="iowait"} 163.99
-    node_cpu{cpu="cpu0",mode="irq"} 62.55
-    node_cpu{cpu="cpu0",mode="nice"} 1134.72
-    node_cpu{cpu="cpu0",mode="softirq"} 58.2
-    node_cpu{cpu="cpu0",mode="steal"} 0
-    node_cpu{cpu="cpu0",mode="system"} 316.98
-    node_cpu{cpu="cpu0",mode="user"} 1638.27
- */
+import com.google.common.collect.ImmutableMap;
 
 /**
- * 
- * See https://github.com/hawkular/hawkular-agent/tree/0.23.0.Final.
- * (Removed in 0.24.0)
- * 
+ * Collects metrics exposed via HTTP(S) using the Prometheus exposition format.
+ *
+ * We leverage the Prometheus parser code (APLv2 licensed) written by RedHat
+ * as part of the hawkular-agent. See https://github.com/hawkular/hawkular-agent/tree/0.23.0.Final.
+ * (The code was removed from their tree in 0.24.0).
+ *
+ * Further details on the format are available at: https://prometheus.io/docs/instrumenting/exposition_formats/
+ *
  * @author jwhite
  */
 public class PrometheusCollector extends AbstractRemoteServiceCollector {
 
     private static final Logger LOG = LoggerFactory.getLogger(PrometheusCollector.class);
 
-    private static final String PROMETHEUS_COLLECTION_KEY = "prometheusCollection";
+    private static final String COLLECTION_REQUEST_KEY = "collection-request";
 
-    private static final Map<String, Class<?>> TYPE_MAP = Collections.unmodifiableMap(Stream.of(
-            new SimpleEntry<>(PROMETHEUS_COLLECTION_KEY, Collection.class))
-            .collect(Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue())));
+    private static final Map<String, Class<?>> TYPE_MAP = new ImmutableMap.Builder<String, Class<?>>()
+            .put(COLLECTION_REQUEST_KEY, PrometheusCollectionRequestDTO.class)
+            .build();
 
     private PrometheusDataCollectionConfigDao m_prometheusCollectionDao;
 
@@ -147,20 +119,25 @@ public class PrometheusCollector extends AbstractRemoteServiceCollector {
     public Map<String, Object> getRuntimeAttributes(CollectionAgent agent, Map<String, Object> parameters) {
         final Map<String, Object> runtimeAttributes = new HashMap<>();
 
-        // Retrieve the name of the JMX data collector
+        // Retrieve the collection by name
         final String collectionName = ParameterMap.getKeyedString(parameters, ParameterName.COLLECTION.toString(), null);
         final Collection collection = m_prometheusCollectionDao.getCollectionByName(collectionName);
         if (collection == null) {
             throw new IllegalArgumentException(String.format("PrometheusCollector: No collection found with name '%s'.", collectionName));
         }
-        runtimeAttributes.put(PROMETHEUS_COLLECTION_KEY, collection);
+
+        // Fetch the list of groups that belong to the collection
+        final List<Group> groups = m_prometheusCollectionDao.getGroupsForCollection(collection);
+        PrometheusCollectionRequestDTO request = new PrometheusCollectionRequestDTO();
+        request.setGroups(groups);
+        runtimeAttributes.put(COLLECTION_REQUEST_KEY, request);
 
         return runtimeAttributes;
     }
 
     @Override
     public CollectionSet collect(CollectionAgent agent, Map<String, Object> map) throws CollectionException {
-        final Collection collection = (Collection)map.get(PROMETHEUS_COLLECTION_KEY);
+        final PrometheusCollectionRequestDTO request = (PrometheusCollectionRequestDTO)map.get(COLLECTION_REQUEST_KEY);
         final String url = ParameterMap.getKeyedString(map, "url", null);
         if (Strings.isNullOrEmpty(url)) {
             throw new IllegalArgumentException("url parameter is required.");
@@ -181,22 +158,22 @@ public class PrometheusCollector extends AbstractRemoteServiceCollector {
             throw new CollectionException("Failed to scrape metrics for: " + url, e);
         }
 
-        return toCollectionSet(agent, collection, walker.getMetrics());
+        return toCollectionSet(agent, request, walker.getMetrics());
     }
 
-    protected static CollectionSet toCollectionSet(CollectionAgent agent, Collection collection, List<Metric> metrics) {
+    protected static CollectionSet toCollectionSet(CollectionAgent agent, PrometheusCollectionRequestDTO request, List<Metric> metrics) {
         final CollectionSetBuilder builder = new CollectionSetBuilder(agent);
-
-        for (Group group : collection.getGroup()) {
+        
+        for (Group group : request.getGroups()) {
             // First, we find the metrics that belong to this group
             final List<Metric> metricsForGroup = filterMetrics(group.getFilterExp(), metrics);
             if (metricsForGroup.isEmpty()) {
-                // Don't bother continuing if we have no metric
+                // Don't bother continuing if we have no metrics
                 LOG.debug("No metrics found in group named '%s' on agent %s.", group.getName(), agent);
                 continue;
             }
 
-            // Next, we group the metrics by instance
+            // Next, group the metrics by instance
             final Map<String, List<Metric>> metricsByInstance = groupMetrics(group, metricsForGroup);
 
             // Build the resource mapper
@@ -204,16 +181,15 @@ public class PrometheusCollector extends AbstractRemoteServiceCollector {
             Function<String, Resource> resourceMapper = (instance) -> nodeLevelResource;
             if (!"node".equalsIgnoreCase(group.getResourceType())) {
                 resourceMapper = (instance) -> {
-                    // JW: FIXME: TODO - This belongs elsewhere
-                    final String sanitizedInstance = instance.replaceAll("/", "_").replaceAll("\\\\", "_");
+                    final String sanitizedInstance = GenericTypeResource.sanitizeInstanceStrict(instance);
                     return new DeferredGenericTypeResource(nodeLevelResource, group.getResourceType(), sanitizedInstance);
                 };
             }
 
-            // Process the metrics instance, by instance
+            // Process the metrics by instance
             for (Entry<String, List<Metric>> entry : metricsByInstance.entrySet()) {
                 final Resource resource = resourceMapper.apply(entry.getKey());
-                
+
                 // First, process the numeric attributes
                 for (NumericAttribute attribute : group.getNumericAttribute()) {
                     // Filter
@@ -360,10 +336,6 @@ public class PrometheusCollector extends AbstractRemoteServiceCollector {
 
         LOG.debug("Using RRD repository: {} for collection: {}", rrdRepository, collectionName);
         return rrdRepository;
-    }
-
-    public PrometheusDataCollectionConfigDao getPrometheusCollectionDao() {
-        return m_prometheusCollectionDao;
     }
 
     public void setPrometheusCollectionDao(PrometheusDataCollectionConfigDao prometheusCollectionDao) {

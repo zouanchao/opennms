@@ -1,3 +1,31 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2017-2017 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2017 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
 package org.opennms.netmgt.collectd;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
@@ -34,6 +62,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 import org.opennms.netmgt.config.datacollection.PersistenceSelectorStrategy;
 import org.opennms.netmgt.config.datacollection.ResourceType;
@@ -73,10 +102,8 @@ public class PrometheusCollectorTest {
         attribute.setAliasExp("name.substring('node_'.length())");
         nodeExporterLoadAverage.getNumericAttribute().add(attribute);
 
-        collection.getGroup().add(nodeExporterLoadAverage);
-
         // Collect!
-        CollectionSet collectionSet = collect(collection);
+        CollectionSet collectionSet = collect(collection, Lists.newArrayList(nodeExporterLoadAverage));
 
         // Verify
         List<String> collectionSetKeys = CollectionSetUtils.flatten(collectionSet);
@@ -109,14 +136,12 @@ public class PrometheusCollectorTest {
         deviceStringAttribute.setValueExp("labels[device]");
         nodeExporterCpu.getStringAttribute().add(deviceStringAttribute);
 
-        collection.getGroup().add(nodeExporterCpu);
-
         // Define the resource type
         ResourceType resourceType = createStandardResourceType("nodeExporterFilesytem");
         ResourceTypeMapper.getInstance().setResourceTypeMapper((rt) -> resourceType);
 
         // Collect!
-        CollectionSet collectionSet = collect(collection);
+        CollectionSet collectionSet = collect(collection, Lists.newArrayList(nodeExporterCpu));
 
         // Verify
         List<String> collectionSetKeys = CollectionSetUtils.flatten(collectionSet);
@@ -145,14 +170,12 @@ public class PrometheusCollectorTest {
         attribute.setAliasExp("name.substring('node_disk_'.length())");
         nodeExporterDisks.getNumericAttribute().add(attribute);
 
-        collection.getGroup().add(nodeExporterDisks);
-
         // Define the resource type
         ResourceType resourceType = createStandardResourceType("nodeExporterDisk");
         ResourceTypeMapper.getInstance().setResourceTypeMapper((rt) -> resourceType);
         
         // Collect!
-        CollectionSet collectionSet = collect(collection);
+        CollectionSet collectionSet = collect(collection, Lists.newArrayList(nodeExporterDisks));
 
         // Verify
         List<String> collectionSetKeys = CollectionSetUtils.flatten(collectionSet);
@@ -237,14 +260,12 @@ public class PrometheusCollectorTest {
         attribute.setAliasExp("labels[mode]");
         nodeExporterCpu.getNumericAttribute().add(attribute);
 
-        collection.getGroup().add(nodeExporterCpu);
-
         // Define the resource type
         ResourceType resourceType = createStandardResourceType("nodeExporterCPU");
         ResourceTypeMapper.getInstance().setResourceTypeMapper((rt) -> resourceType);
         
         // Collect!
-        CollectionSet collectionSet = collect(collection);
+        CollectionSet collectionSet = collect(collection, Lists.newArrayList(nodeExporterCpu));
 
         // Verify
         List<String> collectionSetKeys = CollectionSetUtils.flatten(collectionSet);
@@ -322,7 +343,7 @@ public class PrometheusCollectorTest {
                 "0/nodeExporterCPU/cpu7/node-exporter-cpu/user[null,1203.71]"), collectionSetKeys);
     }
 
-    private CollectionSet collect(Collection collection) {
+    private CollectionSet collect(Collection collection, List<Group> groups) {
         // Create the agent
         OnmsNode node = mock(OnmsNode.class);
         OnmsIpInterface iface = mock(OnmsIpInterface.class);
@@ -336,6 +357,7 @@ public class PrometheusCollectorTest {
 
         PrometheusDataCollectionConfigDao collectionDao = mock(PrometheusDataCollectionConfigDao.class);
         when(collectionDao.getCollectionByName(any())).thenReturn(collection);
+        when(collectionDao.getGroupsForCollection(collection)).thenReturn(groups);
         collector.setPrometheusCollectionDao(collectionDao);
 
         try {

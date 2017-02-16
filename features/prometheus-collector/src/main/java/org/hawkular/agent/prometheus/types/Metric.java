@@ -29,11 +29,13 @@ public abstract class Metric {
         private String name;
         private Map<String, String> labels;
 
+        @SuppressWarnings("unchecked")
         public B setName(String name) {
             this.name = name;
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B addLabel(String name, String value) {
             if (labels == null) {
                 labels = new LinkedHashMap<>(); // used linked hash map to retain ordering
@@ -42,6 +44,7 @@ public abstract class Metric {
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
         public B addLabels(Map<String, String> map) {
             if (labels == null) {
                 labels = new LinkedHashMap<>(); // used linked hash map to retain ordering

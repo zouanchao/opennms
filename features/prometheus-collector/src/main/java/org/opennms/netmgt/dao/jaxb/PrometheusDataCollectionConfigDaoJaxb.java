@@ -29,13 +29,16 @@
 package org.opennms.netmgt.dao.jaxb;
 
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.opennms.core.xml.AbstractMergingJaxbConfigDao;
 import org.opennms.netmgt.config.prometheus.Collection;
+import org.opennms.netmgt.config.prometheus.Group;
 import org.opennms.netmgt.config.prometheus.PrometheusDatacollectionConfig;
 import org.opennms.netmgt.dao.PrometheusDataCollectionConfigDao;
 
@@ -67,26 +70,21 @@ public class PrometheusDataCollectionConfigDaoJaxb extends AbstractMergingJaxbCo
 
     @Override
     public Collection getCollectionByName(String name) {
-        final Collection collection = getConfig().getCollection().stream()
+        return getConfig().getCollection().stream()
             .filter(c -> Objects.equals(name, c.getName())).findFirst().orElse(null);
+    }
 
+    @Override
+    public List<Group> getGroupsForCollection(Collection collection) {
         if (collection == null) {
-            return null;
+            return Collections.emptyList();
         }
 
-        // Create a shallow clone
-        Collection collectionWithGroups = new Collection();
-        collectionWithGroups.setName(collection.getName());
-        collectionWithGroups.setRrd(collection.getRrd());
-        collectionWithGroups.getGroupRef().addAll(collection.getGroupRef());
-        
         // Resolve the group references and add them to the clone
         final Set<String> referencedGroupNames = new HashSet<>(collection.getGroupRef());
-        collectionWithGroups.getGroup().addAll(getConfig().getGroup().stream()
+        return getConfig().getGroup().stream()
                 .filter(g -> referencedGroupNames.contains(g.getName()))
-                .collect(Collectors.toList()));
-
-        return collectionWithGroups;
+                .collect(Collectors.toList());
     }
 
 }

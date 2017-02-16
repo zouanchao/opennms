@@ -32,6 +32,7 @@ public class TextSample extends Metric {
         private String value;
         private String line;
 
+        @SuppressWarnings("unchecked")
         public TextSample build() {
             return new TextSample(this);
         }

@@ -29,6 +29,7 @@ public class Histogram extends Metric {
         private double sampleSum = Double.NaN;
         private List<Bucket> buckets;
 
+        @SuppressWarnings("unchecked")
         public Histogram build() {
             return new Histogram(this);
         }

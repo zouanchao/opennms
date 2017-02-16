@@ -28,7 +28,10 @@
 
 package org.opennms.netmgt.dao;
 
+import java.util.List;
+
 import org.opennms.netmgt.config.prometheus.Collection;
+import org.opennms.netmgt.config.prometheus.Group;
 import org.opennms.netmgt.config.prometheus.PrometheusDatacollectionConfig;
 
 public interface PrometheusDataCollectionConfigDao {
@@ -36,5 +39,7 @@ public interface PrometheusDataCollectionConfigDao {
     PrometheusDatacollectionConfig getConfig();
 
     Collection getCollectionByName(String name);
+
+    List<Group> getGroupsForCollection(Collection collection);
 
 }

@@ -21,6 +21,7 @@ public class Gauge extends Metric {
     public static class Builder extends Metric.Builder<Builder> {
         private double value = Double.NaN;
 
+        @SuppressWarnings("unchecked")
         public Gauge build() {
             return new Gauge(this);
         }
