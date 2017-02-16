@@ -323,6 +323,11 @@ public class ConfigTesterTest {
     }
 
     @Test
+    public void testPrometheusConfigFiles() {
+        testConfigFile("prometheus-datacollection-config.xml");
+    }
+
+    @Test
     public void testProvisiondConfiguration() {
         testConfigFile("provisiond-configuration.xml");
     }
