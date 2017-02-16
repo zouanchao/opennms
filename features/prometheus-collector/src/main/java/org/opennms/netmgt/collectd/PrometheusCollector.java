@@ -95,6 +95,8 @@ public class PrometheusCollector extends AbstractRemoteServiceCollector {
 
     private static final Logger LOG = LoggerFactory.getLogger(PrometheusCollector.class);
 
+    private static final String INTERFACE_ADDRESS_PLACEHOLDER = "INTERFACE_ADDRESS";
+
     private static final String COLLECTION_REQUEST_KEY = "collection-request";
 
     private static final Map<String, Class<?>> TYPE_MAP = new ImmutableMap.Builder<String, Class<?>>()
@@ -138,10 +140,13 @@ public class PrometheusCollector extends AbstractRemoteServiceCollector {
     @Override
     public CollectionSet collect(CollectionAgent agent, Map<String, Object> map) throws CollectionException {
         final PrometheusCollectionRequestDTO request = (PrometheusCollectionRequestDTO)map.get(COLLECTION_REQUEST_KEY);
-        final String url = ParameterMap.getKeyedString(map, "url", null);
+        String url = ParameterMap.getKeyedString(map, "url", null);
         if (Strings.isNullOrEmpty(url)) {
             throw new IllegalArgumentException("url parameter is required.");
         }
+
+        // Replace the IP address placeholder
+        url = url.replace(INTERFACE_ADDRESS_PLACEHOLDER, agent.getHostAddress());
 
         final URL parsedUrl;
         try {

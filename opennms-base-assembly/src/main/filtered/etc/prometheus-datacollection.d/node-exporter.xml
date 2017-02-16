@@ -9,10 +9,11 @@
        <rra>RRA:MIN:0.5:288:366</rra>
      </rrd>
 
-     <group-ref>node_exporter_loadavg</group-ref>
      <group-ref>node_exporter_cpu</group-ref> 
      <group-ref>node_exporter_disks</group-ref>
      <group-ref>node_exporter_filesystems</group-ref>
+     <group-ref>node_exporter_loadavg</group-ref>
+     <group-ref>node_exporter_memory</group-ref>
    </collection>
 
    <!--
@@ -25,6 +26,21 @@
      filter-exp="name matches 'node_load.*'">
     
      <numeric-attribute alias-exp="name.substring('node_'.length())"/>
+   </group>
+
+   <!--
+      node_memory_Active 1.3626548224e+10
+      node_memory_Active_anon 6.314020864e+09
+      node_memory_Active_file 7.31252736e+09
+      ...
+      node_memory_HugePages_Free 0
+      ...
+   -->
+   <group name="node_exporter_memory"
+     resource-type="node"
+     filter-exp="name matches 'node_memory_.*'">
+
+     <numeric-attribute alias-exp="name.substring('node_memory_'.length())"/>
    </group>
 
    <!--
@@ -70,5 +86,6 @@
      group-by-exp="labels[mountpoint]">
 
      <numeric-attribute alias-exp="name.substring('node_filesystem_'.length())"/>
+     <string-attribute alias="device" value-exp="labels[device]"/>
    </group>
 </prometheus-datacollection-config>
