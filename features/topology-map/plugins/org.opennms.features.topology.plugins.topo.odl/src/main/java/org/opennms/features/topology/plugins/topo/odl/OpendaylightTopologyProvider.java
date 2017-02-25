@@ -52,11 +52,6 @@ public class OpendaylightTopologyProvider extends AbstractTopologyProvider imple
         return Sets.newHashSet(ContentType.Alarm, ContentType.Node).contains(type);
     }
 
-    @Override
-    public void save() {
-        throw new UnsupportedOperationException();
-    }
-
     private void load() {
         LOG.debug("Loading...");
         List<Link> allLinks = Lists.newArrayList();
@@ -93,19 +88,14 @@ public class OpendaylightTopologyProvider extends AbstractTopologyProvider imple
 
         // Create the edges
         for (Link link : allLinks) {
-            Vertex source = getVertex(getVertexNamespace(), link.getSourceNode());
-            Vertex target = getVertex(getVertexNamespace(), link.getDestinationNode());
+            Vertex source = getVertex(getNamespace(), link.getSourceNode());
+            Vertex target = getVertex(getNamespace(), link.getDestinationNode());
             if (source == null || target == null) {
                 continue;
             }
-            addEdges(new AbstractEdge(getVertexNamespace(), link.getId(), source, target));
+            addEdges(new AbstractEdge(getNamespace(), link.getId(), source, target));
         }
         LOG.debug("Loaded.");
-    }
-
-    @Override
-    public void load(String filename) {
-        load();
     }
 
     @Override
