@@ -30,21 +30,21 @@ package org.opennms.features.topology.app.internal.jung;
 
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.opennms.features.topology.api.Graph;
-import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.Layout;
+import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.api.Point;
-import org.opennms.features.topology.api.topo.AbstractEdge;
 import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.LevelAware;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.uci.ics.jung.graph.DirectedOrderedSparseMultigraph;
 
@@ -61,7 +61,7 @@ import edu.uci.ics.jung.graph.DirectedOrderedSparseMultigraph;
  * <p>
  * The current graph to be transformed is extracted from the {@link org.opennms.features.topology.api.GraphContainer}.
  * Basically all its vertices are transformed and then the new layout is set back to the GraphContainer by executing
- * the {@link #updateLayout(GraphContainer) updateLayout} method.
+ * the {@link LayoutAlgorithm#updateLayout(Graph) updateLayout} method.
  * </p>
  *
  * The Algorithm uses the JUNG library.
@@ -71,23 +71,48 @@ import edu.uci.ics.jung.graph.DirectedOrderedSparseMultigraph;
  */
 public class HierarchyLayoutAlgorithm extends AbstractLayoutAlgorithm {
 
+    private static Logger LOG = LoggerFactory.getLogger(HierarchyLayoutAlgorithm.class);
+
     /**
      * Updates the current layout by extracting the containers graph and then perform a (x,y) tranformation
      * of all vertices.
      *
-     * @param graphContainer The container of the current graph. Contains all relevant information to perform the transformation
-     *                       of the {@link org.opennms.features.topology.api.Graph} by changing its {@link org.opennms.features.topology.api.Layout}
+     * @param graph The container of the current graph. Contains all relevant information to perform the transformation
+     *                       of the {@link Graph} by changing its {@link Layout}
      */
     @Override
-    public void updateLayout(final GraphContainer graphContainer) {
-        final Graph graph = graphContainer.getGraph();
+    public void updateLayout(final Graph graph) {
         final Layout graphLayout = graph.getLayout();
-        final edu.uci.ics.jung.algorithms.layout.Layout<VertexRef, Edge> treeLayout = createTreeLayout(graph);
 
-        applyLayoutPositions(graph.getDisplayVertices(), treeLayout, graphLayout);
+        // Only apply if fully level aware.
+        // This should fix rendering if selected "Hierarchical Layout" is already selected, but the graph is not
+        // fully level aware. See NMS-8703
+        if (isFullyLevelAware(graph)) {
+            final edu.uci.ics.jung.algorithms.layout.Layout<VertexRef, Edge> treeLayout = createTreeLayout(graph);
+            applyLayoutPositions(graph.getDisplayVertices(), treeLayout, graphLayout);
+        } else {
+            // SEE NMS-8703
+            LOG.warn("The selected graph is not fully level aware. Cannot layout hierarchical. Falling back to D3 Layout");
+            new D3TopoLayoutAlgorithm().updateLayout(graph);
+        }
+    }
+
+    /**
+     * Verifies that all vertices in the graph are implementing {@link LevelAware}.
+     *
+     * @param graph The graph to verify.
+     * @return True if all vertices implement {@link LevelAware}. False otherwise.
+     */
+    private boolean isFullyLevelAware(Graph graph) {
+        long levelAwareCount = graph.getDisplayVertices().stream().filter(v -> v instanceof LevelAware).count();
+        return levelAwareCount == graph.getDisplayVertices().size();
     }
 
     private edu.uci.ics.jung.graph.DirectedGraph<VertexRef, Edge> convert(final Graph g) {
+        if (!isFullyLevelAware(g)) {
+            throw new IllegalStateException("The graph is not LevelAware. Cannot apply Hierarchy Layout. Aborting");
+        }
+
         // We need to sort the elements. For this purpose we use the DirectedOrderedSparseMultigraph
         final edu.uci.ics.jung.graph.DirectedGraph<VertexRef, Edge> jungGraph = new DirectedOrderedSparseMultigraph<>();
         final Collection<Vertex> displayVertices = g.getDisplayVertices();
@@ -99,10 +124,6 @@ public class HierarchyLayoutAlgorithm extends AbstractLayoutAlgorithm {
                 return Integer.compare(((LevelAware) o1).getLevel(), ((LevelAware) o2).getLevel());
             }
         }).collect(Collectors.toList());
-
-        // Add all non LevelAware Vertices
-        final List<Vertex> notLevelAwareVertices = displayVertices.stream().filter(v -> !sortedVertices.contains(v)).collect(Collectors.toList());
-        sortedVertices.addAll(notLevelAwareVertices);
 
         // Build the graph
         for(VertexRef v : sortedVertices) {
@@ -127,17 +148,5 @@ public class HierarchyLayoutAlgorithm extends AbstractLayoutAlgorithm {
         final edu.uci.ics.jung.graph.DirectedGraph<VertexRef, Edge> jungGraph = convert(g);
         HierarchyLayout<VertexRef, Edge> layout = new HierarchyLayout<>(jungGraph, ELBOW_ROOM * 2, ELBOW_ROOM * 2);
         return layout;
-    }
-
-    private List<Edge> createRootDummyEdges(List<Vertex> realRootVertices, Vertex dummyRootVertex) {
-        List<Edge> edges = new ArrayList<>();
-        for (Vertex eachRealRootVertex : realRootVertices) {
-            Edge edge = new AbstractEdge(
-                    getClass().getSimpleName(),
-                    dummyRootVertex.getId() + ":" + eachRealRootVertex.getId(),
-                    dummyRootVertex, eachRealRootVertex);
-            edges.add(edge);
-        }
-        return edges;
     }
 }

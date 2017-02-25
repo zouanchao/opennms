@@ -28,7 +28,9 @@
 
 package org.opennms.features.topology.app.internal.operations;
 
+import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.LayoutAlgorithm;
+import org.opennms.features.topology.api.TopologyServiceClient;
 import org.opennms.features.topology.app.internal.jung.HierarchyLayoutAlgorithm;
 
 public class HierarchyLayoutOperation extends LayoutOperation {
@@ -47,5 +49,12 @@ public class HierarchyLayoutOperation extends LayoutOperation {
     @Override
     public String getId() {
         return getClass().getSimpleName();
+    }
+
+    // Prevent non hierarchical topologies to use this operation. See NMS-8703
+    @Override
+    protected boolean enabled(GraphContainer container) {
+        final TopologyServiceClient client = container.getTopologyServiceClient();
+        return client.getMetaTopologyId() != null && client.getNamespace() != null && client.getInfo().isHierarchical();
     }
 }
