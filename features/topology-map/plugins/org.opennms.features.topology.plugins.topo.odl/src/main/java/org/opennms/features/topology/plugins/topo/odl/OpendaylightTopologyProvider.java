@@ -2,11 +2,13 @@ package org.opennms.features.topology.plugins.topo.odl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.features.topology.api.browsers.ContentType;
 import org.opennms.features.topology.api.browsers.SelectionChangedListener;
 import org.opennms.features.topology.api.browsers.SelectionChangedListener.Selection;
+import org.opennms.features.topology.api.support.VertexHopGraphProvider;
 import org.opennms.features.topology.api.topo.AbstractEdge;
 import org.opennms.features.topology.api.topo.AbstractTopologyProvider;
 import org.opennms.features.topology.api.topo.AbstractVertex;
@@ -117,6 +119,17 @@ public class OpendaylightTopologyProvider extends AbstractTopologyProvider imple
 
     @Override
     public Defaults getDefaults() {
-        return new Defaults();
+        return new Defaults()
+                .withSemanticZoomLevel(2)
+                .withCriteria(() -> {
+                    final Optional<Vertex> firstOpenflowSwitch = getSimpleVertexProvider().getVertices().stream()
+                        .filter(v -> "OPENFLOW_SWITCH".equals(v.getIconKey()))
+                        .findFirst();
+
+                    if (!firstOpenflowSwitch.isPresent()) {
+                        return null;
+                    }
+                    return Lists.newArrayList(new VertexHopGraphProvider.DefaultVertexHopCriteria(firstOpenflowSwitch.get()));
+                });
     }
 }
