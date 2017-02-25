@@ -3,6 +3,7 @@
     xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
     <reference id="nodeDao" interface="org.opennms.netmgt.dao.api.NodeDao" availability="mandatory"/>
+    <reference id="alarmDao" interface="org.opennms.netmgt.dao.api.AlarmDao" availability="mandatory" />
 
     <!-- Topology Provider -->
     <bean id="odlTopologyProvider" scope="prototype"
@@ -46,6 +47,12 @@
         <property name="nodeDao" ref="nodeDao"/>
     </bean>
     <service interface="org.opennms.features.topology.api.topo.SearchProvider" ref="odlSearchProvider" />
+
+    <!-- Status provider -->
+    <bean id="statusProvider" class="org.opennms.features.topology.plugins.topo.odl.AlarmStatusProvider">
+        <argument ref="alarmDao"/>
+    </bean>
+    <service interface="org.opennms.features.topology.api.topo.StatusProvider" ref="statusProvider" />
 
   <!-- Icon definition -->
   <service>

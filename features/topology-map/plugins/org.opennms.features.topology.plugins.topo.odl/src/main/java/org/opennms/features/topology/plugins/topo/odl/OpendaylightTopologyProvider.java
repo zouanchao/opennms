@@ -30,14 +30,14 @@ import com.google.common.collect.Sets;
 
 public class OpendaylightTopologyProvider extends AbstractTopologyProvider implements GraphProvider {
 
-    public static final String TOPOLOGY_NAMESPACE = "odl";
+    public static final String TOPOLOGY_NAMESPACE_ODL = "odl";
 
     private static final Logger LOG = LoggerFactory.getLogger(OpendaylightTopologyProvider.class);
 
     private NodeDao m_nodeDao;
 
     public OpendaylightTopologyProvider() {
-        super(new SimpleVertexProvider(TOPOLOGY_NAMESPACE), new SimpleEdgeProvider(TOPOLOGY_NAMESPACE));
+        super(new SimpleVertexProvider(TOPOLOGY_NAMESPACE_ODL), new SimpleEdgeProvider(TOPOLOGY_NAMESPACE_ODL));
     }
 
     @Override
