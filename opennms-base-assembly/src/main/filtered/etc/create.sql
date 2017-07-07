@@ -1086,8 +1086,10 @@ create table alarms (
     qosAlarmState           VARCHAR(31),
     ifIndex                 INTEGER,
     clearKey                VARCHAR(256),
-    stickymemo              INTEGER, CONSTRAINT fk_stickyMemo FOREIGN KEY (stickymemo) REFERENCES memos (id) ON DELETE CASCADE
-);
+    stickymemo              INTEGER, CONSTRAINT fk_stickyMemo FOREIGN KEY (stickymemo) REFERENCES memos (id) ON DELETE CASCADE,
+    cause                   boolean DEFAULT false NOT NULL,
+    impacted                boolean DEFAULT false NOT NULL
+    );
 
 CREATE INDEX alarm_uei_idx ON alarms(eventUei);
 CREATE INDEX alarm_nodeid_idx ON alarms(nodeID);
@@ -1121,6 +1123,13 @@ CREATE TABLE alarm_attributes (
 
 CREATE INDEX alarm_attributes_idx ON alarm_attributes(alarmID);
 CREATE UNIQUE INDEX alarm_attributes_aan_idx ON alarm_attributes(alarmID, attributeName);
+
+CREATE TABLE impacted_alarms (
+    cause_alarmid integer NOT NULL,
+    impacted_alarmid integer NOT NULL
+);
+
+CREATE UNIQUE INDEX impacted_alarms_idx ON impacted_alarms(cause_alarmid, impacted_alarmid);
 
 --# This constraint not understood by installer
 --#        CONSTRAINT pk_usersNotified PRIMARY KEY (userID,notifyID) );

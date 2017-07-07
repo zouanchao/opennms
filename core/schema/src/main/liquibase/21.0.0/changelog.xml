@@ -111,5 +111,28 @@
     <dropColumn tableName="snmpinterface" columnName="snmpipadentnetmask" />
   </changeSet>
 
+  <changeSet author="jwhite" id="21.0.0-alarm-correlation">
+    <addColumn tableName="alarms">
+      <column name="cause" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <addColumn tableName="alarms">
+      <column name="impacted" type="boolean" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+    </addColumn>
+    <createTable tableName="impacted_alarms">
+      <column name="cause_alarmid" type="integer">
+        <constraints nullable="false"/>
+      </column>
+      <column name="impacted_alarmid" type="integer">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+    <addUniqueConstraint tableName="impacted_alarms" columnNames="cause_alarmid, impacted_alarmid"/>
+    <addForeignKeyConstraint constraintName="fk_impacted_alarms_cause_alarm_id" baseTableName="impacted_alarms" baseColumnNames="cause_alarmid" referencedTableName="alarms" referencedColumnNames="alarmid"/>
+    <addForeignKeyConstraint constraintName="fk_impacted_alarms_impacted_alarmid" baseTableName="impacted_alarms" baseColumnNames="impacted_alarmid" referencedTableName="alarms" referencedColumnNames="alarmid"/>
+  </changeSet>
 
 </databaseChangeLog>
