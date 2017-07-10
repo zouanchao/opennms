@@ -2,11 +2,15 @@
     "alarm": [
         {
             "ackId": 1, 
+            "cause": false,
+            "causes": [],
             "count": 1, 
             "description": "This is a test alarm", 
             "firstEventTime": 1436881548292, 
             "id": 1, 
             "ifIndex": null, 
+            "impacted": false,
+            "impacts": [],
             "ipAddress": "192.168.1.1", 
             "lastEvent": {
                 "createTime": 1436881548292, 
