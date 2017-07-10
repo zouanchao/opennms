@@ -5,11 +5,15 @@
             "ackId": 4, 
             "ackTime": 1282329200000, 
             "ackUser": "admin", 
+            "cause": false,
+            "causes": [],
             "count": 1, 
             "description": "This is a test alarm", 
             "firstEventTime": 1262329200000, 
             "id": 4, 
             "ifIndex": null, 
+            "impacted": false,
+            "impacts": [],
             "ipAddress": "192.0.2.123", 
             "lastEvent": {
                 "createTime": 1262329200000, 
@@ -60,11 +64,15 @@
     "newestUnacked": [
         {
             "ackId": 7, 
+            "cause": false,
+            "causes": [],
             "count": 1, 
             "description": "This is a test alarm", 
             "firstEventTime": 1262340000000, 
             "id": 7, 
             "ifIndex": null, 
+            "impacted": false,
+            "impacts": [],
             "ipAddress": "192.0.2.123", 
             "lastEvent": {
                 "createTime": 1262340000000, 
@@ -117,11 +125,15 @@
             "ackId": 2, 
             "ackTime": 1282329200000, 
             "ackUser": "admin", 
+            "cause": false,
+            "causes": [],
             "count": 1, 
             "description": "This is a test alarm", 
             "firstEventTime": 1262322000000, 
             "id": 2, 
             "ifIndex": null, 
+            "impacted": false,
+            "impacts": [],
             "ipAddress": "192.0.2.123", 
             "lastEvent": {
                 "createTime": 1262322000000, 
@@ -172,11 +184,15 @@
     "oldestUnacked": [
         {
             "ackId": 5, 
+            "cause": false,
+            "causes": [],
             "count": 1, 
             "description": "This is a test alarm", 
             "firstEventTime": 1262332800000, 
             "id": 5, 
             "ifIndex": null, 
+            "impacted": false,
+            "impacts": [],
             "ipAddress": "192.0.2.123", 
             "lastEvent": {
                 "createTime": 1262332800000, 
