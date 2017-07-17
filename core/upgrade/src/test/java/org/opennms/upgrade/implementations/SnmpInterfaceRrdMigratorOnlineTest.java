@@ -63,9 +63,7 @@ public class SnmpInterfaceRrdMigratorOnlineTest {
         FileUtils.copyDirectory(new File("src/test/resources/rrd"), new File("target/home/rrd"));
         FileUtils.copyDirectory(new File("src/test/resources/jetty-webapps/opennms/WEB-INF"), new File("target/home/jetty-webapps/opennms/WEB-INF/"));
         System.setProperty("opennms.home", "target/home");
-        DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        dao.setConfigResource(new FileSystemResource(new File("target/home/etc/datacollection-config.xml")));
-        dao.afterPropertiesSet();
+        DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao(new File("target/home/etc/datacollection-config.xml").toPath().toAbsolutePath());
         DataCollectionConfigFactory.setInstance(dao);
     }
 

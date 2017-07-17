@@ -106,9 +106,7 @@ public abstract class DataCollectionConfigFactory {
             // Because DataCollectionConfigFactory.init() requires Spring initialization, it is better to instantiate a local copy
             // for testing the data collection configuration.
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
-            DefaultDataCollectionConfigDao config = new DefaultDataCollectionConfigDao();
-            config.setConfigResource(new FileSystemResource(cfgFile));
-            config.afterPropertiesSet();
+            DefaultDataCollectionConfigDao config = new DefaultDataCollectionConfigDao(cfgFile.toPath());
             config.getConfiguredResourceTypes();
             System.out.println("OK: no errors found");
         } catch (Throwable e) {

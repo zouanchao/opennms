@@ -30,6 +30,7 @@ package org.opennms.netmgt.config;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 
@@ -239,14 +240,9 @@ public class DataCollectionConfigParserTest {
 
     @Test
     public void testsForNMS8030() throws Exception {
-        File home = new File("src/test/resources/NMS8030");
-        Assert.assertTrue(home.exists());
-        File configFile = new File(home, "etc/datacollection-config.xml");
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        dao.setConfigResource(new FileSystemResource(configFile));
-        dao.setConfigDirectory(new File(home, "etc/datacollection").getAbsolutePath());
+        dao.setOpennmsHome(Paths.get("src", "test", "resources", "NMS8030"));
         dao.setReloadCheckInterval(0l);
-        dao.afterPropertiesSet();
 
         // Use case 1
 

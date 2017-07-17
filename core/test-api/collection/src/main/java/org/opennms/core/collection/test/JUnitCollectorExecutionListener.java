@@ -88,9 +88,7 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
             HttpCollectionConfigFactory.init();
         } else if ("snmp".equalsIgnoreCase(config.datacollectionType())) {
             Resource r = ConfigurationTestUtils.getSpringResourceForResourceWithReplacements(testContext.getTestInstance(), config.datacollectionConfig(), new String[] { "%rrdRepository%", m_snmpRrdDirectory.getAbsolutePath() });
-            DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
-            dataCollectionDao.setConfigResource(r);
-            dataCollectionDao.afterPropertiesSet();
+            DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao(r.getFile().toPath().toAbsolutePath());
             DataCollectionConfigFactory.setInstance(dataCollectionDao);
         } else {
             throw new UnsupportedOperationException("data collection type '" + config.datacollectionType() + "' not supported");

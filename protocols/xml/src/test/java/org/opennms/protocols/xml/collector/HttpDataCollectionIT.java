@@ -30,6 +30,7 @@ package org.opennms.protocols.xml.collector;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,9 +111,7 @@ public class HttpDataCollectionIT {
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        dao.setConfigDirectory("src/test/resources/etc/datacollection");
-        dao.setConfigResource(new FileSystemResource("src/test/resources/etc/datacollection-config.xml"));
-        dao.afterPropertiesSet();
+        dao.setOpennmsHome(Paths.get("src", "test", "resources"));
         DataCollectionConfigFactory.setInstance(dao);
 
         m_rrdStrategy = new JRobinRrdStrategy();

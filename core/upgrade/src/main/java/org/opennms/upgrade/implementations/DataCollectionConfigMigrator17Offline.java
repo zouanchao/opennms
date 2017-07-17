@@ -140,11 +140,9 @@ public class DataCollectionConfigMigrator17Offline extends AbstractOnmsUpgrade {
     private boolean isConfigValid() throws OnmsUpgradeException {
         File configDirectory = new File(sourceFile.getParentFile().getAbsolutePath(), "datacollection");
         try {
-            DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
+            DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao(sourceFile.toPath().toAbsolutePath());
             dao.setConfigDirectory(configDirectory.getAbsolutePath());
-            dao.setConfigResource(new FileSystemResource(sourceFile));
-            dao.setReloadCheckInterval(new Long(0));
-            dao.afterPropertiesSet();
+            dao.setReloadCheckInterval(0L);
         } catch (IllegalArgumentException e) {
             log("Found a problem: %s\n", e.getMessage());
             Matcher m = pattern.matcher(e.getMessage());
