@@ -31,9 +31,7 @@ package org.opennms.netmgt.config.datacollection;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -194,29 +192,7 @@ public class DatacollectionConfig implements Serializable {
         if (m_rrdRepository == null) {
             m_rrdRepository = other.getRrdRepository();
         }
-
-        // Index the existing collections by name
-        Map<String, SnmpCollection> collectionsByName = new HashMap<>();
-        for (final SnmpCollection collection : m_snmpCollections) {
-            if (collection.getName() != null) {
-                collectionsByName.put(collection.getName(), collection);
-            }
-        }
-
-        // Merge!
-        for (SnmpCollection collection : other.getSnmpCollections()) {
-            SnmpCollection existingCollection = collectionsByName.get(collection.getName());
-            if (existingCollection != null) {
-                for (Group g : collection.getGroups().getGroups()) {
-                    existingCollection.getGroups().addGroup(g);
-                }
-                for (SystemDef def : collection.getSystems().getSystemDefs()) {
-                    existingCollection.getSystems().addSystemDef(def);
-                }
-            } else {
-                m_snmpCollections.add(collection);
-            }
-        }
+        m_snmpCollections.addAll(other.getSnmpCollections());
         return this;
     }
 }
