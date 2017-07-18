@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2016-2017 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2017 The OpenNMS Group, Inc.
+ * Copyright (C) 2010-2016 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2016 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -28,15 +28,6 @@
 
 package org.opennms.core.xml;
 
-import org.opennms.core.soa.Registration;
-import org.opennms.core.soa.RegistrationListener;
-import org.opennms.core.soa.ServiceRegistry;
-import org.opennms.core.soa.support.DefaultServiceRegistry;
-import org.opennms.core.utils.ConfigFileConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.FileSystemResource;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,13 +37,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
+
+import org.opennms.core.utils.ConfigFileConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
 
 /**
  * Abstract DAO used to merge the contents of .xml files stored in a particular directory.
@@ -62,12 +57,10 @@ import java.util.stream.Stream;
  * @param <V> Configuration object that is stored in memory (might be the same
  *            as the JAXB class or could be a different class)
  */
-public abstract class AbstractMergingJaxbConfigDao<K, V> implements RegistrationListener<ConfigProvider> {
+public abstract class AbstractMergingJaxbConfigDao<K, V> {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractMergingJaxbConfigDao.class);
 
     private static final long DEFAULT_RELOAD_CHECK_INTERVAL = 5000;
-
-    private static final ServiceRegistry s_registry = DefaultServiceRegistry.INSTANCE;
 
     // Configuration
     private final Class<K> m_entityClass;
@@ -80,10 +73,8 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
     // State
     private long m_lastUpdate = 0;
     private long m_lastReloadCheck = 0;
-    private boolean m_forceUpdate = false;
     private List<File> m_xmlFiles = null;
     private final Map<File, JaxbConfigDao> m_configDaosByPath = new HashMap<>();
-    private final Set<ConfigProvider> m_configProviders = new LinkedHashSet<>();
     private V m_object = null;
 
     public AbstractMergingJaxbConfigDao(final Class<K> entityClass, final String description,
@@ -98,12 +89,14 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
         m_rootFile = rootFile;
         m_includeFolder = Objects.requireNonNull(includeFolder, "includeFolder argument");
         m_opennmsHome = Paths.get(ConfigFileConstants.getHome());
-
-        s_registry.addListener(ConfigProvider.class, this, true);
     }
 
     public void setOpennmsHome(Path opennmsHome) {
         m_opennmsHome = opennmsHome;
+    }
+
+    public Path getOpennmsHome() {
+        return m_opennmsHome;
     }
 
     public abstract V translateConfig(K config);
@@ -111,7 +104,7 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
     public abstract V mergeConfigs(V source, V target);
 
     private synchronized void checkForUpdates() {
-        if (!m_forceUpdate && (m_reloadCheckInterval < 0 || System.currentTimeMillis() < (m_lastReloadCheck + m_reloadCheckInterval))) {
+        if (m_reloadCheckInterval < 0 || System.currentTimeMillis() < (m_lastReloadCheck + m_reloadCheckInterval)) {
             return;
         }
         m_lastReloadCheck = System.currentTimeMillis();
@@ -122,7 +115,6 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
             m_xmlFiles = updatedListOfXmlFiles;
             // The set of files we need to track changed, reconfigure the DAOs
             reconfigureDaos();
-            m_forceUpdate = true;
         }
 
         // Determine the most recent time at which one of the configuration files was updated
@@ -135,16 +127,8 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
             mostRecentUpdate = Math.max(mostRecentUpdate, dao.getContainer().getLastUpdate()); 
         }
 
-        // Do the same for the registered providers
-        for (ConfigProvider provider : m_configProviders) {
-            // TODO: Avoid unmarshaling all the time
-            V config = translateConfig(JaxbUtils.unmarshal(m_entityClass, provider.getConfig()));
-            objects.add(config);
-            mostRecentUpdate = Math.max(mostRecentUpdate, provider.getLastUpdate().getTime());
-        }
-
         // Rebuild the merged configuration if required
-        if (m_forceUpdate || mostRecentUpdate > m_lastUpdate) {
+        if (mostRecentUpdate > m_lastUpdate) {
             V mergedObject = null;
             for (V object : objects) {
                 mergedObject = mergeConfigs(object, mergedObject);
@@ -176,7 +160,7 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
                 dao.afterPropertiesSet();
                 m_configDaosByPath.put(xmlFile, dao);
             } else {
-                xmlFilesWithUnusedDaos.remove(xmlFile);
+                xmlFilesWithUnusedDaos.remove(xmlFilesWithUnusedDaos);
             }
         }
 
@@ -195,8 +179,8 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
         final List<File> xmlFiles = new LinkedList<>();
         try (Stream<Path> stream = Files.walk(m_opennmsHome.resolve(m_includeFolder), 1)) {
             stream.map(Path::toFile)
-                .filter(File::isFile)
-                .filter(File::canRead)
+                .filter(f -> f.isFile())
+                .filter(f -> f.canRead())
                 .filter(f -> f.getName().endsWith(".xml"))
                 .sorted()
                 .forEach(f -> xmlFiles.add(f));
@@ -223,31 +207,14 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
     public void setReloadCheckInterval(final Long reloadCheckInterval) {
         m_reloadCheckInterval = reloadCheckInterval;
         synchronized (m_configDaosByPath) {
-            if (m_reloadCheckInterval != null) {
-                m_configDaosByPath.values().forEach(c -> c.setReloadCheckInterval(m_reloadCheckInterval));
+            if (m_reloadCheckInterval != null && m_configDaosByPath != null) {
+                m_configDaosByPath.values().stream().forEach(c -> c.setReloadCheckInterval(m_reloadCheckInterval));
             }
-        }
-    }
-
-    public void providerRegistered(Registration registration, ConfigProvider provider) {
-        final String providerType = registration.getProperties().get("type");
-        if (m_entityClass.getCanonicalName().equals(providerType)) {
-            if (m_configProviders.add(provider)) {
-                // Force a check on the next get
-                m_forceUpdate = true;
-            }
-        }
-    }
-
-    public void providerUnregistered(Registration registration, ConfigProvider provider) {
-        if (m_configProviders.remove(provider)) {
-            // Force a check on the next get
-            m_forceUpdate = true;
         }
     }
 
     private class JaxbConfigDao extends AbstractJaxbConfigDao<K, V> {
-        private JaxbConfigDao() {
+        public JaxbConfigDao() {
             super(m_entityClass, m_description);
         }
 
