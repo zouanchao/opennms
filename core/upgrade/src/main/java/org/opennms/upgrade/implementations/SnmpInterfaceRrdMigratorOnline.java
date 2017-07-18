@@ -116,7 +116,10 @@ public class SnmpInterfaceRrdMigratorOnline extends AbstractOnmsUpgrade {
         }
         try {
             // Manually initialization of the DataCollectionConfigDao to avoid bootstrap Spring Framework and create a new connection pool.
+            File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.DATA_COLLECTION_CONF_FILE_NAME);
             DefaultDataCollectionConfigDao config = new DefaultDataCollectionConfigDao();
+            config.setConfigResource(new FileSystemResource(cfgFile));
+            config.afterPropertiesSet();
             config.getConfiguredResourceTypes();
             DataCollectionConfigFactory.setInstance(config);
         } catch (Exception e) {

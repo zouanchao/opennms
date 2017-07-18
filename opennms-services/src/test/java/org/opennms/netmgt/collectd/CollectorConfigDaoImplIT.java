@@ -94,9 +94,8 @@ public class CollectorConfigDaoImplIT extends TestCase {
 
         stream = getInputStreamForFile("/org/opennms/netmgt/config/datacollection-config.xml");
         DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
-        // TODO: Blah
-        //dataCollectionDao.setConfigResource(new InputStreamResource(stream));
-        //dataCollectionDao.afterPropertiesSet();
+        dataCollectionDao.setConfigResource(new InputStreamResource(stream));
+        dataCollectionDao.afterPropertiesSet();
         DataCollectionConfigFactory.setInstance(dataCollectionDao);
         stream.close();
 

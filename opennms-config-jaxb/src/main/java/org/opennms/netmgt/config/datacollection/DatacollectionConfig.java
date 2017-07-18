@@ -32,7 +32,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -68,6 +67,11 @@ public class DatacollectionConfig implements Serializable {
      */
     @XmlElement(name="snmp-collection")
     private List<SnmpCollection> m_snmpCollections = new ArrayList<SnmpCollection>();
+
+
+    public DatacollectionConfig() {
+        super();
+    }
 
     /**
      * full path to the RRD repository for collected SNMP data
@@ -115,7 +119,11 @@ public class DatacollectionConfig implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(m_rrdRepository, m_snmpCollections);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_rrdRepository == null) ? 0 : m_rrdRepository.hashCode());
+        result = prime * result + ((m_snmpCollections == null) ? 0 : m_snmpCollections.hashCode());
+        return result;
     }
 
     @Override
@@ -188,11 +196,4 @@ public class DatacollectionConfig implements Serializable {
         visitor.visitDatacollectionConfigComplete();
     }
 
-    public DatacollectionConfig merge(DatacollectionConfig other) {
-        if (m_rrdRepository == null) {
-            m_rrdRepository = other.getRrdRepository();
-        }
-        m_snmpCollections.addAll(other.getSnmpCollections());
-        return this;
-    }
 }

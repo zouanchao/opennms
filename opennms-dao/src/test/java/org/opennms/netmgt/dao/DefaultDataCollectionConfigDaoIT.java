@@ -31,7 +31,6 @@ package org.opennms.netmgt.dao;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -82,9 +81,9 @@ public class DefaultDataCollectionConfigDaoIT {
     public void testNewStyle() throws Exception {
         DefaultDataCollectionConfigDao dao = instantiateDao("datacollection-config.xml", true);
         executeTests(dao, 86);
-        SnmpCollection def =  dao.getObject().getSnmpCollection("default");
+        SnmpCollection def =  dao.getContainer().getObject().getSnmpCollection("default");
         Assert.assertEquals(0, def.getResourceTypes().size());
-        SnmpCollection rt =  dao.getObject().getSnmpCollection("__resource_type_collection");
+        SnmpCollection rt =  dao.getContainer().getObject().getSnmpCollection("__resource_type_collection");
         Assert.assertEquals(86, rt.getResourceTypes().size());
         Assert.assertEquals(0, rt.getSystems().getSystemDefs().size());
         Assert.assertEquals(0, rt.getGroups().getGroups().size());
@@ -100,13 +99,13 @@ public class DefaultDataCollectionConfigDaoIT {
     public void testCompareOldAndNewStyles() throws Exception {
         DefaultDataCollectionConfigDao newDao = instantiateDao("datacollection-config.xml", true);
         DefaultDataCollectionConfigDao oldDao = instantiateDao("examples/old-datacollection-config.xml", false);
-        compareContent(oldDao.getObject(), newDao.getObject());
+        compareContent(oldDao.getContainer().getObject(), newDao.getContainer().getObject());
     }
 
     @Test
     public void testReload() throws Exception {
         File source = new File("src/test/opennms-home/etc");
-        File dest = new File("target/opennms-home-test/etc");
+        File dest = new File("src/target/opennms-home-test/etc");
         dest.mkdirs();
         FileUtils.copyDirectory(source, dest, true);
         File target = new File(dest, "datacollection-config.xml");
@@ -114,11 +113,13 @@ public class DefaultDataCollectionConfigDaoIT {
 
         // Initialize the DAO with auto-reload
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
-        dao.setOpennmsHome(dest.getParentFile().toPath());
-        dao.setReloadCheckInterval(1000L);
+        dao.setConfigDirectory(new File(dest, "datacollection").getAbsolutePath());
+        dao.setConfigResource(new FileSystemResource(target));
+        dao.setReloadCheckInterval(1000l);
+        dao.afterPropertiesSet();
 
         // Verify that it has not been reloaded
-        Assert.assertTrue(currentDate.compareTo(dao.getLastUpdate()) <= 0);
+        Assert.assertTrue(currentDate.after(dao.getLastUpdate()));
 
         // Modify the file to trigger the reload.
         FileWriter w = new FileWriter(target, true);
@@ -127,7 +128,7 @@ public class DefaultDataCollectionConfigDaoIT {
         currentDate = new Date(target.lastModified());
 
         // Wait and check if the data was changed.
-        Thread.sleep(2000L);
+        Thread.sleep(2000l);
         Assert.assertFalse(currentDate.after(dao.getLastUpdate()));
 
         FileUtils.deleteDirectory(dest);
@@ -175,18 +176,20 @@ public class DefaultDataCollectionConfigDaoIT {
     }
 
     private DefaultDataCollectionConfigDao instantiateDao(String fileName, boolean setConfigDirectory) throws Exception {
-        File configFile = new File("src/test/opennms-home/etc", fileName).getAbsoluteFile();
-        DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao(configFile.toPath());
+        DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
+        File configFile = new File("src/test/opennms-home/etc", fileName);
         if (setConfigDirectory) {
             File configFolder = new File(configFile.getParentFile(), "datacollection");
             Assert.assertTrue(configFolder.isDirectory());
             dao.setConfigDirectory(configFolder.getAbsolutePath());
         }
+        dao.setConfigResource(new InputStreamResource(new FileInputStream(configFile)));
+        dao.afterPropertiesSet();
         return dao;
     }
 
     private void executeSystemDefCount(DefaultDataCollectionConfigDao dao, int expectedCount) {
-        DatacollectionConfig config = dao.getObject();
+        DatacollectionConfig config = dao.getContainer().getObject();
         int systemDefCount = 0;
         for (SnmpCollection collection : config.getSnmpCollections()) {
             systemDefCount += collection.getSystems().getSystemDefs().size();

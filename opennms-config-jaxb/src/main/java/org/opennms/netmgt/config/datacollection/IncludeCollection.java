@@ -28,18 +28,19 @@
 
 package org.opennms.netmgt.config.datacollection;
 
-import org.opennms.core.xml.ValidateUsing;
-import org.opennms.netmgt.config.internal.collection.DatacollectionConfigVisitor;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import org.opennms.core.xml.ValidateUsing;
+import org.opennms.netmgt.config.internal.collection.DatacollectionConfigVisitor;
 
 /**
  * Class IncludeCollection.

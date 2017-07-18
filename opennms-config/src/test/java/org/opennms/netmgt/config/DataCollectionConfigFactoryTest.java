@@ -33,13 +33,9 @@ import static org.junit.Assert.assertArrayEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.opennms.netmgt.config.datacollection.MibObjProperty;
 import org.opennms.netmgt.config.datacollection.MibObject;
 import org.opennms.test.ThrowableAnticipator;
@@ -47,9 +43,6 @@ import org.springframework.core.io.ByteArrayResource;
 
 public class DataCollectionConfigFactoryTest {
 	private static final File m_rrdRepository = new File(System.getProperty("java.io.tmpdir") + File.separator + "wonka" + File.separator + "rrd" + File.separator + "snmp");
-
-	@Rule
-	public TemporaryFolder tempFolder = new TemporaryFolder();
 
     private static final String m_xml = "<?xml version=\"1.0\"?>\n" +
             "<datacollection-config\n" +
@@ -264,12 +257,12 @@ public class DataCollectionConfigFactoryTest {
         assertEquals("bsnAPEntry", properties.get(0).getParameterValue("source-type"));
     }
 
-    private void initDataCollectionFactory(String xmlConfig) throws IOException {
-        Path configPath = tempFolder.newFile("datacollection-config.xml").toPath();
-        Files.write(configPath, xmlConfig.getBytes());
-        DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao(configPath);
+    private static void initDataCollectionFactory(String xmlConfig) {
+        DefaultDataCollectionConfigDao dataCollectionDao = new DefaultDataCollectionConfigDao();
+        dataCollectionDao.setConfigResource(new ByteArrayResource(xmlConfig.getBytes()));
         // Set the config directory to a blank value so that it doesn't pull in any extra config files
         dataCollectionDao.setConfigDirectory("");
+        dataCollectionDao.afterPropertiesSet();
         DataCollectionConfigFactory.setInstance(dataCollectionDao);
     }
 

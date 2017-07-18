@@ -80,7 +80,7 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
     // State
     private long m_lastUpdate = 0;
     private long m_lastReloadCheck = 0;
-    private boolean m_forceReload = false;
+    private boolean m_forceUpdate = false;
     private List<File> m_xmlFiles = null;
     private final Map<File, JaxbConfigDao> m_configDaosByPath = new HashMap<>();
     private final Set<ConfigProvider> m_configProviders = new LinkedHashSet<>();
@@ -106,16 +106,12 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
         m_opennmsHome = opennmsHome;
     }
 
-    public Path getOpennmsHome() {
-        return m_opennmsHome;
-    }
-
     public abstract V translateConfig(K config);
 
     public abstract V mergeConfigs(V source, V target);
 
     private synchronized void checkForUpdates() {
-        if (!m_forceReload && (m_reloadCheckInterval < 0 || System.currentTimeMillis() < (m_lastReloadCheck + m_reloadCheckInterval))) {
+        if (!m_forceUpdate && (m_reloadCheckInterval < 0 || System.currentTimeMillis() < (m_lastReloadCheck + m_reloadCheckInterval))) {
             return;
         }
         m_lastReloadCheck = System.currentTimeMillis();
@@ -126,7 +122,7 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
             m_xmlFiles = updatedListOfXmlFiles;
             // The set of files we need to track changed, reconfigure the DAOs
             reconfigureDaos();
-            m_forceReload = true;
+            m_forceUpdate = true;
         }
 
         // Determine the most recent time at which one of the configuration files was updated
@@ -148,14 +144,13 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
         }
 
         // Rebuild the merged configuration if required
-        if (m_forceReload || mostRecentUpdate > m_lastUpdate) {
+        if (m_forceUpdate || mostRecentUpdate > m_lastUpdate) {
             V mergedObject = null;
             for (V object : objects) {
                 mergedObject = mergeConfigs(object, mergedObject);
             }
             m_object = mergedObject;
             m_lastUpdate = System.currentTimeMillis();
-            m_forceReload = false;
             onConfigUpdated(m_object);
         }
     }
@@ -206,19 +201,13 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
                 .sorted()
                 .forEach(f -> xmlFiles.add(f));
         } catch (IOException e) {
-            LOG.info("Failed to walk {} for {} ({})", m_includeFolder, m_entityClass, m_description);
+            LOG.error("Failed to walk {} for {} ({})", m_includeFolder, m_entityClass, m_description);
         }
         LOG.debug("Found {} files in {}: {}", xmlFiles.size(), m_includeFolder, xmlFiles);
 
         if (m_rootFile != null) {
             // Prepend the root file, ensure that it is always first in the list
-            if (m_rootFile.isAbsolute()) {
-                // As-is
-                xmlFiles.add(0, m_rootFile.toFile());
-            } else {
-                // Relative to $OPENNMS_HOME
-                xmlFiles.add(0, m_opennmsHome.resolve(m_rootFile).toFile());
-            }
+            xmlFiles.add(0, m_opennmsHome.resolve(m_rootFile).toFile()); 
         }
         return xmlFiles;
     }
@@ -244,24 +233,17 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
         final String providerType = registration.getProperties().get("type");
         if (m_entityClass.getCanonicalName().equals(providerType)) {
             if (m_configProviders.add(provider)) {
-                LOG.debug("Registered configuration provider {} for {}.", provider, m_entityClass.getCanonicalName());
                 // Force a check on the next get
-                m_forceReload = true;
+                m_forceUpdate = true;
             }
         }
     }
 
     public void providerUnregistered(Registration registration, ConfigProvider provider) {
         if (m_configProviders.remove(provider)) {
-            LOG.debug("Unregistered configuration provider {} for {}.", provider, m_entityClass.getCanonicalName());
             // Force a check on the next get
-            m_forceReload = true;
+            m_forceUpdate = true;
         }
-    }
-
-    public void reload() {
-        m_forceReload = true;
-        getObject();
     }
 
     private class JaxbConfigDao extends AbstractJaxbConfigDao<K, V> {
