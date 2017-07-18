@@ -243,6 +243,8 @@ public abstract class AbstractMergingJaxbConfigDao<K, V> implements Registration
     public void providerRegistered(Registration registration, ConfigProvider provider) {
         final String providerType = registration.getProperties().get("type");
         if (m_entityClass.getCanonicalName().equals(providerType)) {
+
+
             if (m_configProviders.add(provider)) {
                 LOG.debug("Registered configuration provider {} for {}.", provider, m_entityClass.getCanonicalName());
                 // Force a check on the next get

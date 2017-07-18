@@ -59,7 +59,6 @@ public class DataCollectionConfigResource implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_dataCollectionConfigDao, "DataCollectionConfigDao must be set!");
-        Assert.isTrue(m_dataCollectionConfigDao instanceof AbstractJaxbConfigDao<?,?>);
     }
 
     @GET
@@ -67,9 +66,7 @@ public class DataCollectionConfigResource implements InitializingBean {
     public Response getDataCollectionConfiguration() throws ConfigurationResourceException {
         LOG.debug("getDatacollectionConfigurationForLocation()");
 
-        @SuppressWarnings("unchecked")
-        final AbstractJaxbConfigDao<DatacollectionConfig,DatacollectionConfig> dao = (AbstractJaxbConfigDao<DatacollectionConfig,DatacollectionConfig>)m_dataCollectionConfigDao;
-        final DatacollectionConfig dcc = dao.getContainer().getObject();
+        final DatacollectionConfig dcc = m_dataCollectionConfigDao.getRootDataCollection();
         if (dcc == null) {
             return Response.status(Status.NOT_FOUND).build();
         }

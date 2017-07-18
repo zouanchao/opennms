@@ -242,7 +242,7 @@ public class DataCollectionConfigParserTest {
     public void testsForNMS8030() throws Exception {
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
         dao.setOpennmsHome(Paths.get("src", "test", "resources", "NMS8030"));
-        dao.setReloadCheckInterval(0l);
+        dao.setReloadCheckInterval(0L);
 
         // Use case 1
 
@@ -284,6 +284,20 @@ public class DataCollectionConfigParserTest {
         Assert.assertTrue(group.isPresent());
         Assert.assertEquals(3, group.get().getMibObjs().size());
 
+    }
+
+    @Test
+    public void doIt() {
+        DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
+        dao.setOpennmsHome(Paths.get("src", "test", "resources", "ext"));
+        dao.setReloadCheckInterval(0L);
+
+        Optional<SystemDef> systemDef = dao.getRootDataCollection().getSnmpCollections().stream()
+                .filter(sc -> sc.getName().equals("default"))
+                .flatMap(sc -> sc.getSystems().getSystemDefs().stream())
+                .filter(s -> s.getName().equals("My Net-SNMP"))
+                .findFirst();
+        Assert.assertTrue(systemDef.isPresent());
     }
     
     private static File getDatacollectionDirectory() throws URISyntaxException {
