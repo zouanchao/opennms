@@ -47,8 +47,12 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.IOUtils;
+import org.opennms.core.config.api.ConfigReloadContainer;
+import org.opennms.core.config.api.ConfigurationProvider;
+import org.opennms.core.soa.Registration;
 import org.opennms.core.spring.FileReloadCallback;
 import org.opennms.core.spring.FileReloadContainer;
 import org.opennms.core.utils.BundleLists;
@@ -61,6 +65,7 @@ import org.opennms.netmgt.model.PrefabGraphType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -76,6 +81,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
     /** Constant <code>DEFAULT_GRAPH_LIST_KEY="reports"</code> */
     public static final String DEFAULT_GRAPH_LIST_KEY = "reports";
 
+    private ConfigReloadContainer<List<PrefabGraph>> m_extContainer;
     private ConcurrentMap<String, Resource> m_prefabConfigs = new ConcurrentHashMap<>();
     private ConcurrentMap<String, Resource> m_adhocConfigs  = new ConcurrentHashMap<>();
 
@@ -103,6 +109,27 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         for (Map.Entry<String, Resource> configEntry : getAdhocConfigs().entrySet()) {
             loadAdhocProperties(configEntry.getKey(), configEntry.getValue());
         }
+    }
+
+    private void initExtensions() {
+        m_extContainer = new ConfigReloadContainer.Builder<List<PrefabGraph>>()
+                .withExtensionType(PrefabGraph.class.getCanonicalName())
+                .withLoader(b -> {
+                    return createPrefabGraphType("ext", new ByteArrayResource(b), false).getReportMap().values().stream()
+                            .map(c -> c.getObject())
+                            .collect(Collectors.toList());
+                })
+                .withMerger((source,target) -> {
+                    if (target == null) {
+                        target = new ArrayList<>();
+                    }
+                    if (source == null) {
+                        source = new ArrayList<>();
+                    }
+                    target.addAll(source);
+                    return target;
+                })
+                .build();
     }
 
     /** {@inheritDoc} */
@@ -739,6 +766,11 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
                 graphs.add(graphContainer.getObject());
             }
         }
+
+        final List<PrefabGraph> graphsFromExtensions = m_extContainer.getObject();
+        if (graphsFromExtensions != null) {
+            graphs.addAll(graphsFromExtensions);
+        }
         return graphs;
     }
 
@@ -753,6 +785,13 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
                 return graph;
             }
         }
+
+        for (PrefabGraph graph : m_extContainer.getObject()) {
+            if (name.equals(graph.getName())) {
+                return graph;
+            }
+        }
+
         throw new ObjectRetrievalFailureException(PrefabGraph.class, name,
                                                   "Could not find prefabricated graph report with name '"
                                                           + name + "'", null);
@@ -882,6 +921,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
 
         initPrefab();
         initAdhoc();
+        initExtensions();
     }
 
     /**
