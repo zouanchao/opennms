@@ -29,8 +29,10 @@
 package org.opennms.core.spring;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
+import org.opennms.core.config.api.ReloadingContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -180,7 +182,7 @@ public class FileReloadContainer<T> {
         checkForUpdates();
         return m_object;
     }
-    
+
     private synchronized void checkForUpdates() throws DataAccessResourceFailureException {
         if (m_file == null || m_reloadCheckInterval < 0 || System.currentTimeMillis() < (m_lastReloadCheck + m_reloadCheckInterval)) {
             return;
@@ -264,5 +266,9 @@ public class FileReloadContainer<T> {
      */
     public long getLastUpdate() {
         return m_lastUpdate;
+    }
+
+    public void save() {
+        throw new RuntimeException("Oups");
     }
 }

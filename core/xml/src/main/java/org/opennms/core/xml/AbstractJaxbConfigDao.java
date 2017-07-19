@@ -29,13 +29,20 @@
 package org.opennms.core.xml;
 
 
-import org.opennms.core.spring.FileReloadCallback;
-import org.opennms.core.spring.FileReloadContainer;
+import org.opennms.core.config.api.ConfigReloadContainer;
+import org.opennms.core.config.api.ConfigurationProvider;
+import org.opennms.core.config.api.ReloadableFile;
+import org.opennms.core.config.api.ReloadingContainer;
+import org.opennms.core.spring.ReloadableResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
+import org.springframework.util.StreamUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * <p>Abstract AbstractJaxbConfigDao class.</p>
@@ -53,8 +60,7 @@ public abstract class AbstractJaxbConfigDao<K, V> implements InitializingBean {
     private Class<K> m_jaxbClass;
     private String m_description;
     private Resource m_configResource;
-    private FileReloadContainer<V> m_container;
-    private JaxbReloadCallback m_callback = new JaxbReloadCallback();
+    private ReloadingContainer<V> m_container;
     private Long m_reloadCheckInterval = null;
 
     /**
@@ -78,24 +84,22 @@ public abstract class AbstractJaxbConfigDao<K, V> implements InitializingBean {
      */
     protected abstract V translateConfig(K config);
 
-    /**
-     * <p>loadConfig</p>
-     *
-     * @param resource a {@link org.springframework.core.io.Resource} object.
-     * @return a V object.
-     */
-    protected V loadConfig(final Resource resource) {
+    protected V loadConfig(final byte[] bytes) {
         long startTime = System.currentTimeMillis();
 
-        LOG.debug("Loading {} configuration from {}", m_description, resource);
+        LOG.debug("Loading {} configuration.", m_description);
 
-        V config = translateConfig(JaxbUtils.unmarshal(m_jaxbClass, resource));
+        V config = translateConfig(JaxbUtils.unmarshal(m_jaxbClass, new String(bytes)));
 
         long endTime = System.currentTimeMillis();
 
         LOG.info("Loaded {} in {} ms", getDescription(), (endTime - startTime));
 
         return config;
+    }
+
+    protected V mergeConfigs(V source, V target) {
+        return source;
     }
 
     /**
@@ -105,12 +109,29 @@ public abstract class AbstractJaxbConfigDao<K, V> implements InitializingBean {
     public void afterPropertiesSet() {
         Assert.state(m_configResource != null, "property configResource must be set and be non-null");
 
-        final V config = loadConfig(m_configResource);
-        m_container = new FileReloadContainer<V>(config, m_configResource, m_callback);
-
-        if (m_reloadCheckInterval != null) {
-            m_container.setReloadCheckInterval(m_reloadCheckInterval);
+        final V config;
+        try (InputStream is = m_configResource.getInputStream()){
+            config = loadConfig(StreamUtils.copyToByteArray(is));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
+        ConfigurationProvider provider;
+        try {
+            provider = new ReloadableFile(m_configResource.getFile());
+        } catch (final IOException e) {
+            LOG.info("Resource '{}' does not seem to have an underlying File object; assuming this is not an auto-reloadable file resource", m_configResource);
+            provider = new ReloadableResource(m_configResource);
+        }
+
+        m_container = new ConfigReloadContainer.Builder<V>()
+                .withInitialConfig(config)
+                .withProvider(provider)
+                .withLoader(this::loadConfig)
+                .withMerger(this::mergeConfigs)
+                .withReloadCheckInterval(m_reloadCheckInterval)
+                .withExtensionType(m_jaxbClass.getCanonicalName())
+                .build();
     }
 
     /**
@@ -131,20 +152,8 @@ public abstract class AbstractJaxbConfigDao<K, V> implements InitializingBean {
         m_configResource = configResource;
     }
 
-    /**
-     * <p>getContainer</p>
-     *
-     * @return a {@link org.opennms.core.spring.FileReloadContainer} object.
-     */
-    public FileReloadContainer<V> getContainer() {
+    public ReloadingContainer<V> getContainer() {
         return m_container;
-    }
-
-    public class JaxbReloadCallback implements FileReloadCallback<V> {
-        @Override
-        public V reload(final V object, final Resource resource) {
-            return loadConfig(resource);
-        }
     }
 
     /**

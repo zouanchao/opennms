@@ -333,7 +333,7 @@ public class DefaultJavamailConfigurationDao extends AbstractJaxbConfigDao<Javam
      */
     public synchronized void saveConfiguration() {
         try {
-            JaxbUtils.marshal(getContainer().getObject(), new FileWriter(getContainer().getFile()));
+            getContainer().save();
         } catch (Exception e) {
             LOG.error("Can't save JavaMail configuration.", e);
         }

@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.opennms.core.config.api.ReloadingContainer;
 import org.apache.commons.lang.StringUtils;
-import org.opennms.core.spring.FileReloadContainer;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
@@ -126,6 +126,20 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         validateResourceTypes(config.getSnmpCollections(), resourceTypes.keySet());
 
         return config;
+    }
+
+    @Override
+    protected DatacollectionConfig mergeConfigs(DatacollectionConfig source, DatacollectionConfig target) {
+        if (target == null) {
+            // Create an empty target
+            target = new DatacollectionConfig();
+        }
+        if (source == null) {
+            // Nothing to merge
+            return target;
+        }
+        // Merge!
+        return target.merge(source);
     }
 
     public void setConfigDirectory(String configDirectory) {
@@ -309,7 +323,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
 
     /* Private Methods */
 
-    private static SnmpCollection getSnmpCollection(final FileReloadContainer<DatacollectionConfig> container, final String collectionName) {
+    private static SnmpCollection getSnmpCollection(final ReloadingContainer<DatacollectionConfig> container, final String collectionName) {
         for (final SnmpCollection collection : container.getObject().getSnmpCollections()) {
             if (collection.getName().equals(collectionName)) return collection;
         }
@@ -500,7 +514,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         }
     }
 
-    private static Map<String,Map<String,Group>> getCollectionGroupMap(FileReloadContainer<DatacollectionConfig> container) {
+    private static Map<String,Map<String,Group>> getCollectionGroupMap(ReloadingContainer<DatacollectionConfig> container) {
         // Build collection map which is a hash map of Collection
         // objects indexed by collection name...also build
         // collection group map which is a hash map indexed
@@ -572,8 +586,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     }
 
     private boolean systemDefMatches(SystemDef system, String aSysoid, String anAddress) {
-        // Match on sysoid?
-        boolean bMatchSysoid = false;
+        // Match on sysoid?boolean bMatchSysoid = false;
 
         // Retrieve sysoid for this SystemDef and/ set the isMask boolean.
         boolean isMask = false;

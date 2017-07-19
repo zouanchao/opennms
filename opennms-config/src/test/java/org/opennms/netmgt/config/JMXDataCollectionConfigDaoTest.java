@@ -44,7 +44,7 @@ public class JMXDataCollectionConfigDaoTest {
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
-    @Test(expected=MarshallingResourceFailureException.class)
+    @Test(expected=RuntimeException.class)
     public void failsWhenNoConfigIsPresent() {
         JMXDataCollectionConfigDao dao = new JMXDataCollectionConfigDao();
         dao.setOpennmsHome(tempFolder.getRoot().toPath());

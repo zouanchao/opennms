@@ -128,19 +128,7 @@ public class DefaultMicroblogConfigurationDao extends AbstractJaxbConfigDao<Micr
         }
         if (!found) config.addMicroblogProfile(profile);
 
-        final File file = getContainer().getFile();
-        if (file == null) {
-            LOG.warn("No file associated with this config.  Skipping marshal.");
-            return;
-        }
-
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(file);
-            JaxbUtils.marshal(config, writer);
-        } finally {
-            IOUtils.closeQuietly(writer);
-        }
+        getContainer().save();
     }
 
 }
