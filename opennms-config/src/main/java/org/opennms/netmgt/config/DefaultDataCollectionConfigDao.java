@@ -28,18 +28,8 @@
 
 package org.opennms.netmgt.config;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.opennms.core.config.api.ReloadingContainer;
 import org.apache.commons.lang.StringUtils;
+import org.opennms.core.config.api.ReloadingContainer;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.core.xml.AbstractJaxbConfigDao;
 import org.opennms.netmgt.collection.api.AttributeGroupType;
@@ -60,6 +50,16 @@ import org.opennms.netmgt.config.datacollection.Systems;
 import org.opennms.netmgt.rrd.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * DefaultDataCollectionConfigDao
@@ -586,7 +586,8 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     }
 
     private boolean systemDefMatches(SystemDef system, String aSysoid, String anAddress) {
-        // Match on sysoid?boolean bMatchSysoid = false;
+        // Match on sysoid?
+        boolean bMatchSysoid = false;
 
         // Retrieve sysoid for this SystemDef and/ set the isMask boolean.
         boolean isMask = false;
