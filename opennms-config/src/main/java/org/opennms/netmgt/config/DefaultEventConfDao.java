@@ -38,9 +38,12 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
+import org.opennms.core.config.api.ConfigReloadContainer;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.netmgt.config.api.EventConfDao;
+import org.opennms.netmgt.model.PrefabGraph;
 import org.opennms.netmgt.xml.eventconf.Event;
 import org.opennms.netmgt.xml.eventconf.EventLabelComparator;
 import org.opennms.netmgt.xml.eventconf.EventMatchers;
@@ -51,12 +54,13 @@ import org.opennms.netmgt.xml.eventconf.Events.EventCriteria;
 import org.opennms.netmgt.xml.eventconf.Field;
 import org.opennms.netmgt.xml.eventconf.Partition;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
 
 public class DefaultEventConfDao implements EventConfDao, InitializingBean {
-	private static final String DEFAULT_PROGRAMMATIC_STORE_RELATIVE_PATH = "events/programmatic.events.xml";
+    private static final String DEFAULT_PROGRAMMATIC_STORE_RELATIVE_PATH = "events/programmatic.events.xml";
 
     /**
      * Relative URL for the programmatic store configuration, relative to the
@@ -64,11 +68,11 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
      */
     private String m_programmaticStoreRelativePath = DEFAULT_PROGRAMMATIC_STORE_RELATIVE_PATH;
 
-	private Events m_events;
+    private Events m_events;
 
-	private Resource m_configResource;
+    private Resource m_configResource;
 
-	private Partition m_partition;
+    private Partition m_partition;
 
     /**
      * Used to keep track of the last modified time for the loaded event files.
@@ -76,203 +80,210 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
      */
     private Map<String, Long> m_lastModifiedEventFiles = new LinkedHashMap<String, Long>();
 
-	public String getProgrammaticStoreRelativeUrl() {
-		return m_programmaticStoreRelativePath;
-	}
+    private ConfigReloadContainer<Events> m_extContainer;
 
-	public void setProgrammaticStoreRelativeUrl(String programmaticStoreRelativeUrl) {
-		m_programmaticStoreRelativePath = programmaticStoreRelativeUrl;
-	}
+    public String getProgrammaticStoreRelativeUrl() {
+        return m_programmaticStoreRelativePath;
+    }
 
-	@Override
-	public void reload() throws DataAccessException {
-		try {
-		    reloadConfig();
-		} catch (Exception e) {
-			throw new DataRetrievalFailureException("Unabled to load " + m_configResource, e);
-		}
-	}
+    public void setProgrammaticStoreRelativeUrl(String programmaticStoreRelativeUrl) {
+        m_programmaticStoreRelativePath = programmaticStoreRelativeUrl;
+    }
 
-	@Override
-	public List<Event> getEvents(final String uei) {
-		List<Event> events = m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
+    @Override
+    public void reload() throws DataAccessException {
+        try {
+            reloadConfig();
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Unabled to load " + m_configResource, e);
+        }
+    }
 
-			@Override
-			public List<Event> process(List<Event> accum, Event event) {
-				if (uei.equals(event.getUei())) {
-					accum.add(event);
-				}
-				return accum;
-			}
-		});
-		
-		return events.isEmpty() ? null : events;
-	}
+    @Override
+    public List<Event> getEvents(final String uei) {
+        List<Event> events = m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
 
-	@Override
-	public List<String> getEventUEIs() {
-		return m_events.forEachEvent(new ArrayList<String>(), new EventCallback<List<String>>() {
+            @Override
+            public List<Event> process(List<Event> accum, Event event) {
+                if (uei.equals(event.getUei())) {
+                    accum.add(event);
+                }
+                return accum;
+            }
+        });
 
-			@Override
-			public List<String> process(List<String> ueis, Event event) {
-				ueis.add(event.getUei());
-				return ueis;
-			}
-		});
-		
-	}
+        return events.isEmpty() ? null : events;
+    }
 
-	@Override
-	public Map<String, String> getEventLabels() {
-		return m_events.forEachEvent(new TreeMap<String, String>(), new EventCallback<Map<String, String>>() {
+    @Override
+    public List<String> getEventUEIs() {
+        return m_events.forEachEvent(new ArrayList<String>(), new EventCallback<List<String>>() {
 
-			@Override
-			public Map<String, String> process(Map<String, String> ueiToLabelMap, Event event) {
-				ueiToLabelMap.put(event.getUei(), event.getEventLabel());
-				return ueiToLabelMap;
-			}
+            @Override
+            public List<String> process(List<String> ueis, Event event) {
+                ueis.add(event.getUei());
+                return ueis;
+            }
+        });
 
-		});
-	}
+    }
 
-	@Override
-	public String getEventLabel(final String uei) {
-		Event event = findByUei(uei);
-		return event == null ? null : event.getEventLabel();
+    @Override
+    public Map<String, String> getEventLabels() {
+        return m_events.forEachEvent(new TreeMap<String, String>(), new EventCallback<Map<String, String>>() {
 
-	}
+            @Override
+            public Map<String, String> process(Map<String, String> ueiToLabelMap, Event event) {
+                ueiToLabelMap.put(event.getUei(), event.getEventLabel());
+                return ueiToLabelMap;
+            }
 
-	@Override
-	public void saveCurrent() {
-		m_events.save(m_configResource);
-	}
-	
-	
-	
-	public List<Event> getAllEvents() {
-		return m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
+        });
+    }
 
-			@Override
-			public List<Event> process(List<Event> accum, Event event) {
-				accum.add(event);
-				return accum;
-			}
-		});
-	}
+    @Override
+    public String getEventLabel(final String uei) {
+        Event event = findByUei(uei);
+        return event == null ? null : event.getEventLabel();
 
-	@Override
-	public List<Event> getEventsByLabel() {
-		SortedSet<Event> events = m_events.forEachEvent(new TreeSet<Event>(new EventLabelComparator()), new EventCallback<SortedSet<Event>>() {
-		
-			@Override
-			public SortedSet<Event> process(SortedSet<Event> accum, Event event) {
-				accum.add(event);
-				return accum;
-			}
-		});
-		return new ArrayList<Event>(events);
-	}
+    }
 
-	@Override
-	public void addEvent(Event event) {
-		m_events.addEvent(event);
-		m_events.initialize(m_partition, new EventOrdering());
-	}
+    @Override
+    public void saveCurrent() {
+        m_events.save(m_configResource);
+    }
 
-	@Override
-	public void addEventToProgrammaticStore(Event event) {
-		Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
-		if (programmaticEvents == null) {
-			programmaticEvents = new Events();
-			m_events.addLoadedEventFile(m_programmaticStoreRelativePath, programmaticEvents);
-		}
 
-		programmaticEvents.addEvent(event);
-		m_events.initialize(m_partition, new EventOrdering());
+    public List<Event> getAllEvents() {
+        return m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
 
-	}
+            @Override
+            public List<Event> process(List<Event> accum, Event event) {
+                accum.add(event);
+                return accum;
+            }
+        });
+    }
 
-	@Override
-	public boolean removeEventFromProgrammaticStore(Event event) {
-		Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
-		if (programmaticEvents == null) return false;
+    @Override
+    public List<Event> getEventsByLabel() {
+        SortedSet<Event> events = m_events.forEachEvent(new TreeSet<Event>(new EventLabelComparator()), new EventCallback<SortedSet<Event>>() {
 
-		programmaticEvents.removeEvent(event);
-		if (programmaticEvents.getEvents().size() <= 0) {
-			m_events.removeLoadedEventFile(m_programmaticStoreRelativePath);
-		} 
+            @Override
+            public SortedSet<Event> process(SortedSet<Event> accum, Event event) {
+                accum.add(event);
+                return accum;
+            }
+        });
+        return new ArrayList<Event>(events);
+    }
 
-		m_events.initialize(m_partition, new EventOrdering());
+    @Override
+    public void addEvent(Event event) {
+        m_events.addEvent(event);
+        m_events.initialize(m_partition, new EventOrdering());
+    }
 
-		return true;
+    @Override
+    public void addEventToProgrammaticStore(Event event) {
+        Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
+        if (programmaticEvents == null) {
+            programmaticEvents = new Events();
+            m_events.addLoadedEventFile(m_programmaticStoreRelativePath, programmaticEvents);
+        }
 
-	}
+        programmaticEvents.addEvent(event);
+        m_events.initialize(m_partition, new EventOrdering());
 
-	@Override
-	public boolean isSecureTag(String tag) {
-		return m_events.isSecureTag(tag);
-	}
+    }
 
-	@Override
-	public Event findByUei(final String uei) {
-	    if (uei == null) {
-	        return null;
-	    }
-	    return m_events.findFirstMatchingEvent(new EventCriteria() {
-	        @Override public boolean matches(final Event e) {
-	            return uei.equals(e.getUei());
-	        }
-	    });
-	}
+    @Override
+    public boolean removeEventFromProgrammaticStore(Event event) {
+        Events programmaticEvents = m_events.getLoadEventsByFile(m_programmaticStoreRelativePath);
+        if (programmaticEvents == null) return false;
 
-	@Override
-	public Event findByEvent(final org.opennms.netmgt.xml.event.Event matchingEvent) {
-		return m_events.findFirstMatchingEvent(matchingEvent);
-	}
+        programmaticEvents.removeEvent(event);
+        if (programmaticEvents.getEvents().size() <= 0) {
+            m_events.removeLoadedEventFile(m_programmaticStoreRelativePath);
+        }
 
-	@Override
-	public Events getRootEvents() {
-		return m_events;
-	}
+        m_events.initialize(m_partition, new EventOrdering());
 
-	public void setConfigResource(Resource configResource) throws IOException {
-		m_configResource = configResource;
-	}
-	
-	@Override
-	public void afterPropertiesSet() throws DataAccessException {
-		loadConfig();
-	}
+        return true;
 
-	private static class EnterpriseIdPartition implements Partition {
+    }
 
-		private Field m_field = EventMatchers.field("id");
+    @Override
+    public boolean isSecureTag(String tag) {
+        return m_events.isSecureTag(tag);
+    }
 
-		@Override
-		public List<String> group(Event eventConf) {
-			List<String> keys = eventConf.getMaskElementValues("id");
-			if (keys == null) return null;
-			for(String key : keys) {
-			    // if this issue is a wildcard issue we need to test against
-			    // all events so return null here so it isn't pigeon-holed into
-			    // a particular partition
-			    if (key.endsWith("%")) return null;
-			    if (key.startsWith("~")) return null;
-			}
-			return keys;
-		}
+    @Override
+    public Event findByUei(final String uei) {
+        if (uei == null) {
+            return null;
+        }
+        return m_events.findFirstMatchingEvent(new EventCriteria() {
+            @Override
+            public boolean matches(final Event e) {
+                return uei.equals(e.getUei());
+            }
+        });
+    }
 
-		@Override
-		public String group(org.opennms.netmgt.xml.event.Event matchingEvent) {
-			return m_field.get(matchingEvent);
-		}
-		
-	}
+    @Override
+    public Event findByEvent(final org.opennms.netmgt.xml.event.Event matchingEvent) {
+        return m_events.findFirstMatchingEvent(matchingEvent);
+    }
+
+    @Override
+    public Events getRootEvents() {
+        return m_events;
+    }
+
+    public void setConfigResource(Resource configResource) throws IOException {
+        m_configResource = configResource;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws DataAccessException {
+        loadConfig();
+        initExtensions();
+    }
+
+    private static class EnterpriseIdPartition implements Partition {
+
+        private Field m_field = EventMatchers.field("id");
+
+        @Override
+        public List<String> group(Event eventConf) {
+            List<String> keys = eventConf.getMaskElementValues("id");
+            if (keys == null) return null;
+            for (String key : keys) {
+                // if this issue is a wildcard issue we need to test against
+                // all events so return null here so it isn't pigeon-holed into
+                // a particular partition
+                if (key.endsWith("%")) return null;
+                if (key.startsWith("~")) return null;
+            }
+            return keys;
+        }
+
+        @Override
+        public String group(org.opennms.netmgt.xml.event.Event matchingEvent) {
+            return m_field.get(matchingEvent);
+        }
+
+    }
 
     private synchronized void reloadConfig() throws DataAccessException {
         try {
             // Load the root event file
             Events events = JaxbUtils.unmarshal(Events.class, m_configResource);
+            Events extEvents = m_extContainer.getObject();
+            if (extEvents != null) {
+                events.getEvents().addAll(extEvents.getEvents());
+            }
 
             // Hash the list of event files for efficient lookup
             Set<String> eventFiles = new HashSet<String>();
@@ -300,18 +311,37 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
         }
     }
 
-	private synchronized void loadConfig() throws DataAccessException {
-		try {
-			Events events = JaxbUtils.unmarshal(Events.class, m_configResource);
-			m_lastModifiedEventFiles = events.loadEventFiles(m_configResource);
+    private synchronized void loadConfig() throws DataAccessException {
+        try {
+            Events events = JaxbUtils.unmarshal(Events.class, m_configResource);
+            m_lastModifiedEventFiles = events.loadEventFiles(m_configResource);
 
-			m_partition = new EnterpriseIdPartition();
-			events.initialize(m_partition, new EventOrdering());
+            m_partition = new EnterpriseIdPartition();
+            events.initialize(m_partition, new EventOrdering());
 
-			m_events = events;
-		} catch (Exception e) {
-			throw new DataRetrievalFailureException("Unabled to load " + m_configResource, e);
-		}
-	}
+            m_events = events;
+        } catch (Exception e) {
+            throw new DataRetrievalFailureException("Unabled to load " + m_configResource, e);
+        }
+    }
+
+    private void initExtensions() {
+        m_extContainer = new ConfigReloadContainer.Builder<Events>()
+                .withExtensionType(Events.class.getCanonicalName())
+                .withLoader(b -> {
+                    return JaxbUtils.unmarshal(Events.class, new String(b));
+                })
+                .withMerger((source, target) -> {
+                    if (target == null) {
+                        target = new Events();
+                    }
+                    if (source == null) {
+                        source = new Events();
+                    }
+                    target.getEvents().addAll(source.getEvents());
+                    return target;
+                })
+                .build();
+    }
+
 }
-
