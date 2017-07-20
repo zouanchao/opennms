@@ -767,9 +767,11 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
             }
         }
 
-        final List<PrefabGraph> graphsFromExtensions = m_extContainer.getObject();
-        if (graphsFromExtensions != null) {
-            graphs.addAll(graphsFromExtensions);
+        if (m_extContainer != null) {
+            final List<PrefabGraph> graphsFromExtensions = m_extContainer.getObject();
+            if (graphsFromExtensions != null) {
+                graphs.addAll(graphsFromExtensions);
+            }
         }
         return graphs;
     }
