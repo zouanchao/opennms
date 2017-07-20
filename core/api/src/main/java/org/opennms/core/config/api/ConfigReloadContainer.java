@@ -135,6 +135,9 @@ public class ConfigReloadContainer<V> implements ReloadingContainer<V>, Registra
                 // We have some object, but no date was specified, default to "now"
                 lastUpdate = System.currentTimeMillis();
             }
+            // We were provided with some object, so defer the reload check until
+            // the specified interval has passed
+            lastReloadCheck = System.currentTimeMillis();
         }
 
         if (builder.reloadCheckIntervalInMs == null) {
