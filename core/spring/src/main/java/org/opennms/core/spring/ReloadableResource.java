@@ -49,6 +49,11 @@ public class ReloadableResource implements ConfigurationProvider {
         checkForUpdates();
     }
 
+    public ReloadableResource(Resource resource, byte[] bytes) {
+        this.resource = Objects.requireNonNull(resource);
+        checkForUpdates(bytes);
+    }
+
     @Override
     public byte[] getBytes() {
         try (InputStream is = resource.getInputStream()){
@@ -64,9 +69,12 @@ public class ReloadableResource implements ConfigurationProvider {
     }
 
     private void checkForUpdates() {
-        byte[] currentBytes = getBytes();
+        checkForUpdates(getBytes());
+    }
+
+    private void checkForUpdates(byte[] bytes) {
         Checksum crc32 = new CRC32();
-        crc32.update(currentBytes, 0, currentBytes.length);
+        crc32.update(bytes, 0, bytes.length);
         long currentChecksum = crc32.getValue();
         if (currentChecksum != checksum) {
             checksum = currentChecksum;

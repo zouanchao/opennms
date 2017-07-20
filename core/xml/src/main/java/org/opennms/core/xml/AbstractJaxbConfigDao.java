@@ -110,8 +110,10 @@ public abstract class AbstractJaxbConfigDao<K, V> implements InitializingBean {
         Assert.state(m_configResource != null, "property configResource must be set and be non-null");
 
         final V config;
+        final byte[] bytes;
         try (InputStream is = m_configResource.getInputStream()){
-            config = loadConfig(StreamUtils.copyToByteArray(is));
+            bytes = StreamUtils.copyToByteArray(is);
+            config = loadConfig(bytes);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -121,7 +123,7 @@ public abstract class AbstractJaxbConfigDao<K, V> implements InitializingBean {
             provider = new ReloadableFile(m_configResource.getFile());
         } catch (final IOException e) {
             LOG.info("Resource '{}' does not seem to have an underlying File object; assuming this is not an auto-reloadable file resource", m_configResource);
-            provider = new ReloadableResource(m_configResource);
+            provider = new ReloadableResource(m_configResource, bytes);
         }
 
         m_container = new ConfigReloadContainer.Builder<V>()
