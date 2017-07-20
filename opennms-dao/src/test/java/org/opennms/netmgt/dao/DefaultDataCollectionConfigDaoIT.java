@@ -119,7 +119,7 @@ public class DefaultDataCollectionConfigDaoIT {
         dao.afterPropertiesSet();
 
         // Verify that it has not been reloaded
-        Assert.assertTrue(currentDate.after(dao.getLastUpdate()));
+        Assert.assertTrue(currentDate.before(dao.getLastUpdate()));
 
         // Modify the file to trigger the reload.
         FileWriter w = new FileWriter(target, true);
