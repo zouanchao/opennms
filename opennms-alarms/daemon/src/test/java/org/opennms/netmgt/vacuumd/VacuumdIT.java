@@ -104,7 +104,7 @@ import com.codahale.metrics.MetricRegistry;
         "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml"
 })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=true,tempDbClass=MockDatabase.class) // XXX should be false? 
+@JUnitTemporaryDatabase(tempDbClass=MockDatabase.class) // XXX dirtiesContext should be false? 
 @Ignore // TODO Figure out how to make this test more reliable before enabling it
 public class VacuumdIT implements TemporaryDatabaseAware<MockDatabase>, InitializingBean {
     private static final long TEAR_DOWN_WAIT_MILLIS = 1000;
@@ -201,7 +201,7 @@ public class VacuumdIT implements TemporaryDatabaseAware<MockDatabase>, Initiali
      * @throws InterruptedException
      */
     @Test(timeout=90000)
-    @JUnitTemporaryDatabase(dirtiesContext=true,tempDbClass=MockDatabase.class)
+    @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     @Ignore // TODO Figure out how to make this test more reliable before enabling it
     public final void testConcurrency() throws InterruptedException {
         try {
@@ -449,7 +449,7 @@ public class VacuumdIT implements TemporaryDatabaseAware<MockDatabase>, Initiali
     }
     
     @Test(timeout=30000)
-    @JUnitTemporaryDatabase(dirtiesContext=true,tempDbClass=MockDatabase.class)
+    @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     public final void testRunAutomationWithNoTrigger() throws InterruptedException, SQLException {
         assertEquals(0, countAlarms());
 
@@ -467,7 +467,7 @@ public class VacuumdIT implements TemporaryDatabaseAware<MockDatabase>, Initiali
     }
     
     @Test(timeout=30000)
-    @JUnitTemporaryDatabase(dirtiesContext=true,tempDbClass=MockDatabase.class)
+    @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     public final void testRunAutomationWithZeroResultsFromTrigger() throws InterruptedException, SQLException {
         assertEquals(0, countAlarms());
 
@@ -489,7 +489,7 @@ public class VacuumdIT implements TemporaryDatabaseAware<MockDatabase>, Initiali
      * @throws InterruptedException 
      */
     @Test(timeout=30000)
-    @JUnitTemporaryDatabase(dirtiesContext=true,tempDbClass=MockDatabase.class)
+    @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     public final void testCosmicClearAutomation() throws InterruptedException {
         // create node down events with severity 6
         bringNodeDownCreatingEvent(1);

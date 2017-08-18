@@ -54,7 +54,7 @@ import com.google.common.collect.ImmutableMap;
         "classpath:/META-INF/opennms/applicationContext-soa.xml"
 })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(tempDbClass=MockDatabase.class,reuseDatabase=true)
+@JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
 public class JdbcCollectorComplianceIT extends CollectorComplianceTest {
 
     private static final String COLLECTION = "default";
