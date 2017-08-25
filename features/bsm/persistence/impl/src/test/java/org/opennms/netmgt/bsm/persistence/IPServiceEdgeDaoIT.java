@@ -56,6 +56,9 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -65,7 +68,8 @@ import org.springframework.test.context.ContextConfiguration;
     "classpath:/META-INF/opennms/applicationContext-dao.xml",
     "classpath*:/META-INF/opennms/component-dao.xml",
     "classpath:/META-INF/opennms/mockEventIpcManager.xml",
-    "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml" })
+    "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
+})
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(reuseDatabase = false, tempDbClass = MockDatabase.class)
 public class IPServiceEdgeDaoIT {
@@ -88,6 +92,9 @@ public class IPServiceEdgeDaoIT {
     @Autowired
     private NodeDao m_nodeDao;
 
+    @Autowired
+    private TransactionTemplate m_transactionTemplate;
+
     private HighestSeverityEntity m_highestSeverity;
 
     private IdentityEntity m_identity;
@@ -100,18 +107,31 @@ public class IPServiceEdgeDaoIT {
 
     @Before
     public void setUp() {
-        BeanUtils.assertAutowiring(this);
-        m_databasePopulator.populateDatabase();
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
-        m_highestSeverity = new HighestSeverityEntity();
-        m_reductionFunctionDao.save(m_highestSeverity);
-        m_reductionFunctionDao.flush();
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                BeanUtils.assertAutowiring(this);
+                m_databasePopulator.populateDatabase();
 
-        m_identity = new IdentityEntity();
-        m_mapFunctionDao.save(m_identity);
-        m_mapFunctionDao.flush();
+                m_highestSeverity = new HighestSeverityEntity();
+                m_reductionFunctionDao.save(m_highestSeverity);
+                m_reductionFunctionDao.flush();
+
+                m_identity = new IdentityEntity();
+                m_mapFunctionDao.save(m_identity);
+                m_mapFunctionDao.flush();
+            }
+        });
     }
 
+    /**
+     * Because this test relies on cascade deletions, perform the various steps
+     * in separate transactions so that the rows are committed and then deleted
+     * at the database level.
+     * 
+     * @throws InterruptedException
+     */
     @Test
     public void ipServiceEdgesWithRelatedIpServicesAreDeletedOnCascade() throws InterruptedException {
         // Create a business service
@@ -119,40 +139,60 @@ public class IPServiceEdgeDaoIT {
         bs.setName("Mont Cascades");
         bs.setAttribute("dc", "RDU");
         bs.setReductionFunction(m_highestSeverity);
-        m_businessServiceDao.save(bs);
-        m_businessServiceDao.flush();
 
-        // Initially there should be no edges
-        assertEquals(0, m_businessServiceEdgeDao.countAll());
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
-        // Create an edge
-        IPServiceEdgeEntity edge = new IPServiceEdgeEntity();
-        edge.setMapFunction(m_identity);
-        edge.setBusinessService(bs);
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                m_businessServiceDao.save(bs);
+                m_businessServiceDao.flush();
 
-        // Grab the first monitored service from node 1
-        OnmsNode node = m_databasePopulator.getNode1();
-        OnmsMonitoredService ipService = node.getIpInterfaces().iterator().next()
-                .getMonitoredServices().iterator().next();
-        edge.setIpService(ipService);
-        m_businessServiceEdgeDao.save(edge);
-        m_businessServiceEdgeDao.flush();
+                // Initially there should be no edges
+                assertEquals(0, m_businessServiceEdgeDao.countAll());
 
-        bs.addEdge(edge);
-        m_businessServiceDao.update(bs);
-        m_businessServiceDao.flush();
+                // Create an edge
+                IPServiceEdgeEntity edge = new IPServiceEdgeEntity();
+                edge.setMapFunction(m_identity);
+                edge.setBusinessService(bs);
 
-        // We should have a single business service with a single IP service associated
-        assertEquals(1, m_businessServiceDao.countAll());
-        assertEquals(1, m_businessServiceDao.get(bs.getId()).getIpServiceEdges().size());
+                // Grab the first monitored service from node 1
+                OnmsNode node = m_databasePopulator.getNode1();
+                OnmsMonitoredService ipService = node.getIpInterfaces().iterator().next()
+                        .getMonitoredServices().iterator().next();
+                edge.setIpService(ipService);
+                m_businessServiceEdgeDao.save(edge);
+                m_businessServiceEdgeDao.flush();
 
-        // Now delete the node
-        m_nodeDao.delete(node);
-        m_nodeDao.flush();
+                bs.addEdge(edge);
+                m_businessServiceDao.update(bs);
+                m_businessServiceDao.flush();
 
-        // The business service should still be present, but the IP service should have been deleted
-        // by the foreign key constraint
-        assertEquals(1, m_businessServiceDao.countAll());
-        assertEquals(0, m_businessServiceDao.get(bs.getId()).getIpServiceEdges().size());
+                // We should have a single business service with a single IP service associated
+                assertEquals(1, m_businessServiceDao.countAll());
+                assertEquals(1, m_businessServiceDao.get(bs.getId()).getIpServiceEdges().size());
+            }
+        });
+
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                OnmsNode node = m_databasePopulator.getNode1();
+                // Now delete the node
+                m_nodeDao.delete(node);
+                m_nodeDao.flush();
+            }
+        });
+
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                // The business service should still be present, but the IP service should have been deleted
+                // by the foreign key constraint
+                assertEquals(1, m_businessServiceDao.countAll());
+                assertEquals(0, m_businessServiceDao.get(bs.getId()).getIpServiceEdges().size());
+            }
+        });
     }
 }

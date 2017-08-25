@@ -46,7 +46,6 @@ import com.google.common.collect.Sets;
 @Table(name = "bsm_service_reductionkeys",
         uniqueConstraints = @UniqueConstraint(columnNames = {"id", "reductionkey"}))
 @PrimaryKeyJoinColumn(name="id")
-@DiscriminatorValue("reductionkeys")
 public class SingleReductionKeyEdgeEntity extends BusinessServiceEdgeEntity {
 
     private String reductionKey;

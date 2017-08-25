@@ -44,7 +44,6 @@ import com.google.common.collect.Sets;
 @Entity
 @Table(name = "bsm_service_children")
 @PrimaryKeyJoinColumn(name="id")
-@DiscriminatorValue(value="children")
 public class BusinessServiceChildEdgeEntity extends BusinessServiceEdgeEntity {
 
     // The Business Service Entity where the parent points to (child relationship)

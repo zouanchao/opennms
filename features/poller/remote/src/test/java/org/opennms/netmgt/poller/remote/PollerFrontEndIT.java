@@ -52,6 +52,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
@@ -89,6 +92,9 @@ public class PollerFrontEndIT implements InitializingBean {
     @Autowired
     private JdbcTemplate m_jdbcTemplate;
 
+    @Autowired
+    private TransactionTemplate m_transactionTemplate;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -124,9 +130,27 @@ public class PollerFrontEndIT implements InitializingBean {
     public void testRegister() throws Exception {
         // Check preconditions
         assertFalse(m_frontEnd.isRegistered());
-        assertEquals(new Integer(1), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class));
-        assertEquals(new Integer(0), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties", Integer.class));
-        assertTrue("There were unexpected poll results", 0 == m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes", Integer.class));
+        Integer value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class);
+            }
+        });
+        assertEquals(new Integer(1), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties", Integer.class);
+            }
+        });
+        assertEquals(new Integer(0), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes", Integer.class);
+            }
+        });
+        assertEquals("There were unexpected poll results", new Integer(0), value);
 
         // Start up the remote poller
         m_frontEnd.register("RDU");
@@ -135,12 +159,30 @@ public class PollerFrontEndIT implements InitializingBean {
 
         assertTrue(m_frontEnd.isRegistered());
         // Make sure there is a total of one remote poller
-        assertEquals(new Integer(2), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class));
-        assertEquals(new Integer(5), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties where monitoringsystemid = ?", new Object[] { monitorId }, Integer.class));
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class);
+            }
+        });
+        assertEquals(new Integer(2), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties where monitoringsystemid = ?", new Object[] { monitorId }, Integer.class);
+            }
+        });
+        assertEquals(new Integer(5), value);
         // Make sure there is a total of one remote poller with the expected ID
         assertEquals(1, getMonitorCount(monitorId));
 
-        assertEquals(System.getProperty("os.name"), m_jdbcTemplate.queryForObject("select propertyValue from monitoringsystemsproperties where monitoringsystemid = ? and property = ?", String.class, monitorId, "os.name"));
+        String stringValue = m_transactionTemplate.execute(new TransactionCallback<String>() {
+            @Override
+            public String doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select propertyValue from monitoringsystemsproperties where monitoringsystemid = ? and property = ?", String.class, monitorId, "os.name");
+            }
+        });
+        assertEquals(System.getProperty("os.name"), stringValue);
 
         long wait = 60000L;
         while (wait > 0) {
@@ -163,14 +205,29 @@ public class PollerFrontEndIT implements InitializingBean {
     }
 
     protected int getSpecificChangesCount(String monitorId) {
-        return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes where systemid = ?", new Object[] { monitorId }, Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes where systemid = ?", new Object[] { monitorId }, Integer.class);
+            }
+        });
     }
 
     protected int getDisconnectedCount(String monitorId) {
-        return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where status=? and id=?", new Object[] { MonitorStatus.DISCONNECTED.toString(), monitorId}, Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where status=? and id=?", new Object[] { MonitorStatus.DISCONNECTED.toString(), monitorId}, Integer.class);
+            }
+        });
     }
 
     protected int getMonitorCount(String monitorId) {
-        return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where id=?", new Object[] { monitorId }, Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where id=?", new Object[] { monitorId }, Integer.class);
+            }
+        });
     }
 }

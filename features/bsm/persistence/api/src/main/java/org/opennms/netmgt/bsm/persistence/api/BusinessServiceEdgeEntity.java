@@ -64,8 +64,6 @@ import com.google.common.collect.Sets;
 @Entity
 @Table(name = "bsm_service_edge")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="type", discriminatorType= DiscriminatorType.STRING)
-@DiscriminatorValue(value="")
 public class BusinessServiceEdgeEntity implements EdgeEntity {
 
     public static final int DEFAULT_WEIGHT = 1;

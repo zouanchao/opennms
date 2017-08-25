@@ -42,7 +42,6 @@ import org.junit.runner.RunWith;
 import org.opennms.core.spring.BeanUtils;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.db.MockDatabase;
-import org.opennms.core.test.db.TemporaryDatabase;
 import org.opennms.core.test.db.TemporaryDatabaseAware;
 import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.opennms.netmgt.dao.DatabasePopulator;
@@ -60,6 +59,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
@@ -101,6 +104,9 @@ public class ScanReportPollerFrontEndIT implements TemporaryDatabaseAware<MockDa
     @Autowired
     private JdbcTemplate m_jdbcTemplate;
 
+    @Autowired
+    private TransactionTemplate m_transactionTemplate;
+
     private MockDatabase m_db;
 
     @Override
@@ -123,9 +129,27 @@ public class ScanReportPollerFrontEndIT implements TemporaryDatabaseAware<MockDa
     public void testRegister() throws Exception {
         // Check preconditions
         assertFalse(m_frontEnd.isRegistered());
-        assertEquals(new Integer(1), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class));
-        assertEquals(new Integer(0), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties", Integer.class));
-        assertTrue("There were unexpected poll results", 0 == m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes", Integer.class));
+        Integer value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class);
+            }
+        });
+        assertEquals(new Integer(1), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties", Integer.class);
+            }
+        });
+        assertEquals(new Integer(0), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes", Integer.class);
+            }
+        });
+        assertEquals("There were unexpected poll results", new Integer(0), value);
 
         // Add a PropertyChangeListener that will report the scan result to
         // the PollerBackEnd
@@ -143,9 +167,27 @@ public class ScanReportPollerFrontEndIT implements TemporaryDatabaseAware<MockDa
                     queryEvents();
 
                     // Check to see if the expected metadata was stored in the database
-                    assertEquals(System.getProperty("os.arch"), m_jdbcTemplate.queryForObject("select propertyValue from scanreportproperties where scanreportid = ? and property = ?", String.class, report.getId(), "os.arch"));
-                    assertEquals(System.getProperty("os.name"), m_jdbcTemplate.queryForObject("select propertyValue from scanreportproperties where scanreportid = ? and property = ?", String.class, report.getId(), "os.name"));
-                    assertEquals(System.getProperty("os.version"), m_jdbcTemplate.queryForObject("select propertyValue from scanreportproperties where scanreportid = ? and property = ?", String.class, report.getId(), "os.version"));
+                    String value = m_transactionTemplate.execute(new TransactionCallback<String>() {
+                        @Override
+                        public String doInTransaction(TransactionStatus status) {
+                            return m_jdbcTemplate.queryForObject("select propertyValue from scanreportproperties where scanreportid = ? and property = ?", String.class, report.getId(), "os.arch");
+                        }
+                    });
+                    assertEquals(System.getProperty("os.arch"), value);
+                    value = m_transactionTemplate.execute(new TransactionCallback<String>() {
+                        @Override
+                        public String doInTransaction(TransactionStatus status) {
+                            return m_jdbcTemplate.queryForObject("select propertyValue from scanreportproperties where scanreportid = ? and property = ?", String.class, report.getId(), "os.name");
+                        }
+                    });
+                    assertEquals(System.getProperty("os.name"), value);
+                    value = m_transactionTemplate.execute(new TransactionCallback<String>() {
+                        @Override
+                        public String doInTransaction(TransactionStatus status) {
+                            return m_jdbcTemplate.queryForObject("select propertyValue from scanreportproperties where scanreportid = ? and property = ?", String.class, report.getId(), "os.version");
+                        }
+                    });
+                    assertEquals(System.getProperty("os.version"), value);
 
                     m_frontEnd.stop();
                 }
@@ -156,9 +198,27 @@ public class ScanReportPollerFrontEndIT implements TemporaryDatabaseAware<MockDa
 
         // Initialization shouldn't change anything since we're unregistered
         assertFalse(m_frontEnd.isRegistered());
-        assertEquals(new Integer(1), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class));
-        assertEquals(new Integer(0), m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties", Integer.class));
-        assertTrue("There were unexpected poll results", 0 == m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes", Integer.class));
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems", Integer.class);
+            }
+        });
+        assertEquals(new Integer(1), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystemsproperties", Integer.class);
+            }
+        });
+        assertEquals(new Integer(0), value);
+        value = m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes", Integer.class);
+            }
+        });
+        assertEquals("There were unexpected poll results", new Integer(0), value);
 
         // Start up the remote poller
         m_frontEnd.register("RDU");
@@ -172,22 +232,47 @@ public class ScanReportPollerFrontEndIT implements TemporaryDatabaseAware<MockDa
     }
 
     protected int getSpecificChangesCount(String monitorId) {
-        return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes where systemid = ?", new Object[] { monitorId }, Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from location_specific_status_changes where systemid = ?", new Object[] { monitorId }, Integer.class);
+            }
+        });
     }
 
     protected int getDisconnectedCount(String monitorId) {
-        return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where status=? and id=?", new Object[] { MonitorStatus.DISCONNECTED.toString(), monitorId }, Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where status=? and id=?", new Object[] { MonitorStatus.DISCONNECTED.toString(), monitorId }, Integer.class);
+            }
+        });
     }
 
     protected int getMonitorCount(String monitorId) {
-        return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where id=?", new Object[] { monitorId }, Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from monitoringsystems where id=?", new Object[] { monitorId }, Integer.class);
+            }
+        });
     }
 
     protected int getEventCount() {
-        return m_jdbcTemplate.queryForObject("select count(*) from events", Integer.class);
+        return m_transactionTemplate.execute(new TransactionCallback<Integer>() {
+            @Override
+            public Integer doInTransaction(TransactionStatus status) {
+                return m_jdbcTemplate.queryForObject("select count(*) from events", Integer.class);
+            }
+        });
     }
 
     protected void queryEvents() {
-        System.out.println(m_jdbcTemplate.queryForList("select * from events"));
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                System.out.println(m_jdbcTemplate.queryForList("select * from events"));
+            }
+        });
     }
 }

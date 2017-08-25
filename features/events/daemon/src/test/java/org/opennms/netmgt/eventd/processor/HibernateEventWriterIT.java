@@ -105,7 +105,13 @@ public class HibernateEventWriterIT {
 
         m_eventWriter.process(builder.getLog());
 
-        final List<Map<String, Object>> parameters = jdbcTemplate.queryForList("SELECT name, value FROM event_parameters WHERE eventID = " + builder.getEvent().getDbid() + " ORDER BY name");
+        List<Map<String, Object>> parameters = transactionTemplate.execute(new TransactionCallback<List<Map<String, Object>>>() {
+            @Override
+            public List<Map<String, Object>> doInTransaction(TransactionStatus status) {
+                return jdbcTemplate.queryForList("SELECT name, value FROM event_parameters WHERE eventID = " + builder.getEvent().getDbid() + " ORDER BY name");
+            }
+        });
+
         assertEquals(4, parameters.size());
 
         assertEquals("param1", parameters.get(0).get("name"));

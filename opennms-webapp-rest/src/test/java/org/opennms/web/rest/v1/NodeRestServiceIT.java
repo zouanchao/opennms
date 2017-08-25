@@ -201,7 +201,7 @@ public class NodeRestServiceIT extends AbstractSpringJerseyRestTestCase {
         String xml = sendRequest(GET, url, parseParamData("filterRule=catincRouters"), 200);
         OnmsNodeList list = JaxbUtils.unmarshal(OnmsNodeList.class, xml);
         assertEquals(0, list.size());
-        assertEquals(Integer.valueOf(0), list.getTotalCount());
+        assertEquals(Long.valueOf(0), list.getTotalCount());
 
         // Assign the category to the node
         sendRequest(POST, "/nodes/1/categories/Routers", 201);
@@ -212,7 +212,7 @@ public class NodeRestServiceIT extends AbstractSpringJerseyRestTestCase {
         xml = sendRequest(GET, url, parseParamData("filterRule=catincRouters"), 200);
         list = JaxbUtils.unmarshal(OnmsNodeList.class, xml);
         assertEquals(xml, 1, list.size());
-        assertEquals(xml, Integer.valueOf(1), list.getTotalCount());
+        assertEquals(xml, Long.valueOf(1), list.getTotalCount());
         assertEquals(xml, "TestMachine0", list.get(0).getLabel());
     }
 
