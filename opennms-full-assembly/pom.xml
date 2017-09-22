@@ -284,6 +284,7 @@
                 <descriptor>mvn:org.apache.karaf.features/framework/${karafVersion}/xml/features</descriptor>
                 <!-- Karaf standard and Spring features, replaced by our modified versions -->
                 <!-- <descriptor>mvn:org.apache.karaf.features/standard/${karafVersion}/xml/features</descriptor> -->
+                <!-- <descriptor>mvn:org.apache.karaf.features/enterprise/${karafVersion}/xml/features</descriptor> -->
                 <!-- <descriptor>mvn:org.apache.karaf.features/spring/${karafVersion}/xml/features</descriptor> -->
                 <!-- <descriptor>mvn:org.apache.karaf.features/spring-legacy/${karafVersion}/xml/features</descriptor> -->
                 <!-- Pax Exam features -->
@@ -293,6 +294,7 @@
 
                 <!-- Features for the OpenNMS-modified Karaf container -->
                 <descriptor>mvn:org.opennms.karaf/opennms/${project.version}/xml/standard</descriptor>
+                <descriptor>mvn:org.opennms.karaf/opennms/${project.version}/xml/enterprise</descriptor>
                 <descriptor>mvn:org.opennms.karaf/opennms/${project.version}/xml/spring</descriptor>
                 <descriptor>mvn:org.opennms.karaf/opennms/${project.version}/xml/spring-legacy</descriptor>
 

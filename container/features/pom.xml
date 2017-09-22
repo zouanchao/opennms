@@ -57,11 +57,12 @@
             <!-- Karaf standard features -->
             <!-- <descriptor>mvn:org.apache.karaf.features/framework/${karafVersion}/xml/features</descriptor> -->
             <!-- <descriptor>mvn:org.apache.karaf.features/standard/${karafVersion}/xml/features</descriptor> -->
-            <!-- <descriptor>mvn:org.apache.karaf.features/spring/${karafVersion}/xml/features</descriptor> -->
             <!-- <descriptor>mvn:org.apache.karaf.features/enterprise/${karafVersion}/xml/features</descriptor> -->
+            <!-- <descriptor>mvn:org.apache.karaf.features/spring/${karafVersion}/xml/features</descriptor> -->
 
             <!-- OpenNMS-modified Karaf base features -->
             <!-- <repository>mvn:org.opennms.karaf/opennms/${project.version}/xml/standard</repository> -->
+            <!-- <repository>mvn:org.opennms.karaf/opennms/${project.version}/xml/enterprise</repository> -->
             <!-- <repository>mvn:org.opennms.karaf/opennms/${project.version}/xml/spring</repository> -->
             <!-- <repository>mvn:org.opennms.karaf/opennms/${project.version}/xml/spring-legacy</repository> -->
 
@@ -402,6 +403,11 @@
                   <file>${project.build.outputDirectory}/karaf/standard.xml</file>
                   <type>xml</type>
                   <classifier>standard</classifier>
+                </artifact>
+                <artifact>
+                  <file>${project.build.outputDirectory}/karaf/enterprise.xml</file>
+                  <type>xml</type>
+                  <classifier>enterprise</classifier>
                 </artifact>
                 <artifact>
                   <file>${project.build.outputDirectory}/karaf/spring.xml</file>
