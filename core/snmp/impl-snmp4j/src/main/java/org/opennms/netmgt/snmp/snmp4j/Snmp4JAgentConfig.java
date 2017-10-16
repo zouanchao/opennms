@@ -334,7 +334,7 @@ public class Snmp4JAgentConfig {
     }
 
     public Snmp createSnmpSession() throws IOException {
-        final TransportMapping<?> transport = new DefaultUdpTransportMapping();
+        final TransportMapping<?> transport = new TrackableDefaultUdpTransportMapping(this);
         final MessageDispatcher disp = new MessageDispatcherImpl();
         final Snmp session;
         // Here we create the SNMP session, while only adding the message processing
