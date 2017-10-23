@@ -34,7 +34,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.FileInputStream;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -120,12 +120,12 @@ public class AcknowledgmentRestServiceIT extends AbstractSpringJerseyRestTestCas
 	public void testAcknowlegeNotification() throws Exception {
 	    final Pattern p = Pattern.compile("^.*<answeredBy>(.*?)</answeredBy>.*$", Pattern.DOTALL & Pattern.MULTILINE);
 	    sendData(POST, MediaType.APPLICATION_FORM_URLENCODED, "/acks", "notifId=1&action=ack", 200);
-	    String xml = sendRequest(GET, "/notifications/1", new HashMap<String,String>(), 200);
+	    String xml = sendRequest(GET, "/notifications/1", Collections.emptyMap(), 200);
 	    Matcher m = p.matcher(xml);
 	    assertTrue(m.matches());
 	    assertTrue(m.group(1).equals("admin"));
 	    sendData(POST, MediaType.APPLICATION_FORM_URLENCODED, "/acks", "notifId=1&action=unack", 200);
-	    xml = sendRequest(GET, "/notifications/1", new HashMap<String,String>(), 200);
+	    xml = sendRequest(GET, "/notifications/1", Collections.emptyMap(), 200);
 	    m = p.matcher(xml);
 	    assertFalse(m.matches());
 	}
@@ -165,18 +165,18 @@ public class AcknowledgmentRestServiceIT extends AbstractSpringJerseyRestTestCas
 
 	    xml = sendRequest(GET, "/acks/" + newAckId, 200);
 
-	    xml = sendRequest(GET, "/alarms/1", new HashMap<String,String>(), 200);
+	    xml = sendRequest(GET, "/alarms/1", Collections.emptyMap(), 200);
 	    Matcher m = p.matcher(xml);
 	    assertTrue(m.matches());
 	    assertTrue(m.group(1).length() > 0);
 	    sendData(POST, MediaType.APPLICATION_FORM_URLENCODED, "/acks", "alarmId=1&action=unack", 200);
-	    xml = sendRequest(GET, "/alarms/1", new HashMap<String,String>(), 200);
+	    xml = sendRequest(GET, "/alarms/1", Collections.emptyMap(), 200);
 	    m = p.matcher(xml);
 	    assertFalse(m.matches());
 
 	    // POST with no argument, this will ack by default
 	    sendData(POST, MediaType.APPLICATION_FORM_URLENCODED, "/acks", "alarmId=1", 200);
-	    xml = sendRequest(GET, "/alarms/1", new HashMap<String,String>(), 200);
+	    xml = sendRequest(GET, "/alarms/1", Collections.emptyMap(), 200);
 	    m = p.matcher(xml);
 	    assertTrue(m.matches());
 	}

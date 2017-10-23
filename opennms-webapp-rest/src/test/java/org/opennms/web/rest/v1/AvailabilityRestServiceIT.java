@@ -31,7 +31,7 @@ package org.opennms.web.rest.v1;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
-import java.util.HashMap;
+import java.util.Collections;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.MediaType;
@@ -100,7 +100,7 @@ public class AvailabilityRestServiceIT extends AbstractSpringJerseyRestTestCase 
     @Test
     @JUnitTemporaryDatabase
     public void testGetAvailability() throws Exception {
-        String xml = sendRequest(GET, "/availability", new HashMap<String,String>(), 200);
+        String xml = sendRequest(GET, "/availability", Collections.emptyMap(), 200);
         assertNotNull(xml);
     }
 

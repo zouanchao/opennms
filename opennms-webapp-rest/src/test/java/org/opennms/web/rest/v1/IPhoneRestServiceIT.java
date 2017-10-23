@@ -31,6 +31,7 @@ package org.opennms.web.rest.v1;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,12 +99,12 @@ public class IPhoneRestServiceIT extends AbstractSpringJerseyRestTestCase {
     public void testAcknowlegement() throws Exception {
         final Pattern p = Pattern.compile("^.*<ackTime>(.*?)</ackTime>.*$", Pattern.DOTALL & Pattern.MULTILINE);
         sendData(POST, MediaType.APPLICATION_FORM_URLENCODED, "/acks", "alarmId=1&action=ack", 200);
-        String xml = sendRequest(GET, "/alarms/1", new HashMap<String, String>(), 200);
+        String xml = sendRequest(GET, "/alarms/1", Collections.emptyMap(), 200);
         Matcher m = p.matcher(xml);
         assertTrue(m.matches());
         assertTrue(m.group(1).length() > 0);
         sendData(POST, MediaType.APPLICATION_FORM_URLENCODED, "/acks", "alarmId=1&action=unack", 200);
-        xml = sendRequest(GET, "/alarms/1", new HashMap<String, String>(), 200);
+        xml = sendRequest(GET, "/alarms/1", Collections.emptyMap(), 200);
         m = p.matcher(xml);
         assertFalse(m.matches());
     }
