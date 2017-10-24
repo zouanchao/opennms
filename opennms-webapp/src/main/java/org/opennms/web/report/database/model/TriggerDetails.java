@@ -37,7 +37,7 @@ import java.io.Serializable;
  * @version $Id: $
  * @since 1.8.1
  */
-public class TriggerDetails  implements Serializable {
+public class TriggerDetails implements Serializable {
     
     private static final long serialVersionUID = 3258199709023045243L;
     
