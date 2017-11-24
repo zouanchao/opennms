@@ -728,18 +728,6 @@
         </configuration>
       </plugin>    
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>2.2</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresqlVersion}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.7.6.201602180812</version>
@@ -924,7 +912,6 @@
             <!-- Turn off queuing in the RRD output -->
             <org.opennms.rrd.usequeue>false</org.opennms.rrd.usequeue>
             <java.awt.headless>true</java.awt.headless>
-            <mock.logLevel>${mock.logLevel}</mock.logLevel>
             <mock.debug>${mock.debug}</mock.debug>
             <mock.rundbtests>${mock.rundbtests}</mock.rundbtests>
             <mock.leaveDatabase>${mock.leaveDatabase}</mock.leaveDatabase>
@@ -1016,17 +1003,6 @@
           <generateXml>true</generateXml>
           <generateHtml>true</generateHtml>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresqlVersion}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <!-- jacoco code coverage testing library -->
       <!--
@@ -1187,8 +1163,6 @@
     <antlr.version>2.7.7</antlr.version>
     <sass.maven.plugin.version>1.1.2-ONMS-20131018-1</sass.maven.plugin.version>
 
-    <!-- turn down the default DEBUG logLevel. Override on the command line if you want -->
-    <mock.logLevel>WARN</mock.logLevel>
     <mock.debug>false</mock.debug>
     <mock.rundbtests>true</mock.rundbtests>
     <mock.leaveDatabase>false</mock.leaveDatabase>
@@ -3555,6 +3529,11 @@
         <groupId>org.hibernate.javax.persistence</groupId>
         <artifactId>hibernate-jpa-2.0-api</artifactId>
         <version>1.0.1.Final</version>
+      </dependency>
+      <dependency>
+	      <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator-annotation-processor</artifactId>
+        <version>4.1.0.Final</version>
       </dependency>
       <dependency>
         <groupId>javax.samples.jnlp</groupId>

@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2007-2014 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
+ * Copyright (C) 2017 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2017 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -26,23 +26,16 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.provision.detector.jmx;
+package org.opennms.minion.core.api;
 
-/**
- * <p>MX4JDetector class.</p>
- *
- * @author ranger
- * @version $Id: $
- */
+public interface ControllerConfig {
 
-public class MX4JDetector extends AbstractJsr160Detector {
-    
-    /**
-     * <p>Constructor for MX4JDetector.</p>
-     */
-    public MX4JDetector(){
-        super("MX4J", 9004);
-        setFriendlyName("mx4j");
-        setFactory("STANDARD");
-    }
+    String getBrokerUrl();
+
+    int getBrokerMaxConnections();
+
+    int getBrokerConcurrentConsumers();
+
+    int getBrokerIdleTimeout();
+
 }
