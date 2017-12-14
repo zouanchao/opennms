@@ -104,7 +104,7 @@
          <parameter key="collection" value="default"/>
          <parameter key="thresholding-enabled" value="true"/>
       </service>
-      <service name="JMX-OpenNMS" interval="300000" user-defined="false" status="on">
+      <service name="OpenNMS-JVM" interval="300000" user-defined="false" status="on">
          <parameter key="port" value="18980"/>
          <parameter key="retry" value="2"/>
          <parameter key="timeout" value="3000"/>
@@ -178,7 +178,7 @@
    <collector service="VMwareCim-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCimCollector"/>
    <collector service="OpenNMS-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-Minion" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
-   <collector service="JMX-OpenNMS" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
+   <collector service="OpenNMS-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-ActiveMQ" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-Cassandra" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
