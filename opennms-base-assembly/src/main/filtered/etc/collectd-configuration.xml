@@ -104,15 +104,35 @@
          <parameter key="collection" value="default"/>
          <parameter key="thresholding-enabled" value="true"/>
       </service>
-      <service name="OpenNMS-JVM" interval="300000" user-defined="false" status="on">
+      <service name="JMX-OpenNMS" interval="300000" user-defined="false" status="on">
          <parameter key="port" value="18980"/>
          <parameter key="retry" value="2"/>
          <parameter key="timeout" value="3000"/>
          <parameter key="rrd-base-name" value="java"/>
-         <parameter key="collection" value="jsr160"/>
+         <parameter key="collection" value="jmx-opennms"/>
          <parameter key="thresholding-enabled" value="true"/>
-         <parameter key="ds-name" value="opennms-jvm"/>
-         <parameter key="friendly-name" value="opennms-jvm"/>
+         <parameter key="ds-name" value="jmx-opennms"/>
+         <parameter key="friendly-name" value="jmx-opennms"/>
+      </service>
+      <service name="JMX-JVM" interval="300000" user-defined="false" status="on">
+         <parameter key="port" value="18980"/>
+         <parameter key="retry" value="2"/>
+         <parameter key="timeout" value="3000"/>
+         <parameter key="rrd-base-name" value="java"/>
+         <parameter key="collection" value="jmx-jvm"/>
+         <parameter key="thresholding-enabled" value="true"/>
+         <parameter key="ds-name" value="jmx-jvm"/>
+         <parameter key="friendly-name" value="jmx-jvm"/>
+      </service>
+      <service name="JMX-ActiveMQ" interval="300000" user-defined="false" status="on">
+         <parameter key="port" value="18980"/>
+         <parameter key="retry" value="2"/>
+         <parameter key="timeout" value="3000"/>
+         <parameter key="rrd-base-name" value="java"/>
+         <parameter key="collection" value="jmx-activemq"/>
+         <parameter key="thresholding-enabled" value="true"/>
+         <parameter key="ds-name" value="jmx-activemq"/>
+         <parameter key="friendly-name" value="jmx-activemq"/>
       </service>
       <service name="JMX-Minion" interval="300000" user-defined="false" status="on">
          <parameter key="port" value="18980"/>
@@ -158,6 +178,9 @@
    <collector service="VMwareCim-HostSystem" class-name="org.opennms.netmgt.collectd.VmwareCimCollector"/>
    <collector service="OpenNMS-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-Minion" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
+   <collector service="JMX-OpenNMS" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
+   <collector service="JMX-JVM" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
+   <collector service="JMX-ActiveMQ" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-Cassandra" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-Cassandra-Newts" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
    <collector service="JMX-Kafka" class-name="org.opennms.netmgt.collectd.Jsr160Collector"/>
