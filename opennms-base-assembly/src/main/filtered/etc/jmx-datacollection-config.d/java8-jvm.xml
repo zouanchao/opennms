@@ -152,6 +152,18 @@
                     <comp-member name="duration" alias="PSSDuration" type="gauge"/>
                 </comp-attrib>
             </mbean>
+            <mbean name="java8-jvm:GarbageCollector:G1 Old Generation" objectname="java.lang:type=GarbageCollector,name=G1 Old Generation">
+                <comp-attrib name="LastGcInfo" alias="g1OldLastGcInfo" type="Composite">
+                    <comp-member name="GcThreadCount" alias="g1OldGcThreadCnt" type="gauge"/>
+                    <comp-member name="duration" alias="g1OldDuration" type="gauge"/>
+                </comp-attrib>
+            </mbean>
+            <mbean name="java8-jvm:GarbageCollector:G1 Young Generation" objectname="java.lang:type=GarbageCollector,name=G1 Young Generation">
+                <comp-attrib name="LastGcInfo" alias="g1YoungLastGcInfo" type="Composite">
+                    <comp-member name="GcThreadCount" alias="g1YoungGcThreadCnt" type="gauge"/>
+                    <comp-member name="duration" alias="g1YoungDuration" type="gauge"/>
+                </comp-attrib>
+            </mbean>
         </mbeans>
     </jmx-collection>
 </jmx-datacollection-config>
