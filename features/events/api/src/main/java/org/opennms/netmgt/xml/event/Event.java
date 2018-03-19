@@ -1883,7 +1883,7 @@ public class Event implements Serializable {
 		if (_dbid   != null) builder.append("dbid", _dbid);
 		if (_source != null) builder.append("source", _source);
 		if (_nodeid != null) builder.append("nodeid", _nodeid);
-		if (_parms  != null) builder.append("parms", _parms);
+		if (_parms  != null) builder.append("parms", new ArrayList<>(_parms));
 		return builder.toString();
 	}
 
