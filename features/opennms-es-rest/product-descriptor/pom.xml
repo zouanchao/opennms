@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.opennms.plugins</groupId>
     <artifactId>opennms-es-rest.parent</artifactId>
-    <version>20.1.0-TN-SNAPSHOT</version>
+    <version>20.1.1-TN-SNAPSHOT</version>
   </parent>
 
   <!-- ProductDescriptor -->
