@@ -103,7 +103,20 @@ public class AlarmData implements Serializable {
     @XmlElement(name="update-field", required=false)
     @Valid
     private List<UpdateField> m_updateFieldList = new ArrayList<>();
-    
+
+    /**
+     * Field m_impacts
+     */
+    @XmlElement(name = "impacts", required = false)
+    @Valid
+    private List<String> m_impacts = new ArrayList<>();
+
+    /**
+     * Field m_causes
+     */
+    @XmlElement(name = "causes", required = false)
+    @Valid
+    private List<String> m_causes = new ArrayList<>();
 
     public AlarmData() {
         super();
@@ -329,8 +342,25 @@ public class AlarmData implements Serializable {
         m_updateFieldList.addAll(fields);
     }
 
-        @Override
+    public List<String> getImpacts() {
+        return m_impacts;
+    }
+
+    public void setImpacts(List<String> impacts) {
+        this.m_impacts = impacts;
+    }
+
+    public List<String> getCauses() {
+        return m_causes;
+    }
+
+    public void setCauses(List<String> causes) {
+        this.m_causes = causes;
+    }
+
+    @Override
     public String toString() {
     	return new OnmsStringBuilder(this).toString();
     }
+
 }

@@ -168,6 +168,12 @@ public class AlarmDTO {
     @XmlElement(name="stickyMemo")
     private MemoDTO stickyMemo;
 
+    @XmlElement(name="impacts")
+    private List<AlarmSummaryDTO> impacts;
+
+    @XmlElement(name="causes")
+    private List<AlarmSummaryDTO> causes;
+    
     public Integer getId() {
         return id;
     }
@@ -487,6 +493,22 @@ public class AlarmDTO {
     public void setStickyMemo(MemoDTO stickyMemo) {
         this.stickyMemo = stickyMemo;
     }
+    
+    public List<AlarmSummaryDTO> getImpacts() {
+        return impacts;
+    }
+
+    public void setImpacts(List<AlarmSummaryDTO> impacts) {
+        this.impacts = impacts;
+    }
+
+    public List<AlarmSummaryDTO> getCauses() {
+        return causes;
+    }
+
+    public void setCauses(List<AlarmSummaryDTO> causes) {
+        this.causes = causes;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -532,11 +554,17 @@ public class AlarmDTO {
                 Objects.equals(lastAutomationTime, alarmDTO.lastAutomationTime) &&
                 Objects.equals(ifIndex, alarmDTO.ifIndex) &&
                 Objects.equals(reductionKeyMemo, alarmDTO.reductionKeyMemo) &&
-                Objects.equals(stickyMemo, alarmDTO.stickyMemo);
+                Objects.equals(stickyMemo, alarmDTO.stickyMemo) &&
+                Objects.equals(impacts, alarmDTO.impacts) &&
+                Objects.equals(causes, alarmDTO.causes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, uei, location, nodeId, nodeLabel, ipAddress, serviceType, reductionKey, type, count, severity, firstEventTime, description, logMessage, operatorInstructions, troubleTicket, troubleTicketState, troubleTicketLink, mouseOverText, suppressedUntil, suppressedBy, suppressedTime, ackUser, ackTime, clearKey, lastEvent, parameters, lastEventTime, applicationDN, managedObjectInstance, managedObjectType, ossPrimaryKey, x733AlarmType, x733ProbableCause, qosAlarmState, firstAutomationTime, lastAutomationTime, ifIndex, reductionKeyMemo, stickyMemo);
+        return Objects.hash(id, uei, location, nodeId, nodeLabel, ipAddress, serviceType, reductionKey, type, count, severity, firstEventTime, description,
+                            logMessage, operatorInstructions, troubleTicket, troubleTicketState, troubleTicketLink, mouseOverText, suppressedUntil,
+                            suppressedBy, suppressedTime, ackUser, ackTime, clearKey, lastEvent, parameters, lastEventTime, applicationDN,
+                            managedObjectInstance, managedObjectType, ossPrimaryKey, x733AlarmType, x733ProbableCause, qosAlarmState, firstAutomationTime,
+                            lastAutomationTime, ifIndex, reductionKeyMemo, stickyMemo, impacts, causes);
     }
 }

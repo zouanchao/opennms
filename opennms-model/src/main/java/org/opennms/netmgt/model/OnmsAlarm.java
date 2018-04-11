@@ -47,6 +47,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
@@ -1173,8 +1174,10 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         return m_cause;
     }
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @JoinTable(name = "impacted_alarms", joinColumns = @JoinColumn(name = "impacted_alarmid", referencedColumnName = "alarmid"))
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="impacted_alarms", 
+        joinColumns={@JoinColumn(name="impacted_alarmid")}, 
+        inverseJoinColumns={@JoinColumn(name="cause_alarmid")})
     public List<OnmsAlarm> getImpacts() {
         return m_impacts;
     }
@@ -1183,8 +1186,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
         m_impacts = impacts;
     }
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @JoinTable(name = "impacted_alarms", joinColumns = @JoinColumn(name = "cause_alarmid", referencedColumnName = "alarmid"))
+    @ManyToMany(mappedBy="impacts")
     public List<OnmsAlarm> getCauses() {
         return m_causes;
     }

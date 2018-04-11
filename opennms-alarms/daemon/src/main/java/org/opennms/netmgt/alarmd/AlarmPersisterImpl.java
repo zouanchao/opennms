@@ -28,11 +28,14 @@
 
 package org.opennms.netmgt.alarmd;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.stream.Collectors;
 
 import org.hibernate.Hibernate;
 import org.opennms.netmgt.dao.api.AlarmDao;
@@ -66,7 +69,7 @@ public class AlarmPersisterImpl implements AlarmPersister {
 
     protected static final Integer NUM_STRIPE_LOCKS = Integer.getInteger("org.opennms.alarmd.stripe.locks", Alarmd.THREADS * 4);
 
-    private AlarmDao m_alarmDao;
+    private static AlarmDao m_alarmDao;
     private EventDao m_eventDao;
     private EventForwarder m_eventForwarder;
     private TransactionOperations m_transactionOperations;
@@ -258,11 +261,20 @@ public class AlarmPersisterImpl implements AlarmPersister {
         alarm.setSuppressedTime(e.getEventTime()); //TODO: Fix UI to not require this be set
         //alarm.setTTicketId(e.getEventTTicket());
         //alarm.setTTicketState(TroubleTicketState.CANCEL_FAILED);  //FIXME
+        alarm.setImpacts(getAlarms(event.getAlarmData().getImpacts()));
+        alarm.setCauses(getAlarms(event.getAlarmData().getCauses()));
         alarm.setUei(e.getEventUei());
         e.setAlarm(alarm);
         return alarm;
     }
     
+    private static List<OnmsAlarm> getAlarms(List<String> reductionKeys) {
+        if (reductionKeys == null) {
+            return Collections.emptyList();
+        }
+        return reductionKeys.stream().map(reductionKey -> m_alarmDao.findByReductionKey(reductionKey)).collect(Collectors.toList());
+    }
+
     private static boolean checkEventSanityAndDoWeProcess(final Event event) {
         // 2009-01-07 pbrane: TODO: Understand why we use Assert
         Assert.notNull(event, "Incoming event was null, aborting"); 

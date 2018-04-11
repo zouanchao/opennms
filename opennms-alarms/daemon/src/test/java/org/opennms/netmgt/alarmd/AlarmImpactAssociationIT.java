@@ -42,7 +42,9 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
@@ -65,35 +67,49 @@ public class AlarmImpactAssociationIT {
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    @Autowired
+    private TransactionTemplate m_transactionTemplate;
+
     @Test
-    @Transactional
     public void canAssociateImpactingAlarms() {
-        // Create and save a first alarm
-        OnmsAlarm linkDownAlarmOnR1 = new OnmsAlarm();
+        // Create a first alarms
+        final OnmsAlarm linkDownAlarmOnR1 = new OnmsAlarm();
         linkDownAlarmOnR1.setDistPoller(m_distPollerDao.whoami());
         linkDownAlarmOnR1.setCounter(1);
         linkDownAlarmOnR1.setUei("linkDown");
-        m_alarmDao.save(linkDownAlarmOnR1);
-        verifyInitialState(linkDownAlarmOnR1);
 
-        // Create and save a second alarm
-        OnmsAlarm linkDownAlarmOnR2 = new OnmsAlarm();
+        // Create a second alarm
+        final OnmsAlarm linkDownAlarmOnR2 = new OnmsAlarm();
         linkDownAlarmOnR2.setDistPoller(m_distPollerDao.whoami());
         linkDownAlarmOnR2.setCounter(1);
         linkDownAlarmOnR2.setUei("linkDown");
 
-        // Associate
-        associate(linkDownAlarmOnR1, linkDownAlarmOnR2);
+        // Save them and associate them together in one transaction
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                m_alarmDao.save(linkDownAlarmOnR1);
+                verifyInitialState(linkDownAlarmOnR1);
 
-        // Verify
-        verifyAssociation(linkDownAlarmOnR1, linkDownAlarmOnR2);
+                // Associate
+                associate(linkDownAlarmOnR1, linkDownAlarmOnR2);
 
-        // Now reload the entities
-        linkDownAlarmOnR1 = m_alarmDao.get(linkDownAlarmOnR1.getId());
-        linkDownAlarmOnR2 = m_alarmDao.get(linkDownAlarmOnR2.getId());
+                // Verify
+                verifyAssociation(linkDownAlarmOnR1, linkDownAlarmOnR2);
+            }
+        });
 
-        // And verify again
-        verifyAssociation(linkDownAlarmOnR1, linkDownAlarmOnR2);
+        m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                // Now reload the entities
+                OnmsAlarm r1 = m_alarmDao.get(linkDownAlarmOnR1.getId());
+                OnmsAlarm r2 = m_alarmDao.get(linkDownAlarmOnR2.getId());
+
+                // And verify again
+                verifyAssociation(r1, r2);
+            }
+        });
     }
 
     void associate(OnmsAlarm cause, OnmsAlarm impacted) {
