@@ -28,6 +28,7 @@
 
 package org.opennms.web.rest.support;
 
+import static org.opennms.web.rest.support.SearchProperty.SearchPropertyType.BOOLEAN;
 import static org.opennms.web.rest.support.SearchProperty.SearchPropertyType.FLOAT;
 import static org.opennms.web.rest.support.SearchProperty.SearchPropertyType.INTEGER;
 import static org.opennms.web.rest.support.SearchProperty.SearchPropertyType.IP_ADDRESS;
@@ -76,17 +77,17 @@ public abstract class SearchProperties {
 	 */
 	private static final Map<String,String> ONMS_SEVERITIES = Arrays.stream(OnmsSeverity.values()).collect(Collectors.toMap(s -> String.valueOf(s.getId()), OnmsSeverity::getLabel));
 
-    private static final Map<String, String> TRUE_OR_FALSE = ImmutableMap.<String,String>builder()
-            .put(String.valueOf("true"), "TRUE")
-            .put(String.valueOf("false"), "FALSE")
-            .build();
+	private static final Map<String, String> TRUE_OR_FALSE = ImmutableMap.<String,String>builder()
+	        .put("1", "TRUE")
+	        .put("0", "FALSE")
+	        .build();
 
 	static final SortedSet<SearchProperty> ALARM_PROPERTIES = new TreeSet<>(Arrays.asList(new SearchProperty[] {
 		new SearchProperty(OnmsAlarm.class, "id", "ID", INTEGER),
 		new SearchProperty(OnmsAlarm.class, "alarmAckTime", "Acknowledged Time", TIMESTAMP),
         new SearchProperty(OnmsAlarm.class, "alarmAckUser", "Acknowledging User", STRING),
-        new SearchProperty(OnmsAlarm.class, "alarmCauses", "Causes", STRING, TRUE_OR_FALSE),
-        new SearchProperty(OnmsAlarm.class, "alarmImpacts", "Impacts", STRING, TRUE_OR_FALSE),
+        new SearchProperty(OnmsAlarm.class, "cause", "Causes", BOOLEAN, TRUE_OR_FALSE),
+        new SearchProperty(OnmsAlarm.class, "impacted", "Impacts", BOOLEAN, TRUE_OR_FALSE),
 		new SearchProperty(OnmsAlarm.class, "alarmType", "Alarm Type", INTEGER, ImmutableMap.<String,String>builder()
 			.put(String.valueOf(OnmsAlarm.PROBLEM_TYPE), "Problem")
 			.put(String.valueOf(OnmsAlarm.RESOLUTION_TYPE), "Resolution")

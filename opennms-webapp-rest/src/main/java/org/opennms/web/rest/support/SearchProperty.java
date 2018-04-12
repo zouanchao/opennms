@@ -55,6 +55,7 @@ public class SearchProperty implements Comparable<SearchProperty> {
 		.thenComparing(SearchProperty::getId);
 
 	public static enum SearchPropertyType {
+        BOOLEAN,
 		FLOAT,
 		INTEGER,
 		IP_ADDRESS,

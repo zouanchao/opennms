@@ -141,6 +141,9 @@ public class AlarmMapperTest {
         alarm.setTTicketId("NMS-9587");
         alarm.setTTicketState(TroubleTicketState.OPEN);
 
+        alarm.setCauses(null);
+        alarm.setImpacts(null);
+
         AlarmDTO alarmDTO = alarmMapper.alarmToAlarmDTO(alarm);
         mapAndMarshalToFromXmlAndJson(alarmDTO,
                 "alarm.34.dto.xml",

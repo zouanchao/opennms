@@ -47,6 +47,7 @@ import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
+import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.UpdateField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -261,18 +262,18 @@ public class AlarmPersisterImpl implements AlarmPersister {
         alarm.setSuppressedTime(e.getEventTime()); //TODO: Fix UI to not require this be set
         //alarm.setTTicketId(e.getEventTTicket());
         //alarm.setTTicketState(TroubleTicketState.CANCEL_FAILED);  //FIXME
-        alarm.setImpacts(getAlarms(event.getAlarmData().getImpacts()));
-        alarm.setCauses(getAlarms(event.getAlarmData().getCauses()));
+        alarm.setImpacts(getAlarms(event.getParm("impacts")));
+        alarm.setCauses(getAlarms(event.getParm("causes")));
         alarm.setUei(e.getEventUei());
         e.setAlarm(alarm);
         return alarm;
     }
     
-    private static List<OnmsAlarm> getAlarms(List<String> reductionKeys) {
-        if (reductionKeys == null) {
+    private static List<OnmsAlarm> getAlarms(Parm reductionKeysParm) {
+        if (reductionKeysParm == null || reductionKeysParm.getValue().getContent() == null) {
             return Collections.emptyList();
         }
-        return reductionKeys.stream().map(reductionKey -> m_alarmDao.findByReductionKey(reductionKey)).collect(Collectors.toList());
+        return Arrays.stream(reductionKeysParm.getValue().getContent().split(",")).map(reductionKey -> m_alarmDao.findByReductionKey(reductionKey)).collect(Collectors.toList());
     }
 
     private static boolean checkEventSanityAndDoWeProcess(final Event event) {

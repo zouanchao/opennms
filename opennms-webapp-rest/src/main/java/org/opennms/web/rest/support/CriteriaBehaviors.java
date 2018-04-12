@@ -28,6 +28,7 @@
 
 package org.opennms.web.rest.support;
 
+import static org.opennms.web.rest.support.CriteriaValueConverters.BOOLEAN_CONVERTER;
 import static org.opennms.web.rest.support.CriteriaValueConverters.DATE_CONVERTER;
 import static org.opennms.web.rest.support.CriteriaValueConverters.FLOAT_CONVERTER;
 import static org.opennms.web.rest.support.CriteriaValueConverters.INET_ADDRESS_CONVERTER;
@@ -198,6 +199,8 @@ public abstract class CriteriaBehaviors {
         ALARM_BEHAVIORS.put("suppressedUntil", new CriteriaBehavior<Date>(DATE_CONVERTER));
         ALARM_BEHAVIORS.put("troubleTicketState", new CriteriaBehavior<TroubleTicketState>(TroubleTicketState::valueOf));
         ALARM_BEHAVIORS.put("x733ProbableCause", new CriteriaBehavior<Integer>(INT_CONVERTER));
+        ALARM_BEHAVIORS.put("impacted", new CriteriaBehavior<Boolean>(BOOLEAN_CONVERTER));
+        ALARM_BEHAVIORS.put("cause", new CriteriaBehavior<Boolean>(BOOLEAN_CONVERTER));
 
         ALARM_LASTEVENT_PARAMETER_BEHAVIORS.put("name", new EventParameterBehavior("lastEvent.eventParameters", "lasteventid", "name"));
         ALARM_LASTEVENT_PARAMETER_BEHAVIORS.put("value", new EventParameterBehavior("lastEvent.eventParameters", "lasteventid", "value"));

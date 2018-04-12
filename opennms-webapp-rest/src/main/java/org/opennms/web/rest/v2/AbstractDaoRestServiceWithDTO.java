@@ -81,6 +81,7 @@ import org.opennms.netmgt.events.api.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.web.api.ISO8601DateEditor;
 import org.opennms.web.api.RestUtils;
+import org.opennms.web.rest.support.BooleanCollection;
 import org.opennms.web.rest.support.CriteriaBehavior;
 import org.opennms.web.rest.support.CriteriaBuilderSearchVisitor;
 import org.opennms.web.rest.support.DateCollection;
@@ -378,6 +379,8 @@ public abstract class AbstractDaoRestServiceWithDTO<T,D,Q,K extends Serializable
                 }
 
                 switch(property.type) {
+                    case BOOLEAN:
+                        return Response.ok(new BooleanCollection(validValues.stream().map(Boolean::parseBoolean).collect(Collectors.toList()))).build();
                     case FLOAT:
                         return Response.ok(new FloatCollection(validValues.stream().map(Float::parseFloat).collect(Collectors.toList()))).build();
                     case INTEGER:

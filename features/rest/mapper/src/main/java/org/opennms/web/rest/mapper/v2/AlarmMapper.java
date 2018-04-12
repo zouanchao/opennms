@@ -28,22 +28,24 @@
 
 package org.opennms.web.rest.mapper.v2;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import org.mapstruct.AfterMapping;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
+import org.opennms.netmgt.model.AckType;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsEventParameter;
 import org.opennms.netmgt.model.TroubleTicketState;
 import org.opennms.web.rest.model.v2.AlarmDTO;
+import org.opennms.web.rest.model.v2.AlarmSummaryDTO;
 import org.opennms.web.rest.model.v2.EventParameterDTO;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {EventMapper.class})
 public abstract class AlarmMapper {
@@ -54,6 +56,8 @@ public abstract class AlarmMapper {
             @Mapping(source = "distPoller.location", target = "location"),
             @Mapping(source = "ipAddr", target = "ipAddress"),
             @Mapping(source = "alarmType", target = "type"),
+            @Mapping(source = "causes", target = "causes"),
+            @Mapping(source = "impacts", target = "impacts"),
             @Mapping(source = "counter", target = "count"),
             @Mapping(source = "severityLabel", target = "severity"),
             @Mapping(source = "logMsg", target = "logMessage"),
@@ -98,6 +102,12 @@ public abstract class AlarmMapper {
 
     public abstract EventParameterDTO eventParameterToEventParameterDTO(OnmsEventParameter eventParameter);
 
+    public abstract AlarmSummaryDTO alarmToAlarmSummaryDTO(OnmsAlarm alarm);
+
+    public Integer ackTypeToInteger(AckType ack) {
+        return ack.getId();
+    }
+
     public void setTicketUrlTemplate(String ticketUrlTemplate) {
         this.ticketUrlTemplate = ticketUrlTemplate;
     }
@@ -108,4 +118,5 @@ public abstract class AlarmMapper {
         Objects.requireNonNull(ticketId);
         return ticketUrlTemplate.replaceAll("\\$\\{id\\}", ticketId);
     }
+
 }
