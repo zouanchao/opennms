@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.hibernate.Hibernate;
 import org.opennms.netmgt.dao.api.AlarmDao;
@@ -56,6 +57,8 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionOperations;
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Supplier;
 import com.google.common.util.concurrent.Striped;
 
@@ -269,11 +272,24 @@ public class AlarmPersisterImpl implements AlarmPersister {
         return alarm;
     }
     
-    private static List<OnmsAlarm> getAlarms(Parm reductionKeysParm) {
-        if (reductionKeysParm == null || reductionKeysParm.getValue().getContent() == null) {
-            return Collections.emptyList();
+    private static List<OnmsAlarm> getAlarms(Parm parm) {
+        return getReductionKeys(parm).map(reductionKey -> m_alarmDao.findByReductionKey(reductionKey)).collect(Collectors.toList());
+    }
+
+    private static Stream<String> getReductionKeys(Parm parm) {
+        if (parm == null || parm.getValue().getContent() == null) {
+            return Stream.empty();
         }
-        return Arrays.stream(reductionKeysParm.getValue().getContent().split(",")).map(reductionKey -> m_alarmDao.findByReductionKey(reductionKey)).collect(Collectors.toList());
+        // Expects a JSON style string of reductionkeys
+        String value = parm.getValue().getContent();
+        ObjectMapper mapper = new ObjectMapper();
+        // Support both List and single value
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        try {
+            return Arrays.stream(mapper.readValue(value, String[].class));
+        } catch (Exception e) {
+            return Stream.empty();
+        }
     }
 
     private static boolean checkEventSanityAndDoWeProcess(final Event event) {
