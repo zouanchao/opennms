@@ -1183,7 +1183,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     }
 
     public void setImpacts(List<OnmsAlarm> impacts) {
-        m_impacted = impacts != null && !impacts.isEmpty();
+        m_cause = impacts != null && !impacts.isEmpty();
         m_impacts = impacts;
     }
 
@@ -1193,7 +1193,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     }
 
     public void setCauses(List<OnmsAlarm> causes) {
-        m_cause = causes != null && !causes.isEmpty();
+        m_impacted = causes != null && !causes.isEmpty();
         m_causes = causes;
     }
 }

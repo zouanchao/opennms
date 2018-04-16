@@ -32,6 +32,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -113,10 +115,12 @@ public class AlarmImpactAssociationIT {
     }
 
     void associate(OnmsAlarm cause, OnmsAlarm impacted) {
-        cause.getImpacts().add(impacted);
-        cause.setCause(true);
-        impacted.getCauses().add(cause);
-        impacted.setImpacted(true);
+        List<OnmsAlarm> impacts = cause.getImpacts();
+        impacts.add(impacted);
+        cause.setImpacts(impacts);
+        List<OnmsAlarm> causes = impacted.getCauses();
+        causes.add(cause);
+        impacted.setCauses((causes));
         m_alarmDao.saveOrUpdate(cause);
         m_alarmDao.saveOrUpdate(impacted);
     }
