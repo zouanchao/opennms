@@ -29,14 +29,22 @@
 package org.opennms.netmgt.provision.snmp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import org.opennms.netmgt.model.HwEntityAttributeType;
+import org.opennms.netmgt.model.OnmsEntityAlias;
 import org.opennms.netmgt.model.OnmsHwEntity;
 import org.opennms.netmgt.snmp.RowCallback;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
+import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
 import org.slf4j.Logger;
@@ -54,6 +62,9 @@ public class EntityPhysicalTableTracker extends TableTracker {
 
     /** The entities. */
     private List<OnmsHwEntity> entities = new ArrayList<>();
+
+    /** The aliases. */
+    private Map<Integer, SortedSet<OnmsEntityAlias>> aliases = new HashMap<>();
 
     /** The vendor attributes. */
     private Map<SnmpObjId, HwEntityAttributeType> vendorAttributes;
@@ -98,16 +109,20 @@ public class EntityPhysicalTableTracker extends TableTracker {
      */
     @Override
     public void rowCompleted(SnmpRowResult row) {
-        OnmsHwEntity entity = ((EntityPhysicalTableRow) row).getOnmsHwEntity(vendorAttributes, replacementMap);
-        LOG.debug("rowCompleted: found entity {}, index: {}, parent: {}", entity.getEntPhysicalName(), entity.getEntPhysicalIndex(), entity.getEntPhysicalContainedIn());
-        if (entity.getEntPhysicalContainedIn() != null && entity.getEntPhysicalContainedIn() > 0) {
-            OnmsHwEntity parent = getParent(entity.getEntPhysicalContainedIn().intValue());
-            if (parent != null) {
-                LOG.debug("rowCompleted: adding child index {} to parent index {}", entity.getEntPhysicalIndex(), parent.getEntPhysicalIndex());
-                parent.addChildEntity(entity);
+        if (row.getInstance().toString().contains(".")) {
+            aliasRowCompleted(row, row.getInstance().toString().split(Pattern.quote(".")));
+        } else {
+            OnmsHwEntity entity = ((EntityPhysicalTableRow) row).getOnmsHwEntity(vendorAttributes, replacementMap);
+            LOG.debug("rowCompleted: found entity {}, index: {}, parent: {}", entity.getEntPhysicalName(), entity.getEntPhysicalIndex(), entity.getEntPhysicalContainedIn());
+            if (entity.getEntPhysicalContainedIn() != null && entity.getEntPhysicalContainedIn() > 0) {
+                OnmsHwEntity parent = getParent(entity.getEntPhysicalContainedIn().intValue());
+                if (parent != null) {
+                    LOG.debug("rowCompleted: adding child index {} to parent index {}", entity.getEntPhysicalIndex(), parent.getEntPhysicalIndex());
+                    parent.addChildEntity(entity);
+                }
             }
+            entities.add(entity);
         }
-        entities.add(entity);
     }
 
     /**
@@ -116,12 +131,19 @@ public class EntityPhysicalTableTracker extends TableTracker {
      * @return the root entity
      */
     public OnmsHwEntity getRootEntity() {
+        OnmsHwEntity root = null;
         for (OnmsHwEntity entity : entities) {
+            // Need to attach all aliases to their respective entries before returning the root.
+            if (aliases.get(entity.getEntPhysicalIndex()) != null) {
+                LOG.debug("Adding entAliasMapping: {} to entity {} ", aliases.get(entity.getEntPhysicalIndex()),  entity.getEntPhysicalIndex());
+                entity.setEntAliases(aliases.get(entity.getEntPhysicalIndex()));
+            }
+
             if (entity.isRoot()) {
-                return entity;
+                root = entity;
             }
         }
-        return null;
+        return root;
     }
 
     /**
@@ -138,4 +160,26 @@ public class EntityPhysicalTableTracker extends TableTracker {
         }
         return null;
     }
+
+    /**
+     * Convert a SnmpRowResult to OnmsEntityAlias results and track them under each entry.
+     * 
+     * @param row
+     */
+    private void aliasRowCompleted(SnmpRowResult row, String[] instance) {
+        // Alias row instances in the the form '1012.0'
+        Integer entAliasEntry = Integer.parseInt(instance[0]);
+        Integer entAliasIndex = Integer.parseInt(instance[1]);
+        SortedSet<OnmsEntityAlias> aliasSet = aliases.get(entAliasEntry);
+        if (aliasSet == null) {
+            aliasSet = new TreeSet<>();
+            aliases.put(entAliasEntry, aliasSet);
+        }
+        for (SnmpResult result : row.getResults()) {
+            aliasSet.add(new OnmsEntityAlias(entAliasIndex, result.getValue().toString()));
+            LOG.debug("rowCompleted from entAliasMappingTable: found entry {} index: {} oid: {}", entAliasEntry,  entAliasIndex, result.getValue());
+        }
+    }
+
+
 }

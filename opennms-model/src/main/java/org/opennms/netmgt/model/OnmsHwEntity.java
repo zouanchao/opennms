@@ -137,6 +137,9 @@ public class OnmsHwEntity implements Serializable, Comparable<OnmsHwEntity> {
     private OnmsNode m_node;
 
     /** The custom hardware attributes. */
+    private SortedSet<OnmsEntityAlias> m_entAliases = new TreeSet<>();
+
+    /** The custom hardware attributes. */
     private SortedSet<OnmsHwEntityAttribute> m_hwAttributes = new TreeSet<>();
 
     /** The entity's parent. */
@@ -172,6 +175,27 @@ public class OnmsHwEntity implements Serializable, Comparable<OnmsHwEntity> {
      */
     public void setId(Integer id) {
         m_id = id;
+    }
+
+    /**
+     * Gets the entity alias mappings.
+     * 
+     * @return the entity alias mappings
+     */
+    @OneToMany(mappedBy="hwEntity", fetch=FetchType.LAZY, cascade={CascadeType.ALL}, orphanRemoval=true)
+    @Sort(type = SortType.NATURAL)
+    @XmlElement(name="hwEntityAliases")
+    public SortedSet<OnmsEntityAlias> getEntAliases() {
+        return m_entAliases;
+    }
+
+    /**
+     * Sets the entity alias mappings.
+     * 
+     * @param entAliases the entity alias mappings to set
+     */
+    public void setEntAliases(SortedSet<OnmsEntityAlias> entAliases) {
+        this.m_entAliases = entAliases;
     }
 
     /**
