@@ -139,7 +139,7 @@ public class EntityPhysicalTableTracker extends TableTracker {
                 entity.setEntAliases(aliases.get(entity.getEntPhysicalIndex()));
             }
 
-            if (entity.isRoot()) {
+            if (root == null && entity.isRoot()) {
                 root = entity;
             }
         }
