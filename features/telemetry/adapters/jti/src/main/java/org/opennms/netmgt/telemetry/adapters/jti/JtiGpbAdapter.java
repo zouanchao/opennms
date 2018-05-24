@@ -30,6 +30,8 @@ package org.opennms.netmgt.telemetry.adapters.jti;
 
 import com.google.common.collect.Iterables;
 import com.google.protobuf.ExtensionRegistry;
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionAgentFactory;
 import org.opennms.netmgt.collection.api.CollectionSet;
@@ -39,7 +41,7 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.telemetry.adapters.api.TelemetryMessage;
 import org.opennms.netmgt.telemetry.adapters.api.TelemetryMessageLog;
-import org.opennms.netmgt.telemetry.adapters.collection.AbstractPersistingAdapter;
+import org.opennms.netmgt.telemetry.adapters.collection.AbstractScriptPersistingAdapter;
 import org.opennms.netmgt.telemetry.adapters.collection.CollectionSetWithAgent;
 import org.opennms.netmgt.telemetry.adapters.collection.ScriptedCollectionSetBuilder;
 import org.opennms.netmgt.telemetry.adapters.jti.proto.CpuMemoryUtilizationOuterClass;
@@ -49,18 +51,18 @@ import org.opennms.netmgt.telemetry.adapters.jti.proto.LspMon;
 import org.opennms.netmgt.telemetry.adapters.jti.proto.LspStatsOuterClass;
 import org.opennms.netmgt.telemetry.adapters.jti.proto.Port;
 import org.opennms.netmgt.telemetry.adapters.jti.proto.TelemetryTop;
-import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionOperations;
 
-import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Optional;
+import java.util.stream.Stream;
+
+import javax.script.ScriptException;
 
 /**
  * An adapter for handling Junos Telemetry Interface packets.
@@ -70,7 +72,7 @@ import java.util.Optional;
  *
  * @author jwhite
  */
-public class JtiGpbAdapter extends AbstractPersistingAdapter {
+public class JtiGpbAdapter extends AbstractScriptPersistingAdapter {
     private static final Logger LOG = LoggerFactory.getLogger(JtiGpbAdapter.class);
 
     private static final ExtensionRegistry s_registry = ExtensionRegistry.newInstance();
@@ -84,43 +86,23 @@ public class JtiGpbAdapter extends AbstractPersistingAdapter {
         TelemetryTop.registerAllExtensions(s_registry);
     }
 
-    @Autowired
     private CollectionAgentFactory collectionAgentFactory;
 
-    @Autowired
     private InterfaceToNodeCache interfaceToNodeCache;
 
-    @Autowired
     private NodeDao nodeDao;
 
-    @Autowired
     private TransactionOperations transactionTemplate;
 
-    private String script;
-
-    private BundleContext bundleContext;
-
-    private final ThreadLocal<ScriptedCollectionSetBuilder> scriptedCollectionSetBuilders = new ThreadLocal<ScriptedCollectionSetBuilder>() {
-        @Override
-        protected ScriptedCollectionSetBuilder initialValue() {
-            try {
-                if (bundleContext != null) {
-                    return new ScriptedCollectionSetBuilder(new File(script), bundleContext);
-                } else {
-                    return new ScriptedCollectionSetBuilder(new File(script));
-                }
-            } catch (Exception e) {
-                LOG.error("Failed to create builder for script '{}'.", script, e);
-                return null;
-            }
-        }
-    };
-
     @Override
-    public Optional<CollectionSetWithAgent> handleMessage(TelemetryMessage message, TelemetryMessageLog messageLog)
-            throws Exception {
-        final TelemetryTop.TelemetryStream jtiMsg = TelemetryTop.TelemetryStream.parseFrom(message.getByteArray(),
-                s_registry);
+    public Stream<CollectionSetWithAgent> handleMessage(TelemetryMessage message, TelemetryMessageLog messageLog) {
+        final TelemetryTop.TelemetryStream jtiMsg;
+        try {
+            jtiMsg = TelemetryTop.TelemetryStream.parseFrom(message.getByteArray(), s_registry);
+        } catch (final InvalidProtocolBufferException e) {
+            LOG.warn("Invalid packet: {}", e);
+            return Stream.empty();
+        }
 
         CollectionAgent agent = null;
         try {
@@ -154,25 +136,24 @@ public class JtiGpbAdapter extends AbstractPersistingAdapter {
         }
 
         if (agent == null) {
-            LOG.warn("Unable to find node and inteface for system id: {}", jtiMsg.getSystemId());
-            return Optional.empty();
+            LOG.warn("Unable to find node and interface for system id: {}", jtiMsg.getSystemId());
+            return Stream.empty();
         }
 
         final ScriptedCollectionSetBuilder builder = scriptedCollectionSetBuilders.get();
         if (builder == null) {
-            throw new Exception(String.format("Error compiling script '%s'. See logs for details.", script));
+            LOG.error("Error compiling script '{}'. See logs for details.", this.getScript());
+            return Stream.empty();
         }
 
-        final CollectionSet collectionSet = builder.build(agent, jtiMsg);
-        return Optional.of(new CollectionSetWithAgent(agent, collectionSet));
-    }
+        try {
+            final CollectionSet collectionSet = builder.build(agent, jtiMsg);
+            return Stream.of(new CollectionSetWithAgent(agent, collectionSet));
 
-    public String getScript() {
-        return script;
-    }
-
-    public void setScript(String script) {
-        this.script = script;
+        } catch (final ScriptException e) {
+            LOG.warn("Error while running script: {}: {}", getScript(), e);
+            return Stream.empty();
+        }
     }
 
     public void setCollectionAgentFactory(CollectionAgentFactory collectionAgentFactory) {
@@ -189,10 +170,6 @@ public class JtiGpbAdapter extends AbstractPersistingAdapter {
 
     public void setTransactionTemplate(TransactionOperations transactionTemplate) {
         this.transactionTemplate = transactionTemplate;
-    }
-
-    public void setBundleContext(BundleContext bundleContext) {
-        this.bundleContext = bundleContext;
     }
 
 }

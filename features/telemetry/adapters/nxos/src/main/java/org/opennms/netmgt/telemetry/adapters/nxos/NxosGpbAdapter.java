@@ -28,11 +28,13 @@
 
 package org.opennms.netmgt.telemetry.adapters.nxos;
 
-import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Optional;
+import java.util.stream.Stream;
+
+import javax.script.ScriptException;
 
 import org.opennms.netmgt.collection.api.CollectionAgent;
 import org.opennms.netmgt.collection.api.CollectionAgentFactory;
@@ -43,12 +45,11 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.telemetry.adapters.api.TelemetryMessage;
 import org.opennms.netmgt.telemetry.adapters.api.TelemetryMessageLog;
-import org.opennms.netmgt.telemetry.adapters.collection.AbstractPersistingAdapter;
+import org.opennms.netmgt.telemetry.adapters.collection.AbstractScriptPersistingAdapter;
 import org.opennms.netmgt.telemetry.adapters.collection.CollectionSetWithAgent;
 import org.opennms.netmgt.telemetry.adapters.collection.ScriptedCollectionSetBuilder;
 import org.opennms.netmgt.telemetry.adapters.nxos.proto.TelemetryBis;
 import org.opennms.netmgt.telemetry.adapters.nxos.proto.TelemetryBis.Telemetry;
-import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ import com.google.common.collect.Iterables;
 import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class NxosGpbAdapter extends AbstractPersistingAdapter {
+public class NxosGpbAdapter extends AbstractScriptPersistingAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(NxosGpbAdapter.class);
 
@@ -81,39 +82,16 @@ public class NxosGpbAdapter extends AbstractPersistingAdapter {
 
     @Autowired
     private TransactionOperations transactionTemplate;
-    
-    private BundleContext bundleContext;
 
-    private String script;
-
-    private final ThreadLocal<ScriptedCollectionSetBuilder> scriptedCollectionSetBuilders = new ThreadLocal<ScriptedCollectionSetBuilder>() {
-        @Override
-        protected ScriptedCollectionSetBuilder initialValue() {
-            try {
-                if (bundleContext != null) {
-                    return new ScriptedCollectionSetBuilder(new File(script), bundleContext);
-                } else {
-                    return new ScriptedCollectionSetBuilder(new File(script));
-                }
-            } catch (Exception e) {
-                LOG.error("Failed to create builder for script '{}'.", script, e);
-                return null;
-            }
-        }
-    };
-
-    public String getScript() {
-        return script;
-    }
-
-    public void setScript(String script) {
-        this.script = script;
-    }
-    
     @Override
-    public Optional<CollectionSetWithAgent> handleMessage(TelemetryMessage message, TelemetryMessageLog messageLog) throws Exception {
-    
-        final TelemetryBis.Telemetry msg = tryParsingTelemetryMessage(message.getByteArray());
+    public Stream<CollectionSetWithAgent> handleMessage(TelemetryMessage message, TelemetryMessageLog messageLog) {
+        final Telemetry msg;
+        try {
+            msg = tryParsingTelemetryMessage(message.getByteArray());
+        } catch (InvalidProtocolBufferException e) {
+            LOG.warn("Invalid packet: {}", e);
+            return Stream.empty();
+        }
 
         CollectionAgent agent = null;
         try {
@@ -129,8 +107,7 @@ public class NxosGpbAdapter extends AbstractPersistingAdapter {
         }
 
         if (agent == null) {
-            // We were unable to build the agent by resolving the systemId, try finding
-            // a node with a matching label
+            // We were unable to build the agent by resolving the systemId, try finding a node with a matching label
             agent = transactionTemplate.execute(new TransactionCallback<CollectionAgent>() {
                 @Override
                 public CollectionAgent doInTransaction(TransactionStatus status) {
@@ -150,15 +127,23 @@ public class NxosGpbAdapter extends AbstractPersistingAdapter {
 
         if (agent == null) {
             LOG.warn("Unable to find node and interface for system id: {}", msg.getNodeIdStr());
-            return Optional.empty();
+            return Stream.empty();
         }
 
         final ScriptedCollectionSetBuilder builder = scriptedCollectionSetBuilders.get();
         if (builder == null) {
-            throw new Exception(String.format("Error compiling script '%s'. See logs for details.", script));
+            LOG.error("Error compiling script '{}'. See logs for details.", this.getScript());
+            return Stream.empty();
         }
-        final CollectionSet collectionSet = builder.build(agent, msg);
-        return Optional.of(new CollectionSetWithAgent(agent, collectionSet));
+
+        try {
+            final CollectionSet collectionSet = builder.build(agent, msg);
+            return Stream.of(new CollectionSetWithAgent(agent, collectionSet));
+
+        } catch (final ScriptException e) {
+            LOG.warn("Error while running script: {}: {}", getScript(), e);
+            return Stream.empty();
+        }
     }
 
     private Telemetry tryParsingTelemetryMessage(byte[] bs) throws InvalidProtocolBufferException {
@@ -187,10 +172,6 @@ public class NxosGpbAdapter extends AbstractPersistingAdapter {
 
     public void setTransactionTemplate(TransactionOperations transactionTemplate) {
         this.transactionTemplate = transactionTemplate;
-    }
-
-    public void setBundleContext(BundleContext bundleContext) {
-        this.bundleContext = bundleContext;
     }
 
 }
