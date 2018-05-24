@@ -68,6 +68,10 @@ public class SyslogNorthbounderConfig implements Serializable {
     /** The message format. */
     @XmlElement(name = "message-format", required = false, defaultValue = "ALARM ID:${alarmId} NODE:${nodeLabel} ${logMsg}")
     private String m_messageFormat;
+    
+    /** The message format. */
+    @XmlElement(name = "date-format", required = false, defaultValue = "yyyy-MM-dd HH:mm:ss")
+    private String dateFormat;
 
     /** The destinations. */
     @XmlElement(name = "destination")
@@ -129,6 +133,14 @@ public class SyslogNorthbounderConfig implements Serializable {
      */
     public void setMessageFormat(String messageFormat) {
         m_messageFormat = messageFormat;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
     /**
