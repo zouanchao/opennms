@@ -145,4 +145,8 @@
       <bundle>mvn:org.opennms.features.telemetry.listeners/org.opennms.features.telemetry.listeners.sflow/${project.version}</bundle>
       <bundle>mvn:org.opennms.features.telemetry/org.opennms.features.telemetry.minion/${project.version}</bundle>
     </feature>
+
+    <feature name="xxx" version="${project.version}">
+        <bundle>mvn:org.opennms.features.events/org.opennms.features.events.sink/${project.version}</bundle>
+    </feature>
 </features>

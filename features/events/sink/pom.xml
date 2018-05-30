@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <groupId>org.opennms</groupId>
-    <artifactId>org.opennms.core</artifactId>
+    <groupId>org.opennms.features</groupId>
+    <artifactId>org.opennms.features.events</artifactId>
     <version>23.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.opennms.core</groupId>
-  <artifactId>org.opennms.core.xml</artifactId>
-  <name>OpenNMS :: Core :: XML</name>
+  <groupId>org.opennms.features.events</groupId>
+  <artifactId>org.opennms.features.events.sink</artifactId>
+  <name>OpenNMS :: Features :: Events :: Sink</name>
   <packaging>bundle</packaging>
   <build>
     <plugins>
@@ -21,8 +21,8 @@
             <Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Bundle-Version>${project.version}</Bundle-Version>
-            <Export-Package>org.opennms.core.xml.*;version="${project.version}"</Export-Package>
-            <DynamicImport-Package>org.opennms.core.*</DynamicImport-Package>
+            <Karaf-Commands>org.opennms.netmgt.eventd.ipc.sink.shell.*</Karaf-Commands>
+            <Import-Package>*,org.opennms.core.network</Import-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -30,34 +30,26 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.opennms.core</groupId>
-      <artifactId>org.opennms.core.lib</artifactId>
+      <groupId>org.opennms.core.ipc.sink</groupId>
+      <artifactId>org.opennms.core.ipc.sink.api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.opennms.core</groupId>
-      <artifactId>org.opennms.core.spring</artifactId>
+      <groupId>org.opennms.features.events</groupId>
+      <artifactId>org.opennms.features.events.api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>spring-dependencies</artifactId>
-      <type>pom</type>
+      <groupId>org.opennms.core.ipc.sink</groupId>
+      <artifactId>org.opennms.core.ipc.sink.xml</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.opennms.dependencies</groupId>
-      <artifactId>jaxb-dependencies</artifactId>
-      <type>pom</type>
+      <groupId>org.opennms.core.ipc.sink</groupId>
+      <artifactId>org.opennms.core.ipc.sink.common</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
+      <groupId>org.apache.karaf.shell</groupId>
+      <artifactId>org.apache.karaf.shell.core</artifactId>
     </dependency>
-    <!-- breaks generation :(
-    <dependency>
-      <groupId>org.wicketstuff</groupId>
-      <artifactId>jsr303</artifactId>
-      <version>1.4.9.2</version>
-    </dependency>
-    -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

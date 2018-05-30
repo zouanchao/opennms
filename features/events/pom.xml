@@ -13,6 +13,7 @@
   <modules>
     <module>api</module>
     <module>daemon</module>
+    <module>sink</module>
     <module>syslog</module>
     <module>traps</module>
     <module>shell-commands</module>

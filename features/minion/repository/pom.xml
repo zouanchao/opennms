@@ -60,6 +60,7 @@
                                 <feature>minion-icmp-proxy</feature>
                                 <feature>minion-telemetryd-listeners</feature>
                                 <feature>hawtio-offline</feature>
+                                <feature>xxx</feature>
                             </features>
                             <repository>${project.build.directory}/maven-repo</repository>
                         </configuration>
@@ -281,6 +282,11 @@
         <dependency>
             <groupId>org.opennms.protocols</groupId>
             <artifactId>org.opennms.protocols.xml</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.opennms.features.events</groupId>
+            <artifactId>org.opennms.features.events.sink</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
