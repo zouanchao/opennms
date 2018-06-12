@@ -1,0 +1,104 @@
+
+apply plugin: 'war'
+
+jar.enabled = true
+description = 'OpenNMS Web Application'
+dependencies {
+    compile group: 'com.opencsv', name: 'opencsv', version:'3.9'
+    compile group: 'org.tuckey', name: 'urlrewritefilter', version:'4.0.3'
+    compile(group: 'org.apache.poi', name: 'poi', version:'3.16') {
+exclude(module: 'commons-logging')
+exclude(module: 'log4j')
+    }
+    compile(group: 'com.rometools', name: 'rome', version:'1.7.2') {
+exclude(module: 'jdom')
+    }
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.jdom', version:'1.1_4'
+    compile(group: 'org.extremecomponents', name: 'extremecomponents', version:'1.0.1') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'net.sf.jung', name: 'jung-api', version:'2.0.1'
+    compile group: 'net.sf.jung', name: 'jung-graph-impl', version:'2.0.1'
+    compile group: 'net.sf.jung', name: 'jung-algorithms', version:'2.0.1'
+    compile group: 'net.sf.jung', name: 'jung-visualization', version:'2.0.1'
+    compile group: 'org.freemarker', name: 'freemarker', version:'2.3.23'
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.link')
+    compile group: 'org.owasp.encoder', name: 'encoder-jsp', version:'1.2.1'
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-provision:opennms-provision-persistence')
+  testCompile project(':opennms-icmp:opennms-icmp-jna')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.rest')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    testCompile group: 'org.apache.directory.server', name: 'apacheds-core', version:'1.0.2'
+    testCompile group: 'org.apache.directory.server', name: 'apacheds-server-jndi', version:'1.0.2'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+  compileOnly project(':org.opennms.core:org.opennms.core.web-assets')
+  compileOnly project(':org.opennms.core:org.opennms.core.web-assets')
+  compileOnly project(':opennms-dao')
+  compileOnly project(':opennms-web-api')
+  compileOnly project(':opennms-reporting')
+  compileOnly project(':opennms-provision:opennms-provision-persistence')
+  compileOnly project(':opennms-rrd:opennms-rrd-jrobin')
+  compileOnly project(':dependencies:jrrd2-dependencies')
+  compileOnly project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  compileOnly project(':opennms-web-dependencies')
+  compileOnly project(':org.opennms.core:org.opennms.core.soa')
+  compileOnly project(':org.opennms.core:org.opennms.core.db')
+  compileOnly project(':org.opennms.core:org.opennms.core.config')
+  compileOnly project(':dependencies:felix-dependencies')
+  compileOnly project(':dependencies:rancid-dependencies')
+  compileOnly project(':dependencies:snmp-dependencies')
+  compileOnly project(':org.opennms.features:org.opennms.features.instrumentationLogReader')
+  compileOnly project(':org.opennms.features:org.opennms.features.discovery')
+  compileOnly project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote')
+  compileOnly project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.core')
+  compileOnly project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.api')
+  compileOnly project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.availability')
+  compileOnly project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.model')
+  compileOnly project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.dao')
+  compileOnly project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.repository')
+  compileOnly project(':org.opennms.features:org.opennms.features.request-tracker')
+  compileOnly project(':org.opennms.features:org.opennms.features.springframework-security')
+  compileOnly project(':org.opennms.features:org.opennms.features.system-report')
+  compileOnly project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.api')
+  compileOnly project(':org.opennms.features:org.opennms.features.graphml')
+  compileOnly project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.impl')
+    compileOnly(group: 'commons-beanutils', name: 'commons-beanutils', version:'1.8.3') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'commons-collections', name: 'commons-collections', version:'3.2.2'
+    compileOnly(group: 'commons-digester', name: 'commons-digester', version:'2.1') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    compileOnly(group: 'commons-validator', name: 'commons-validator', version:'1.6') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'com.google.guava', name: 'guava', version:'18.0'
+    compileOnly(group: 'net.sf.json-lib', name: 'json-lib', version:'2.2.3', classifier:'jdk15') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'opensymphony', name: 'ognl', version:'2.6.11'
+    compileOnly(group: 'org.apache.commons', name: 'commons-jexl', version:'2.1.1') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'org.apache.xmlgraphics', name: 'batik-dom', version:'1.7'
+    compileOnly group: 'org.apache.xmlgraphics', name: 'batik-svg-dom', version:'1.7'
+    compileOnly(group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version:'1.7') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'org.apache.xmlgraphics', name: 'batik-xml', version:'1.7'
+    compileOnly group: 'org.apache.xmlgraphics', name: 'batik-util', version:'1.7'
+    compileOnly group: 'org.apache.taglibs', name: 'taglibs-standard-impl', version:'1.2.5'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.21'
+}

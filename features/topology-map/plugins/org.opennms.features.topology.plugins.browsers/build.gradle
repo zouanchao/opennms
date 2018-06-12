@@ -1,0 +1,19 @@
+group = 'org.opennms.features.topology.plugins'
+description = 'OpenNMS :: Features :: Topology :: Plugins :: Browsers'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-api')
+  compile project(':org.opennms.features:vaadin')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-config')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':opennms-dao-mock')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+  compileOnly project(':opennms-dao')
+  compileOnly project(':opennms-web-api')
+  compileOnly project(':org.opennms.core:org.opennms.core.lib')
+}

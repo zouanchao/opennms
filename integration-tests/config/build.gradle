@@ -1,0 +1,31 @@
+
+description = 'OpenNMS :: Integration Tests :: Config'
+dependencies {
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':opennms-asterisk')
+  testCompile project(':opennms-jetty')
+  testCompile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.traps')
+  testCompile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote')
+  testCompile project(':org.opennms.features:org.opennms.features.discovery')
+  testCompile project(':opennms-config-model')
+  testCompile project(':org.opennms.features:org.opennms.features.jdbc-collector')
+  testCompile project(':opennms-integrations:opennms-vmware')
+  testCompile project(':opennms-alarms:opennms-alarm-northbounder-bsf')
+  testCompile project(':opennms-alarms:opennms-alarm-northbounder-drools')
+  testCompile project(':opennms-alarms:opennms-alarm-northbounder-email')
+  testCompile project(':opennms-alarms:opennms-alarm-northbounder-jms')
+  testCompile project(':opennms-alarms:opennms-alarm-northbounder-syslog')
+  testCompile project(':opennms-alarms:opennms-alarm-northbounder-snmptrap')
+  testCompile project(':org.opennms.features:org.opennms.features.ifttt')
+  testCompile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.daemon')
+  testCompile project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.model')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.karaf')
+    testCompile group: 'org.apache.karaf.features', name: 'standard', version:'4.1.5', classifier:'features'
+  testCompile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+  testCompile project(':org.opennms.features:org.opennms.features.wsman')
+  testCompile project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.elastic')
+  testCompile project(':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.client')
+  testCompile project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.jaxb')
+    testCompile group: 'xmlunit', name: 'xmlunit', version:'1.5'
+}

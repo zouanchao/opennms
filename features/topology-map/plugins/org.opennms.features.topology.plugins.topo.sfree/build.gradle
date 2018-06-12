@@ -1,0 +1,13 @@
+group = 'org.opennms.features.topology.plugins.topo'
+description = 'OpenNMS :: Features :: Topology :: Plugins :: SFree'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.criteria')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+  compileOnly project(':org.opennms.features:vaadin')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+}

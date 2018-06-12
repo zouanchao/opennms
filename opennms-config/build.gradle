@@ -1,0 +1,20 @@
+
+description = 'OpenNMS :: Model :: Config DAO :: Impl'
+dependencies {
+  compile project(':dependencies:hibernate-dependencies')
+  compile project(':dependencies:jasypt-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.config')
+  compile project(':org.opennms.core:org.opennms.core.db')
+  compile project(':opennms-rrd:opennms-rrd-api')
+  compile project(':opennms-config-api')
+  compile project(':opennms-config-model')
+  compile project(':opennms-model')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api')
+    compile group: 'commons-codec', name: 'commons-codec', version:'1.10'
+    compile group: 'com.googlecode.concurrent-locks', name: 'concurrent-locks', version:'1.0.0'
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

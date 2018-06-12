@@ -1,0 +1,9 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: Services'
+dependencies {
+  compile project(':opennms-config')
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+    compile group: 'junit', name: 'junit', version:'4.12'
+  compile project(':org.opennms.features:org.opennms.features.notifications:org.opennms.features.notifications.api')
+}

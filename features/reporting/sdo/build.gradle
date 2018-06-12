@@ -1,0 +1,9 @@
+group = 'org.opennms.features.reporting'
+description = 'OpenNMS :: Features :: Reporting :: SDO for Remote Repository'
+dependencies {
+    compile(group: 'commons-beanutils', name: 'commons-beanutils-core', version:'1.8.3') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.4'
+}

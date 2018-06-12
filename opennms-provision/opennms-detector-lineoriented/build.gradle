@@ -1,0 +1,12 @@
+
+description = 'OpenNMS :: Provisioning :: LineOriented Detectors'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+    compile group: 'com.novell.ldap', name: 'jldap', version:'4.3'
+  compile project(':dependencies:spring-dependencies')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version:'1.57'
+  testCompile project(':opennms-provision:opennms-mock-simpleserver')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

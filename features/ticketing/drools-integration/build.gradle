@@ -1,0 +1,14 @@
+group = 'org.opennms.features.ticketing'
+description = 'OpenNMS :: Features :: Ticketing :: Drools Integration'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.api')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.daemon')
+    compile(group: 'commons-configuration', name: 'commons-configuration', version:'1.6') {
+exclude(module: 'commons-logging')
+    }
+  compile project(':opennms-services')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao-mock')
+  compileOnly project(':dependencies:drools-dependencies')
+}

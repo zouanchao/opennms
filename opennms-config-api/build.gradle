@@ -1,0 +1,7 @@
+
+description = 'OpenNMS :: Model :: Config DAO :: API'
+dependencies {
+  compile project(':opennms-config-jaxb')
+  compile project(':opennms-config-model')
+  compile project(':opennms-model')
+}

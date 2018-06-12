@@ -1,0 +1,42 @@
+group = 'org.opennms.features.events'
+description = 'OpenNMS :: Features :: Events :: Trap Daemon'
+dependencies {
+  compile project(':dependencies:camel-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':opennms-dao-api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.mock-impl')
+  testCompile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':dependencies:camel-test-dependencies')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile(group: 'org.apache.activemq', name: 'activemq-camel', version:'5.14.5') {
+exclude(module: 'jaxb-api')
+exclude(module: 'jaxb-impl')
+exclude(module: 'commons-logging')
+exclude(module: 'spring-beans')
+exclude(module: 'spring-context')
+exclude(module: 'spring-core')
+exclude(module: 'spring-expression')
+exclude(module: 'spring-jms')
+exclude(module: 'spring-aop')
+exclude(module: 'spring-tx')
+    }
+  testCompile project(':org.opennms.features:minion-parent:core-parent:core-impl')
+  testCompile project(':opennms-dao-minion')
+  compileOnly project(':org.opennms.features:minion-parent:core-parent:core-api')
+}

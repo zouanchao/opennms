@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: Provision :: Shell'
+dependencies {
+    compile group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+  compile project(':opennms-provision:opennms-detector-registry')
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-provision:opennms-provision-persistence')
+}

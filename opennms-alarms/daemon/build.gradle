@@ -1,0 +1,23 @@
+
+description = 'OpenNMS :: Alarms :: Daemon'
+dependencies {
+  compile project(':opennms-alarms:opennms-alarm-api')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':opennms-dao')
+  compile project(':opennms-model')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon')
+  testCompile project(':opennms-services')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':opennms-dao-mock')
+    testCompile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

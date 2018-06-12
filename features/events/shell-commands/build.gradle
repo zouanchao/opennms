@@ -1,0 +1,13 @@
+group = 'org.opennms.features.events'
+description = 'OpenNMS :: Features :: Events :: Shell Commands'
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+    compile group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+    compile(group: 'org.apache.commons', name: 'commons-jexl', version:'2.1.1') {
+exclude(module: 'commons-logging')
+    }
+  compileOnly project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+    compileOnly group: 'io.dropwizard.metrics', name: 'metrics-core', version:'3.1.2'
+    compileOnly group: 'org.osgi', name: 'org.osgi.enterprise', version:'5.0.0'
+  compileOnly project(':opennms-model')
+}

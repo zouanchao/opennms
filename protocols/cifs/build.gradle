@@ -1,0 +1,12 @@
+group = 'org.opennms.protocols'
+description = 'OpenNMS :: Protocols :: CIFS'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api')
+  compile project(':opennms-util')
+  compile project(':dependencies:jcifs-dependencies')
+  compile project(':opennms-dao')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version:'1.6.4'
+    testCompile group: 'org.powermock', name: 'powermock-api-easymock', version:'1.6.4'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+}

@@ -1,0 +1,17 @@
+
+description = 'OpenNMS :: Correlation :: Correlator'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':opennms-model')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-rrd:opennms-rrd-api')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':opennms-dao-mock')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    testCompile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+}

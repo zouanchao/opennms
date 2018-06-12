@@ -1,0 +1,27 @@
+group = 'org.opennms.features.topology.plugins.topo'
+description = 'OpenNMS :: Features :: Topology :: Plugins :: BSM'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.browsers')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+    testCompile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.2.Final'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':opennms-config')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.impl')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.impl')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:test-util')
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+  compileOnly project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.api')
+  compileOnly project(':org.opennms.features:vaadin-components:core')
+  compileOnly project(':org.opennms.features:vaadin')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+  compileOnly project(':dependencies:spring-dependencies')
+}

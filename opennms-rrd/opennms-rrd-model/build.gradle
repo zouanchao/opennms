@@ -1,0 +1,7 @@
+
+description = 'OpenNMS :: RRD :: ORM'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.xml')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:jrobin-dependencies')
+}

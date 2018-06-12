@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: RRD :: JRobin'
+dependencies {
+  compile project(':opennms-rrd:opennms-rrd-api')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:jrobin-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

@@ -1,0 +1,16 @@
+group = 'org.opennms.features.events'
+description = 'OpenNMS :: Features :: Events :: API'
+dependencies {
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+  compile project(':dependencies:camel-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version:'4.1.0.Final'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    compileOnly group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+    compileOnly group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version:'1.0.1.Final'
+}

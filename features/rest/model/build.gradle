@@ -1,0 +1,6 @@
+group = 'org.opennms.features.rest'
+description = 'OpenNMS :: Features :: REST :: Model'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.api')
+    compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version:'1.9.13'
+}

@@ -1,0 +1,10 @@
+group = 'org.opennms.features'
+description = 'org.opennms.features.graphml'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':org.opennms.core:org.opennms.core.xml')
+    compileOnly group: 'com.google.guava', name: 'guava', version:'18.0'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

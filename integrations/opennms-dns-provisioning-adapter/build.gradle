@@ -1,0 +1,18 @@
+
+description = 'OpenNMS :: Integrations :: Provisioning Adaptor :: DNS'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-dao')
+  compile project(':dependencies:dnsjava-dependencies')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.dns')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-services')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+}

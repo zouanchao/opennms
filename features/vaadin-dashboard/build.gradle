@@ -1,0 +1,13 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Dashboard'
+dependencies {
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.features:vaadin-components:core')
+  compile project(':org.opennms.features:themes:dashboard-theme')
+    compile group: 'org.vaadin.addons', name: 'dragdroplayouts', version:'1.1.1'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compileOnly project(':opennms-web-api')
+  compileOnly project(':org.opennms.core:org.opennms.core.criteria')
+}

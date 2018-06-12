@@ -1,0 +1,16 @@
+group = 'org.opennms.features.ncs'
+apply plugin: 'war'
+
+description = 'OpenNMS :: Features :: NCS :: Alarm GUI'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  compileOnly project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-model')
+  compileOnly project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-persistence')
+  compileOnly project(':opennms-dao-api')
+  compileOnly project(':opennms-webapp')
+  compileOnly project(':org.opennms.features:org.opennms.features.springframework-security')
+  compileOnly project(':opennms-web-api')
+  compileOnly project(':dependencies:spring-web-dependencies')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.21'
+}

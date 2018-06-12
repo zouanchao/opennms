@@ -1,0 +1,13 @@
+
+description = 'OpenNMS :: Provisioning :: Requisition Service'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-provision:opennms-provision-persistence')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml')
+  compile project(':org.opennms.core:org.opennms.core.web')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

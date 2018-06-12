@@ -1,0 +1,16 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: MIB-Compiler'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.name-cutter')
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    compile(group: 'commons-beanutils', name: 'commons-beanutils', version:'1.8.3') {
+      exclude(module: 'commons-logging')
+    }
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compileOnly project(':dependencies:spring-dependencies')
+  compileOnly project(':org.opennms.core:org.opennms.core.lib')
+  compileOnly project(':opennms-config')
+  compileOnly project(':opennms-dao')
+    compileOnly group: 'org.jsmiparser', name: 'jsmiparser-api', version:'0.13'
+}

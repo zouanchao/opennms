@@ -1,0 +1,12 @@
+
+description = 'OpenNMS :: Alarms :: Northbounder :: BSF'
+dependencies {
+  compile project(':opennms-alarms:opennms-alarm-api')
+  compile project(':opennms-dao')
+    compile(group: 'bsf', name: 'bsf', version:'2.4.0') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'bsh', name: 'bsh', version:'1.3.0'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':opennms-dao-mock')
+}

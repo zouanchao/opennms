@@ -1,0 +1,16 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: Elasticsearch'
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version:'6.1.1'
+    compile(group: 'org.elasticsearch.client', name: 'transport', version:'6.1.1') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'org.elasticsearch.plugin', name: 'transport-netty4-client', version:'6.1.1'
+    compile group: 'org.elasticsearch.plugin', name: 'aggs-matrix-stats-client', version:'6.1.1'
+    compile group: 'io.netty', name: 'netty-all', version:'4.1.17.Final'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version:'2.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version:'2.7'
+    compile group: 'junit', name: 'junit', version:'4.12'
+    compile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+}

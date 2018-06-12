@@ -1,0 +1,14 @@
+group = 'org.opennms.features.vaadin-components'
+description = 'OpenNMS :: Features :: Vaadin :: Extender Service'
+dependencies {
+    compile group: 'org.ops4j.pax.swissbox', name: 'pax-swissbox-core', version:'1.8.0'
+    compile group: 'org.ops4j.pax.swissbox', name: 'pax-swissbox-optional-jcl', version:'1.8.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+    compileOnly group: 'com.vaadin', name: 'vaadin-server', version:'7.2.7'
+    compileOnly group: 'com.vaadin', name: 'vaadin-client', version:'7.2.7'
+    compileOnly group: 'com.vaadin', name: 'vaadin-client-compiled', version:'7.2.7'
+    compileOnly group: 'com.vaadin', name: 'vaadin-themes', version:'7.2.7'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+}

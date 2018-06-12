@@ -1,0 +1,22 @@
+group = 'org.opennms.features.events'
+description = 'OpenNMS :: Features :: Events :: Daemon'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':opennms-dao-api')
+    compile(group: 'commons-beanutils', name: 'commons-beanutils', version:'1.8.3') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version:'3.1.2'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+}

@@ -1,0 +1,11 @@
+group = 'org.opennms.core.snmp'
+description = 'OpenNMS :: Core :: SNMP :: SNMP4J Implementation'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  compile project(':org.opennms.core:org.opennms.core.logging')
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+  compile project(':dependencies:snmp4j-dependencies')
+  testCompile project(':dependencies:snmp4j-agent-dependencies')
+  testCompile project(':dependencies:spring-dependencies')
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+}

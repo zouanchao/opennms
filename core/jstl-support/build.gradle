@@ -1,0 +1,6 @@
+group = 'org.opennms.core'
+description = 'JSTL Support'
+dependencies {
+    compile group: 'org.eclipse.jetty', name: 'apache-jsp', version:'9.4.2.v20170220'
+    testCompile group: 'javax.el', name: 'javax.el-api', version:'3.0.0'
+}

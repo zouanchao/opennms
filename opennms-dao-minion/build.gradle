@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: Model :: DAO :: Minion'
+dependencies {
+  compile project(':org.opennms.features:minion-parent:core-parent:core-api')
+  compile project(':opennms-dao-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+}

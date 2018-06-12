@@ -1,0 +1,2 @@
+group = 'org.opennms.features.geocoder'
+description = 'OpenNMS :: Features :: Geocoder :: API'

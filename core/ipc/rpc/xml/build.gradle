@@ -1,0 +1,6 @@
+group = 'org.opennms.core.ipc.rpc'
+description = 'OpenNMS :: Core :: IPC :: RPC :: XML'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.api')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+}

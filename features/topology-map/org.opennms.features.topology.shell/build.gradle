@@ -1,0 +1,9 @@
+group = 'org.opennms.features.topology'
+description = 'OpenNMS :: Features :: Topology :: Shell Commands'
+dependencies {
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+    compileOnly group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+    compileOnly group: 'org.apache.aries.blueprint', name: 'org.apache.aries.blueprint.core', version:'1.4.4'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.enterprise', version:'5.0.0'
+}

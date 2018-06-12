@@ -1,0 +1,6 @@
+
+description = 'OpenNMS :: Provision :: Detector Registry'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':org.opennms.core:org.opennms.core.soa')
+}

@@ -1,0 +1,7 @@
+group = 'org.opennms.features.vaadin-components'
+description = 'OpenNMS :: Features :: Vaadin :: Components :: Graph'
+dependencies {
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.features:themes:dashboard-theme')
+}

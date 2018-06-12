@@ -1,0 +1,8 @@
+group = 'org.opennms.features.measurements'
+description = 'OpenNMS :: Features :: Measurements :: API'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':dependencies:spring-dependencies')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

@@ -1,0 +1,24 @@
+group = 'org.opennms.features.topology.plugins.topo'
+description = 'OpenNMS :: Features :: Topology :: Plugins :: Asset'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version:'2.8.2'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-core', version:'2.8.2'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+  compileOnly project(':org.opennms.core:org.opennms.core.criteria')
+  compileOnly project(':opennms-dao-api')
+  compileOnly project(':opennms-dao')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compileOnly project(':org.opennms.features:org.opennms.features.graphml')
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:graphml')
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.console', version:'4.1.5'
+    compileOnly group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+}

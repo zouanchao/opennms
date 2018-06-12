@@ -1,0 +1,6 @@
+group = 'org.opennms.features.nrtg'
+description = 'OpenNMS :: Features :: NRTG :: API'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

@@ -1,0 +1,12 @@
+group = 'org.opennms.features.collection'
+description = 'OpenNMS :: Features :: Collection :: Test API'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.core')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.client-rpc')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.mock-impl')
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection')
+    compile group: 'junit', name: 'junit', version:'4.12'
+    compile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+}

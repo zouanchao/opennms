@@ -1,0 +1,7 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: DNS'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compile project(':dependencies:dnsjava-dependencies')
+  compile project(':dependencies:spring-test-dependencies')
+}

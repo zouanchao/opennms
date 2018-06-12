@@ -1,0 +1,17 @@
+group = 'org.opennms.features.topology'
+description = 'org.opennms.features.topology.api'
+dependencies {
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+  compile project(':opennms-dao')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  compileOnly project(':dependencies:spring-dependencies')
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':org.opennms.features:vaadin')
+  compileOnly project(':org.opennms.core:org.opennms.core.criteria')
+  compileOnly project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.api')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+}

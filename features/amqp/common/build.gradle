@@ -1,0 +1,12 @@
+group = 'org.opennms.features.amqp'
+description = 'OpenNMS :: Features :: AMQP :: Common'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.camel')
+    compile(group: 'org.apache.camel', name: 'camel-core', version:'2.19.1') {
+exclude(module: 'jaxb-impl')
+    }
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+}

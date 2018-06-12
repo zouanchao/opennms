@@ -1,0 +1,11 @@
+group = 'org.opennms.core'
+description = 'OpenNMS :: Core :: Database Access API'
+dependencies {
+    compile group: 'com.mchange', name: 'c3p0', version:'0.9.5.2'
+    compile group: 'com.zaxxer', name: 'HikariCP', version:'2.5.1'
+  compile project(':dependencies:atomikos-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+    compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

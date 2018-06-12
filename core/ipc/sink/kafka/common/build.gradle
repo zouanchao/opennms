@@ -1,0 +1,20 @@
+group = 'org.opennms.core.ipc.sink.kafka'
+description = 'OpenNMS :: Core :: IPC :: Sink :: Kafka :: Common'
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common')
+    compile group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+  compile project(':org.opennms.core:org.opennms.core.camel')
+    compile(group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.kafka-clients', version:'1.0.1_1') {
+exclude(module: 'log4j')
+exclude(module: 'slf4j-log4j12')
+    }
+    compile(group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.kafka_2.11', version:'1.0.1_1') {
+exclude(module: 'log4j')
+exclude(module: 'slf4j-log4j12')
+    }
+    compile group: 'org.scala-lang', name: 'scala-library', version:'2.11.11'
+    compile group: 'com.yammer.metrics', name: 'metrics-core', version:'2.2.0'
+}

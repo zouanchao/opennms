@@ -1,0 +1,9 @@
+group = 'org.opennms.osgi'
+description = 'OpenNMS :: Features :: OSGI :: Core :: Rest'
+dependencies {
+    compile group: 'com.eclipsesource.jaxrs', name: 'features', version:'1.0.0-ONMS', classifier:'features'
+  compile project(':org.opennms.features:org.opennms.features.rest-provider')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+}

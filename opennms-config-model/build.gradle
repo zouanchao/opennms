@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: Model :: Config'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.xml')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

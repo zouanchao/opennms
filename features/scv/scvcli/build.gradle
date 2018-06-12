@@ -1,0 +1,7 @@
+group = 'org.opennms.features.scv'
+description = 'OpenNMS :: Features :: SCV :: CLI'
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-simple', version:'1.7.21'
+    compile group: 'args4j', name: 'args4j', version:'2.32'
+  compile project(':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.jceks-impl')
+}

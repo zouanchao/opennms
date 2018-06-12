@@ -1,0 +1,6 @@
+group = 'org.opennms.features.telemetry.listeners'
+description = 'OpenNMS :: Features :: Telemetry :: Listeners :: API'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+}

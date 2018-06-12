@@ -1,0 +1,19 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Discovery'
+dependencies {
+  compile project(':opennms-config')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':org.opennms.core:org.opennms.core.soa')
+  compile project(':opennms-dao')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+  testCompile project(':opennms-icmp:org.opennms.icmp.proxy.rpc-impl')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.mock-impl')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+}

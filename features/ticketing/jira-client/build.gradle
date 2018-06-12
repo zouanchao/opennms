@@ -1,0 +1,17 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Ticketing :: JIRA Client'
+dependencies {
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-common', version:'2.4.1'
+    compile(group: 'com.atlassian.jira', name: 'jira-rest-java-client-api', version:'3.0.0') {
+exclude(module: 'spring-context')
+exclude(module: 'jaxb-api')
+exclude(module: 'jaxb-impl')
+exclude(module: 'commons-logging')
+    }
+    compile(group: 'com.atlassian.jira', name: 'jira-rest-java-client-core', version:'3.0.0') {
+exclude(module: 'spring-context')
+exclude(module: 'jaxb-api')
+exclude(module: 'jaxb-impl')
+exclude(module: 'commons-logging')
+    }
+}

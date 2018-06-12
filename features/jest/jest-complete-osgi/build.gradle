@@ -1,0 +1,11 @@
+group = 'io.searchbox'
+description = 'jest-complete-osgi'
+dependencies {
+    compile(group: 'io.searchbox', name: 'jest', version:'5.3.3') {
+exclude(module: 'commons-logging')
+    }
+    compile(group: 'io.searchbox', name: 'jest-common', version:'5.3.3') {
+exclude(module: 'commons-logging')
+    }
+  compileOnly project(':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.dependencies')
+}

@@ -1,0 +1,19 @@
+
+description = 'OpenNMS Integration for Jaspersoft Studio'
+dependencies {
+  compile project(':opennms-integrations:jasper-extensions')
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.spring-expression', version:'4.2.9.RELEASE_1'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.spring-tx', version:'4.2.9.RELEASE_1'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.spring-aop', version:'4.2.9.RELEASE_1'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.spring-context', version:'4.2.9.RELEASE_1'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.spring-beans', version:'4.2.9.RELEASE_1'
+    compile group: 'org.apache.servicemix.bundles', name: 'org.apache.servicemix.bundles.spring-core', version:'4.2.9.RELEASE_1'
+  compile project(':org.opennms.core:org.opennms.core.xml')
+  compile project(':org.opennms.core:org.opennms.core.spring')
+    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.core', version:'2.5.1'
+    compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.moxy', version:'2.5.1'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile group: 'org.slf4j', name: 'slf4j-jdk14', version:'1.7.21'
+  compile project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.api')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+}

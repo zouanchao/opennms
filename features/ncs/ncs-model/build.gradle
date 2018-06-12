@@ -1,0 +1,11 @@
+group = 'org.opennms.features.ncs'
+description = 'OpenNMS :: Features :: NCS :: Model'
+dependencies {
+  compile project(':opennms-model')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':dependencies:hibernate-dependencies')
+    compileOnly group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version:'1.0.1.Final'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

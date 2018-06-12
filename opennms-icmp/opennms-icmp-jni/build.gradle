@@ -1,0 +1,11 @@
+
+description = 'OpenNMS :: ICMP :: JNI'
+dependencies {
+  compile project(':opennms-icmp:opennms-icmp-api')
+    compile group: 'org.opennms', name: 'jicmp-api', version:'2.0.1'
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.core:org.opennms.core.logging')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-util')
+  testCompile project(':dependencies:spring-test-dependencies')
+}

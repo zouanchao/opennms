@@ -1,0 +1,13 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: SNMP'
+dependencies {
+  compile project(':opennms-config')
+  compile project(':org.opennms.tests:org.opennms.tests.mock-snmp-agent')
+  compile project(':org.opennms.core:org.opennms.core.soa')
+    compile group: 'junit', name: 'junit', version:'4.12'
+  compile project(':dependencies:snmp-dependencies')
+  compile project(':dependencies:snmp-test-dependencies')
+  compile project(':dependencies:spring-test-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.proxy.rpc-impl')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.mock-impl')
+}

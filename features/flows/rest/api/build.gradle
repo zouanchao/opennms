@@ -1,0 +1,9 @@
+group = 'org.opennms.features.flows.rest'
+description = 'OpenNMS :: Features :: Flows :: ReST :: API'
+dependencies {
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version:'2.0.1'
+  compile project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine:org.opennms.features.flows.classification.engine.api')
+  compile project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence:org.opennms.features.flows.classification.persistence.api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

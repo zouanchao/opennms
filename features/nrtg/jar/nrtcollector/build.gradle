@@ -1,0 +1,15 @@
+group = 'org.opennms.features.nrtg'
+description = 'OpenNMS :: Features :: NRTG :: NRTCollector JAR'
+dependencies {
+  compile project(':org.opennms.features:nrtg:nrtg-api')
+  compile project(':org.opennms.features:nrtg:nrtg-collector')
+  compile project(':org.opennms.features:nrtg:protocol-collectors:nrtg-protocolcollector-snmp')
+  compile project(':dependencies:activemq-dependencies')
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.4'
+    compile group: 'net.sf.flexjson', name: 'flexjson', version:'2.0'
+  compile project(':dependencies:spring-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.snmp4j')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

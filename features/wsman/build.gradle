@@ -1,0 +1,29 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: WS-Man Integration'
+dependencies {
+  compile project(':dependencies:jaxb-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.db')
+  compile project(':opennms-model')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-dao-api')
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api')
+    compile(group: 'org.opennms.core.wsman', name: 'org.opennms.core.wsman.cxf', version:'1.2.2') {
+exclude(module: 'cxf-rt-bindings-soap')
+exclude(module: 'cxf-rt-databinding-jaxb')
+exclude(module: 'cxf-rt-frontend-jaxws')
+    }
+  compile project(':dependencies:cxf-dependencies')
+  compile project(':opennms-config')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    testCompile group: 'xmlunit', name: 'xmlunit', version:'1.5'
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':opennms-dao')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile group: 'com.mycila', name: 'mycila-xmltool', version:'4.4.ga'
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api')
+}

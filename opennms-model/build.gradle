@@ -1,0 +1,19 @@
+
+apply plugin: 'java'
+
+description = 'OpenNMS :: Model :: Objects'
+dependencies {
+  compile project(':dependencies:hibernate-dependencies')
+  compile project(':dependencies:jaxb-dependencies')
+  compile project(':dependencies:snmp-dependencies')
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+  compile project(':org.opennms.core:org.opennms.core.api')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+  compile project(':opennms-util')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api')
+  compile project(':opennms-rrd:opennms-rrd-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    compileOnly group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+}

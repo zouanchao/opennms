@@ -1,0 +1,9 @@
+
+description = 'OpenNMS :: RRD :: RRDTool :: Interface'
+dependencies {
+  compile project(':opennms-rrd:opennms-rrd-api')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compileOnly project(':dependencies:jrrd-dependencies')
+  compileOnly project(':dependencies:jrrd2-dependencies')
+}

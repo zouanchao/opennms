@@ -1,0 +1,17 @@
+group = 'org.opennms.features.minion'
+description = 'OpenNMS :: Features :: Minion :: Core :: JMS'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.api')
+    compile(group: 'org.apache.activemq', name: 'activemq-camel', version:'5.14.5') {
+exclude(module: 'jaxb-api')
+exclude(module: 'jaxb-impl')
+exclude(module: 'commons-logging')
+exclude(module: 'spring-aop')
+exclude(module: 'spring-beans')
+exclude(module: 'spring-context')
+exclude(module: 'spring-core')
+exclude(module: 'spring-expression')
+exclude(module: 'spring-jms')
+exclude(module: 'spring-tx')
+    }
+}

@@ -1,0 +1,7 @@
+group = 'org.opennms.core.jmx'
+description = 'OpenNMS :: Core :: JMX :: API'
+dependencies {
+  compile project(':opennms-config-jaxb')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

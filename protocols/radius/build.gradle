@@ -1,0 +1,12 @@
+group = 'org.opennms.protocols'
+description = 'OpenNMS :: Protocols :: RADIUS'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-web-api')
+  compile project(':dependencies:jradius-dependencies')
+  compile project(':dependencies:jcifs-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+    testCompile(group: 'com.hynnet', name: 'tinyradius', version:'1.0.1') {
+exclude(module: 'commons-logging')
+    }
+}

@@ -1,0 +1,16 @@
+
+description = 'OpenNMS :: Provisioning :: JDBC Detector'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':opennms-util')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+}

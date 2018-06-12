@@ -1,0 +1,20 @@
+group = 'org.opennms.features.topology.plugins.topo'
+description = 'OpenNMS :: Features :: Topology :: Plugins :: PathOutage'
+dependencies {
+    compile group: 'net.sf.jung', name: 'jung-api', version:'2.0.1'
+    compile group: 'net.sf.jung', name: 'jung-graph-impl', version:'2.0.1'
+  testCompile project(':opennms-config')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+    testCompile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.2.Final'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+  compileOnly project(':org.opennms.features:vaadin')
+  compileOnly project(':opennms-dao-api')
+}

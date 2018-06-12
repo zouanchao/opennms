@@ -1,0 +1,30 @@
+group = 'org.opennms.features.events'
+description = 'OpenNMS :: Features :: Events :: Syslog Daemon'
+dependencies {
+  compile project(':dependencies:camel-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':opennms-dao-api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml')
+    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version:'3.1.2'
+  compile project(':opennms-dao-mock')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-minion')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon')
+  testCompile project(':org.opennms.features:minion-parent:core-parent:core-api')
+  testCompile project(':opennms-icmp:opennms-icmp-jna')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.mock-impl')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+}

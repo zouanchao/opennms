@@ -1,0 +1,5 @@
+group = 'org.opennms.features.flows.classification.persistence'
+description = 'OpenNMS :: Features :: Flows :: Classification :: Persistence :: Api'
+dependencies {
+  compile project(':opennms-dao-api')
+}

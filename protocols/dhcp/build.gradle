@@ -1,0 +1,14 @@
+group = 'org.opennms.protocols'
+description = 'OpenNMS :: Protocols :: DHCP'
+dependencies {
+    compile group: 'org.opennms', name: 'jdhcp', version:'1.2.0'
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':opennms-config')
+  compile project(':opennms-model')
+  compile project(':opennms-dao')
+  compile project(':opennms-util')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':opennms-provision:opennms-mock-simpleserver')
+  testCompile project(':dependencies:spring-test-dependencies')
+}

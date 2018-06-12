@@ -1,0 +1,4 @@
+group = 'org.opennms.features'
+apply plugin: 'war'
+
+description = 'OpenNMS :: Features :: ROOT Web Application'

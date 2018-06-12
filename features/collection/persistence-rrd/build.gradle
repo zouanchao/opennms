@@ -1,0 +1,8 @@
+group = 'org.opennms.features.collection'
+description = 'OpenNMS :: Features :: Collection :: RRD Persistence'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':opennms-rrd:opennms-rrd-api')
+  compile project(':opennms-dao-api')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

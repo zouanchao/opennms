@@ -1,0 +1,7 @@
+group = 'org.opennms.core'
+description = 'OpenNMS :: Core :: Spring'
+dependencies {
+  compile project(':dependencies:spring-dependencies')
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile group: 'javax.inject', name: 'javax.inject', version:'1'
+}

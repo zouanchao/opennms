@@ -1,0 +1,12 @@
+group = 'org.opennms.features.notifications'
+description = 'OpenNMS :: Features :: Notifications :: Ticket'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.api')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':opennms-services')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+}

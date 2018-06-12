@@ -1,0 +1,6 @@
+group = 'org.opennms.core.ipc.sink'
+description = 'OpenNMS :: Core :: IPC :: Sink :: Mock Impl.'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common')
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

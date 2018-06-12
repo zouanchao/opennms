@@ -1,0 +1,10 @@
+
+description = 'OpenNMS :: JavaMail :: Interface'
+dependencies {
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    compile group: 'javax.mail', name: 'mail', version:'1.4.5'
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':opennms-config-model')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

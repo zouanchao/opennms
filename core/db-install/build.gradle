@@ -1,0 +1,8 @@
+group = 'org.opennms.core'
+description = 'OpenNMS :: Core :: Database Installer'
+dependencies {
+  compile project(':dependencies:spring-dependencies')
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+  compile project(':org.opennms.core:org.opennms.core.db')
+}

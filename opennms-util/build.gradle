@@ -1,0 +1,10 @@
+
+description = 'OpenNMS Utilities'
+dependencies {
+  compile project(':dependencies:jaxb-dependencies')
+    compile group: 'commons-io', name: 'commons-io', version:'2.5'
+    compile group: 'xalan', name: 'serializer', version:'2.7.2'
+  compile project(':org.opennms.core:org.opennms.core.api')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

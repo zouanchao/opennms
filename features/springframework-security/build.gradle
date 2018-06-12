@@ -1,0 +1,25 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Spring Framework Security'
+dependencies {
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+    compile group: 'org.apache.karaf.jaas', name: 'org.apache.karaf.jaas.boot', version:'4.1.5'
+    compile group: 'org.apache.karaf.jaas', name: 'org.apache.karaf.jaas.config', version:'4.1.5'
+  compile project(':opennms-bootstrap')
+  compile project(':opennms-model')
+  compile project(':opennms-dao-api')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:spring-security-dependencies')
+  compile project(':dependencies:spring-web-dependencies')
+  compile project(':opennms-web-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':dependencies:spring-test-dependencies')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    compileOnly group: 'org.eclipse.jetty', name: 'jetty-server', version:'9.4.2.v20170220'
+}

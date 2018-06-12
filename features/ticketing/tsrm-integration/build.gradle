@@ -1,0 +1,20 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Ticketing :: Tivoli Service Request Manager (TSRM)'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.api')
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile(group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version:'3.1.11') {
+exclude(module: 'jaxb-core')
+exclude(module: 'jaxb-impl')
+exclude(module: 'asm')
+    }
+    compile group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version:'3.1.11'
+    compile(group: 'org.apache.cxf.xjc-utils', name: 'cxf-xjc-runtime', version:'3.1.0') {
+exclude(module: 'jaxb-api')
+    }
+  compile project(':dependencies:jaxb-dependencies')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+}

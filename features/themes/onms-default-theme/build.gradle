@@ -1,0 +1,6 @@
+group = 'org.opennms.features.themes'
+description = 'OpenNMS :: Features :: Vaadin :: Theme :: Default'
+dependencies {
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+  compileOnly project(':org.opennms.core:org.opennms.core.web-assets')
+}

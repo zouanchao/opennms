@@ -1,0 +1,21 @@
+group = 'org.opennms.plugins'
+description = 'OpenNMS :: Plugins :: Admin UI'
+dependencies {
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.features:vaadin-components:core')
+    compile group: 'org.opennms.plugins', name: 'org.opennms.plugin.licencemanager', version:'1.0.7', classifier:'features'
+    compile group: 'org.opennms.plugins', name: 'org.opennms.plugin.featuremanager', version:'1.0.7', classifier:'features'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  compileOnly project(':dependencies:spring-dependencies')
+  compileOnly project(':org.opennms.core:org.opennms.core.lib')
+  compileOnly project(':opennms-config')
+  compileOnly project(':opennms-dao')
+  compileOnly project(':opennms-web-api')
+  compileOnly project(':org.opennms.features:org.opennms.features.name-cutter')
+    compileOnly group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.apache.aries.blueprint', name: 'org.apache.aries.blueprint.core', version:'1.4.3'
+    compileOnly group: 'org.opennms.plugins', name: 'org.opennms.plugin.licencemanager', version:'1.0.7'
+    compileOnly group: 'org.opennms.plugins', name: 'org.opennms.plugin.featuremanager', version:'1.0.7'
+    compileOnly group: 'org.opennms.plugins', name: 'org.opennms.plugin.pluginmanager.pluginmanager-core', version:'1.0.7'
+}

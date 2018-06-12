@@ -1,0 +1,5 @@
+group = 'org.opennms.features.minion.heartbeat'
+description = 'OpenNMS :: Features :: Minion :: Heartbeat :: Producer'
+dependencies {
+  compile project(':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.common')
+}

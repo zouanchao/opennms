@@ -1,0 +1,7 @@
+group = 'org.opennms.core.snmp'
+description = 'OpenNMS :: Core :: SNMP :: Mock Implementation'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  compile project(':opennms-util')
+  compile project(':dependencies:spring-dependencies')
+}

@@ -1,0 +1,6 @@
+group = 'org.opennms.features.geolocation'
+description = 'OpenNMS :: Features :: Geolocation :: API'
+dependencies {
+  compileOnly project(':org.opennms.features:org.opennms.features.status:org.opennms.features.status.api')
+    compileOnly group: 'com.google.guava', name: 'guava', version:'18.0'
+}

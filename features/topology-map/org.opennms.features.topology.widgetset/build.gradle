@@ -1,0 +1,7 @@
+group = 'org.opennms.features.topology'
+description = 'org.opennms.features.topology.widgetset'
+dependencies {
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.app')
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+}

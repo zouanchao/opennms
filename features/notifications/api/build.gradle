@@ -1,0 +1,2 @@
+group = 'org.opennms.features.notifications'
+description = 'OpenNMS :: Features :: Notifications :: API'

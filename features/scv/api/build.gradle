@@ -1,0 +1,2 @@
+group = 'org.opennms.features.scv'
+description = 'OpenNMS :: Features :: SCV :: API'

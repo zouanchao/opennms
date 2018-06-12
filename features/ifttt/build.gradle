@@ -1,0 +1,20 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: IFTTT Integration'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version:'1.6.4'
+    testCompile group: 'org.powermock', name: 'powermock-api-mockito', version:'1.6.4'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+    testCompile group: 'commons-io', name: 'commons-io', version:'2.5'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':opennms-model')
+  compileOnly project(':opennms-dao-api')
+    compileOnly group: 'com.google.guava', name: 'guava', version:'18.0'
+    compileOnly(group: 'org.apache.httpcomponents', name: 'httpclient-osgi', version:'4.5.2') {
+      exclude(module: 'commons-logging')
+    }
+}

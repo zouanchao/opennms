@@ -1,0 +1,18 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: ActiveMQ'
+dependencies {
+    compile group: 'junit', name: 'junit', version:'4.12'
+    compile(group: 'org.apache.activemq', name: 'activemq-camel', version:'5.14.5') {
+exclude(module: 'jaxb-api')
+exclude(module: 'jaxb-impl')
+exclude(module: 'commons-logging')
+exclude(module: 'spring-beans')
+exclude(module: 'spring-context')
+exclude(module: 'spring-core')
+exclude(module: 'spring-expression')
+exclude(module: 'spring-jms')
+exclude(module: 'spring-aop')
+exclude(module: 'spring-tx')
+    }
+    runtime group: 'org.apache.activemq', name: 'activemq-kahadb-store', version:'5.14.5'
+}

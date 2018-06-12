@@ -1,0 +1,8 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: Camel'
+dependencies {
+    compile group: 'junit', name: 'junit', version:'4.12'
+  compile project(':dependencies:camel-test-dependencies')
+  compile project(':opennms-icmp:opennms-icmp-api')
+  compile project(':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.component')
+}

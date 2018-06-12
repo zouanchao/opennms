@@ -1,0 +1,12 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Request Tracker Interface'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.web')
+  compile project(':opennms-util')
+    compile(group: 'commons-configuration', name: 'commons-configuration', version:'1.6') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'commons-io', name: 'commons-io', version:'2.5'
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

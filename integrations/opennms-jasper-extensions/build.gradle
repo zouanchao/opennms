@@ -1,0 +1,15 @@
+
+description = 'OpenNMS :: Integrations :: Jasper Extensions'
+dependencies {
+  compile project(':dependencies:jasper-dependencies')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  compile project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.api')
+  compile project(':org.opennms.features:org.opennms.features.reporting:jasper-reports-filter')
+  compile project(':org.opennms.core:org.opennms.core.spring')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+    testCompile group: 'org.apache.commons', name: 'commons-csv', version:'1.5'
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version:'1.57'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':opennms-dao')
+  testCompile project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.impl')
+}

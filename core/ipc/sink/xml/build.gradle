@@ -1,0 +1,6 @@
+group = 'org.opennms.core.ipc.sink'
+description = 'OpenNMS :: Core :: IPC :: Sink :: XML'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+}

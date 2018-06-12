@@ -1,0 +1,13 @@
+group = 'org.opennms.features.ncs'
+description = 'OpenNMS :: Features :: NCS :: Correlation Rules'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-persistence')
+  compile project(':opennms-correlation:drools-correlation-engine')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-services')
+  testCompile project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-test')
+}

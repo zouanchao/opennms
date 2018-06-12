@@ -1,0 +1,6 @@
+group = 'org.opennms.core.ipc.sink.kafka'
+description = 'OpenNMS :: Core :: IPC :: Sink :: Kafka :: Client'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.common')
+  compileOnly project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.server')
+}

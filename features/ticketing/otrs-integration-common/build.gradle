@@ -1,0 +1,10 @@
+group = 'org.opennms.features.ticketing'
+description = 'OpenNMS :: Features :: Ticketing :: OTRS :: Common'
+dependencies {
+  compile project(':opennms-util')
+    compile(group: 'commons-configuration', name: 'commons-configuration', version:'1.6') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    runtime group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.21'
+}

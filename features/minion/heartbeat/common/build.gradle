@@ -1,0 +1,7 @@
+group = 'org.opennms.features.minion.heartbeat'
+description = 'OpenNMS :: Features :: Minion :: Heartbeat :: Common'
+dependencies {
+  compile project(':org.opennms.features:minion-parent:core-parent:core-api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

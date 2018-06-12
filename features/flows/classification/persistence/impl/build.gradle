@@ -1,0 +1,12 @@
+group = 'org.opennms.features.flows.classification.persistence'
+description = 'OpenNMS :: Features :: Flows :: Classification :: Persistence :: Impl.'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence:org.opennms.features.flows.classification.persistence.api')
+  compile project(':opennms-dao')
+  testCompile project(':opennms-config')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':opennms-dao-mock')
+}

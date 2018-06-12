@@ -1,0 +1,14 @@
+
+description = 'OpenNMS :: Alarms :: Northbounder :: JMS'
+dependencies {
+  compile project(':opennms-alarms:opennms-alarm-api')
+  compile project(':opennms-dao')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:jaxb-dependencies')
+  compile project(':dependencies:activemq-dependencies')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

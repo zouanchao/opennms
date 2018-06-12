@@ -1,0 +1,1116 @@
+rootProject.name = 'opennms'
+include ':dependencies:activemq-dependencies'
+include ':dependencies:activemq-web-dependencies'
+include ':dependencies:asterisk-dependencies'
+include ':dependencies:atomikos-dependencies'
+include ':dependencies:aws-dependencies'
+include ':dependencies:camel-dependencies'
+include ':dependencies:camel-test-dependencies'
+include ':dependencies:cxf-dependencies'
+include ':dependencies:dnsjava-dependencies'
+include ':dependencies:drools-dependencies'
+include ':dependencies:felix-dependencies'
+include ':dependencies:gwt-dependencies'
+include ':dependencies:hibernate-dependencies'
+include ':dependencies:jasper-dependencies'
+include ':dependencies:jasypt-dependencies'
+include ':dependencies:javamail-dependencies'
+include ':dependencies:jaxb-dependencies'
+include ':dependencies:jcifs-dependencies'
+include ':dependencies:jfreechart-dependencies'
+include ':dependencies:jinterop-dependencies'
+include ':dependencies:jmx-dependencies'
+include ':dependencies:jna-dependencies'
+include ':dependencies:jnlp-dependencies'
+include ':dependencies:jradius-dependencies'
+include ':dependencies:org.opennms.dependencies.jradius-extended'
+include ':dependencies:jrobin-dependencies'
+include ':dependencies:jrrd-dependencies'
+include ':dependencies:jrrd2-dependencies'
+include ':dependencies:jstl-dependencies'
+include ':dependencies:liquibase-dependencies'
+include ':dependencies:mina-dependencies'
+include ':dependencies:netty-dependencies'
+include ':dependencies:newts-dependencies'
+include ':dependencies:owasp-dependencies'
+include ':dependencies:pax-exam-dependencies'
+include ':dependencies:quartz-dependencies'
+include ':dependencies:rancid-dependencies'
+include ':dependencies:servlet-dependencies'
+include ':dependencies:smack-dependencies'
+include ':dependencies:smslib-dependencies'
+include ':dependencies:snmp4j-dependencies'
+include ':dependencies:snmp4j-agent-dependencies'
+include ':dependencies:snmp-dependencies'
+include ':dependencies:snmp-test-dependencies'
+include ':dependencies:spring-dependencies'
+include ':dependencies:spring-security-core-dependencies'
+include ':dependencies:spring-security-dependencies'
+include ':dependencies:spring-test-dependencies'
+include ':dependencies:spring-web-dependencies'
+include ':dependencies:tracker-dependencies'
+include ':dependencies:twitter4j-dependencies'
+include ':dependencies'
+include ':org.opennms.core:org.opennms.core.api'
+include ':org.opennms.core:org.opennms.core.build:org.opennms.core.build.keystore'
+include ':org.opennms.core:org.opennms.core.build'
+include ':org.opennms.core:org.opennms.core.cache'
+include ':org.opennms.core:org.opennms.core.camel'
+include ':org.opennms.core:org.opennms.core.config'
+include ':org.opennms.core:org.opennms.core.criteria'
+include ':org.opennms.core:org.opennms.core.daemon'
+include ':org.opennms.core:org.opennms.core.db'
+include ':org.opennms.core:org.opennms.core.db.install'
+include ':org.opennms.core:org.opennms.core.doc'
+include ':org.opennms.core:org.opennms.core.icmp-jna'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.common:org.opennms.core.ipc.common.aws-sqs'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.common'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.api'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.aws-sqs-impl'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.camel'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.common'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.jms-impl'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.mock-impl'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.commands'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.utils'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.common'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.client'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.server'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.itests'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.common'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.client'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.server'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.itests'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.common'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.client'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.server'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.itests'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.mock-impl'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml'
+include ':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink'
+include ':org.opennms.core:org.opennms.core.ipc'
+include ':org.opennms.core:org.opennms.core.jmx:org.opennms.core.jmx.api'
+include ':org.opennms.core:org.opennms.core.jmx:org.opennms.core.jmx.impl'
+include ':org.opennms.core:org.opennms.core.jmx'
+include ':org.opennms.core:org.opennms.core.jstl-support'
+include ':org.opennms.core:org.opennms.core.lib'
+include ':org.opennms.core:org.opennms.core.logging'
+include ':org.opennms.core:org.opennms.core.profiler'
+include ':org.opennms.core:org.opennms.core.runtime'
+include ':org.opennms.core:org.opennms.core.schema'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.joesnmp'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.joesnmp'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.snmp4j'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.mock'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.integration-tests'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.commands'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.proxy.rpc-impl'
+include ':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.proxy.rpc-tests'
+include ':org.opennms.core:org.opennms.core.snmp'
+include ':org.opennms.core:org.opennms.core.soa'
+include ':org.opennms.core:org.opennms.core.spring'
+include ':org.opennms.core:org.opennms.core.spring-web'
+include ':org.opennms.core:org.opennms.core.tasks'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.dns'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.elasticsearch'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.kafka'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.karaf'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.rest'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema:org.opennms.core.test-api.schema.a'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema:org.opennms.core.test-api.schema.b'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp'
+include ':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml'
+include ':org.opennms.core:org.opennms.core.test-api'
+include ':org.opennms.core:org.opennms.core.upgrade'
+include ':org.opennms.core:org.opennms.core.web'
+include ':org.opennms.core:org.opennms.core.web-assets'
+include ':org.opennms.core:org.opennms.core.xml'
+include ':org.opennms.core'
+include ':org.opennms.container:org.opennms.container.branding'
+include ':org.opennms.container:opennms'
+include ':org.opennms.container:org.opennms.container.karaf'
+include ':org.opennms.container:org.opennms.container.servlet'
+include ':org.opennms.container:org.opennms.container.bridge'
+include ':org.opennms.container:org.opennms.container.jaas-login-module'
+include ':org.opennms.container'
+include ':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.broker'
+include ':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.component'
+include ':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.pool'
+include ':org.opennms.features:org.opennms.features.activemq'
+include ':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.common'
+include ':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.event-forwarder'
+include ':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.event-receiver'
+include ':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.alarm-northbounder'
+include ':org.opennms.features:org.opennms.features.amqp'
+include ':org.opennms.features:org.opennms.features.provisioning:org.opennms.features.provisioning.api'
+include ':org.opennms.features:org.opennms.features.provisioning:org.opennms.features.provisioning.lib'
+include ':org.opennms.features:org.opennms.features.provisioning'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.client-rpc'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.monitors:org.opennms.features.poller.monitors.core'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.monitors'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.runtime'
+include ':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.shell'
+include ':org.opennms.features:org.opennms.features.poller'
+include ':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api'
+include ':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon'
+include ':org.opennms.features:org.opennms.features.events:org.opennms.features.events.syslog'
+include ':org.opennms.features:org.opennms.features.events:org.opennms.features.events.traps'
+include ':org.opennms.features:org.opennms.features.events:org.opennms.features.events.commands'
+include ':org.opennms.features:org.opennms.features.events'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.api'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine:org.opennms.features.flows.classification.engine.api'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine:org.opennms.features.flows.classification.engine.impl'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence:org.opennms.features.flows.classification.persistence.api'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence:org.opennms.features.flows.classification.persistence.impl'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.elastic'
+include ':org.opennms.features:org.opennms.features.flows:opennms-flows'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.rest:org.opennms.features.flows.rest.api'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.rest:org.opennms.features.flows.rest.impl'
+include ':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.rest'
+include ':org.opennms.features:org.opennms.features.flows'
+include ':org.opennms.features:org.opennms.features.graphml'
+include ':org.opennms.features:org.opennms.features.kafka:org.opennms.features.kafka.producer'
+include ':org.opennms.features:org.opennms.features.kafka'
+include ':org.opennms.features:org.opennms.features.executor-factory:org.opennms.features.executor-factory.cassandra'
+include ':org.opennms.features:org.opennms.features.executor-factory'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.client-rpc'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.collectors'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.core'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.tcp'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.commands'
+include ':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api'
+include ':org.opennms.features:org.opennms.features.collection'
+include ':org.opennms.features:org.opennms.features.jdbc-collector'
+include ':org.opennms.features:org.opennms.features.juniper-tca-collector'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.api'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.collection'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.jti'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.netflow'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.nxos'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.registry'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.common'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.api'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.jaxb'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.daemon'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.itests'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.api'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.flow'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.sflow'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.udp'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners'
+include ':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.minion'
+include ':org.opennms.features:org.opennms.features.telemetry'
+include ':org.opennms.features:org.opennms.features.wsman'
+include ':org.opennms.features:org.opennms.features.discovery'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.api'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.core'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.availability'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.jasper-reports'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.jasper-reports-compiler'
+include ':org.opennms.features:org.opennms.features.reporting:jasper-reports-filter'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.repository'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.model'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.dao'
+include ':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.sdo'
+include ':org.opennms.features:org.opennms.features.reporting'
+include ':org.opennms.features:org.opennms.features.remote-poller'
+include ':org.opennms.features:org.opennms.features.remote-poller-jnlp'
+include ':org.opennms.features:org.opennms.features.remote-poller-gwt'
+include ':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.api'
+include ':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.daemon'
+include ':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.drools-integration'
+include ':org.opennms.features:org.opennms.features.ticketing:jira-troubleticketer'
+include ':org.opennms.features:org.opennms.features.ticketing:jira-client'
+include ':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs-common'
+include ':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs'
+include ':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs-31'
+include ':org.opennms.features:org.opennms.features.ticketing:opennms-integration-rt'
+include ':org.opennms.features:org.opennms.features.ticketing:opennms-integration-remedy'
+include ':org.opennms.features:org.opennms.features.ticketing:opennms-integration-tsrm'
+include ':org.opennms.features:org.opennms.features.ticketing'
+include ':org.opennms.features:org.opennms.features.request-tracker'
+include ':org.opennms.features:resource-cli'
+include ':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.common'
+include ':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.model'
+include ':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.mapper'
+include ':org.opennms.features:org.opennms.features.rest'
+include ':org.opennms.features:org.opennms.features.rest-provider'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:opennms-osgi-core'
+include ':org.opennms.features:org.opennms.features.osgi-jsr223'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:opennms-osgi-core-rest'
+include ':org.opennms.features:jmxconfiggenerator'
+include ':org.opennms.features:vaadin-jmxconfiggenerator'
+include ':org.opennms.features:org.opennms.features.mib-compiler'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-snmp-events-and-metrics'
+include ':org.opennms.features:nrtg:nrtg-system-exports'
+include ':org.opennms.features:nrtg:nrtg-commander'
+include ':org.opennms.features:nrtg:nrtg-api'
+include ':org.opennms.features:nrtg:nrtg-broker'
+include ':org.opennms.features:nrtg:nrtg-nrtbroker-jms'
+include ':org.opennms.features:nrtg:nrtg-nrtbroker-local'
+include ':org.opennms.features:nrtg:nrtg-collector'
+include ':org.opennms.features:nrtg:protocol-collectors:nrtg-protocolcollector-snmp'
+include ':org.opennms.features:nrtg:protocol-collectors:nrtg-protocolcollector-tca'
+include ':org.opennms.features:nrtg:protocol-collectors'
+include ':org.opennms.features:nrtg:nrtg-web'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-api'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-web'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-protocolcollector:osgi-nrtg-protocolcollector-snmp'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-protocolcollector:osgi-nrtg-protocolcollector-tca'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-protocolcollector'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-base'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-jms'
+include ':org.opennms.features:nrtg:features:osgi-nrtg-local'
+include ':org.opennms.features:nrtg:features:nrtg'
+include ':org.opennms.features:nrtg:features'
+include ':org.opennms.features:nrtg:jar:nrtg-collector-standalone'
+include ':org.opennms.features:nrtg:jar'
+include ':org.opennms.features:nrtg'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:wrapper-bundle-settings'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:provision'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.app'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.link'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.persistence.api'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.persistence.impl'
+include ':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.persistence'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.shell'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.widgetset'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.browsers'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.layout'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.ncs'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.netutils'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.application'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:asset'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.bsm'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.pathoutage'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:graphml'
+include ':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.plugins:org.opennms.features.topology.plugins.topo.history'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.linkd'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.sfree'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.vmware'
+include ':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.plugins'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-api'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-application'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-asset'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-base'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-browsers'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-bsm'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-pathoutage'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-graphml'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-linkd'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-vmware'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-ncs'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-sfree'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features'
+include ':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.themes:org.opennms.features.topology.themes.default-theme'
+include ':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.themes'
+include ':org.opennms.features:org.opennms.features.topology'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-node-maps'
+include ':org.opennms.features:root-webapp'
+include ':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.api'
+include ':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.impl'
+include ':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.rest'
+include ':org.opennms.features:org.opennms.features.measurements'
+include ':org.opennms.features:org.opennms.features.newts'
+include ':org.opennms.features:newts-repository-converter'
+include ':org.opennms.features:org.opennms.features.notifications:org.opennms.features.notifications.api'
+include ':org.opennms.features:org.opennms.features.notifications:org.opennms.features.notifications.ticket-strategy'
+include ':org.opennms.features:org.opennms.features.notifications'
+include ':org.opennms.features:themes:jmxconfiggenerator-theme'
+include ':org.opennms.features:themes:onms-default-theme'
+include ':org.opennms.features:themes:dashboard-theme'
+include ':org.opennms.features:themes'
+include ':org.opennms.features:vaadin'
+include ':org.opennms.features:vaadin-components:bundle-refresher'
+include ':org.opennms.features:vaadin-components:core'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:graph'
+include ':org.opennms.features:vaadin-components:extender-service'
+include ':org.opennms.features:vaadin-components'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-dashboard'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-alarms'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-bsm'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-map'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-summary'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-image'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-charts'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-rtc'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-rrd'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-ksc'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-topology'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-surveillance'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-features'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-url'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-grafana'
+include ':org.opennms.features:vaadin-dashlets'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-surveillance-views'
+include ':org.opennms.features:datachoices'
+include ':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.api'
+include ':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.google'
+include ':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.nominatim'
+include ':org.opennms.features:org.opennms.features.geocoder'
+include ':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.api'
+include ':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.rest'
+include ':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.services'
+include ':org.opennms.features:org.opennms.features.geolocation:geolocation'
+include ':org.opennms.features:org.opennms.features.geolocation'
+include ':org.opennms.features:org.opennms.features.instrumentationLogReader'
+include ':org.opennms.features:org.opennms.features.name-cutter'
+include ':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-test'
+include ':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-model'
+include ':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-persistence'
+include ':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-drools'
+include ':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-northbounder'
+include ':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-alarm-gui'
+include ':org.opennms.features:org.opennms.features.ncs'
+include ':org.opennms.features:org.opennms.features.springframework-security'
+include ':org.opennms.features:org.opennms.features.status:org.opennms.features.status.api'
+include ':org.opennms.features:org.opennms.features.status:org.opennms.features.status.rest'
+include ':org.opennms.features:org.opennms.features.status'
+include ':org.opennms.features:org.opennms.features.system-report'
+include ':org.opennms.features:org.opennms.features.timeseries-evaluate'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.daemon'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.api'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.impl'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest:org.opennms.features.bsm.rest.api'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest:org.opennms.features.bsm.rest.impl'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.api'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.impl'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service'
+include ':org.opennms.features:org.opennms.features.bsm:test-util'
+include ':org.opennms.features:org.opennms.features.bsm:vaadin-adminpage'
+include ':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.shell-commands'
+include ':org.opennms.features:org.opennms.features.bsm'
+include ':org.opennms.features:minion-parent:container-parent:karaf'
+include ':org.opennms.features:minion-parent:container-parent:extender'
+include ':org.opennms.features:minion-parent:container-parent:scv'
+include ':org.opennms.features:minion-parent:container-parent:features'
+include ':org.opennms.features:minion-parent:container-parent'
+include ':org.opennms.features:minion-parent:core-parent:core-api'
+include ':org.opennms.features:minion-parent:core-parent:core-features'
+include ':org.opennms.features:minion-parent:core-parent:core-impl'
+include ':org.opennms.features:minion-parent:core-parent:jms'
+include ':org.opennms.features:minion-parent:core-parent:core-repository'
+include ':org.opennms.features:minion-parent:core-parent:shell'
+include ':org.opennms.features:minion-parent:core-parent'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.common'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.consumer'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.producer'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat'
+include ':org.opennms.features:minion-parent:repository'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.shell:org.opennms.features.minion.shell.collection'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.shell:org.opennms.features.minion.shell.provision'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.shell:org.opennms.features.minion.shell.poller'
+include ':org.opennms.features:minion-parent:org.opennms.features.minion.shell'
+include ':org.opennms.features:minion-parent'
+include ':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.api'
+include ':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.jceks-impl'
+include ':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.shell'
+include ':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.cli'
+include ':org.opennms.features:org.opennms.features.scv'
+include ':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-opennms-pluginmanager'
+include ':org.opennms.features:org.opennms.features.opennms-es-rest'
+include ':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier.pg-jdbc-utils'
+include ':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier.main-module'
+include ':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier.product-descriptor'
+include ':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier'
+include ':org.opennms.features:alarm-change-notifier.parent'
+include ':org.opennms.features:internal-plugins-descriptor'
+include ':org.opennms.features:org.opennms.features.eif-adapter'
+include ':org.opennms.features:org.opennms.features.ifttt'
+include ':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.client'
+include ':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.dependencies'
+include ':org.opennms.features:org.opennms.features.jest:opennms-jest'
+include ':org.opennms.features:org.opennms.features.jest:jest-complete-osgi'
+include ':org.opennms.features:org.opennms.features.jest'
+include ':org.opennms.features'
+include ':opennms-integrations:opennms-dns-provisioning-adapter'
+include ':opennms-integrations:opennms-reverse-dns-provisioning-adapter'
+include ':opennms-integrations:opennms-puppet-provisioning-adapter'
+include ':opennms-integrations:opennms-R'
+include ':opennms-integrations:opennms-rancid-provisioning-adapter'
+include ':opennms-integrations:opennms-rws'
+include ':opennms-integrations:opennms-snmp-asset-provisioning-adapter'
+include ':opennms-integrations:opennms-snmp-hardware-inventory-provisioning-adapter'
+include ':opennms-integrations:jasper-extensions'
+include ':opennms-integrations:opennms-jasperstudio-extension'
+include ':opennms-integrations:opennms-vmware'
+include ':opennms-integrations:opennms-vtdxml-collector-handler'
+include ':opennms-integrations'
+include ':org.opennms.protocols:org.opennms.protocols.cifs'
+include ':org.opennms.protocols:org.opennms.protocols.dhcp'
+include ':org.opennms.protocols:org.opennms.protocols.nsclient'
+include ':org.opennms.protocols:org.opennms.protocols.radius'
+include ':org.opennms.protocols:org.opennms.protocols.xml'
+include ':org.opennms.protocols:org.opennms.protocols.xmp'
+include ':org.opennms.protocols:selenium-monitor'
+include ':org.opennms.protocols'
+include ':org.opennms.tests:org.opennms.tests.dao'
+include ':org.opennms.tests:org.opennms.tests.mock-elements'
+include ':org.opennms.tests:org.opennms.tests.mock-snmp-agent'
+include ':org.opennms.tests'
+include ':integration-tests:org.opennms.integration-tests.config'
+include ':integration-tests:org.opennms.integration-tests.trend-configuration'
+include ':integration-tests'
+include ':opennms-util'
+include ':opennms-bootstrap'
+include ':opennms-model'
+include ':opennms-ackd'
+include ':opennms-alarms:opennms-alarm-api'
+include ':opennms-alarms:opennms-alarmd'
+include ':opennms-alarms:opennms-alarm-northbounder-email'
+include ':opennms-alarms:opennms-alarm-northbounder-http'
+include ':opennms-alarms:opennms-alarm-northbounder-jms'
+include ':opennms-alarms:opennms-alarm-northbounder-syslog'
+include ':opennms-alarms:opennms-alarm-northbounder-snmptrap'
+include ':opennms-alarms:opennms-alarm-northbounder-bsf'
+include ':opennms-alarms:opennms-alarm-northbounder-drools'
+include ':opennms-alarms'
+include ':opennms-config-tester'
+include ':opennms-dao-api'
+include ':opennms-dao'
+include ':opennms-dao-minion'
+include ':opennms-dao-mock'
+include ':opennms-icmp:opennms-icmp-api'
+include ':opennms-icmp:opennms-icmp-jni'
+include ':opennms-icmp:opennms-icmp-jni6'
+include ':opennms-icmp:opennms-icmp-jna'
+include ':opennms-icmp:opennms-icmp-best'
+include ':opennms-icmp:opennms-icmp-commands'
+include ':opennms-icmp:org.opennms.icmp.proxy.rpc-impl'
+include ':opennms-icmp'
+include ':opennms-javamail:opennms-javamail-api'
+include ':opennms-javamail'
+include ':opennms-rrd:opennms-rrd-api'
+include ':opennms-rrd:opennms-rrd-jrobin'
+include ':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api'
+include ':opennms-rrd:opennms-rrd-rrdtool'
+include ':opennms-rrd:opennms-rrd-tcp'
+include ':opennms-rrd:opennms-rrd-model'
+include ':opennms-rrd'
+include ':opennms-config-api'
+include ':opennms-config-jaxb'
+include ':opennms-config'
+include ':opennms-config-model'
+include ':opennms-provision:opennms-provision-api'
+include ':opennms-provision:opennms-mock-simpleserver'
+include ':opennms-provision:opennms-detector-lineoriented'
+include ':opennms-provision:opennms-detector-simple'
+include ':opennms-provision:opennms-snmp-scanners'
+include ':opennms-provision:opennms-provisiond'
+include ':opennms-provision:opennms-provision-geolocation'
+include ':opennms-provision:opennms-provision-persistence'
+include ':opennms-provision:opennms-provision-shell'
+include ':opennms-provision:opennms-detector-registry'
+include ':opennms-provision:opennms-detector-datagram'
+include ':opennms-provision:opennms-detector-jmx'
+include ':opennms-provision:opennms-detector-jdbc'
+include ':opennms-provision:opennms-detector-ssh'
+include ':opennms-provision:opennms-detector-generic'
+include ':opennms-provision:opennms-detector-web'
+include ':opennms-provision:opennms-detector-bsf'
+include ':opennms-provision:opennms-detectorclient-rpc'
+include ':opennms-provision:opennms-requisition-dns'
+include ':opennms-provision:opennms-requisition-service'
+include ':opennms-provision'
+include ':opennms-enterprise-reporting:opennms-reportd'
+include ':opennms-enterprise-reporting'
+include ':opennms-services'
+include ':opennms-jetty'
+include ':opennms-correlation:opennms-correlator'
+include ':opennms-correlation:drools-correlation-engine'
+include ':opennms-correlation'
+include ':opennms-reporting'
+include ':opennms-web-api'
+include ':opennms-web-dependencies'
+include ':opennms-webapp'
+include ':opennms-webapp-rest'
+include ':opennms-wmi'
+include ':opennms-asterisk'
+
+project(':dependencies:activemq-dependencies').projectDir = "$rootDir/dependencies/activemq" as File
+project(':dependencies:activemq-web-dependencies').projectDir = "$rootDir/dependencies/activemq-web" as File
+project(':dependencies:asterisk-dependencies').projectDir = "$rootDir/dependencies/asterisk" as File
+project(':dependencies:atomikos-dependencies').projectDir = "$rootDir/dependencies/atomikos" as File
+project(':dependencies:aws-dependencies').projectDir = "$rootDir/dependencies/aws" as File
+project(':dependencies:camel-dependencies').projectDir = "$rootDir/dependencies/camel" as File
+project(':dependencies:camel-test-dependencies').projectDir = "$rootDir/dependencies/camel-test" as File
+project(':dependencies:cxf-dependencies').projectDir = "$rootDir/dependencies/cxf" as File
+project(':dependencies:dnsjava-dependencies').projectDir = "$rootDir/dependencies/dnsjava" as File
+project(':dependencies:drools-dependencies').projectDir = "$rootDir/dependencies/drools" as File
+project(':dependencies:felix-dependencies').projectDir = "$rootDir/dependencies/felix" as File
+project(':dependencies:gwt-dependencies').projectDir = "$rootDir/dependencies/gwt" as File
+project(':dependencies:hibernate-dependencies').projectDir = "$rootDir/dependencies/hibernate" as File
+project(':dependencies:jasper-dependencies').projectDir = "$rootDir/dependencies/jasper" as File
+project(':dependencies:jasypt-dependencies').projectDir = "$rootDir/dependencies/jasypt" as File
+project(':dependencies:javamail-dependencies').projectDir = "$rootDir/dependencies/javamail" as File
+project(':dependencies:jaxb-dependencies').projectDir = "$rootDir/dependencies/jaxb" as File
+project(':dependencies:jcifs-dependencies').projectDir = "$rootDir/dependencies/jcifs" as File
+project(':dependencies:jfreechart-dependencies').projectDir = "$rootDir/dependencies/jfreechart" as File
+project(':dependencies:jinterop-dependencies').projectDir = "$rootDir/dependencies/jinterop" as File
+project(':dependencies:jmx-dependencies').projectDir = "$rootDir/dependencies/jmx" as File
+project(':dependencies:jna-dependencies').projectDir = "$rootDir/dependencies/jna" as File
+project(':dependencies:jnlp-dependencies').projectDir = "$rootDir/dependencies/jnlp" as File
+project(':dependencies:jradius-dependencies').projectDir = "$rootDir/dependencies/jradius" as File
+project(':dependencies:org.opennms.dependencies.jradius-extended').projectDir = "$rootDir/dependencies/jradius-extended" as File
+project(':dependencies:jrobin-dependencies').projectDir = "$rootDir/dependencies/jrobin" as File
+project(':dependencies:jrrd-dependencies').projectDir = "$rootDir/dependencies/jrrd" as File
+project(':dependencies:jrrd2-dependencies').projectDir = "$rootDir/dependencies/jrrd2" as File
+project(':dependencies:jstl-dependencies').projectDir = "$rootDir/dependencies/jstl" as File
+project(':dependencies:liquibase-dependencies').projectDir = "$rootDir/dependencies/liquibase" as File
+project(':dependencies:mina-dependencies').projectDir = "$rootDir/dependencies/mina" as File
+project(':dependencies:netty-dependencies').projectDir = "$rootDir/dependencies/netty" as File
+project(':dependencies:newts-dependencies').projectDir = "$rootDir/dependencies/newts" as File
+project(':dependencies:owasp-dependencies').projectDir = "$rootDir/dependencies/owasp" as File
+project(':dependencies:pax-exam-dependencies').projectDir = "$rootDir/dependencies/pax-exam" as File
+project(':dependencies:quartz-dependencies').projectDir = "$rootDir/dependencies/quartz" as File
+project(':dependencies:rancid-dependencies').projectDir = "$rootDir/dependencies/rancid" as File
+project(':dependencies:servlet-dependencies').projectDir = "$rootDir/dependencies/servlet" as File
+project(':dependencies:smack-dependencies').projectDir = "$rootDir/dependencies/smack" as File
+project(':dependencies:smslib-dependencies').projectDir = "$rootDir/dependencies/smslib" as File
+project(':dependencies:snmp4j-dependencies').projectDir = "$rootDir/dependencies/snmp4j" as File
+project(':dependencies:snmp4j-agent-dependencies').projectDir = "$rootDir/dependencies/snmp4j-agent" as File
+project(':dependencies:snmp-dependencies').projectDir = "$rootDir/dependencies/snmp" as File
+project(':dependencies:snmp-test-dependencies').projectDir = "$rootDir/dependencies/snmp-test" as File
+project(':dependencies:spring-dependencies').projectDir = "$rootDir/dependencies/spring" as File
+project(':dependencies:spring-security-core-dependencies').projectDir = "$rootDir/dependencies/spring-security-core" as File
+project(':dependencies:spring-security-dependencies').projectDir = "$rootDir/dependencies/spring-security" as File
+project(':dependencies:spring-test-dependencies').projectDir = "$rootDir/dependencies/spring-test" as File
+project(':dependencies:spring-web-dependencies').projectDir = "$rootDir/dependencies/spring-web" as File
+project(':dependencies:tracker-dependencies').projectDir = "$rootDir/dependencies/tracker" as File
+project(':dependencies:twitter4j-dependencies').projectDir = "$rootDir/dependencies/twitter4j" as File
+project(':dependencies').projectDir = "$rootDir/dependencies" as File
+project(':org.opennms.core:org.opennms.core.api').projectDir = "$rootDir/core/api" as File
+project(':org.opennms.core:org.opennms.core.build:org.opennms.core.build.keystore').projectDir = "$rootDir/core/build/keystore" as File
+project(':org.opennms.core:org.opennms.core.build').projectDir = "$rootDir/core/build" as File
+project(':org.opennms.core:org.opennms.core.cache').projectDir = "$rootDir/core/cache" as File
+project(':org.opennms.core:org.opennms.core.camel').projectDir = "$rootDir/core/camel" as File
+project(':org.opennms.core:org.opennms.core.config').projectDir = "$rootDir/core/config" as File
+project(':org.opennms.core:org.opennms.core.criteria').projectDir = "$rootDir/core/criteria" as File
+project(':org.opennms.core:org.opennms.core.daemon').projectDir = "$rootDir/core/daemon" as File
+project(':org.opennms.core:org.opennms.core.db').projectDir = "$rootDir/core/db" as File
+project(':org.opennms.core:org.opennms.core.db.install').projectDir = "$rootDir/core/db-install" as File
+project(':org.opennms.core:org.opennms.core.doc').projectDir = "$rootDir/core/doc" as File
+project(':org.opennms.core:org.opennms.core.icmp-jna').projectDir = "$rootDir/core/icmp-jna" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.common:org.opennms.core.ipc.common.aws-sqs').projectDir = "$rootDir/core/ipc/common/aws-sqs" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.common').projectDir = "$rootDir/core/ipc/common" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.api').projectDir = "$rootDir/core/ipc/rpc/api" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.aws-sqs-impl').projectDir = "$rootDir/core/ipc/rpc/aws-sqs-impl" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.camel').projectDir = "$rootDir/core/ipc/rpc/camel" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.common').projectDir = "$rootDir/core/ipc/rpc/common" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.jms-impl').projectDir = "$rootDir/core/ipc/rpc/jms-impl" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.mock-impl').projectDir = "$rootDir/core/ipc/rpc/mock-impl" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.commands').projectDir = "$rootDir/core/ipc/rpc/shell-commands" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.utils').projectDir = "$rootDir/core/ipc/rpc/utils" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml').projectDir = "$rootDir/core/ipc/rpc/xml" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc').projectDir = "$rootDir/core/ipc/rpc" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api').projectDir = "$rootDir/core/ipc/sink/api" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common').projectDir = "$rootDir/core/ipc/sink/common" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.common').projectDir = "$rootDir/core/ipc/sink/camel/common" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.client').projectDir = "$rootDir/core/ipc/sink/camel/client" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.server').projectDir = "$rootDir/core/ipc/sink/camel/server" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.itests').projectDir = "$rootDir/core/ipc/sink/camel/itests" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel').projectDir = "$rootDir/core/ipc/sink/camel" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.common').projectDir = "$rootDir/core/ipc/sink/kafka/common" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.client').projectDir = "$rootDir/core/ipc/sink/kafka/client" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.server').projectDir = "$rootDir/core/ipc/sink/kafka/server" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka:org.opennms.core.ipc.sink.kafka.itests').projectDir = "$rootDir/core/ipc/sink/kafka/itests" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.kafka').projectDir = "$rootDir/core/ipc/sink/kafka" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.common').projectDir = "$rootDir/core/ipc/sink/aws-sqs/common" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.client').projectDir = "$rootDir/core/ipc/sink/aws-sqs/client" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.server').projectDir = "$rootDir/core/ipc/sink/aws-sqs/server" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs:org.opennms.core.ipc.sink.aws.sqs.itests').projectDir = "$rootDir/core/ipc/sink/aws-sqs/itests" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.aws.sqs').projectDir = "$rootDir/core/ipc/sink/aws-sqs" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.mock-impl').projectDir = "$rootDir/core/ipc/sink/mock-impl" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml').projectDir = "$rootDir/core/ipc/sink/xml" as File
+project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink').projectDir = "$rootDir/core/ipc/sink" as File
+project(':org.opennms.core:org.opennms.core.ipc').projectDir = "$rootDir/core/ipc" as File
+project(':org.opennms.core:org.opennms.core.jmx:org.opennms.core.jmx.api').projectDir = "$rootDir/core/jmx/api" as File
+project(':org.opennms.core:org.opennms.core.jmx:org.opennms.core.jmx.impl').projectDir = "$rootDir/core/jmx/impl" as File
+project(':org.opennms.core:org.opennms.core.jmx').projectDir = "$rootDir/core/jmx" as File
+project(':org.opennms.core:org.opennms.core.jstl-support').projectDir = "$rootDir/core/jstl-support" as File
+project(':org.opennms.core:org.opennms.core.lib').projectDir = "$rootDir/core/lib" as File
+project(':org.opennms.core:org.opennms.core.logging').projectDir = "$rootDir/core/logging-api" as File
+project(':org.opennms.core:org.opennms.core.profiler').projectDir = "$rootDir/core/profiler" as File
+project(':org.opennms.core:org.opennms.core.runtime').projectDir = "$rootDir/core/runtime" as File
+project(':org.opennms.core:org.opennms.core.schema').projectDir = "$rootDir/core/schema" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.joesnmp').projectDir = "$rootDir/core/snmp/joesnmp" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api').projectDir = "$rootDir/core/snmp/api" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.joesnmp').projectDir = "$rootDir/core/snmp/impl-joesnmp" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.snmp4j').projectDir = "$rootDir/core/snmp/impl-snmp4j" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.mock').projectDir = "$rootDir/core/snmp/impl-mock" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.integration-tests').projectDir = "$rootDir/core/snmp/integration-tests" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.commands').projectDir = "$rootDir/core/snmp/commands" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.proxy.rpc-impl').projectDir = "$rootDir/core/snmp/proxy-rpc-impl" as File
+project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.proxy.rpc-tests').projectDir = "$rootDir/core/snmp/proxy-rpc-tests" as File
+project(':org.opennms.core:org.opennms.core.snmp').projectDir = "$rootDir/core/snmp" as File
+project(':org.opennms.core:org.opennms.core.soa').projectDir = "$rootDir/core/soa" as File
+project(':org.opennms.core:org.opennms.core.spring').projectDir = "$rootDir/core/spring" as File
+project(':org.opennms.core:org.opennms.core.spring-web').projectDir = "$rootDir/core/spring-web" as File
+project(':org.opennms.core:org.opennms.core.tasks').projectDir = "$rootDir/core/tasks" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq').projectDir = "$rootDir/core/test-api/activemq" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel').projectDir = "$rootDir/core/test-api/camel" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection').projectDir = "$rootDir/core/test-api/collection" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db').projectDir = "$rootDir/core/test-api/db" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.dns').projectDir = "$rootDir/core/test-api/dns" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.elasticsearch').projectDir = "$rootDir/core/test-api/elasticsearch" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http').projectDir = "$rootDir/core/test-api/http" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.kafka').projectDir = "$rootDir/core/test-api/kafka" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.karaf').projectDir = "$rootDir/core/test-api/karaf" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib').projectDir = "$rootDir/core/test-api/lib" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.rest').projectDir = "$rootDir/core/test-api/rest" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services').projectDir = "$rootDir/core/test-api/services" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema:org.opennms.core.test-api.schema.a').projectDir = "$rootDir/core/test-api/schema/a" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema:org.opennms.core.test-api.schema.b').projectDir = "$rootDir/core/test-api/schema/b" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema').projectDir = "$rootDir/core/test-api/schema" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp').projectDir = "$rootDir/core/test-api/snmp" as File
+project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml').projectDir = "$rootDir/core/test-api/xml" as File
+project(':org.opennms.core:org.opennms.core.test-api').projectDir = "$rootDir/core/test-api" as File
+project(':org.opennms.core:org.opennms.core.upgrade').projectDir = "$rootDir/core/upgrade" as File
+project(':org.opennms.core:org.opennms.core.web').projectDir = "$rootDir/core/web" as File
+project(':org.opennms.core:org.opennms.core.web-assets').projectDir = "$rootDir/core/web-assets" as File
+project(':org.opennms.core:org.opennms.core.xml').projectDir = "$rootDir/core/xml" as File
+project(':org.opennms.core').projectDir = "$rootDir/core" as File
+project(':org.opennms.container:org.opennms.container.branding').projectDir = "$rootDir/container/branding" as File
+project(':org.opennms.container:opennms').projectDir = "$rootDir/container/features" as File
+project(':org.opennms.container:org.opennms.container.karaf').projectDir = "$rootDir/container/karaf" as File
+project(':org.opennms.container:org.opennms.container.servlet').projectDir = "$rootDir/container/servlet" as File
+project(':org.opennms.container:org.opennms.container.bridge').projectDir = "$rootDir/container/bridge" as File
+project(':org.opennms.container:org.opennms.container.jaas-login-module').projectDir = "$rootDir/container/jaas-login-module" as File
+project(':org.opennms.container').projectDir = "$rootDir/container" as File
+project(':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.broker').projectDir = "$rootDir/features/activemq/broker" as File
+project(':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.component').projectDir = "$rootDir/features/activemq/component" as File
+project(':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.pool').projectDir = "$rootDir/features/activemq/pool" as File
+project(':org.opennms.features:org.opennms.features.activemq').projectDir = "$rootDir/features/activemq" as File
+project(':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.common').projectDir = "$rootDir/features/amqp/common" as File
+project(':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.event-forwarder').projectDir = "$rootDir/features/amqp/event-forwarder" as File
+project(':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.event-receiver').projectDir = "$rootDir/features/amqp/event-receiver" as File
+project(':org.opennms.features:org.opennms.features.amqp:org.opennms.features.amqp.alarm-northbounder').projectDir = "$rootDir/features/amqp/alarm-northbounder" as File
+project(':org.opennms.features:org.opennms.features.amqp').projectDir = "$rootDir/features/amqp" as File
+project(':org.opennms.features:org.opennms.features.provisioning:org.opennms.features.provisioning.api').projectDir = "$rootDir/features/provisioning/api" as File
+project(':org.opennms.features:org.opennms.features.provisioning:org.opennms.features.provisioning.lib').projectDir = "$rootDir/features/provisioning/lib" as File
+project(':org.opennms.features:org.opennms.features.provisioning').projectDir = "$rootDir/features/provisioning" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api').projectDir = "$rootDir/features/poller/api" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.client-rpc').projectDir = "$rootDir/features/poller/client-rpc" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.monitors:org.opennms.features.poller.monitors.core').projectDir = "$rootDir/features/poller/monitors/core" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.monitors').projectDir = "$rootDir/features/poller/monitors" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote').projectDir = "$rootDir/features/poller/remote" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.runtime').projectDir = "$rootDir/features/poller/runtime" as File
+project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.shell').projectDir = "$rootDir/features/poller/shell" as File
+project(':org.opennms.features:org.opennms.features.poller').projectDir = "$rootDir/features/poller" as File
+project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api').projectDir = "$rootDir/features/events/api" as File
+project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon').projectDir = "$rootDir/features/events/daemon" as File
+project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.syslog').projectDir = "$rootDir/features/events/syslog" as File
+project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.traps').projectDir = "$rootDir/features/events/traps" as File
+project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.commands').projectDir = "$rootDir/features/events/shell-commands" as File
+project(':org.opennms.features:org.opennms.features.events').projectDir = "$rootDir/features/events" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.api').projectDir = "$rootDir/features/flows/api" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine:org.opennms.features.flows.classification.engine.api').projectDir = "$rootDir/features/flows/classification/engine/api" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine:org.opennms.features.flows.classification.engine.impl').projectDir = "$rootDir/features/flows/classification/engine/impl" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.engine').projectDir = "$rootDir/features/flows/classification/engine" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence:org.opennms.features.flows.classification.persistence.api').projectDir = "$rootDir/features/flows/classification/persistence/api" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence:org.opennms.features.flows.classification.persistence.impl').projectDir = "$rootDir/features/flows/classification/persistence/impl" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification:org.opennms.features.flows.classification.persistence').projectDir = "$rootDir/features/flows/classification/persistence" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.classification').projectDir = "$rootDir/features/flows/classification" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.elastic').projectDir = "$rootDir/features/flows/elastic" as File
+project(':org.opennms.features:org.opennms.features.flows:opennms-flows').projectDir = "$rootDir/features/flows/feature" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.rest:org.opennms.features.flows.rest.api').projectDir = "$rootDir/features/flows/rest/api" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.rest:org.opennms.features.flows.rest.impl').projectDir = "$rootDir/features/flows/rest/impl" as File
+project(':org.opennms.features:org.opennms.features.flows:org.opennms.features.flows.rest').projectDir = "$rootDir/features/flows/rest" as File
+project(':org.opennms.features:org.opennms.features.flows').projectDir = "$rootDir/features/flows" as File
+project(':org.opennms.features:org.opennms.features.graphml').projectDir = "$rootDir/features/graphml" as File
+project(':org.opennms.features:org.opennms.features.kafka:org.opennms.features.kafka.producer').projectDir = "$rootDir/features/kafka/producer" as File
+project(':org.opennms.features:org.opennms.features.kafka').projectDir = "$rootDir/features/kafka" as File
+project(':org.opennms.features:org.opennms.features.executor-factory:org.opennms.features.executor-factory.cassandra').projectDir = "$rootDir/features/executor-factory/cassandra" as File
+project(':org.opennms.features:org.opennms.features.executor-factory').projectDir = "$rootDir/features/executor-factory" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api').projectDir = "$rootDir/features/collection/api" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.client-rpc').projectDir = "$rootDir/features/collection/client-rpc" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.collectors').projectDir = "$rootDir/features/collection/collectors" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.core').projectDir = "$rootDir/features/collection/core" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd').projectDir = "$rootDir/features/collection/persistence-rrd" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.tcp').projectDir = "$rootDir/features/collection/persistence-tcp" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.commands').projectDir = "$rootDir/features/collection/shell-commands" as File
+project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api').projectDir = "$rootDir/features/collection/test-api" as File
+project(':org.opennms.features:org.opennms.features.collection').projectDir = "$rootDir/features/collection" as File
+project(':org.opennms.features:org.opennms.features.jdbc-collector').projectDir = "$rootDir/features/jdbc-collector" as File
+project(':org.opennms.features:org.opennms.features.juniper-tca-collector').projectDir = "$rootDir/features/juniper-tca-collector" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.api').projectDir = "$rootDir/features/telemetry/adapters/api" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.collection').projectDir = "$rootDir/features/telemetry/adapters/collection" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.jti').projectDir = "$rootDir/features/telemetry/adapters/jti" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.netflow').projectDir = "$rootDir/features/telemetry/adapters/netflow" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.nxos').projectDir = "$rootDir/features/telemetry/adapters/nxos" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.registry').projectDir = "$rootDir/features/telemetry/adapters/registry" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters').projectDir = "$rootDir/features/telemetry/adapters" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.common').projectDir = "$rootDir/features/telemetry/common" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.api').projectDir = "$rootDir/features/telemetry/config/api" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.jaxb').projectDir = "$rootDir/features/telemetry/config/jaxb" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config').projectDir = "$rootDir/features/telemetry/config" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.daemon').projectDir = "$rootDir/features/telemetry/daemon" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.itests').projectDir = "$rootDir/features/telemetry/itests" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.api').projectDir = "$rootDir/features/telemetry/listeners/api" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.flow').projectDir = "$rootDir/features/telemetry/listeners/flow" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.sflow').projectDir = "$rootDir/features/telemetry/listeners/sflow" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners:org.opennms.features.telemetry.listeners.udp').projectDir = "$rootDir/features/telemetry/listeners/udp" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.listeners').projectDir = "$rootDir/features/telemetry/listeners" as File
+project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.minion').projectDir = "$rootDir/features/telemetry/minion" as File
+project(':org.opennms.features:org.opennms.features.telemetry').projectDir = "$rootDir/features/telemetry" as File
+project(':org.opennms.features:org.opennms.features.wsman').projectDir = "$rootDir/features/wsman" as File
+project(':org.opennms.features:org.opennms.features.discovery').projectDir = "$rootDir/features/discovery" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.api').projectDir = "$rootDir/features/reporting/api" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.core').projectDir = "$rootDir/features/reporting/core" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.availability').projectDir = "$rootDir/features/reporting/availability" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.jasper-reports').projectDir = "$rootDir/features/reporting/jasper-reports" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.jasper-reports-compiler').projectDir = "$rootDir/features/reporting/jasper-reports-compiler" as File
+project(':org.opennms.features:org.opennms.features.reporting:jasper-reports-filter').projectDir = "$rootDir/features/reporting/jasper-reports-filter" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.repository').projectDir = "$rootDir/features/reporting/repository" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.model').projectDir = "$rootDir/features/reporting/model" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.dao').projectDir = "$rootDir/features/reporting/dao" as File
+project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.sdo').projectDir = "$rootDir/features/reporting/sdo" as File
+project(':org.opennms.features:org.opennms.features.reporting').projectDir = "$rootDir/features/reporting" as File
+project(':org.opennms.features:org.opennms.features.remote-poller').projectDir = "$rootDir/features/remote-poller" as File
+project(':org.opennms.features:org.opennms.features.remote-poller-jnlp').projectDir = "$rootDir/features/remote-poller-jnlp" as File
+project(':org.opennms.features:org.opennms.features.remote-poller-gwt').projectDir = "$rootDir/features/remote-poller-gwt" as File
+project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.api').projectDir = "$rootDir/features/ticketing/api" as File
+project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.daemon').projectDir = "$rootDir/features/ticketing/daemon" as File
+project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.drools-integration').projectDir = "$rootDir/features/ticketing/drools-integration" as File
+project(':org.opennms.features:org.opennms.features.ticketing:jira-troubleticketer').projectDir = "$rootDir/features/ticketing/jira-integration" as File
+project(':org.opennms.features:org.opennms.features.ticketing:jira-client').projectDir = "$rootDir/features/ticketing/jira-client" as File
+project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs-common').projectDir = "$rootDir/features/ticketing/otrs-integration-common" as File
+project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs').projectDir = "$rootDir/features/ticketing/otrs-integration" as File
+project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs-31').projectDir = "$rootDir/features/ticketing/otrs-integration-31" as File
+project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-rt').projectDir = "$rootDir/features/ticketing/rt-integration" as File
+project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-remedy').projectDir = "$rootDir/features/ticketing/remedy-integration" as File
+project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-tsrm').projectDir = "$rootDir/features/ticketing/tsrm-integration" as File
+project(':org.opennms.features:org.opennms.features.ticketing').projectDir = "$rootDir/features/ticketing" as File
+project(':org.opennms.features:org.opennms.features.request-tracker').projectDir = "$rootDir/features/request-tracker" as File
+project(':org.opennms.features:resource-cli').projectDir = "$rootDir/features/resource-cli" as File
+project(':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.common').projectDir = "$rootDir/features/rest/common" as File
+project(':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.model').projectDir = "$rootDir/features/rest/model" as File
+project(':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.mapper').projectDir = "$rootDir/features/rest/mapper" as File
+project(':org.opennms.features:org.opennms.features.rest').projectDir = "$rootDir/features/rest" as File
+project(':org.opennms.features:org.opennms.features.rest-provider').projectDir = "$rootDir/features/rest-provider" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:opennms-osgi-core').projectDir = "$rootDir/features/opennms-osgi-core" as File
+project(':org.opennms.features:org.opennms.features.osgi-jsr223').projectDir = "$rootDir/features/osgi-jsr223" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:opennms-osgi-core-rest').projectDir = "$rootDir/features/opennms-osgi-core-rest" as File
+project(':org.opennms.features:jmxconfiggenerator').projectDir = "$rootDir/features/jmx-config-generator" as File
+project(':org.opennms.features:vaadin-jmxconfiggenerator').projectDir = "$rootDir/features/vaadin-jmxconfiggenerator" as File
+project(':org.opennms.features:org.opennms.features.mib-compiler').projectDir = "$rootDir/features/mib-compiler" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-snmp-events-and-metrics').projectDir = "$rootDir/features/vaadin-snmp-events-and-metrics" as File
+project(':org.opennms.features:nrtg:nrtg-system-exports').projectDir = "$rootDir/features/nrtg/system-exports" as File
+project(':org.opennms.features:nrtg:nrtg-commander').projectDir = "$rootDir/features/nrtg/commander" as File
+project(':org.opennms.features:nrtg:nrtg-api').projectDir = "$rootDir/features/nrtg/api" as File
+project(':org.opennms.features:nrtg:nrtg-broker').projectDir = "$rootDir/features/nrtg/broker" as File
+project(':org.opennms.features:nrtg:nrtg-nrtbroker-jms').projectDir = "$rootDir/features/nrtg/nrtbroker-jms" as File
+project(':org.opennms.features:nrtg:nrtg-nrtbroker-local').projectDir = "$rootDir/features/nrtg/nrtbroker-local" as File
+project(':org.opennms.features:nrtg:nrtg-collector').projectDir = "$rootDir/features/nrtg/nrtcollector" as File
+project(':org.opennms.features:nrtg:protocol-collectors:nrtg-protocolcollector-snmp').projectDir = "$rootDir/features/nrtg/protocolcollector/snmp" as File
+project(':org.opennms.features:nrtg:protocol-collectors:nrtg-protocolcollector-tca').projectDir = "$rootDir/features/nrtg/protocolcollector/tca" as File
+project(':org.opennms.features:nrtg:protocol-collectors').projectDir = "$rootDir/features/nrtg/protocolcollector" as File
+project(':org.opennms.features:nrtg:nrtg-web').projectDir = "$rootDir/features/nrtg/web" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-api').projectDir = "$rootDir/features/nrtg/features/api" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-web').projectDir = "$rootDir/features/nrtg/features/web" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-protocolcollector:osgi-nrtg-protocolcollector-snmp').projectDir = "$rootDir/features/nrtg/features/protocolcollector/snmp" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-protocolcollector:osgi-nrtg-protocolcollector-tca').projectDir = "$rootDir/features/nrtg/features/protocolcollector/tca" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-protocolcollector').projectDir = "$rootDir/features/nrtg/features/protocolcollector" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-base').projectDir = "$rootDir/features/nrtg/features/nrtg-base" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-jms').projectDir = "$rootDir/features/nrtg/features/nrtg-jms" as File
+project(':org.opennms.features:nrtg:features:osgi-nrtg-local').projectDir = "$rootDir/features/nrtg/features/nrtg-local" as File
+project(':org.opennms.features:nrtg:features:nrtg').projectDir = "$rootDir/features/nrtg/features/all" as File
+project(':org.opennms.features:nrtg:features').projectDir = "$rootDir/features/nrtg/features" as File
+project(':org.opennms.features:nrtg:jar:nrtg-collector-standalone').projectDir = "$rootDir/features/nrtg/jar/nrtcollector" as File
+project(':org.opennms.features:nrtg:jar').projectDir = "$rootDir/features/nrtg/jar" as File
+project(':org.opennms.features:nrtg').projectDir = "$rootDir/features/nrtg" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:wrapper-bundle-settings').projectDir = "$rootDir/features/topology-map/poms/wrappers" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings').projectDir = "$rootDir/features/topology-map/poms/compiled" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings').projectDir = "$rootDir/features/topology-map/poms" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:provision').projectDir = "$rootDir/features/topology-map/provision" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.api" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.app').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.app" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.link').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.link" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.persistence.api').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.persistence/org.opennms.features.topology.persistence.api" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.persistence.impl').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.persistence/org.opennms.features.topology.persistence.impl" as File
+project(':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.persistence').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.persistence" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.shell').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.shell" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.widgetset').projectDir = "$rootDir/features/topology-map/org.opennms.features.topology.widgetset" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.browsers').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.browsers" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.layout').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.layout" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.ncs').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.ncs" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.netutils').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.netutils" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.application').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.application" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:asset').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.asset" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.bsm').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.bsm" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.pathoutage').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.pathoutage" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:graphml').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.graphml" as File
+project(':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.plugins:org.opennms.features.topology.plugins.topo.history').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.history" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.linkd').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.linkd" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.sfree').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.sfree" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.plugins.topo.vmware').projectDir = "$rootDir/features/topology-map/plugins/org.opennms.features.topology.plugins.topo.vmware" as File
+project(':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.plugins').projectDir = "$rootDir/features/topology-map/plugins" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-api').projectDir = "$rootDir/features/topology-map/features/api" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-application').projectDir = "$rootDir/features/topology-map/features/runtime-application" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-asset').projectDir = "$rootDir/features/topology-map/features/runtime-asset" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-base').projectDir = "$rootDir/features/topology-map/features/runtime-base" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-browsers').projectDir = "$rootDir/features/topology-map/features/runtime-browsers" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-bsm').projectDir = "$rootDir/features/topology-map/features/runtime-bsm" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-pathoutage').projectDir = "$rootDir/features/topology-map/features/runtime-pathoutage" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-graphml').projectDir = "$rootDir/features/topology-map/features/runtime-graphml" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-linkd').projectDir = "$rootDir/features/topology-map/features/runtime-linkd" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-vmware').projectDir = "$rootDir/features/topology-map/features/runtime-vmware" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-ncs').projectDir = "$rootDir/features/topology-map/features/runtime-ncs" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-sfree').projectDir = "$rootDir/features/topology-map/features/runtime-sfree" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features').projectDir = "$rootDir/features/topology-map/features" as File
+project(':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.themes:org.opennms.features.topology.themes.default-theme').projectDir = "$rootDir/features/topology-map/themes/default-theme" as File
+project(':org.opennms.features:org.opennms.features.topology:org.opennms.features.topology.themes').projectDir = "$rootDir/features/topology-map/themes" as File
+project(':org.opennms.features:org.opennms.features.topology').projectDir = "$rootDir/features/topology-map" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-node-maps').projectDir = "$rootDir/features/vaadin-node-maps" as File
+project(':org.opennms.features:root-webapp').projectDir = "$rootDir/features/root-webapp" as File
+project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.api').projectDir = "$rootDir/features/measurements/api" as File
+project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.impl').projectDir = "$rootDir/features/measurements/impl" as File
+project(':org.opennms.features:org.opennms.features.measurements:org.opennms.features.measurements.rest').projectDir = "$rootDir/features/measurements/rest" as File
+project(':org.opennms.features:org.opennms.features.measurements').projectDir = "$rootDir/features/measurements" as File
+project(':org.opennms.features:org.opennms.features.newts').projectDir = "$rootDir/features/newts" as File
+project(':org.opennms.features:newts-repository-converter').projectDir = "$rootDir/features/newts-repository-converter" as File
+project(':org.opennms.features:org.opennms.features.notifications:org.opennms.features.notifications.api').projectDir = "$rootDir/features/notifications/api" as File
+project(':org.opennms.features:org.opennms.features.notifications:org.opennms.features.notifications.ticket-strategy').projectDir = "$rootDir/features/notifications/ticket-strategy" as File
+project(':org.opennms.features:org.opennms.features.notifications').projectDir = "$rootDir/features/notifications" as File
+project(':org.opennms.features:themes:jmxconfiggenerator-theme').projectDir = "$rootDir/features/themes/jmxconfiggenerator-theme" as File
+project(':org.opennms.features:themes:onms-default-theme').projectDir = "$rootDir/features/themes/onms-default-theme" as File
+project(':org.opennms.features:themes:dashboard-theme').projectDir = "$rootDir/features/themes/dashboard-theme" as File
+project(':org.opennms.features:themes').projectDir = "$rootDir/features/themes" as File
+project(':org.opennms.features:vaadin').projectDir = "$rootDir/features/vaadin" as File
+project(':org.opennms.features:vaadin-components:bundle-refresher').projectDir = "$rootDir/features/vaadin-components/bundle-refresher" as File
+project(':org.opennms.features:vaadin-components:core').projectDir = "$rootDir/features/vaadin-components/core" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:graph').projectDir = "$rootDir/features/vaadin-components/graph" as File
+project(':org.opennms.features:vaadin-components:extender-service').projectDir = "$rootDir/features/vaadin-components/extender-service" as File
+project(':org.opennms.features:vaadin-components').projectDir = "$rootDir/features/vaadin-components" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-dashboard').projectDir = "$rootDir/features/vaadin-dashboard" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-alarms').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-alarms" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-bsm').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-bsm" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-map').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-map" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-summary').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-summary" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-image').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-image" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-charts').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-charts" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-rtc').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-rtc" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-rrd').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-rrd" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-ksc').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-ksc" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-topology').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-topology" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-surveillance').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-surveillance" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-features').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-features" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-url').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-url" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-grafana').projectDir = "$rootDir/features/vaadin-dashlets/dashlet-grafana" as File
+project(':org.opennms.features:vaadin-dashlets').projectDir = "$rootDir/features/vaadin-dashlets" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-surveillance-views').projectDir = "$rootDir/features/vaadin-surveillance-views" as File
+project(':org.opennms.features:datachoices').projectDir = "$rootDir/features/datachoices" as File
+project(':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.api').projectDir = "$rootDir/features/geocoder/api" as File
+project(':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.google').projectDir = "$rootDir/features/geocoder/google" as File
+project(':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.nominatim').projectDir = "$rootDir/features/geocoder/nominatim" as File
+project(':org.opennms.features:org.opennms.features.geocoder').projectDir = "$rootDir/features/geocoder" as File
+project(':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.api').projectDir = "$rootDir/features/geolocation/api" as File
+project(':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.rest').projectDir = "$rootDir/features/geolocation/rest" as File
+project(':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.services').projectDir = "$rootDir/features/geolocation/service" as File
+project(':org.opennms.features:org.opennms.features.geolocation:geolocation').projectDir = "$rootDir/features/geolocation/feature" as File
+project(':org.opennms.features:org.opennms.features.geolocation').projectDir = "$rootDir/features/geolocation" as File
+project(':org.opennms.features:org.opennms.features.instrumentationLogReader').projectDir = "$rootDir/features/instrumentationLogReader" as File
+project(':org.opennms.features:org.opennms.features.name-cutter').projectDir = "$rootDir/features/name-cutter" as File
+project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-test').projectDir = "$rootDir/features/ncs/ncs-test" as File
+project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-model').projectDir = "$rootDir/features/ncs/ncs-model" as File
+project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-persistence').projectDir = "$rootDir/features/ncs/ncs-persistence" as File
+project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-drools').projectDir = "$rootDir/features/ncs/ncs-drools" as File
+project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-northbounder').projectDir = "$rootDir/features/ncs/ncs-northbounder" as File
+project(':org.opennms.features:org.opennms.features.ncs:org.opennms.features.ncs.ncs-alarm-gui').projectDir = "$rootDir/features/ncs/ncs-alarm-gui" as File
+project(':org.opennms.features:org.opennms.features.ncs').projectDir = "$rootDir/features/ncs" as File
+project(':org.opennms.features:org.opennms.features.springframework-security').projectDir = "$rootDir/features/springframework-security" as File
+project(':org.opennms.features:org.opennms.features.status:org.opennms.features.status.api').projectDir = "$rootDir/features/status/api" as File
+project(':org.opennms.features:org.opennms.features.status:org.opennms.features.status.rest').projectDir = "$rootDir/features/status/rest" as File
+project(':org.opennms.features:org.opennms.features.status').projectDir = "$rootDir/features/status" as File
+project(':org.opennms.features:org.opennms.features.system-report').projectDir = "$rootDir/features/system-report" as File
+project(':org.opennms.features:org.opennms.features.timeseries-evaluate').projectDir = "$rootDir/features/timeseries-evaluate" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.daemon').projectDir = "$rootDir/features/bsm/daemon" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.api').projectDir = "$rootDir/features/bsm/persistence/api" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.impl').projectDir = "$rootDir/features/bsm/persistence/impl" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence').projectDir = "$rootDir/features/bsm/persistence" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest:org.opennms.features.bsm.rest.api').projectDir = "$rootDir/features/bsm/rest/api" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest:org.opennms.features.bsm.rest.impl').projectDir = "$rootDir/features/bsm/rest/impl" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest').projectDir = "$rootDir/features/bsm/rest" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.api').projectDir = "$rootDir/features/bsm/service/api" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.impl').projectDir = "$rootDir/features/bsm/service/impl" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service').projectDir = "$rootDir/features/bsm/service" as File
+project(':org.opennms.features:org.opennms.features.bsm:test-util').projectDir = "$rootDir/features/bsm/test-util" as File
+project(':org.opennms.features:org.opennms.features.bsm:vaadin-adminpage').projectDir = "$rootDir/features/bsm/vaadin-adminpage" as File
+project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.shell-commands').projectDir = "$rootDir/features/bsm/shell-commands" as File
+project(':org.opennms.features:org.opennms.features.bsm').projectDir = "$rootDir/features/bsm" as File
+project(':org.opennms.features:minion-parent:container-parent:karaf').projectDir = "$rootDir/features/minion/container/karaf" as File
+project(':org.opennms.features:minion-parent:container-parent:extender').projectDir = "$rootDir/features/minion/container/extender" as File
+project(':org.opennms.features:minion-parent:container-parent:scv').projectDir = "$rootDir/features/minion/container/scv" as File
+project(':org.opennms.features:minion-parent:container-parent:features').projectDir = "$rootDir/features/minion/container/features" as File
+project(':org.opennms.features:minion-parent:container-parent').projectDir = "$rootDir/features/minion/container" as File
+project(':org.opennms.features:minion-parent:core-parent:core-api').projectDir = "$rootDir/features/minion/core/api" as File
+project(':org.opennms.features:minion-parent:core-parent:core-features').projectDir = "$rootDir/features/minion/core/features" as File
+project(':org.opennms.features:minion-parent:core-parent:core-impl').projectDir = "$rootDir/features/minion/core/impl" as File
+project(':org.opennms.features:minion-parent:core-parent:jms').projectDir = "$rootDir/features/minion/core/jms" as File
+project(':org.opennms.features:minion-parent:core-parent:core-repository').projectDir = "$rootDir/features/minion/core/repository" as File
+project(':org.opennms.features:minion-parent:core-parent:shell').projectDir = "$rootDir/features/minion/core/shell" as File
+project(':org.opennms.features:minion-parent:core-parent').projectDir = "$rootDir/features/minion/core" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.common').projectDir = "$rootDir/features/minion/heartbeat/common" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.consumer').projectDir = "$rootDir/features/minion/heartbeat/consumer" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat:org.opennms.features.minion.heartbeat.producer').projectDir = "$rootDir/features/minion/heartbeat/producer" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.heartbeat').projectDir = "$rootDir/features/minion/heartbeat" as File
+project(':org.opennms.features:minion-parent:repository').projectDir = "$rootDir/features/minion/repository" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.shell:org.opennms.features.minion.shell.collection').projectDir = "$rootDir/features/minion/shell/collection" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.shell:org.opennms.features.minion.shell.provision').projectDir = "$rootDir/features/minion/shell/provision" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.shell:org.opennms.features.minion.shell.poller').projectDir = "$rootDir/features/minion/shell/poller" as File
+project(':org.opennms.features:minion-parent:org.opennms.features.minion.shell').projectDir = "$rootDir/features/minion/shell" as File
+project(':org.opennms.features:minion-parent').projectDir = "$rootDir/features/minion" as File
+project(':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.api').projectDir = "$rootDir/features/scv/api" as File
+project(':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.jceks-impl').projectDir = "$rootDir/features/scv/jceks-impl" as File
+project(':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.shell').projectDir = "$rootDir/features/scv/shell" as File
+project(':org.opennms.features:org.opennms.features.scv:org.opennms.features.scv.cli').projectDir = "$rootDir/features/scv/scvcli" as File
+project(':org.opennms.features:org.opennms.features.scv').projectDir = "$rootDir/features/scv" as File
+project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-opennms-pluginmanager').projectDir = "$rootDir/features/vaadin-opennms-pluginmanager" as File
+project(':org.opennms.features:org.opennms.features.opennms-es-rest').projectDir = "$rootDir/features/opennms-es-rest" as File
+project(':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier.pg-jdbc-utils').projectDir = "$rootDir/features/alarm-change-notifier/pg-jdbc-utils" as File
+project(':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier.main-module').projectDir = "$rootDir/features/alarm-change-notifier/main-module" as File
+project(':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier.product-descriptor').projectDir = "$rootDir/features/alarm-change-notifier/product-descriptor" as File
+project(':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier').projectDir = "$rootDir/features/alarm-change-notifier/feature" as File
+project(':org.opennms.features:alarm-change-notifier.parent').projectDir = "$rootDir/features/alarm-change-notifier" as File
+project(':org.opennms.features:internal-plugins-descriptor').projectDir = "$rootDir/features/internal-plugins-descriptor" as File
+project(':org.opennms.features:org.opennms.features.eif-adapter').projectDir = "$rootDir/features/eif-adapter" as File
+project(':org.opennms.features:org.opennms.features.ifttt').projectDir = "$rootDir/features/ifttt" as File
+project(':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.client').projectDir = "$rootDir/features/jest/client" as File
+project(':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.dependencies').projectDir = "$rootDir/features/jest/dependencies" as File
+project(':org.opennms.features:org.opennms.features.jest:opennms-jest').projectDir = "$rootDir/features/jest/feature" as File
+project(':org.opennms.features:org.opennms.features.jest:jest-complete-osgi').projectDir = "$rootDir/features/jest/jest-complete-osgi" as File
+project(':org.opennms.features:org.opennms.features.jest').projectDir = "$rootDir/features/jest" as File
+project(':org.opennms.features').projectDir = "$rootDir/features" as File
+project(':opennms-integrations:opennms-dns-provisioning-adapter').projectDir = "$rootDir/integrations/opennms-dns-provisioning-adapter" as File
+project(':opennms-integrations:opennms-reverse-dns-provisioning-adapter').projectDir = "$rootDir/integrations/opennms-reverse-dns-provisioning-adapter" as File
+project(':opennms-integrations:opennms-puppet-provisioning-adapter').projectDir = "$rootDir/integrations/opennms-puppet-provisioning-adapter" as File
+project(':opennms-integrations:opennms-R').projectDir = "$rootDir/integrations/opennms-R" as File
+project(':opennms-integrations:opennms-rancid-provisioning-adapter').projectDir = "$rootDir/integrations/opennms-rancid-provisioning-adapter" as File
+project(':opennms-integrations:opennms-rws').projectDir = "$rootDir/integrations/opennms-rws" as File
+project(':opennms-integrations:opennms-snmp-asset-provisioning-adapter').projectDir = "$rootDir/integrations/opennms-snmp-asset-provisioning-adapter" as File
+project(':opennms-integrations:opennms-snmp-hardware-inventory-provisioning-adapter').projectDir = "$rootDir/integrations/opennms-snmp-hardware-inventory-provisioning-adapter" as File
+project(':opennms-integrations:jasper-extensions').projectDir = "$rootDir/integrations/opennms-jasper-extensions" as File
+project(':opennms-integrations:opennms-jasperstudio-extension').projectDir = "$rootDir/integrations/opennms-jasperstudio-extension" as File
+project(':opennms-integrations:opennms-vmware').projectDir = "$rootDir/integrations/opennms-vmware" as File
+project(':opennms-integrations:opennms-vtdxml-collector-handler').projectDir = "$rootDir/integrations/opennms-vtdxml-collector-handler" as File
+project(':opennms-integrations').projectDir = "$rootDir/integrations" as File
+project(':org.opennms.protocols:org.opennms.protocols.cifs').projectDir = "$rootDir/protocols/cifs" as File
+project(':org.opennms.protocols:org.opennms.protocols.dhcp').projectDir = "$rootDir/protocols/dhcp" as File
+project(':org.opennms.protocols:org.opennms.protocols.nsclient').projectDir = "$rootDir/protocols/nsclient" as File
+project(':org.opennms.protocols:org.opennms.protocols.radius').projectDir = "$rootDir/protocols/radius" as File
+project(':org.opennms.protocols:org.opennms.protocols.xml').projectDir = "$rootDir/protocols/xml" as File
+project(':org.opennms.protocols:org.opennms.protocols.xmp').projectDir = "$rootDir/protocols/xmp" as File
+project(':org.opennms.protocols:selenium-monitor').projectDir = "$rootDir/protocols/selenium-monitor" as File
+project(':org.opennms.protocols').projectDir = "$rootDir/protocols" as File
+project(':org.opennms.tests:org.opennms.tests.dao').projectDir = "$rootDir/tests/dao" as File
+project(':org.opennms.tests:org.opennms.tests.mock-elements').projectDir = "$rootDir/tests/mock-elements" as File
+project(':org.opennms.tests:org.opennms.tests.mock-snmp-agent').projectDir = "$rootDir/tests/mock-snmp-agent" as File
+project(':org.opennms.tests').projectDir = "$rootDir/tests" as File
+project(':integration-tests:org.opennms.integration-tests.config').projectDir = "$rootDir/integration-tests/config" as File
+project(':integration-tests:org.opennms.integration-tests.trend-configuration').projectDir = "$rootDir/integration-tests/trend-configuration" as File
+project(':integration-tests').projectDir = "$rootDir/integration-tests" as File
+project(':opennms-util').projectDir = "$rootDir/opennms-util" as File
+project(':opennms-bootstrap').projectDir = "$rootDir/opennms-bootstrap" as File
+project(':opennms-model').projectDir = "$rootDir/opennms-model" as File
+project(':opennms-ackd').projectDir = "$rootDir/opennms-ackd" as File
+project(':opennms-alarms:opennms-alarm-api').projectDir = "$rootDir/opennms-alarms/api" as File
+project(':opennms-alarms:opennms-alarmd').projectDir = "$rootDir/opennms-alarms/daemon" as File
+project(':opennms-alarms:opennms-alarm-northbounder-email').projectDir = "$rootDir/opennms-alarms/email-northbounder" as File
+project(':opennms-alarms:opennms-alarm-northbounder-http').projectDir = "$rootDir/opennms-alarms/http-northbounder" as File
+project(':opennms-alarms:opennms-alarm-northbounder-jms').projectDir = "$rootDir/opennms-alarms/jms-northbounder" as File
+project(':opennms-alarms:opennms-alarm-northbounder-syslog').projectDir = "$rootDir/opennms-alarms/syslog-northbounder" as File
+project(':opennms-alarms:opennms-alarm-northbounder-snmptrap').projectDir = "$rootDir/opennms-alarms/snmptrap-northbounder" as File
+project(':opennms-alarms:opennms-alarm-northbounder-bsf').projectDir = "$rootDir/opennms-alarms/bsf-northbounder" as File
+project(':opennms-alarms:opennms-alarm-northbounder-drools').projectDir = "$rootDir/opennms-alarms/drools-northbounder" as File
+project(':opennms-alarms').projectDir = "$rootDir/opennms-alarms" as File
+project(':opennms-config-tester').projectDir = "$rootDir/opennms-config-tester" as File
+project(':opennms-dao-api').projectDir = "$rootDir/opennms-dao-api" as File
+project(':opennms-dao').projectDir = "$rootDir/opennms-dao" as File
+project(':opennms-dao-minion').projectDir = "$rootDir/opennms-dao-minion" as File
+project(':opennms-dao-mock').projectDir = "$rootDir/opennms-dao-mock" as File
+project(':opennms-icmp:opennms-icmp-api').projectDir = "$rootDir/opennms-icmp/opennms-icmp-api" as File
+project(':opennms-icmp:opennms-icmp-jni').projectDir = "$rootDir/opennms-icmp/opennms-icmp-jni" as File
+project(':opennms-icmp:opennms-icmp-jni6').projectDir = "$rootDir/opennms-icmp/opennms-icmp-jni6" as File
+project(':opennms-icmp:opennms-icmp-jna').projectDir = "$rootDir/opennms-icmp/opennms-icmp-jna" as File
+project(':opennms-icmp:opennms-icmp-best').projectDir = "$rootDir/opennms-icmp/opennms-icmp-best" as File
+project(':opennms-icmp:opennms-icmp-commands').projectDir = "$rootDir/opennms-icmp/commands" as File
+project(':opennms-icmp:org.opennms.icmp.proxy.rpc-impl').projectDir = "$rootDir/opennms-icmp/opennms-icmp-proxy-rpc-impl" as File
+project(':opennms-icmp').projectDir = "$rootDir/opennms-icmp" as File
+project(':opennms-javamail:opennms-javamail-api').projectDir = "$rootDir/opennms-javamail/opennms-javamail-api" as File
+project(':opennms-javamail').projectDir = "$rootDir/opennms-javamail" as File
+project(':opennms-rrd:opennms-rrd-api').projectDir = "$rootDir/opennms-rrd/opennms-rrd-api" as File
+project(':opennms-rrd:opennms-rrd-jrobin').projectDir = "$rootDir/opennms-rrd/opennms-rrd-jrobin" as File
+project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api').projectDir = "$rootDir/opennms-rrd/opennms-rrd-rrdtool/opennms-rrdtool-api" as File
+project(':opennms-rrd:opennms-rrd-rrdtool').projectDir = "$rootDir/opennms-rrd/opennms-rrd-rrdtool" as File
+project(':opennms-rrd:opennms-rrd-tcp').projectDir = "$rootDir/opennms-rrd/opennms-rrd-tcp" as File
+project(':opennms-rrd:opennms-rrd-model').projectDir = "$rootDir/opennms-rrd/opennms-rrd-model" as File
+project(':opennms-rrd').projectDir = "$rootDir/opennms-rrd" as File
+project(':opennms-config-api').projectDir = "$rootDir/opennms-config-api" as File
+project(':opennms-config-jaxb').projectDir = "$rootDir/opennms-config-jaxb" as File
+project(':opennms-config').projectDir = "$rootDir/opennms-config" as File
+project(':opennms-config-model').projectDir = "$rootDir/opennms-config-model" as File
+project(':opennms-provision:opennms-provision-api').projectDir = "$rootDir/opennms-provision/opennms-provision-api" as File
+project(':opennms-provision:opennms-mock-simpleserver').projectDir = "$rootDir/opennms-provision/opennms-mock-simpleserver" as File
+project(':opennms-provision:opennms-detector-lineoriented').projectDir = "$rootDir/opennms-provision/opennms-detector-lineoriented" as File
+project(':opennms-provision:opennms-detector-simple').projectDir = "$rootDir/opennms-provision/opennms-detector-simple" as File
+project(':opennms-provision:opennms-snmp-scanners').projectDir = "$rootDir/opennms-provision/opennms-snmp-scanners" as File
+project(':opennms-provision:opennms-provisiond').projectDir = "$rootDir/opennms-provision/opennms-provisiond" as File
+project(':opennms-provision:opennms-provision-geolocation').projectDir = "$rootDir/opennms-provision/opennms-provision-geolocation" as File
+project(':opennms-provision:opennms-provision-persistence').projectDir = "$rootDir/opennms-provision/opennms-provision-persistence" as File
+project(':opennms-provision:opennms-provision-shell').projectDir = "$rootDir/opennms-provision/opennms-provision-shell" as File
+project(':opennms-provision:opennms-detector-registry').projectDir = "$rootDir/opennms-provision/opennms-detector-registry" as File
+project(':opennms-provision:opennms-detector-datagram').projectDir = "$rootDir/opennms-provision/opennms-detector-datagram" as File
+project(':opennms-provision:opennms-detector-jmx').projectDir = "$rootDir/opennms-provision/opennms-detector-jmx" as File
+project(':opennms-provision:opennms-detector-jdbc').projectDir = "$rootDir/opennms-provision/opennms-detector-jdbc" as File
+project(':opennms-provision:opennms-detector-ssh').projectDir = "$rootDir/opennms-provision/opennms-detector-ssh" as File
+project(':opennms-provision:opennms-detector-generic').projectDir = "$rootDir/opennms-provision/opennms-detector-generic" as File
+project(':opennms-provision:opennms-detector-web').projectDir = "$rootDir/opennms-provision/opennms-detector-web" as File
+project(':opennms-provision:opennms-detector-bsf').projectDir = "$rootDir/opennms-provision/opennms-detector-bsf" as File
+project(':opennms-provision:opennms-detectorclient-rpc').projectDir = "$rootDir/opennms-provision/opennms-detectorclient-rpc" as File
+project(':opennms-provision:opennms-requisition-dns').projectDir = "$rootDir/opennms-provision/opennms-requisition-dns" as File
+project(':opennms-provision:opennms-requisition-service').projectDir = "$rootDir/opennms-provision/opennms-requisition-service" as File
+project(':opennms-provision').projectDir = "$rootDir/opennms-provision" as File
+project(':opennms-enterprise-reporting:opennms-reportd').projectDir = "$rootDir/opennms-enterprise-reporting/opennms-reportd" as File
+project(':opennms-enterprise-reporting').projectDir = "$rootDir/opennms-enterprise-reporting" as File
+project(':opennms-services').projectDir = "$rootDir/opennms-services" as File
+project(':opennms-jetty').projectDir = "$rootDir/opennms-jetty" as File
+project(':opennms-correlation:opennms-correlator').projectDir = "$rootDir/opennms-correlation/opennms-correlator" as File
+project(':opennms-correlation:drools-correlation-engine').projectDir = "$rootDir/opennms-correlation/drools-correlation-engine" as File
+project(':opennms-correlation').projectDir = "$rootDir/opennms-correlation" as File
+project(':opennms-reporting').projectDir = "$rootDir/opennms-reporting" as File
+project(':opennms-web-api').projectDir = "$rootDir/opennms-web-api" as File
+project(':opennms-web-dependencies').projectDir = "$rootDir/opennms-web-dependencies" as File
+project(':opennms-webapp').projectDir = "$rootDir/opennms-webapp" as File
+project(':opennms-webapp-rest').projectDir = "$rootDir/opennms-webapp-rest" as File
+project(':opennms-wmi').projectDir = "$rootDir/opennms-wmi" as File
+project(':opennms-asterisk').projectDir = "$rootDir/opennms-asterisk" as File

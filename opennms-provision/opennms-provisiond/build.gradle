@@ -1,0 +1,30 @@
+
+description = 'OpenNMS :: Provisioning :: Daemon'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-persistence')
+  compile project(':org.opennms.core:org.opennms.core.tasks')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':opennms-dao')
+  compile project(':opennms-model')
+  compile project(':opennms-provision:opennms-provision-api')
+    compile(group: 'org.apache.commons', name: 'commons-jexl', version:'2.1.1') {
+exclude(module: 'commons-logging')
+    }
+  compile project(':dependencies:dnsjava-dependencies')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:quartz-dependencies')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+  compile project(':opennms-provision:opennms-requisition-dns')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-provision:opennms-detector-simple')
+  testCompile project(':opennms-provision:opennms-detectorclient-rpc')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.dns')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':opennms-provision:opennms-provision-persistence')
+  testCompile project(':opennms-icmp:opennms-icmp-jna')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+}

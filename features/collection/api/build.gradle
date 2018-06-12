@@ -1,0 +1,13 @@
+group = 'org.opennms.features.collection'
+description = 'OpenNMS :: Features :: Collection :: API'
+dependencies {
+  compile project(':opennms-model')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':dependencies:spring-dependencies')
+    compile(group: 'org.apache.commons', name: 'commons-jexl', version:'2.1.1') {
+exclude(module: 'commons-logging')
+    }
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

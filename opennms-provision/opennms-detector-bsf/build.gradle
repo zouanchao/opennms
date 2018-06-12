@@ -1,0 +1,12 @@
+
+description = 'OpenNMS :: Provisioning :: BSF Detectors'
+dependencies {
+    compile(group: 'bsf', name: 'bsf', version:'2.4.0') {
+exclude(module: 'commons-logging')
+    }
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.5'
+}

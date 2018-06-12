@@ -1,0 +1,10 @@
+group = 'org.opennms.features.executor-factory'
+description = 'OpenNMS :: Features :: Executor Factory :: Cassandra'
+dependencies {
+  compile project(':opennms-util')
+    compile(group: 'org.apache.cassandra', name: 'cassandra-all', version:'2.1.6') {
+exclude(module: 'logback-core')
+exclude(module: 'logback-classic')
+exclude(module: 'snappy-java')
+    }
+}

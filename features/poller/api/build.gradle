@@ -1,0 +1,8 @@
+group = 'org.opennms.features.poller'
+description = 'OpenNMS :: Features :: Poller :: API'
+dependencies {
+  compile project(':opennms-util')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':dependencies:spring-dependencies')
+    compileOnly group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.0-api', version:'1.0.1.Final'
+}

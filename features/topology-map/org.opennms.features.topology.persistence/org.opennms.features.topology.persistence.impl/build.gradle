@@ -1,0 +1,16 @@
+group = 'org.opennms.features.topology'
+description = 'OpenNMS :: Features :: Topology :: Persistence :: Impl'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.persistence.api')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-config')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':opennms-dao-mock')
+  compileOnly project(':dependencies:hibernate-dependencies')
+  compileOnly project(':dependencies:spring-dependencies')
+  compileOnly project(':opennms-dao')
+  compileOnly project(':org.opennms.core:org.opennms.core.soa')
+}

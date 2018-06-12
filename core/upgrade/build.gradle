@@ -1,0 +1,18 @@
+group = 'org.opennms.core'
+description = 'OpenNMS :: Core :: Upgrade'
+dependencies {
+  compile project(':dependencies:spring-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':org.opennms.core:org.opennms.core.db.install')
+  compile project(':opennms-rrd:opennms-rrd-model')
+  compile project(':opennms-web-api')
+    compile group: 'commons-io', name: 'commons-io', version:'2.5'
+  compile project(':opennms-config')
+  compile project(':opennms-provision:opennms-provision-persistence')
+  compile project(':dependencies:jrobin-dependencies')
+  compile project(':opennms-rrd:opennms-rrd-jrobin')
+  compile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':dependencies:jrrd2-dependencies')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

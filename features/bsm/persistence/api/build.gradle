@@ -1,0 +1,9 @@
+group = 'org.opennms.features.bsm'
+description = 'OpenNMS :: Features :: BSM :: Persistence :: API'
+dependencies {
+  compile project(':opennms-dao-api')
+  compile project(':opennms-model')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+    compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version:'4.3.2.Final'
+}

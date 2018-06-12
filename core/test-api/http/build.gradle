@@ -1,0 +1,9 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: HTTP'
+dependencies {
+  compile project(':dependencies:spring-test-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compile project(':org.opennms.core:org.opennms.core.web')
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version:'9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version:'9.4.2.v20170220'
+}

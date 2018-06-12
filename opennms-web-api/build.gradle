@@ -1,0 +1,27 @@
+
+description = 'OpenNMS Web APIs'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':opennms-config')
+  compile project(':opennms-model')
+  compile project(':opennms-dao-api')
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote')
+  compile project(':opennms-provision:opennms-provision-persistence')
+  compile project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.core')
+  compile project(':dependencies:jfreechart-dependencies')
+  compile project(':dependencies:servlet-dependencies')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:spring-security-core-dependencies')
+  compile project(':dependencies:spring-web-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+}

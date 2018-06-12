@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: RRD :: API'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':dependencies:spring-test-dependencies')
+}

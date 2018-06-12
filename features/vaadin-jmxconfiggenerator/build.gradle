@@ -1,0 +1,17 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: JMX Config Generator :: Web UI'
+dependencies {
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.features:vaadin-components:core')
+  compile project(':org.opennms.features:themes:jmxconfiggenerator-theme')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    compileOnly group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
+    compileOnly group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA', classifier:'sources'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compileOnly project(':org.opennms.features:jmxconfiggenerator')
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':dependencies:jmx-dependencies')
+  compileOnly project(':opennms-web-api')
+  compileOnly project(':opennms-config-jaxb')
+    compileOnly group: 'args4j', name: 'args4j', version:'2.32'
+}

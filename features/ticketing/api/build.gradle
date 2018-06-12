@@ -1,0 +1,5 @@
+group = 'org.opennms.features.ticketing'
+description = 'OpenNMS :: Features :: Ticketing :: API'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

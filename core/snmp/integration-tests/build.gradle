@@ -1,0 +1,13 @@
+group = 'org.opennms.core.snmp'
+description = 'OpenNMS :: Core :: SNMP :: Integration Tests'
+dependencies {
+  testCompile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  testCompile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.snmp4j')
+  testCompile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.joesnmp')
+  testCompile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+    testCompile group: 'com.google.guava', name: 'guava', version:'18.0'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+}

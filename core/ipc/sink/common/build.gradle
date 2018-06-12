@@ -1,0 +1,21 @@
+group = 'org.opennms.core.ipc.sink'
+description = 'OpenNMS :: Core :: IPC :: Sink :: Common'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api')
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  compile project(':opennms-util')
+    compile group: 'com.swrve', name: 'rate-limited-logger', version:'1.1.0'
+    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version:'3.1.2'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+}
+
+task packageTests(type: Jar) {
+  from sourceSets.test.output
+  classifier = 'tests'
+}
+artifacts.archives packageTests

@@ -1,0 +1,18 @@
+
+description = 'OpenNMS :: Provisioning :: Geolocation'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+  compileOnly project(':opennms-provision:opennms-provision-api')
+  compileOnly project(':opennms-dao-api')
+  compileOnly project(':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.api')
+    compileOnly group: 'com.google.guava', name: 'guava', version:'18.0'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

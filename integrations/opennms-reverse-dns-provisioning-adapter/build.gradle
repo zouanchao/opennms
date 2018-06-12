@@ -1,0 +1,11 @@
+
+description = 'OpenNMS :: Integrations :: Provisioning Adaptor :: Reverse Zone DNS'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-dao')
+  compile project(':dependencies:dnsjava-dependencies')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+}

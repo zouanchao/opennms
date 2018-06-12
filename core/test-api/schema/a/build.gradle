@@ -1,0 +1,2 @@
+group = 'org.opennms.core.test-api.schema'
+description = 'OpenNMS :: Core :: Test API :: Test Schema A'

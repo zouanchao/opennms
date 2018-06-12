@@ -1,0 +1,12 @@
+group = 'org.opennms.features.collection'
+description = 'OpenNMS :: Features :: Collection :: RPC Client'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':org.opennms.core:org.opennms.core.api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.utils')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  compile project(':opennms-config-jaxb')
+  compile project(':opennms-dao-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

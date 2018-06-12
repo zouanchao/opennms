@@ -1,0 +1,16 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Ticketing :: RT'
+dependencies {
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version:'4.4.4'
+    compile(group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5.2') {
+exclude(module: 'commons-logging')
+    }
+  compile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.api')
+  compile project(':org.opennms.features:org.opennms.features.request-tracker')
+  compile project(':opennms-util')
+    compile(group: 'commons-configuration', name: 'commons-configuration', version:'1.6') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

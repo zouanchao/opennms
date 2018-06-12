@@ -1,0 +1,6 @@
+group = 'org.opennms.features.topology'
+description = 'OpenNMS :: Features :: Topology :: Persistence :: API'
+dependencies {
+  compile project(':opennms-dao-api')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+}

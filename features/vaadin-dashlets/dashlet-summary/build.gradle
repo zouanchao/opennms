@@ -1,0 +1,8 @@
+group = 'org.opennms.features.vaadin-dashlets'
+description = 'OpenNMS :: Features :: Dashlets :: Summary'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-dashboard')
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.features:themes:dashboard-theme')
+  compileOnly project(':opennms-dao')
+}

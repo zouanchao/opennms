@@ -1,0 +1,21 @@
+group = 'org.opennms.features.jest'
+description = ''
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+    testCompile group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.21'
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version:'2.14.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compileOnly project(':org.opennms.core:org.opennms.core.lib')
+  compileOnly project(':org.opennms.features:org.opennms.features.jest:org.opennms.features.jest.dependencies')
+  compileOnly project(':org.opennms.features:org.opennms.features.jest:jest-complete-osgi')
+    compileOnly group: 'com.google.code.gson', name: 'gson', version:'2.8.0'
+    compileOnly(group: 'org.apache.httpcomponents', name: 'httpclient-osgi', version:'4.5.3') {
+exclude(module: 'commons-logging')
+    }
+}

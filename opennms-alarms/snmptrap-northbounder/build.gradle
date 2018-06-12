@@ -1,0 +1,12 @@
+
+description = 'OpenNMS :: Alarms :: Northbounder :: SNMP Traps'
+dependencies {
+  compile project(':opennms-alarms:opennms-alarm-api')
+  compile project(':opennms-config')
+  compile project(':opennms-dao')
+    compile group: 'commons-pool', name: 'commons-pool', version:'1.6'
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+}

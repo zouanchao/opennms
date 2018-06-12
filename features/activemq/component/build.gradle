@@ -1,0 +1,5 @@
+group = 'org.opennms.features.activemq'
+description = ''
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.pool')
+}

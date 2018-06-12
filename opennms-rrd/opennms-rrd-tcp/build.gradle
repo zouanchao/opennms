@@ -1,0 +1,11 @@
+
+description = 'OpenNMS :: RRD :: TCP Export'
+dependencies {
+  compile project(':opennms-rrd:opennms-rrd-api')
+  compile project(':dependencies:spring-dependencies')
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version:'2.6.1'
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

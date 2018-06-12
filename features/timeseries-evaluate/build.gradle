@@ -1,0 +1,9 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Timeseries Evaluate'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':opennms-dao-api')
+    compile group: 'io.dropwizard.metrics', name: 'metrics-core', version:'3.1.2'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection')
+}

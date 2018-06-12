@@ -1,0 +1,24 @@
+
+description = 'OpenNMS Configuration Test Utility'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.db')
+  compile project(':org.opennms.features:org.opennms.features.jdbc-collector')
+  compile project(':org.opennms.features:org.opennms.features.springframework-security')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs')
+  compile project(':opennms-integrations:opennms-rancid-provisioning-adapter')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-rt')
+  compile project(':opennms-integrations:opennms-snmp-asset-provisioning-adapter')
+  compile project(':opennms-integrations:opennms-vmware')
+  compile project(':opennms-alarms:opennms-alarm-northbounder-bsf')
+  compile project(':opennms-alarms:opennms-alarm-northbounder-drools')
+  compile project(':opennms-alarms:opennms-alarm-northbounder-email')
+  compile project(':opennms-alarms:opennms-alarm-northbounder-syslog')
+  compile project(':opennms-alarms:opennms-alarm-northbounder-snmptrap')
+  compile project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.jaxb')
+    compile group: 'commons-cli', name: 'commons-cli', version:'1.2'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':opennms-javamail:opennms-javamail-api')
+  testCompile project(':org.opennms.core:org.opennms.core.jmx:org.opennms.core.jmx.api')
+  testCompile project(':org.opennms.features:org.opennms.features.wsman')
+}

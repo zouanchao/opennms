@@ -1,0 +1,5 @@
+group = 'org.opennms.features.reporting'
+description = 'OpenNMS :: Features :: Reporting :: Model'
+dependencies {
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

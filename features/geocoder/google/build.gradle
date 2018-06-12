@@ -1,0 +1,9 @@
+group = 'org.opennms.features.geocoder'
+description = 'OpenNMS :: Features :: Geocoder :: Google'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.api')
+    compile(group: 'com.google.code.geocoder-java', name: 'geocoder-java', version:'0.16') {
+exclude(module: 'commons-logging')
+    }
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

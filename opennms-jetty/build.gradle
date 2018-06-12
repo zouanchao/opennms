@@ -1,0 +1,22 @@
+
+description = 'OpenNMS :: Jetty'
+dependencies {
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:servlet-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version:'9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version:'9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty', name: 'jetty-deploy', version:'9.4.2.v20170220'
+    compile(group: 'org.eclipse.jetty', name: 'apache-jsp', version:'9.4.2.v20170220') {
+exclude(module: 'org.eclipse.jdt.core')
+    }
+  compile project(':dependencies:jstl-dependencies')
+    compile group: 'org.eclipse.jetty', name: 'jetty-jmx', version:'9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty', name: 'jetty-rewrite', version:'9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version:'9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version:'9.4.2.v20170220'
+    compile group: 'org.apache.ant', name: 'ant', version:'1.8.2'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+}

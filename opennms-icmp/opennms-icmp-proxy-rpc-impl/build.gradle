@@ -1,0 +1,21 @@
+
+description = 'OpenNMS :: Core :: ICMP :: Proxy :: RPC Impl.'
+dependencies {
+  compile project(':opennms-icmp:opennms-icmp-api')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  compile project(':opennms-model')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.features:minion-parent:core-parent:core-api')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.jms-impl')
+  testCompile project(':opennms-icmp:opennms-icmp-jna')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-provision:opennms-provisiond')
+}

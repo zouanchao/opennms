@@ -1,0 +1,12 @@
+group = 'org.opennms.features.rest'
+description = 'OpenNMS :: Features :: REST :: Mapper'
+dependencies {
+  compile project(':opennms-model')
+  compile project(':opennms-config-api')
+  compile project(':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.model')
+    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version:'1.2.0.CR1'
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+}

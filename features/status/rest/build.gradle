@@ -1,0 +1,24 @@
+group = 'org.opennms.features.status'
+description = 'OpenNMS :: Features :: Status :: Rest'
+dependencies {
+  compile project(':dependencies:cxf-dependencies')
+  compile project(':org.opennms.features:org.opennms.features.status:org.opennms.features.status.api')
+  compile project(':opennms-web-api')
+  testCompile project(':opennms-webapp-rest')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.impl')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.api')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.impl')
+  testCompile project(':opennms-config')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.rest')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.daemon')
+  testCompile project(':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.mapper')
+  testCompile project(':org.opennms.features:org.opennms.features.rest-provider')
+  compileOnly project(':dependencies:spring-dependencies')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

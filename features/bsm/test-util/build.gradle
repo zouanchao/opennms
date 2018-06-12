@@ -1,0 +1,10 @@
+group = 'org.opennms.features.bsm'
+description = 'OpenNMS :: Features :: BSM :: Test Util'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.api')
+  compile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.api')
+  compile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.rest:org.opennms.features.bsm.rest.api')
+  compile project(':org.opennms.features:org.opennms.features.rest:org.opennms.features.rest.common')
+  compile project(':opennms-dao')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

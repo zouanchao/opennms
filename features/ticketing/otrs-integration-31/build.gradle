@@ -1,0 +1,23 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Ticketing :: OTRS 3.1'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.ticketing:org.opennms.features.ticketing.api')
+  compile project(':opennms-util')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-otrs-common')
+    compile(group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version:'3.1.11') {
+exclude(module: 'jaxb-core')
+exclude(module: 'jaxb-impl')
+exclude(module: 'asm')
+    }
+    compile group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version:'3.1.11'
+    compile(group: 'org.apache.cxf.xjc-utils', name: 'cxf-xjc-runtime', version:'3.1.0') {
+exclude(module: 'jaxb-api')
+    }
+  compile project(':dependencies:jaxb-dependencies')
+    compile group: 'org.ow2.asm', name: 'asm-all', version:'5.0.4'
+    compile(group: 'commons-configuration', name: 'commons-configuration', version:'1.6') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

@@ -1,0 +1,11 @@
+group = 'org.opennms.core.ipc.sink.aws.sqs'
+description = 'OpenNMS :: Core :: IPC :: Sink :: AWS :: SQS :: Common'
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.common:org.opennms.core.ipc.common.aws-sqs')
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+}

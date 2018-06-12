@@ -1,0 +1,9 @@
+
+description = 'OpenNMS :: Provisioning :: API'
+dependencies {
+  compile project(':dependencies:mina-dependencies')
+  compile project(':dependencies:netty-dependencies')
+  compile project(':opennms-model')
+  compile project(':opennms-util')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+}

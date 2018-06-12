@@ -1,0 +1,23 @@
+
+description = 'OpenNMS :: Acknowledgements :: Daemon'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':opennms-dao')
+  compile project(':opennms-javamail:opennms-javamail-api')
+  compile project(':opennms-model')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':opennms-util')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.api')
+    compile group: 'javax.mail', name: 'mail', version:'1.4.5'
+  compile project(':org.opennms.core:org.opennms.core.web')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    testCompile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+}

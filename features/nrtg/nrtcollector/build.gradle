@@ -1,0 +1,10 @@
+group = 'org.opennms.features.nrtg'
+description = 'OpenNMS :: Features :: NRTG :: NRTCollector'
+dependencies {
+  compile project(':org.opennms.features:nrtg:nrtg-api')
+  compile project(':dependencies:spring-dependencies')
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.4'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  compileOnly project(':dependencies:activemq-dependencies')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

@@ -1,0 +1,2 @@
+group = 'org.opennms.features.minion'
+description = 'OpenNMS :: Features :: Minion :: Core :: API'

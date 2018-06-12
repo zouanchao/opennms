@@ -1,0 +1,2 @@
+group = 'org.opennms.features.provisioning'
+description = 'OpenNMS :: Features :: Provisioning :: API'

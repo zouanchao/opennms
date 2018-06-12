@@ -1,0 +1,9 @@
+group = 'org.opennms.features.minion.container'
+description = 'OpenNMS :: Features :: Minion :: Container :: Karaf'
+dependencies {
+    compile group: 'org.apache.karaf.features', name: 'framework', version:'4.1.5'
+    compile group: 'org.apache.karaf.features', name: 'standard', version:'4.1.5', classifier:'features'
+    runtime group: 'org.apache.karaf.features', name: 'spring', version:'4.1.5', classifier:'features'
+    runtime group: 'org.apache.karaf.features', name: 'spring-legacy', version:'4.1.5', classifier:'features'
+  runtime project(':org.opennms.features:minion-parent:container-parent:features')
+}

@@ -1,0 +1,8 @@
+group = 'org.opennms.features.poller'
+description = 'OpenNMS :: Features :: Poller :: Shell'
+dependencies {
+    compile group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api')
+  compile project(':opennms-dao-api')
+  compile project(':opennms-config')
+}

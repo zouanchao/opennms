@@ -1,0 +1,5 @@
+group = 'org.opennms.core.ipc.sink.camel'
+description = 'OpenNMS :: Core :: IPC :: Sink :: Camel :: Server'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.common')
+}

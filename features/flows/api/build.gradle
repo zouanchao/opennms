@@ -1,0 +1,5 @@
+group = 'org.opennms.features.flows'
+description = 'OpenNMS :: Features :: Flows :: API'
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+}

@@ -1,0 +1,9 @@
+
+description = 'OpenNMS :: Provisioning :: SSH Detector'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-model')
+  compile project(':dependencies:spring-dependencies')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+}

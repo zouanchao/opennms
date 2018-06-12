@@ -1,0 +1,10 @@
+group = 'org.opennms.osgi'
+description = 'org.opennms.osgi.core'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compileOnly project(':org.opennms.features:vaadin-components:extender-service')
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+    compileOnly group: 'com.vaadin', name: 'vaadin-server', version:'7.2.7'
+    compileOnly group: 'org.osgi', name: 'org.osgi.compendium', version:'5.0.0'
+}

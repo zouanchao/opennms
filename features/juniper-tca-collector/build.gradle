@@ -1,0 +1,22 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Juniper TCA Collector'
+dependencies {
+  compile project(':opennms-model')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  compile project(':opennms-services')
+  testCompile project(':opennms-dao')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':dependencies:snmp-test-dependencies')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection')
+    testCompile group: 'xmlunit', name: 'xmlunit', version:'1.5'
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api')
+}

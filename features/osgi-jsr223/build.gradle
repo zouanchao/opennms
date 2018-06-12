@@ -1,0 +1,5 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: OSGi JSR223'
+dependencies {
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+}

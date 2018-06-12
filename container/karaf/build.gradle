@@ -1,0 +1,13 @@
+group = 'org.opennms.container'
+description = 'OpenNMS :: OSGi Container :: Embedded Karaf'
+dependencies {
+    compile group: 'org.apache.karaf.features', name: 'framework', version:'4.1.5'
+    compile group: 'org.apache.karaf.features', name: 'standard', version:'4.1.5', classifier:'features'
+  compile project(':org.opennms.container:opennms')
+  runtime project(':org.opennms.container:opennms')
+  runtime project(':org.opennms.container:opennms')
+  runtime project(':org.opennms.container:opennms')
+  runtime project(':org.opennms.container:opennms')
+  compileOnly project(':org.opennms.container:org.opennms.container.bridge')
+  compileOnly project(':org.opennms.container:org.opennms.container.branding')
+}

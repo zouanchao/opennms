@@ -1,0 +1,12 @@
+
+description = 'OpenNMS :: Alarms :: Northbounder :: Drools'
+dependencies {
+  compile project(':opennms-alarms:opennms-alarm-api')
+  compile project(':opennms-dao')
+  compile project(':dependencies:drools-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+}

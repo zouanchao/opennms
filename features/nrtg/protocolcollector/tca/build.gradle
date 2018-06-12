@@ -1,0 +1,12 @@
+group = 'org.opennms.features.nrtg.protocolcollector'
+description = 'OpenNMS :: Features :: NRTG :: Collectors :: TCA'
+dependencies {
+  compile project(':org.opennms.features:nrtg:nrtg-api')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.implementations.snmp4j')
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.4'
+  compileOnly project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

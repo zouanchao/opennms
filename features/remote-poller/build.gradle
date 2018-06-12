@@ -1,0 +1,40 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Remote Poller'
+dependencies {
+    compile group: 'com.miglayout', name: 'miglayout-ideutil', version:'5.0'
+    compile group: 'com.miglayout', name: 'miglayout-swing', version:'5.0'
+    compile group: 'org.apache.xmlgraphics', name: 'batik-swing', version:'1.7'
+    compile(group: 'org.apache.xmlgraphics', name: 'xmlgraphics-commons', version:'2.0.1') {
+      exclude(module: 'commons-logging')
+      exclude(module: 'jsr311-api')
+    }
+    compile group: 'commons-cli', name: 'commons-cli', version:'1.2'
+  compile project(':opennms-model')
+  compile project(':opennms-services')
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote')
+  compile project(':opennms-wmi')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:spring-security-core-dependencies')
+  compile project(':opennms-util')
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.5'
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':org.opennms.core:org.opennms.core.icmp-jna')
+  compile project(':opennms-icmp:opennms-icmp-jna')
+  compile project(':opennms-icmp:opennms-icmp-jni')
+  compile project(':opennms-icmp:opennms-icmp-jni6')
+  compile project(':opennms-icmp:opennms-icmp-best')
+  runtime project(':dependencies:spring-web-dependencies')
+    runtime group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version:'2.8.2'
+    runtime group: 'org.apache.logging.log4j', name: 'log4j-core', version:'2.8.2'
+    runtime group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.21'
+    runtime group: 'org.slf4j', name: 'log4j-over-slf4j', version:'1.7.21'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.springframework-security')
+  compileOnly project(':org.opennms.core:org.opennms.core.build:org.opennms.core.build.keystore')
+}

@@ -1,0 +1,11 @@
+group = 'org.opennms.tests'
+description = 'OpenNMS :: Tests :: Mock Elements'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.api')
+  compile project(':opennms-model')
+  compile project(':opennms-config-model')
+  compile project(':opennms-config-api')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+    compile group: 'junit', name: 'junit', version:'4.12'
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

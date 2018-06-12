@@ -1,0 +1,8 @@
+group = 'org.opennms.features.geocoder'
+description = 'OpenNMS :: Features :: Geocoder :: Nominatim'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.geocoder:org.opennms.features.geocoder.api')
+  compile project(':org.opennms.core:org.opennms.core.web')
+    compile group: 'net.simon04.jelementtree', name: 'jelementtree', version:'20100506'
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

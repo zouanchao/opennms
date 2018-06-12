@@ -1,0 +1,29 @@
+
+description = 'OpenNMS :: Integrations :: VMware Integration'
+dependencies {
+    compile group: 'commons-cli', name: 'commons-cli', version:'1.2'
+    compile(group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5.2') {
+exclude(module: 'commons-logging')
+    }
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':opennms-config')
+  compile project(':opennms-model')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':opennms-dao')
+  compile project(':opennms-provision:opennms-provision-persistence')
+    compile(group: 'com.toastcoders', name: 'yavijava', version:'6.0.05') {
+exclude(module: 'log4j')
+    }
+    compile group: 'org.sblim.slp', name: 'sblimSLPClient', version:'1.17'
+    compile group: 'org.sblim.wbem', name: 'sblimCIMClient', version:'1.17'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version:'1.6.4'
+    testCompile group: 'org.powermock', name: 'powermock-api-easymock', version:'1.6.4'
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api')
+  testCompile project(':opennms-provision:opennms-requisition-service')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

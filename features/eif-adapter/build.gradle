@@ -1,0 +1,20 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: EIF Adapter'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':opennms-model')
+  compile project(':opennms-dao')
+    compile(group: 'org.apache.camel', name: 'camel-netty4', version:'2.19.1') {
+exclude(module: 'jaxb-impl')
+    }
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-config')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.osgi', name: 'org.osgi.core', version:'6.0.0'
+}

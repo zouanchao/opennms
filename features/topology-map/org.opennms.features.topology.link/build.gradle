@@ -1,0 +1,5 @@
+group = 'org.opennms.features.topology'
+description = 'org.opennms.features.topology.link'
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

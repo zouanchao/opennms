@@ -1,0 +1,14 @@
+group = 'org.opennms.features.topology'
+description = 'OpenNMS :: Features :: Topology :: Plugins :: Net Utils'
+dependencies {
+  compile project(':org.opennms.features:vaadin')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+  testCompile project(':opennms-icmp:opennms-icmp-jni')
+  testCompile project(':opennms-icmp:opennms-icmp-jna')
+  testCompile project(':opennms-icmp:opennms-icmp-jni6')
+  testCompile project(':opennms-icmp:opennms-icmp-best')
+  compileOnly project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.api')
+    compileOnly group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA', classifier:'sources'
+  compileOnly project(':opennms-icmp:opennms-icmp-api')
+}

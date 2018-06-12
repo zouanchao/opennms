@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: Integrations :: RWS Interface'
+dependencies {
+  compile project(':opennms-config')
+  compile project(':opennms-dao')
+  compile project(':dependencies:rancid-dependencies')
+    compile group: 'commons-io', name: 'commons-io', version:'2.5'
+}

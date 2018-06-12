@@ -1,0 +1,110 @@
+allprojects  {
+  apply plugin: 'maven'
+  apply plugin: 'java'
+  group = 'org.opennms'
+  version = '23.0.0-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  tasks.withType(JavaCompile) {
+  	options.encoding = 'UTF-8'
+  }
+
+  task packageSources(type: Jar) {
+classifier = 'sources'
+from sourceSets.main.allSource
+
+}
+artifacts.archives packageSources
+  repositories {
+    mavenLocal()
+    
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "http://maven.opennms.org/content/groups/opennms.org-release" }
+    maven { url "http://maven.opennms.org/content/repositories/sonatype-public-repo/" }
+    maven { url "http://maven.opennms.org/content/repositories/jasperreports" }
+    maven { url "http://maven.opennms.org/content/repositories/jaspersoft-third-party" }
+    maven { url "http://maven.opennms.org/content/repositories/coova/" }
+    maven { url "http://maven.opennms.org/content/groups/opennms.org-snapshot" }
+    maven { url "http://maven.opennms.org/content/repositories/smslib-repo/" }
+    maven { url "http://maven.opennms.org/content/groups/opennms.org-release/" }
+    maven { url "http://maven.opennms.org/content/groups/opennms.org-snapshot/" }
+    maven { url "http://maven.opennms.org/content/repositories/vaadin-addons/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "http://maven.opennms.org/content/repositories/jasperreports/" }
+    maven { url "http://maven.atlassian.com/content/repositories/atlassian-public/" }
+    maven { url "http://maven.opennms.org/content/repositories/atlassian-public/" }
+    maven { url "http://maven.opennms.org/content/repositories/vaadin-snapshots/" }
+    maven { url "http://maven.opennms.org/content/repositories/oosnmp-repo" }
+    maven { url "http://maven.opennms.org/content/groups/vaadin-snapshot/" }
+    maven { url "http://maven.opennms.org/content/groups/vaadin.com-addons/" }
+  }
+
+  
+  dependencies {
+  compile project(':org.opennms.features:org.opennms.features.flows:opennms-flows')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:opennms-osgi-core-rest')
+  compile project(':org.opennms.container:org.opennms.container.jaas-login-module')
+  compile project(':org.opennms.features:org.opennms.features.activemq:org.opennms.features.activemq.component')
+  compile project(':org.opennms.features:org.opennms.features.discovery')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.syslog')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.traps')
+  compile project(':org.opennms.features:jmxconfiggenerator')
+  compile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.shell-commands')
+  compile project(':org.opennms.features:org.opennms.features.bsm:vaadin-adminpage')
+  compile project(':org.opennms.features:vaadin-jmxconfiggenerator')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-snmp-events-and-metrics')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-node-maps')
+  compile project(':org.opennms.features:nrtg:features:nrtg')
+  compile project(':org.opennms.features:vaadin')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-base')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-pathoutage')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-asset')
+  compile project(':org.opennms.features:org.opennms.features.geolocation:geolocation')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-browsers')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-linkd')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-ncs')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-application')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-bsm')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-graphml')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-sfree')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:features:opennms-topology-runtime-vmware')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:org.opennms.features.topology.shell')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-dashboard')
+  compile project(':org.opennms.features:org.opennms.features.ifttt')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:dashlet-features')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-surveillance-views')
+  compile project(':org.opennms.features:vaadin-components')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:jira-troubleticketer')
+  compile project(':org.opennms.features:org.opennms.features.ticketing:opennms-integration-tsrm')
+  compile project(':opennms-icmp:opennms-icmp-jni')
+  compile project(':opennms-icmp:opennms-icmp-jni6')
+  compile project(':opennms-icmp:opennms-icmp-commands')
+  compile project(':opennms-icmp:org.opennms.icmp.proxy.rpc-impl')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.commands')
+  compile project(':org.opennms.features:datachoices')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.proxy.rpc-impl')
+  compile project(':opennms-provision:opennms-detectorclient-rpc')
+  compile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.client-rpc')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.commands')
+  compile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.commands')
+  compile project(':opennms-wmi')
+  compile project(':org.opennms.features:org.opennms.features.topology:shared-plugin-settings:compiled-bundle-settings:vaadin-opennms-pluginmanager')
+  compile project(':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier')
+  compile project(':org.opennms.features:org.opennms.features.jest:opennms-jest')
+  compile project(':org.opennms.features:org.opennms.features.opennms-es-rest')
+  compile project(':org.opennms.features:internal-plugins-descriptor')
+  compile project(':org.opennms.features:org.opennms.features.eif-adapter')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.commands')
+  compile project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.minion')
+  compile project(':org.opennms.features:vaadin-components:bundle-refresher')
+  compile project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.adapters:org.opennms.features.telemetry.adapters.api')
+  compile project(':org.opennms.features:org.opennms.features.telemetry:org.opennms.features.telemetry.config:org.opennms.features.telemetry.config.api')
+  compile project(':org.opennms.features:org.opennms.features.kafka:org.opennms.features.kafka.producer')
+}
+
+  
+}

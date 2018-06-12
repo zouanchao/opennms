@@ -1,0 +1,8 @@
+group = 'org.opennms.features.collection'
+description = 'OpenNMS :: Features :: Collection :: Core'
+dependencies {
+  compile project(':opennms-config')
+  compile project(':opennms-dao-api')
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.api')
+}

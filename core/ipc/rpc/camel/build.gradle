@@ -1,0 +1,44 @@
+group = 'org.opennms.core.ipc.rpc'
+description = 'OpenNMS :: Core :: IPC :: RPC :: Camel'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.api')
+  compile project(':org.opennms.core:org.opennms.core.logging')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':dependencies:camel-dependencies')
+    compile(group: 'org.apache.camel', name: 'camel-spring', version:'2.19.1') {
+exclude(module: 'spring-beans')
+exclude(module: 'spring-context')
+exclude(module: 'spring-core')
+exclude(module: 'spring-expression')
+exclude(module: 'spring-jms')
+exclude(module: 'spring-aop')
+exclude(module: 'spring-tx')
+exclude(module: 'jaxb-impl')
+    }
+    compile(group: 'org.apache.camel', name: 'camel-jms', version:'2.19.1') {
+exclude(module: 'spring-beans')
+exclude(module: 'spring-context')
+exclude(module: 'spring-core')
+exclude(module: 'spring-expression')
+exclude(module: 'spring-jms')
+exclude(module: 'spring-aop')
+exclude(module: 'spring-tx')
+exclude(module: 'jaxb-impl')
+    }
+  testCompile project(':org.opennms.core:org.opennms.core.daemon')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.common')
+  compileOnly project(':org.opennms.features:minion-parent:core-parent:core-api')
+}
+
+task packageTests(type: Jar) {
+  from sourceSets.test.output
+  classifier = 'tests'
+}
+artifacts.archives packageTests

@@ -1,0 +1,30 @@
+
+description = 'OpenNMS :: Provisioning :: Persistence'
+dependencies {
+    compile(group: 'commons-beanutils', name: 'commons-beanutils-core', version:'1.8.3') {
+exclude(module: 'commons-logging')
+    }
+  compile project(':dependencies:jaxb-dependencies')
+    compile group: 'joda-time', name: 'joda-time', version:'2.1'
+  compile project(':opennms-config')
+  compile project(':opennms-dao')
+  compile project(':opennms-model')
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-provision:opennms-detector-registry')
+  compile project(':org.opennms.core:org.opennms.core.xml')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:spring-web-dependencies')
+  testCompile project(':opennms-config-model')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.features:org.opennms.features.events:org.opennms.features.events.daemon')
+  testCompile project(':dependencies:jrrd2-dependencies')
+    testCompile group: 'xmlunit', name: 'xmlunit', version:'1.5'
+}
+
+task packageTests(type: Jar) {
+  from sourceSets.test.output
+  classifier = 'tests'
+}
+artifacts.archives packageTests

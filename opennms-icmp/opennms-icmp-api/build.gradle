@@ -1,0 +1,8 @@
+
+apply plugin: 'java'
+
+description = 'OpenNMS :: ICMP :: API'
+dependencies {
+  compile project(':dependencies:tracker-dependencies')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+}

@@ -1,0 +1,8 @@
+group = 'org.opennms.tests'
+description = 'OpenNMS :: Tests :: DAOs'
+dependencies {
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':opennms-dao')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}

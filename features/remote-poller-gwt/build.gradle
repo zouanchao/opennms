@@ -1,0 +1,44 @@
+group = 'org.opennms.features'
+apply plugin: 'war'
+
+description = 'OpenNMS :: Features :: Remote Poller :: GWT UI'
+dependencies {
+  testCompile project(':org.opennms.features:org.opennms.features.poller:org.opennms.features.poller.remote')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  compileOnly project(':org.opennms.core:org.opennms.core.api')
+  compileOnly project(':org.opennms.core:org.opennms.core.lib')
+  compileOnly project(':org.opennms.core:org.opennms.core.web')
+  compileOnly project(':opennms-config')
+  compileOnly project(':opennms-dao')
+  compileOnly project(':opennms-model')
+  compileOnly project(':dependencies:spring-dependencies')
+  compileOnly project(':dependencies:spring-web-dependencies')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+    compileOnly group: 'org.slf4j', name: 'jcl-over-slf4j', version:'1.7.21'
+    compileOnly group: 'net.simon04.jelementtree', name: 'jelementtree', version:'20100506'
+    compileOnly(group: 'geoGoogle', name: 'geoGoogle', version:'1.5.1-20110518onms1') {
+exclude(module: 'jaxb-api')
+exclude(module: 'jaxb-impl')
+    }
+  compileOnly project(':dependencies:jaxb-dependencies')
+  compileOnly project(':dependencies:gwt-dependencies')
+    compileOnly(group: 'com.google.gwt.google-apis', name: 'gwt-maps', version:'1.1.0-GWT23') {
+exclude(module: 'gwt-user')
+    }
+    compileOnly(group: 'com.google.code', name: 'gwt-mapquest', version:'1.2-20100621-onms') {
+exclude(module: 'gwt-user')
+    }
+    compileOnly group: 'org.gwtopenmaps.openlayers', name: 'gwt-openlayers-client', version:'0.6-20101124'
+    compileOnly group: 'com.google.code', name: 'gwt-maps-utility', version:'1.0'
+  compileOnly project(':org.opennms.features:org.opennms.features.springframework-security')
+  compileOnly project(':opennms-rrd:opennms-rrd-jrobin')
+  compileOnly project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  compileOnly project(':opennms-rrd:opennms-rrd-tcp')
+  compileOnly project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+}

@@ -1,0 +1,19 @@
+group = 'org.opennms.core.ipc.sink.camel'
+description = 'OpenNMS :: Core :: IPC :: Sink :: Camel :: Integration Tests'
+dependencies {
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.client')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.camel:org.opennms.core.ipc.sink.camel.server')
+  testCompile project(':org.opennms.features:minion-parent:core-parent:core-api')
+  testCompile project(':org.opennms.core:org.opennms.core.daemon')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.activemq')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.camel')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml')
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version:'1.3'
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.mock-impl')
+  testCompile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.common')
+}

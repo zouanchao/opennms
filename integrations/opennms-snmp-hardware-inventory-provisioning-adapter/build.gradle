@@ -1,0 +1,17 @@
+
+description = 'OpenNMS :: Integrations :: Provisioning Adapter :: SNMP Hardware Inventory'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-dao')
+  compile project(':opennms-model')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:snmp-dependencies')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':opennms-services')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+}

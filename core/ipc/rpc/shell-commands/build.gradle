@@ -1,0 +1,9 @@
+group = 'org.opennms.core.ipc.rpc'
+description = 'OpenNMS :: Core :: IPC :: RPC :: Shell Commands'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.common')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+    compile group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+    compileOnly group: 'io.dropwizard.metrics', name: 'metrics-core', version:'3.1.2'
+    compileOnly group: 'org.osgi', name: 'org.osgi.enterprise', version:'5.0.0'
+}

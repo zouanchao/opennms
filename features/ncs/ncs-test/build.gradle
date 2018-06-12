@@ -1,0 +1,11 @@
+group = 'org.opennms.features.ncs'
+description = 'OpenNMS :: Features :: NCS :: Test'
+dependencies {
+    compile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.1'
+    compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+  compileOnly project(':opennms-dao')
+  compileOnly project(':dependencies:hibernate-dependencies')
+  compileOnly project(':dependencies:spring-dependencies')
+  compileOnly project(':org.opennms.core:org.opennms.core.soa')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

@@ -1,0 +1,6 @@
+
+description = 'OpenNMS :: Core :: ICMP :: Shell Commands'
+dependencies {
+    compile group: 'org.apache.karaf.shell', name: 'org.apache.karaf.shell.core', version:'4.1.5'
+  compileOnly project(':opennms-icmp:opennms-icmp-api')
+}

@@ -1,0 +1,9 @@
+group = 'org.opennms.features.bsm'
+description = 'OpenNMS :: Features :: BSM :: Service :: API'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.criteria')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+    compile group: 'net.sf.jung', name: 'jung-api', version:'2.0.1'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}

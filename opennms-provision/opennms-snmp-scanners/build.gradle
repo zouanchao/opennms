@@ -1,0 +1,10 @@
+
+description = 'OpenNMS :: Provisioning :: SNMP Scanners'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-dao')
+  compile project(':dependencies:snmp-dependencies')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.snmp')
+}

@@ -1,0 +1,17 @@
+group = 'org.opennms.features.reporting'
+description = 'OpenNMS :: Features :: Reporting :: Jasper'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.db')
+  compile project(':opennms-dao')
+  compile project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.api')
+  compile project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.repository')
+  compile project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.model')
+  compile project(':dependencies:jasper-dependencies')
+  compile project(':org.opennms.features:org.opennms.features.reporting:jasper-reports-filter')
+  compile project(':org.opennms.features:org.opennms.features.reporting:org.opennms.features.reporting.jasper-reports-compiler')
+    compile(group: 'org.apache.commons', name: 'commons-jexl', version:'2.1.1') {
+exclude(module: 'commons-logging')
+    }
+  testCompile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+}

@@ -1,0 +1,7 @@
+group = 'org.opennms.tests'
+description = 'OpenNMS :: Tests :: Mock SNMP Agent'
+dependencies {
+  compile project(':dependencies:snmp4j-agent-dependencies')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':org.opennms.core:org.opennms.core.lib')
+}

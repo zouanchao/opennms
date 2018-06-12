@@ -1,0 +1,10 @@
+group = 'org.opennms.core'
+description = 'OpenNMS :: Core :: Web'
+dependencies {
+    compile group: 'org.apache.httpcomponents', name: 'httpcore-osgi', version:'4.4.4'
+    compile(group: 'org.apache.httpcomponents', name: 'httpclient-osgi', version:'4.5.2') {
+exclude(module: 'commons-logging')
+    }
+    compile group: 'commons-io', name: 'commons-io', version:'2.5'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

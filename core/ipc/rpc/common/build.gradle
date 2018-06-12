@@ -1,0 +1,7 @@
+group = 'org.opennms.core.ipc.rpc'
+description = 'OpenNMS :: Core :: IPC :: RPC :: Common'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml')
+  compile project(':dependencies:spring-dependencies')
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+}

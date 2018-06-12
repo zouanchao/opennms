@@ -1,0 +1,8 @@
+group = 'org.opennms.core.snmp'
+description = 'OpenNMS :: Core :: SNMP :: Proxy :: RPC Impl.'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.rpc:org.opennms.core.ipc.rpc.xml')
+  compile project(':org.opennms.core:org.opennms.core.snmp:org.opennms.core.snmp.api')
+  compile project(':org.opennms.core:org.opennms.core.camel')
+  compile project(':opennms-model')
+}

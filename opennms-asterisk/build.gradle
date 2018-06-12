@@ -1,0 +1,12 @@
+
+description = 'OpenNMS Asterisk PBX Support'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.daemon')
+  compile project(':opennms-config')
+  compile project(':opennms-model')
+  compile project(':opennms-services')
+    compile group: 'commons-cli', name: 'commons-cli', version:'1.2'
+  compile project(':dependencies:asterisk-dependencies')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+}

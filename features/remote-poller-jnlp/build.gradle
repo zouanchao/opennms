@@ -1,0 +1,6 @@
+group = 'org.opennms.features'
+description = 'OpenNMS :: Features :: Remote Poller :: JNLP'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.remote-poller')
+  compileOnly project(':org.opennms.core:org.opennms.core.build:org.opennms.core.build.keystore')
+}

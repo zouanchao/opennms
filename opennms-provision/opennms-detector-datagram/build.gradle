@@ -1,0 +1,15 @@
+
+description = 'OpenNMS :: Provisioning :: Datagram Detectors'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':opennms-util')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  testCompile project(':opennms-dao')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':opennms-provision:opennms-mock-simpleserver')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.dns')
+}

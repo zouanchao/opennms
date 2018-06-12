@@ -1,0 +1,10 @@
+group = 'org.opennms.features.geolocation'
+description = 'OpenNMS :: Features :: Geolocation :: Rest'
+dependencies {
+  compile project(':dependencies:cxf-dependencies')
+  compile project(':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.api')
+  compile project(':org.opennms.features:org.opennms.features.geolocation:org.opennms.features.geolocation.services')
+  compile project(':org.opennms.core:org.opennms.core.web')
+  compileOnly project(':dependencies:spring-dependencies')
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+}

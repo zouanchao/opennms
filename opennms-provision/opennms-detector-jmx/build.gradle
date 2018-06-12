@@ -1,0 +1,12 @@
+
+description = 'OpenNMS :: Provisioning :: JMX Detectors'
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'18.0'
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-util')
+  compile project(':org.opennms.core:org.opennms.core.lib')
+  compile project(':dependencies:spring-dependencies')
+  compile project(':dependencies:jmx-dependencies')
+  testCompile project(':dependencies:spring-test-dependencies')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+}

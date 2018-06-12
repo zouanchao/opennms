@@ -1,0 +1,2 @@
+group = 'org.opennms.core.ipc.sink'
+description = 'OpenNMS :: Core :: IPC :: Sink :: API'

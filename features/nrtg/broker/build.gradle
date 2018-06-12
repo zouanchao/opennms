@@ -1,0 +1,2 @@
+group = 'org.opennms.features.nrtg'
+description = 'OpenNMS :: Features :: NRTG :: ActiveMQ Broker'

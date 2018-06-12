@@ -1,0 +1,7 @@
+group = 'org.opennms.plugins'
+description = ''
+dependencies {
+  compile project(':org.opennms.features:alarm-change-notifier.parent:alarm-change-notifier')
+  compile project(':org.opennms.features:org.opennms.features.jest:opennms-jest')
+  compileOnly project(':org.opennms.core:org.opennms.core.ipc:org.opennms.core.ipc.sink:org.opennms.core.ipc.sink.xml')
+}

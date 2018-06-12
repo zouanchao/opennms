@@ -1,0 +1,13 @@
+group = 'org.opennms.protocols'
+description = 'OpenNMS :: Protocols :: NSClient'
+dependencies {
+  compile project(':opennms-provision:opennms-provision-api')
+  compile project(':opennms-services')
+    compile group: 'commons-cli', name: 'commons-cli', version:'1.2'
+  compile project(':opennms-util')
+  testCompile project(':opennms-provision:opennms-mock-simpleserver')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api')
+}

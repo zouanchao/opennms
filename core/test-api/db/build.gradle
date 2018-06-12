@@ -1,0 +1,18 @@
+group = 'org.opennms.core.test-api'
+description = 'OpenNMS :: Core :: Test API :: Database'
+dependencies {
+  compile project(':org.opennms.core:org.opennms.core.db')
+  compile project(':org.opennms.core:org.opennms.core.db.install')
+  compile project(':org.opennms.core:org.opennms.core.schema')
+  compile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+  compile project(':org.opennms.tests:org.opennms.tests.mock-elements')
+  compile project(':dependencies:atomikos-dependencies')
+  compile project(':dependencies:spring-test-dependencies')
+    compile group: 'commons-lang', name: 'commons-lang', version:'2.6'
+    compile group: 'junit', name: 'junit', version:'4.12'
+    compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1211'
+    testCompile group: 'org.liquibase', name: 'liquibase-core', version:'2.0.5-ONMS20160524b', classifier:'tests'
+  testCompile project(':org.opennms.core:org.opennms.core.schema')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema:org.opennms.core.test-api.schema.a')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.schema:org.opennms.core.test-api.schema.b')
+}

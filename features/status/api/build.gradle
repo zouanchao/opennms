@@ -1,0 +1,18 @@
+group = 'org.opennms.features.status'
+description = 'OpenNMS :: Features :: Status :: API'
+dependencies {
+  compile project(':opennms-web-api')
+  compile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.api')
+  compile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.api')
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile project(':opennms-config')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.services')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.db')
+  testCompile project(':opennms-dao')
+  testCompile project(':opennms-dao-mock')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.persistence:org.opennms.features.bsm.persistence.impl')
+  testCompile project(':org.opennms.features:org.opennms.features.bsm:org.opennms.features.bsm.service:org.opennms.features.bsm.service.impl')
+    compileOnly group: 'com.google.guava', name: 'guava', version:'18.0'
+}

@@ -1,0 +1,12 @@
+group = 'org.opennms.features.collection'
+description = 'OpenNMS :: Features :: Collection :: TCP Persistence'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.api')
+  compile project(':opennms-rrd:opennms-rrd-tcp')
+  compile project(':opennms-dao-api')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.lib')
+    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.19'
+  testCompile project(':dependencies:netty-dependencies')
+    testCompile group: 'com.jayway.awaitility', name: 'awaitility', version:'1.7.0'
+  testCompile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.test-api')
+}

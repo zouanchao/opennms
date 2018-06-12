@@ -1,0 +1,15 @@
+
+description = 'OpenNMS XML Collector Handler based on VTD-XML'
+dependencies {
+  compile project(':org.opennms.features:org.opennms.features.collection:org.opennms.features.collection.persistence.rrd')
+  compile project(':org.opennms.protocols:org.opennms.protocols.xml')
+    compile group: 'com.ximpleware', name: 'vtd-xml', version:'2.11'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.collection')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':opennms-rrd:opennms-rrd-jrobin')
+  testCompile project(':dependencies:jrrd2-dependencies')
+  testCompile project(':opennms-rrd:opennms-rrd-rrdtool:opennms-rrdtool-api')
+  testCompile project(':org.opennms.protocols:org.opennms.protocols.xml')
+}

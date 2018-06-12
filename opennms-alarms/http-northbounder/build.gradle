@@ -1,0 +1,8 @@
+
+description = 'OpenNMS :: Alarms :: Northbounder :: HTTP'
+dependencies {
+  compile project(':opennms-alarms:opennms-alarm-api')
+  compile project(':org.opennms.core:org.opennms.core.web')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.http')
+  testCompile project(':org.opennms.core:org.opennms.core.test-api:org.opennms.core.test-api.xml')
+}
