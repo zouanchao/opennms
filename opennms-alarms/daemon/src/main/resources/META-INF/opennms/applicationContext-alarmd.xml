@@ -20,7 +20,11 @@
 
   <bean id="droolsAlarmContext" class="org.opennms.netmgt.alarmd.drools.DroolsAlarmContext" />
 
-  <onmsgi:service interface="org.opennms.netmgt.alarmd.api.AlarmLifecycleListener" ref="droolsAlarmContext"/>
+  <onmsgi:service interface="org.opennms.netmgt.alarmd.api.AlarmLifecycleListener" ref="droolsAlarmContext">
+    <onmsgi:service-properties>
+      <entry key="registration.export" value="true" />
+    </onmsgi:service-properties>
+  </onmsgi:service>
 
   <!-- Daemon -->
 
