@@ -29,11 +29,8 @@
 package org.opennms.netmgt.dao.support;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Consumer;
 
 import org.opennms.netmgt.dao.api.AlarmEntityListener;
@@ -45,13 +42,13 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Sets;
+
 public class AlarmEntityNotifierImpl implements AlarmEntityNotifier {
 
     private static final Logger LOG = LoggerFactory.getLogger(AlarmEntityNotifierImpl.class);
 
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
-
-    private Set<AlarmEntityListener> listeners = new LinkedHashSet<>();
+    private Set<AlarmEntityListener> listeners = Sets.newConcurrentHashSet();
 
     @Override
     public void didCreateAlarm(OnmsAlarm alarm) {
@@ -103,38 +100,28 @@ public class AlarmEntityNotifierImpl implements AlarmEntityNotifier {
         forEachListener(l -> l.onReductionKeyMemoDeleted(alarm, memo));
     }
 
+    @Override
+    public void didUpdateLastAutomationTime(OnmsAlarm alarm, Date previousLastAutomationTime) {
+        forEachListener(l -> l.onLastAutomationTimeUpdated(alarm, previousLastAutomationTime));
+    }
+
     private void forEachListener(Consumer<AlarmEntityListener> callback) {
-        lock.readLock().lock();
-        try {
-            for (AlarmEntityListener listener : listeners) {
-                try {
-                    callback.accept(listener);
-                } catch (Exception e) {
-                    LOG.error("Error occurred while invoking listener: {}. Skipping.", listener, e);
-                }
+        for (AlarmEntityListener listener : listeners) {
+            try {
+                callback.accept(listener);
+            } catch (Exception e) {
+                LOG.error("Error occurred while invoking listener: {}. Skipping.", listener, e);
             }
-        } finally {
-            lock.readLock().unlock();
         }
     }
 
     public void onListenerRegistered(final AlarmEntityListener listener, final Map<String,String> properties) {
-        lock.writeLock().lock();
-        try {
-            LOG.debug("onListenerRegistered: {} with properties: {}", listener, properties);
-            listeners.add(listener);
-        } finally {
-            lock.writeLock().unlock();
-        }
+        LOG.debug("onListenerRegistered: {} with properties: {}", listener, properties);
+        listeners.add(listener);
     }
 
     public void onListenerUnregistered(final AlarmEntityListener listener, final Map<String,String> properties) {
-        lock.writeLock().lock();
-        try {
-            LOG.debug("onListenerUnregistered: {} with properties: {}", listener, properties);
-            listeners.remove(listener);
-        } finally {
-            lock.writeLock().unlock();
-        }
+        LOG.debug("onListenerUnregistered: {} with properties: {}", listener, properties);
+        listeners.remove(listener);
     }
 }

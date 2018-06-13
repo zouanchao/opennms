@@ -62,4 +62,6 @@ public interface AlarmEntityListener {
 
     void onReductionKeyMemoDeleted(OnmsAlarm alarm, OnmsReductionKeyMemo memo);
 
+    void onLastAutomationTimeUpdated(OnmsAlarm alarm, Date previousLastAutomationTime);
+
 }

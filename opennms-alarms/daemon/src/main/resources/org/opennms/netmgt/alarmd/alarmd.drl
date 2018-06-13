@@ -257,7 +257,9 @@ rule "createTickets"
                        TTicketState == null)
     not( OnmsAlarm( this == $alarm ) over window:time( 15m ) )
   then
-    $ticketer.ackAlarmAndCreateTicket($alarm);
+    Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+    alarmService.acknowledgeAlarm($alarm, now);
+    $ticketer.createTicket($alarm, now);
 end
 
 /*
@@ -293,7 +295,9 @@ rule "createCriticalTicket"
                        TTicketState == null)
     not( OnmsAlarm( this == $alarm ) over window:time( 5m ) )
   then
-    $ticketer.ackAlarmAndCreateTicket($alarm);
+    Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+    alarmService.acknowledgeAlarm($alarm, now);
+    $ticketer.createTicket($alarm, now);
 end
 
 /*
@@ -339,7 +343,8 @@ rule "updateTickets"
                        TTicketState != null )
     not( OnmsAlarm( this == $alarm ) over window:time( 15m ) )
   then
-    $ticketer.updateTicket($alarm);
+    Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+    $ticketer.updateTicket($alarm, now);
 end
 
 /*
@@ -378,7 +383,8 @@ rule "closeClearedAlarmTickets"
                        TTicketState == TroubleTicketState.OPEN)
     not( OnmsAlarm( this == $alarm ) over window:time( 15m ) )
   then
-    $ticketer.closeTicket($alarm);
+    Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+    $ticketer.closeTicket($alarm, now);
 end
 
 /*  <automation name="clearAlarmsForClosedTickets" interval="60000" active="false"

@@ -485,12 +485,8 @@ public class DroolsAlarmContextIT {
         }
 
         @Override
-        public void ackAlarmAndCreateTicket(OnmsAlarm alarm) {
+        public void createTicket(OnmsAlarm alarm, Date now) {
             LOG.info("Creating ticket on {}", alarm);
-            final Date now = new Date(dac.getClock().getCurrentTime());
-            // Ack
-            alarm.setAlarmAckUser("test");
-            alarm.setAlarmAckTime(now);
             // Create ticket
             alarm.setTTicketState(TroubleTicketState.OPEN);
             alarm.setTTicketId("test");
@@ -501,9 +497,8 @@ public class DroolsAlarmContextIT {
         }
 
         @Override
-        public void updateTicket(OnmsAlarm alarm) {
+        public void updateTicket(OnmsAlarm alarm, Date now) {
             LOG.info("Updating ticket on {}", alarm);
-            final Date now = new Date(dac.getClock().getCurrentTime());
             // Update the lastAutomationTime
             alarm.setLastAutomationTime(now);
             updates.compute(alarm.getId(), (k, v) -> (v == null) ? 1 : v + 1);
@@ -511,7 +506,7 @@ public class DroolsAlarmContextIT {
         }
 
         @Override
-        public void closeTicket(OnmsAlarm alarm) {
+        public void closeTicket(OnmsAlarm alarm, Date now) {
             LOG.info("Closing ticket on {}", alarm);
             // Close ticket
             alarm.setTTicketState(TroubleTicketState.CLOSED);

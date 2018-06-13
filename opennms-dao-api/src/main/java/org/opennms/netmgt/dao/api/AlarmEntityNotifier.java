@@ -69,4 +69,6 @@ public interface AlarmEntityNotifier {
 
     void didDeleteReductionKeyMemo(OnmsAlarm onmsAlarm, OnmsReductionKeyMemo memo);
 
+    void didUpdateLastAutomationTime(OnmsAlarm alarm, Date previousLastAutomationTime);
+
 }

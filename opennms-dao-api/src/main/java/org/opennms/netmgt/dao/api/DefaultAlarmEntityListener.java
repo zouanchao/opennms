@@ -85,4 +85,9 @@ public class DefaultAlarmEntityListener implements AlarmEntityListener {
     public void onReductionKeyMemoDeleted(OnmsAlarm alarm, OnmsReductionKeyMemo memo) {
 
     }
+
+    @Override
+    public void onLastAutomationTimeUpdated(OnmsAlarm alarm, Date previousLastAutomationTime) {
+
+    }
 }

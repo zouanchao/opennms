@@ -29,15 +29,12 @@
 package org.opennms.netmgt.alarmd;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Consumer;
 
 import org.opennms.netmgt.alarmd.api.AlarmLifecycleListener;
@@ -56,12 +53,13 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.google.common.collect.Sets;
+
 public class AlarmLifecycleListenerManager implements AlarmEntityListener, InitializingBean, DisposableBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(AlarmLifecycleListenerManager.class);
 
-    private final Set<AlarmLifecycleListener> listeners = new LinkedHashSet<>();
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Set<AlarmLifecycleListener> listeners = Sets.newConcurrentHashSet();
     private Timer timer;
 
     @Autowired
@@ -92,21 +90,16 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener, Initi
     }
 
     private void doSnapshot() {
-        lock.readLock().lock();
-        try {
-            if (listeners.size() < 1) {
-                return;
-            }
-            template.execute(new TransactionCallbackWithoutResult() {
-                @Override
-                protected void doInTransactionWithoutResult(TransactionStatus status) {
-                    final List<OnmsAlarm> allAlarms = alarmDao.findAll();
-                    listeners.forEach(l -> l.handleAlarmSnapshot(allAlarms));
-                }
-            });
-        } finally {
-            lock.readLock().unlock();
+        if (listeners.size() < 1) {
+            return;
         }
+        template.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                final List<OnmsAlarm> allAlarms = alarmDao.findAll();
+                listeners.forEach(l -> l.handleAlarmSnapshot(allAlarms));
+            }
+        });
     }
 
     public void onNewOrUpdatedAlarm(OnmsAlarm alarm) {
@@ -165,39 +158,29 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener, Initi
         onNewOrUpdatedAlarm(alarm);
     }
 
+    @Override
+    public void onLastAutomationTimeUpdated(OnmsAlarm alarm, Date previousLastAutomationTime) {
+        onNewOrUpdatedAlarm(alarm);
+    }
+
     private void forEachListener(Consumer<AlarmLifecycleListener> callback) {
-        lock.readLock().lock();
-        try {
-            for (AlarmLifecycleListener listener : listeners) {
-                try {
-                    callback.accept(listener);
-                } catch (Exception e) {
-                    LOG.error("Error occurred while invoking listener: {}. Skipping.", listener, e);
-                }
+        for (AlarmLifecycleListener listener : listeners) {
+            try {
+                callback.accept(listener);
+            } catch (Exception e) {
+                LOG.error("Error occurred while invoking listener: {}. Skipping.", listener, e);
             }
-        } finally {
-            lock.readLock().unlock();
         }
     }
 
     public void onListenerRegistered(final AlarmLifecycleListener listener, final Map<String,String> properties) {
-        lock.writeLock().lock();
-        try {
-            LOG.debug("onListenerRegistered: {} with properties: {}", listener, properties);
-            listeners.add(listener);
-        } finally {
-            lock.writeLock().unlock();
-        }
+        LOG.debug("onListenerRegistered: {} with properties: {}", listener, properties);
+        listeners.add(listener);
     }
 
     public void onListenerUnregistered(final AlarmLifecycleListener listener, final Map<String,String> properties) {
-        lock.writeLock().lock();
-        try {
-            LOG.debug("onListenerUnregistered: {} with properties: {}", listener, properties);
-            listeners.remove(listener);
-        } finally {
-            lock.writeLock().unlock();
-        }
+        LOG.debug("onListenerUnregistered: {} with properties: {}", listener, properties);
+        listeners.remove(listener);
     }
 
     @Override

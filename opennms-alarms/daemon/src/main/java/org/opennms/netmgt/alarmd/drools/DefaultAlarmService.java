@@ -30,32 +30,30 @@ package org.opennms.netmgt.alarmd.drools;
 
 import java.util.Date;
 
-import org.opennms.netmgt.dao.api.AlarmEntityNotifier;
 import org.opennms.netmgt.dao.api.AlarmDao;
+import org.opennms.netmgt.dao.api.AlarmEntityNotifier;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionOperations;
 
 public class DefaultAlarmService implements AlarmService {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmService.class);
 
-    @Autowired
-    private AlarmDao alarmDao;
+    protected static final String DEFAULT_USER = "admin";
 
     @Autowired
-    private TransactionOperations transactionOperations;
+    private AlarmDao alarmDao;
 
     @Autowired
     private AlarmEntityNotifier alarmEntityNotifier;
 
     @Override
     @Transactional
-    public void clearAlarm(OnmsAlarm alarm, Date clearTime) {
-        LOG.info("Clearing alarm with id: {} with current severity: {} at: {}", alarm.getId(), alarm.getSeverity(), clearTime);
+    public void clearAlarm(OnmsAlarm alarm, Date now) {
+        LOG.info("Clearing alarm with id: {} with current severity: {} at: {}", alarm.getId(), alarm.getSeverity(), now);
         final OnmsAlarm alarmInTrans = alarmDao.get(alarm.getId());
         if (alarmInTrans == null) {
             LOG.warn("Alarm disappeared: {}. Skipping clear.", alarm);
@@ -63,7 +61,7 @@ public class DefaultAlarmService implements AlarmService {
         }
         final OnmsSeverity previousSeverity = alarmInTrans.getSeverity();
         alarmInTrans.setSeverity(OnmsSeverity.CLEARED);
-        alarmInTrans.setLastAutomationTime(clearTime);
+        alarmInTrans.setLastAutomationTime(now);
         alarmDao.update(alarmInTrans);
         alarmEntityNotifier.didUpdateAlarmSeverity(alarmInTrans, previousSeverity);
     }
@@ -97,7 +95,7 @@ public class DefaultAlarmService implements AlarmService {
 
     @Override
     @Transactional
-    public void acknowledgeAlarm(OnmsAlarm alarm) {
+    public void acknowledgeAlarm(OnmsAlarm alarm, Date now) {
         LOG.info("Acknowledging alarm with id: {}", alarm.getId());
         final OnmsAlarm alarmInTrans = alarmDao.get(alarm.getId());
         if (alarmInTrans == null) {
@@ -106,8 +104,8 @@ public class DefaultAlarmService implements AlarmService {
         }
         final String previousAckUser = alarmInTrans.getAlarmAckUser();
         final Date previousAckTime = alarmInTrans.getAlarmAckTime();
-        alarmInTrans.setAlarmAckUser("admin");
-        alarmInTrans.setAlarmAckTime(new Date());
+        alarmInTrans.setAlarmAckUser(DEFAULT_USER);
+        alarmInTrans.setAlarmAckTime(now);
         alarmDao.update(alarmInTrans);
         alarmEntityNotifier.didAcknowledgeAlarm(alarmInTrans, previousAckUser, previousAckTime);
     }

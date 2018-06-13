@@ -28,16 +28,18 @@
 
 package org.opennms.netmgt.alarmd.drools;
 
+import java.util.Date;
+
 import org.opennms.netmgt.model.OnmsAlarm;
 
 public interface AlarmTicketerService {
 
     boolean isTicketingEnabled();
 
-    void ackAlarmAndCreateTicket(OnmsAlarm alarm);
+    void createTicket(OnmsAlarm alarm, Date now);
 
-    void updateTicket(OnmsAlarm alarm);
+    void updateTicket(OnmsAlarm alarm, Date now);
 
-    void closeTicket(OnmsAlarm alarm);
+    void closeTicket(OnmsAlarm alarm, Date now);
 
 }
