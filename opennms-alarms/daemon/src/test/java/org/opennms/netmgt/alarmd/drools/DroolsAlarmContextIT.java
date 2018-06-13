@@ -48,7 +48,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.dao.support.AlarmEntityNotifierImpl;
@@ -56,6 +55,8 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.TroubleTicketState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Used to isolate and trigger specific Drools rules in the default ruleset for Alarmd.
@@ -63,6 +64,7 @@ import org.opennms.netmgt.model.TroubleTicketState;
  * @author jwhite
  */
 public class DroolsAlarmContextIT {
+    private static final Logger LOG = LoggerFactory.getLogger(DroolsAlarmContextIT.class);
 
     private DroolsAlarmContext dac;
     private AlarmDao alarmDao;
@@ -386,7 +388,6 @@ public class DroolsAlarmContextIT {
     }
 
     @Test
-    @Ignore("Need real service layer")
     public void canCloseTicket() {
         ticketer.setEnabled(true);
 
@@ -426,6 +427,7 @@ public class DroolsAlarmContextIT {
         assertThat(trigger, hasSeverity(OnmsSeverity.CLEARED));
 
         // Advance the clock and tick
+        dac.handleNewOrUpdatedAlarm(trigger);
         dac.getClock().advanceTime( 20, TimeUnit.MINUTES );
         dac.tick();
         assertThat(ticketer.didCloseTicketFor(trigger), equalTo(true));
@@ -453,6 +455,19 @@ public class DroolsAlarmContextIT {
         assertThat(trigger, hasSeverity(OnmsSeverity.CLEARED));
     }
 
+    private void printAlarmDetails(OnmsAlarm alarm) {
+        // Useful for debugging
+        System.out.printf("Pseudo Clock: %s\n", new Date(dac.getClock().getCurrentTime()));
+        System.out.printf("Alarm (%d)\n", alarm.getId());
+        System.out.printf("\tReduction Key: %s\n", alarm.getReductionKey());
+        System.out.printf("\tSeverity: %s\n", alarm.getSeverity());
+        System.out.printf("\tType: %s\n", alarm.getType());
+        System.out.printf("\tTicket state: %s\n", alarm.getTTicketState());
+        System.out.printf("\tLast event time: %s\n", alarm.getLastEventTime());
+        System.out.printf("\tLast automation time: %s\n", alarm.getLastAutomationTime());
+        System.out.printf("\tLast update time: %s\n", alarm.getLastUpdateTime());
+    }
+
     private class MockTicketer implements AlarmTicketerService {
         private boolean enabled = false;
         private List<Integer> creates = new ArrayList<>();
@@ -471,6 +486,7 @@ public class DroolsAlarmContextIT {
 
         @Override
         public void ackAlarmAndCreateTicket(OnmsAlarm alarm) {
+            LOG.info("Creating ticket on {}", alarm);
             final Date now = new Date(dac.getClock().getCurrentTime());
             // Ack
             alarm.setAlarmAckUser("test");
@@ -486,6 +502,7 @@ public class DroolsAlarmContextIT {
 
         @Override
         public void updateTicket(OnmsAlarm alarm) {
+            LOG.info("Updating ticket on {}", alarm);
             final Date now = new Date(dac.getClock().getCurrentTime());
             // Update the lastAutomationTime
             alarm.setLastAutomationTime(now);
@@ -495,6 +512,7 @@ public class DroolsAlarmContextIT {
 
         @Override
         public void closeTicket(OnmsAlarm alarm) {
+            LOG.info("Closing ticket on {}", alarm);
             // Close ticket
             alarm.setTTicketState(TroubleTicketState.CLOSED);
             closes.add(alarm.getId());
