@@ -35,6 +35,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.StringType;
 import org.hibernate.usertype.UserType;
 import org.opennms.core.utils.InetAddressComparator;
@@ -95,28 +96,28 @@ public class InetAddressUserType implements UserType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
-        return InetAddressUtils.addr((String)StringType.INSTANCE.nullSafeGet(rs, names[0]));
+    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws SQLException {
+        return InetAddressUtils.addr((String)StringType.INSTANCE.nullSafeGet(rs, names[0], session));
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
         if (value == null) {
-            StringType.INSTANCE.nullSafeSet(st, null, index);
+            StringType.INSTANCE.nullSafeSet(st, null, index, session);
         } else if (value instanceof InetAddress){
             // Format the IP address into a uniform format
-            StringType.INSTANCE.nullSafeSet(st, InetAddressUtils.str((InetAddress)value), index);
+            StringType.INSTANCE.nullSafeSet(st, InetAddressUtils.str((InetAddress)value), index, session);
         } else if (value instanceof String){
             try {
                 // Format the IP address into a uniform format
-                StringType.INSTANCE.nullSafeSet(st, InetAddressUtils.normalize((String)value), index);
+                StringType.INSTANCE.nullSafeSet(st, InetAddressUtils.normalize((String)value), index, session);
             } catch (final IllegalArgumentException e) {
                 // If the argument is not a valid IP address, then just pass it as-is. This
                 // can occur of the query is performing a LIKE query (ie. '192.168.%').
                 //
                 // TODO: Add more validation of this string
                 //
-                StringType.INSTANCE.nullSafeSet(st, (String)value, index);
+                StringType.INSTANCE.nullSafeSet(st, (String)value, index, session);
             }
         }
     }

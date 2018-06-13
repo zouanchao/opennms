@@ -34,6 +34,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.CharacterType;
 import org.hibernate.type.EnumType;
 import org.hibernate.type.StringType;
@@ -56,8 +57,8 @@ public class NodeTypeUserType extends EnumType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
-        Character c = CharacterType.INSTANCE.nullSafeGet(rs, names[0]);
+    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws SQLException {
+        Character c = CharacterType.INSTANCE.nullSafeGet(rs, names[0], session);
         if (c == null) {
             return null;
         }
@@ -70,15 +71,15 @@ public class NodeTypeUserType extends EnumType {
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
         if (value == null) {
-            StringType.INSTANCE.nullSafeSet(st, null, index);
+            StringType.INSTANCE.nullSafeSet(st, null, index, session);
         } else if (value instanceof NodeType){
-            CharacterType.INSTANCE.nullSafeSet(st, ((NodeType)value).toString().charAt(0), index);
+            CharacterType.INSTANCE.nullSafeSet(st, ((NodeType)value).toString().charAt(0), index, session);
         } else if (value instanceof String){
             for (NodeType type : NodeType.values()) {
                 if (type.toString().equals(value)) {
-                    CharacterType.INSTANCE.nullSafeSet(st, type.toString().charAt(0), index);
+                    CharacterType.INSTANCE.nullSafeSet(st, type.toString().charAt(0), index, session);
                 }
             }
         }

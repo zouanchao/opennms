@@ -28,14 +28,13 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.sql.SQLException;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.opennms.netmgt.dao.api.TopologyDao;
 import org.opennms.netmgt.model.OnmsNode;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 public class TopologyDaoHibernate extends HibernateDaoSupport implements TopologyDao {
     @Override
@@ -46,7 +45,7 @@ public class TopologyDaoHibernate extends HibernateDaoSupport implements Topolog
 
         // is there already a node?
         OnmsNode focusNode = getHibernateTemplate().execute(new HibernateCallback<OnmsNode>() {
-            public OnmsNode doInHibernate(Session session) throws HibernateException, SQLException {
+            public OnmsNode doInHibernate(Session session) throws HibernateException {
                 Integer nodeId = (Integer)session.createQuery(query2).setMaxResults(1).uniqueResult();
                 return getNode(nodeId, session);
             }

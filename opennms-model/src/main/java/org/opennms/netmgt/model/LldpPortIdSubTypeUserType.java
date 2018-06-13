@@ -34,6 +34,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.EnumType;
 import org.hibernate.type.IntegerType;
 import org.opennms.core.utils.LldpUtils.LldpPortIdSubType;
@@ -55,8 +56,8 @@ public class LldpPortIdSubTypeUserType extends EnumType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
-        Integer c = IntegerType.INSTANCE.nullSafeGet(rs, names[0]);
+    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws SQLException {
+        Integer c = IntegerType.INSTANCE.nullSafeGet(rs, names[0], session);
         if (c == null) {
             return null;
         }
@@ -69,11 +70,11 @@ public class LldpPortIdSubTypeUserType extends EnumType {
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
         if (value == null) {
-            IntegerType.INSTANCE.nullSafeSet(st, null, index);
+            IntegerType.INSTANCE.nullSafeSet(st, null, index, session);
         } else if (value instanceof LldpPortIdSubType){
-            IntegerType.INSTANCE.nullSafeSet(st, ((LldpPortIdSubType)value).getValue(), index);
+            IntegerType.INSTANCE.nullSafeSet(st, ((LldpPortIdSubType)value).getValue(), index, session);
         }
     }
 

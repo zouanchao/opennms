@@ -33,6 +33,7 @@ import org.opennms.web.svclayer.model.StatisticsReportCommand;
 import org.opennms.web.svclayer.model.StatisticsReportModel;
 import org.opennms.web.validator.StatisticsReportCommandValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -65,7 +66,7 @@ public class ReportController {
             } else {
                 return new ModelAndView("statisticsReports/report", "model", report);
             }
-        } catch (org.springframework.orm.hibernate3.HibernateObjectRetrievalFailureException horfe) {
+        } catch (HibernateObjectRetrievalFailureException horfe) {
             throw new StatisticsReportIdNotFoundException("No such report ID", command.getId().toString(), horfe);
         }
     }

@@ -32,6 +32,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -44,7 +45,7 @@ import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
 import org.opennms.netmgt.model.topology.EdgeAlarmStatusSummary;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 /**
  * <p>AlarmDaoHibernate class.</p>
@@ -181,7 +182,7 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
 
         return getHibernateTemplate().execute(new HibernateCallback<List<HeatMapElement>>() {
             @Override
-            public List<HeatMapElement> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<HeatMapElement> doInHibernate(Session session) throws HibernateException {
                 return (List<HeatMapElement>) session.createSQLQuery(
                         "select coalesce(" + entityNameColumn + ",'Uncategorized'), " + entityIdColumn + ", " +
                                 "count(distinct case when ifservices.status <> 'D' then ifservices.id else null end) as servicesTotal, " +
@@ -224,9 +225,9 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
             hqlStringBuffer.append("exists (select p.event from OnmsEventParameter p where a.lastEvent=p.event and p.name = :name" + i + " and p.value like :value" + i + ")");
         }
 
-        return (List<OnmsAlarm>) getHibernateTemplate().executeFind(new HibernateCallback<List<OnmsEvent>>() {
+        return (List<OnmsAlarm>) getHibernateTemplate().execute(new HibernateCallback<List<OnmsAlarm>>() {
             @Override
-            public List<OnmsEvent> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<OnmsAlarm> doInHibernate(Session session) throws HibernateException {
                 Query q = session.createQuery(hqlStringBuffer.toString());
                 int i = 0;
                 for (final Map.Entry<String, String> entry : eventParameters.entrySet()) {

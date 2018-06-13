@@ -29,7 +29,6 @@
 package org.opennms.netmgt.dao.hibernate;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -46,9 +45,7 @@ import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
 import org.opennms.netmgt.model.monitoringLocations.OnmsMonitoringLocation;
 import org.opennms.netmgt.model.OnmsLocationSpecificStatus;
 import org.opennms.netmgt.model.OnmsMonitoredService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 /**
  * <p>LocationMonitorDaoHibernate class.</p>
@@ -56,8 +53,6 @@ import org.springframework.orm.hibernate3.HibernateCallback;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocationMonitor, String> implements LocationMonitorDao {
-
-    private static final Logger LOG = LoggerFactory.getLogger(LocationMonitorDaoHibernate.class);
 
     /**
      * Constructor that also initializes the required XML configurations
@@ -80,7 +75,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
     	final HibernateCallback<OnmsLocationSpecificStatus> callback = new HibernateCallback<OnmsLocationSpecificStatus>() {
 
             @Override
-            public OnmsLocationSpecificStatus doInHibernate(final Session session) throws HibernateException, SQLException {
+            public OnmsLocationSpecificStatus doInHibernate(final Session session) throws HibernateException {
                 return (OnmsLocationSpecificStatus)session.createQuery("from OnmsLocationSpecificStatus status where status.locationMonitor = :locationMonitor and status.monitoredService = :monitoredService order by status.pollResult.timestamp desc")
                     .setEntity("locationMonitor", locationMonitor)
                     .setEntity("monitoredService", monSvc)
@@ -246,7 +241,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
 
             @SuppressWarnings("unchecked")
             @Override
-            public List<OnmsLocationSpecificStatus> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<OnmsLocationSpecificStatus> doInHibernate(Session session) throws HibernateException {
                 
                 return (List<OnmsLocationSpecificStatus>)session.createQuery(
                         "select distinct status from OnmsLocationSpecificStatus as status " +

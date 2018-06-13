@@ -34,6 +34,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.EnumType;
 import org.hibernate.type.IntegerType;
 import org.opennms.netmgt.model.CdpLink.CiscoNetworkProtocolType;
@@ -55,8 +56,8 @@ public class CiscoNetworkProtocolTypeUserType extends EnumType {
     }
 
     @Override
-    public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws HibernateException, SQLException {
-        Integer c = IntegerType.INSTANCE.nullSafeGet(rs, names[0]);
+    public Object nullSafeGet(final ResultSet rs, final String[] names, SharedSessionContractImplementor session, final Object owner) throws HibernateException, SQLException {
+        Integer c = IntegerType.INSTANCE.nullSafeGet(rs, names[0], session);
         if (c == null) {
             return null;
         }
@@ -69,11 +70,10 @@ public class CiscoNetworkProtocolTypeUserType extends EnumType {
     }
 
     @Override
-    public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws HibernateException, SQLException {
-        if (value == null) {
-            IntegerType.INSTANCE.nullSafeSet(st, null, index);
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {        if (value == null) {
+            IntegerType.INSTANCE.nullSafeSet(st, null, index, session);
         } else if (value instanceof CiscoNetworkProtocolType){
-            IntegerType.INSTANCE.nullSafeSet(st, ((CiscoNetworkProtocolType)value).getValue(), index);
+            IntegerType.INSTANCE.nullSafeSet(st, ((CiscoNetworkProtocolType)value).getValue(), index, session);
         }
     }
 

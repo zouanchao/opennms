@@ -39,7 +39,7 @@ import org.hibernate.Session;
 import org.opennms.netmgt.dao.api.EventDao;
 import org.opennms.netmgt.model.OnmsEvent;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 public class EventDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> implements EventDao {
 
@@ -59,9 +59,9 @@ public class EventDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> 
     public List<OnmsEvent> getEventsAfterDate(final List<String> ueiList, final Date date) {
         final String hql = "From OnmsEvent e where e.eventUei in (:eventUei) and e.eventTime > :eventTime order by e.eventTime desc";
 
-        return (List<OnmsEvent>)getHibernateTemplate().executeFind(new HibernateCallback<List<OnmsEvent>>() {
+        return (List<OnmsEvent>)getHibernateTemplate().execute(new HibernateCallback<List<OnmsEvent>>() {
             @Override
-            public List<OnmsEvent> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<OnmsEvent> doInHibernate(Session session) throws HibernateException {
                 return session.createQuery(hql)
                         .setParameterList("eventUei", ueiList)
                         .setParameter("eventTime", date)
@@ -79,9 +79,9 @@ public class EventDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> 
             hqlStringBuffer.append("exists (select p.event from OnmsEventParameter p where e=p.event and p.name = :name" + i + " and p.value like :value" + i + ")");
         }
 
-        return (List<OnmsEvent>) getHibernateTemplate().executeFind(new HibernateCallback<List<OnmsEvent>>() {
+        return (List<OnmsEvent>) getHibernateTemplate().execute(new HibernateCallback<List<OnmsEvent>>() {
             @Override
-            public List<OnmsEvent> doInHibernate(Session session) throws HibernateException, SQLException {
+            public List<OnmsEvent> doInHibernate(Session session) throws HibernateException {
                 Query q = session.createQuery(hqlStringBuffer.toString());
                 int i = 0;
                 for (final Map.Entry<String, String> entry : eventParameters.entrySet()) {

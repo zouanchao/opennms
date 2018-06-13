@@ -32,8 +32,8 @@ import java.net.InetSocketAddress;
 import org.hibernate.SessionFactory;
 import org.opennms.netmgt.dao.hibernate.AbstractDaoHibernate;
 import org.postgresql.ds.PGSimpleDataSource;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import jersey.repackaged.com.google.common.base.Throwables;
 
@@ -55,7 +55,7 @@ public class HibernateDaoFactory {
         dataSource.setServerName(pgsqlAddr.getAddress().getHostAddress());
         dataSource.setDatabaseName("opennms");
 
-        AnnotationSessionFactoryBean sfb = new AnnotationSessionFactoryBean();
+        LocalSessionFactoryBean sfb = new LocalSessionFactoryBean();
         sfb.setDataSource(dataSource);
         sfb.setPackagesToScan("org.opennms.netmgt.model");
         try {

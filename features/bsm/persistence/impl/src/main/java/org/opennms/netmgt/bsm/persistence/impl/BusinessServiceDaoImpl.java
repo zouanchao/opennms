@@ -46,7 +46,7 @@ import org.opennms.netmgt.bsm.persistence.api.BusinessServiceDao;
 import org.opennms.netmgt.bsm.persistence.api.BusinessServiceEdgeEntity;
 import org.opennms.netmgt.bsm.persistence.api.BusinessServiceEntity;
 import org.opennms.netmgt.dao.hibernate.AbstractDaoHibernate;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 public class BusinessServiceDaoImpl extends AbstractDaoHibernate<BusinessServiceEntity, Long> implements BusinessServiceDao {
 
@@ -59,7 +59,7 @@ public class BusinessServiceDaoImpl extends AbstractDaoHibernate<BusinessService
         final long childId =  Objects.requireNonNull(child).getId();
         Set<BusinessServiceEntity> parents = getHibernateTemplate().execute(new HibernateCallback<Set<BusinessServiceEntity>>() {
             @Override
-            public Set<BusinessServiceEntity> doInHibernate(Session session) throws HibernateException, SQLException {
+            public Set<BusinessServiceEntity> doInHibernate(Session session) throws HibernateException {
                 Query query = session.createQuery("select edge from BusinessServiceEdgeEntity edge where type(edge) = BusinessServiceChildEdgeEntity and edge.child.id = :childId");
                 query.setParameter("childId", childId);
                 @SuppressWarnings("unchecked")
