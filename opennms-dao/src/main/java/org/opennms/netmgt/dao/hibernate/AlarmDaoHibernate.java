@@ -28,12 +28,9 @@
 
 package org.opennms.netmgt.dao.hibernate;
 
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -41,7 +38,6 @@ import org.hibernate.transform.ResultTransformer;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.model.HeatMapElement;
 import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
 import org.opennms.netmgt.model.topology.EdgeAlarmStatusSummary;
