@@ -49,12 +49,14 @@ import org.opennms.netmgt.model.OnmsReductionKeyMemo;
 import org.opennms.netmgt.model.OnmsSeverity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-public class AlarmLifecycleListenerManager implements AlarmEntityListener {
+public class AlarmLifecycleListenerManager implements AlarmEntityListener, InitializingBean, DisposableBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(AlarmLifecycleListenerManager.class);
 
@@ -88,6 +90,7 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener {
             timer = null;
         }
     }
+
     private void doSnapshot() {
         lock.readLock().lock();
         try {
@@ -197,4 +200,13 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener {
         }
     }
 
+    @Override
+    public void afterPropertiesSet() {
+        start();
+    }
+
+    @Override
+    public void destroy() {
+        stop();
+    }
 }

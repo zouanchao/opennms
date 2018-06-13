@@ -49,7 +49,11 @@
 
   <bean id="alarmLifecycleListenerManager" class="org.opennms.netmgt.alarmd.AlarmLifecycleListenerManager" />
 
-  <onmsgi:service interface="org.opennms.netmgt.dao.api.AlarmEntityListener" ref="alarmLifecycleListenerManager"/>
+  <onmsgi:service interface="org.opennms.netmgt.dao.api.AlarmEntityListener" ref="alarmLifecycleListenerManager" >
+    <onmsgi:service-properties>
+      <entry key="registration.export" value="true" />
+    </onmsgi:service-properties>
+  </onmsgi:service>
 
   <onmsgi:list id="alarmLifecycleListeners" interface="org.opennms.netmgt.alarmd.api.AlarmLifecycleListener">
     <onmsgi:listener ref="alarmLifecycleListenerManager" bind-method="onListenerRegistered" unbind-method="onListenerUnregistered" />
