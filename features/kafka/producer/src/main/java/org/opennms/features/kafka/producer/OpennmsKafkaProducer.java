@@ -43,6 +43,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.opennms.features.kafka.producer.datasync.KafkaAlarmDataSync;
 import org.opennms.features.kafka.producer.model.OpennmsModelProtos;
 import org.opennms.netmgt.alarmd.api.AlarmLifecycleListener;
 import org.opennms.netmgt.events.api.EventListener;
@@ -68,6 +69,7 @@ public class OpennmsKafkaProducer implements AlarmLifecycleListener, EventListen
     private final NodeCache nodeCache;
     private final ConfigurationAdmin configAdmin;
     private final EventSubscriptionService eventSubscriptionService;
+    private KafkaAlarmDataSync dataSync;
 
     private String eventTopic;
     private String alarmTopic;
@@ -286,11 +288,11 @@ public class OpennmsKafkaProducer implements AlarmLifecycleListener, EventListen
 
     @Override
     public void handleAlarmSnapshot(List<OnmsAlarm> alarms) {
-        if (!forwardAlarms) {
+        if (!forwardAlarms || dataSync == null) {
             // Ignore
             return;
         }
-        // TODO: Delegate to the sync
+        dataSync.handleAlarmSnapshot(alarms);
     }
 
     @Override
@@ -354,6 +356,11 @@ public class OpennmsKafkaProducer implements AlarmLifecycleListener, EventListen
         } else {
             alarmFilterExpression = SPEL_PARSER.parseExpression(alarmFilter);
         }
+    }
+
+    public OpennmsKafkaProducer setDataSync(KafkaAlarmDataSync dataSync) {
+        this.dataSync = dataSync;
+        return this;
     }
 
     public boolean isForwardingAlarms() {

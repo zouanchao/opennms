@@ -185,13 +185,13 @@ public class KafkaForwarderIT implements TemporaryDatabaseAware<MockDatabase> {
         kafkaProducer.setNodeTopic(NODE_TOPIC_NAME);
         kafkaProducer.init();
 
-        alarmLifecycleListenerManager.onListenerRegistered(kafkaProducer, Collections.emptyMap());
-
-        kafkaAlarmaDataStore = new KafkaAlarmDataSync(configAdmin, kafkaProducer, alarmDao, protobufMapper,
-                transactionTemplate);
+        kafkaAlarmaDataStore = new KafkaAlarmDataSync(configAdmin, kafkaProducer, protobufMapper);
         kafkaAlarmaDataStore.setAlarmTopic(ALARM_TOPIC_NAME);
-        kafkaAlarmaDataStore.setAlarmSyncIntervalMs(1000);
+        kafkaAlarmaDataStore.setAlarmSync(true);
         kafkaAlarmaDataStore.init();
+        kafkaProducer.setDataSync(kafkaAlarmaDataStore);
+
+        alarmLifecycleListenerManager.onListenerRegistered(kafkaProducer, Collections.emptyMap());
     }
 
     @Test
