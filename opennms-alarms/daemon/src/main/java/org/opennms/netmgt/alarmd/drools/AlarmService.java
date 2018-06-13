@@ -34,7 +34,7 @@ import org.opennms.netmgt.model.OnmsAlarm;
 
 public interface AlarmService {
 
-    void clearAlarm(OnmsAlarm alarm, Date now);
+    void clearAlarm(OnmsAlarm alarm, Date clearTime);
 
     void deleteAlarm(OnmsAlarm alarm);
 

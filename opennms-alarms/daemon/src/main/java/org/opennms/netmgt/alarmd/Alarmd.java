@@ -114,8 +114,6 @@ public class Alarmd extends AbstractServiceDaemon implements ThreadAwareEventLis
 
     @Override
     public synchronized void onStart() {
-        // Start the ALM
-        m_alm.start();
         // Start the Drools context
         m_droolsAlarmContext.start();
     }
@@ -124,8 +122,6 @@ public class Alarmd extends AbstractServiceDaemon implements ThreadAwareEventLis
     public synchronized void onStop() {
         // Stop the northbound interfaces
         m_northbounderManager.stop();
-        // Stop the ALM
-        m_alm.stop();
         // Stop the Drools context
         m_droolsAlarmContext.stop();
     }

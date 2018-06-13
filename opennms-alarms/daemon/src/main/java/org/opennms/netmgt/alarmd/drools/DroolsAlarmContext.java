@@ -31,6 +31,7 @@ package org.opennms.netmgt.alarmd.drools;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -146,11 +147,9 @@ public class DroolsAlarmContext implements AlarmLifecycleListener {
         if (alarmAndFact == null) {
             final FactHandle fact = kieSession.insert(alarm);
             alarmsById.put(alarm.getId(), new AlarmAndFact(alarm, fact));
-        } /*else if (Objects.equals(alarm.getLastEventTime(), alarmAndFact.getAlarm().getLastEventTime())) {
-            kieSession.update(alarmAndFact.getFact(), alarm);
-        } */ else {
-            // If the time field changes we need to remove and re-insert the object, rather than update it
-            // Remove
+        } else {
+            // Updating the fact doesn't always give us to expected results, so we resort to deleting it
+            // and adding it again instead
             kieSession.delete(alarmAndFact.getFact());
             // Reinsert
             final FactHandle fact = kieSession.insert(alarm);

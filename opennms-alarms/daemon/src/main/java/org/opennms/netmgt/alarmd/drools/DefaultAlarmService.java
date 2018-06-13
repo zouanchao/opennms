@@ -52,8 +52,8 @@ public class DefaultAlarmService implements AlarmService {
 
     @Override
     @Transactional
-    public void clearAlarm(OnmsAlarm alarm, Date now) {
-        LOG.info("Clearing alarm with id: {} with current severity: {} at: {}", alarm.getId(), alarm.getSeverity(), now);
+    public void clearAlarm(OnmsAlarm alarm, Date clearTime) {
+        LOG.info("Clearing alarm with id: {} with current severity: {} at: {}", alarm.getId(), alarm.getSeverity(), clearTime);
         final OnmsAlarm alarmInTrans = alarmDao.get(alarm.getId());
         if (alarmInTrans == null) {
             LOG.warn("Alarm disappeared: {}. Skipping clear.", alarm);
@@ -61,7 +61,7 @@ public class DefaultAlarmService implements AlarmService {
         }
         final OnmsSeverity previousSeverity = alarmInTrans.getSeverity();
         alarmInTrans.setSeverity(OnmsSeverity.CLEARED);
-        alarmInTrans.setLastAutomationTime(now);
+        alarmInTrans.setLastAutomationTime(clearTime);
         alarmDao.update(alarmInTrans);
         alarmEntityNotifier.didUpdateAlarmSeverity(alarmInTrans, previousSeverity);
     }

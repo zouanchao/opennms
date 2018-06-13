@@ -59,6 +59,8 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener, Initi
 
     private static final Logger LOG = LoggerFactory.getLogger(AlarmLifecycleListenerManager.class);
 
+    private static final long ALARM_SNAPSHOT_INTERVAL_MS = TimeUnit.MINUTES.toMillis(2);
+
     private final Set<AlarmLifecycleListener> listeners = Sets.newConcurrentHashSet();
     private Timer timer;
 
@@ -68,7 +70,7 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener, Initi
     @Autowired
     private TransactionTemplate template;
 
-    public void start() {
+    private void start() {
         timer = new Timer("AlarmLifecycleListenerManager");
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -79,10 +81,10 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener, Initi
                     LOG.error("Error while performing snapshot update.", e);
                 }
             }
-        }, 0, TimeUnit.SECONDS.toMillis(5));
+        }, 0, ALARM_SNAPSHOT_INTERVAL_MS);
     }
 
-    public void stop() {
+    private void stop() {
         if (timer != null) {
             timer.cancel();
             timer = null;
