@@ -139,7 +139,8 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
         private Integer m_offset;
 
         public org.hibernate.Criteria getCriteria(final Session session) {
-            final org.hibernate.Criteria hibernateCriteria = getCriteria().getExecutableCriteria(session);
+            // Get the concrete session instead of a proxy with session.getSessionFactory().getCurrentSession()
+            final org.hibernate.Criteria hibernateCriteria = getCriteria().getExecutableCriteria(session.getSessionFactory().getCurrentSession());
             if (m_limit != null)
                 hibernateCriteria.setMaxResults(m_limit);
             if (m_offset != null)
