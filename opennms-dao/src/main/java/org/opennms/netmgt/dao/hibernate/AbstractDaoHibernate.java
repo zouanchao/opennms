@@ -45,11 +45,13 @@ import org.opennms.netmgt.dao.api.OnmsDao;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionOperations;
 
 /**
  * <p>Abstract AbstractDaoHibernate class.</p>
@@ -64,6 +66,9 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     Class<T> m_entityClass;
     private String m_lockName;
     protected final HibernateCriteriaConverter m_criteriaConverter = new HibernateCriteriaConverter();
+
+    @Autowired
+    private TransactionOperations transactionOperations;
     
     public AbstractDaoHibernate(final Class<T> entityClass) {
         super();
@@ -73,9 +78,11 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     }
 
     @Override
-    @Transactional
     protected void initDao() throws Exception {
-        getHibernateTemplate().saveOrUpdate(new AccessLock(m_lockName));
+        transactionOperations.execute(status -> {
+            getHibernateTemplate().saveOrUpdate(new AccessLock(m_lockName));
+            return null;
+        });
     }
 
     /** {@inheritDoc} */
