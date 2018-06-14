@@ -33,8 +33,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
+import java.util.stream.Collectors;
 
 import org.hibernate.Hibernate;
 import org.opennms.netmgt.dao.api.AlarmEntityNotifier;
@@ -44,7 +47,9 @@ import org.opennms.netmgt.eventd.EventUtil;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsEvent;
 import org.opennms.netmgt.model.OnmsSeverity;
+import org.opennms.netmgt.model.Situation;
 import org.opennms.netmgt.xml.event.Event;
+import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.UpdateField;
 import org.opennms.netmgt.xml.eventconf.LogDestType;
 import org.slf4j.Logger;
@@ -246,8 +251,15 @@ public class AlarmPersisterImpl implements AlarmPersister {
         e.setAlarm(alarm);
     }
 
-    private static OnmsAlarm createNewAlarm(OnmsEvent e, Event event) {
-        OnmsAlarm alarm = new OnmsAlarm();
+    private OnmsAlarm createNewAlarm(OnmsEvent e, Event event) {
+        OnmsAlarm alarm;
+        Set<OnmsAlarm> containedAlarms = getAlarms(event.getParmCollection());
+        if (containedAlarms == null || containedAlarms.isEmpty()) {
+            alarm = new OnmsAlarm();
+        } else {
+            alarm = new Situation();
+            ((Situation)alarm).setAlarms(containedAlarms);
+        }
         alarm.setAlarmType(event.getAlarmData().getAlarmType());
         alarm.setClearKey(event.getAlarmData().getClearKey());
         alarm.setCounter(1);
@@ -270,6 +282,21 @@ public class AlarmPersisterImpl implements AlarmPersister {
         alarm.setUei(e.getEventUei());
         e.setAlarm(alarm);
         return alarm;
+    }
+
+    private Set<OnmsAlarm> getAlarms(List<Parm> list) {
+        if (list == null || list.isEmpty()) {
+            return Collections.emptySet();
+        }
+        Set<String> reductionKeys = list.stream().filter(AlarmPersisterImpl::isRelatedReductionKeyWithContent).map(p -> p.getValue().getContent()).collect(Collectors.toSet());
+        return reductionKeys.stream().map(m_alarmDao::findByReductionKey).filter(Objects::nonNull).collect(Collectors.toSet());
+    }
+
+    private static boolean isRelatedReductionKeyWithContent(Parm param) {
+        return param.getParmName() != null
+                && param.getParmName().equals("related-reductionKey")
+                && param.getValue() != null
+                && param.getValue().getContent() != null;
     }
 
     private static boolean checkEventSanityAndDoWeProcess(final Event event) {
