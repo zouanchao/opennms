@@ -91,8 +91,6 @@
         hibernate.cache=false
         hibernate.cache.use_query_cache=false
         hibernate.jdbc.batch_size=0
-	    hibernate.flushMode=COMMIT
-
         <!-- hibernate.show_sql=true -->
         <!-- hibernate.format_sql=true -->
       </value>
@@ -105,21 +103,13 @@
 
   <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
     <property name="sessionFactory" ref="sessionFactory" />
-    <property name="nestedTransactionAllowed" value="true"/> 
-    <!-- <property name="hibernateManagedSession" value="true"/> -->
-
+    <property name="nestedTransactionAllowed" value="true"/>
   </bean>
-
-<bean id="transactionTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">  
-        <property name="sessionFactory" ref="sessionFactory"></property>
-        <property name="checkWriteOperations" value="false"></property>
-        </bean>
-
- <!-- 
+  
   <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
     <property name="transactionManager" ref="transactionManager" />
   </bean>
- -->
+  
   <onmsgi:service interface="org.springframework.transaction.support.TransactionOperations" ref="transactionTemplate" />
     
   <bean id="filterManager" class="org.opennms.netmgt.dao.hibernate.HibernateFilterManager">
