@@ -29,14 +29,12 @@
 package org.opennms.netmgt.dao.hibernate;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Table;
 
 import org.hibernate.Criteria;
-import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
@@ -50,6 +48,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>Abstract AbstractDaoHibernate class.</p>
@@ -57,6 +57,7 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
  * @author ranger
  * @version $Id: $
  */
+@Transactional(propagation=Propagation.REQUIRED,readOnly=false) 
 public abstract class AbstractDaoHibernate<T, K extends Serializable> extends HibernateDaoSupport implements OnmsDao<T, K> {
     
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDaoHibernate.class);
@@ -72,6 +73,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     }
 
     @Override
+    @Transactional
     protected void initDao() throws Exception {
         getHibernateTemplate().saveOrUpdate(new AccessLock(m_lockName));
     }

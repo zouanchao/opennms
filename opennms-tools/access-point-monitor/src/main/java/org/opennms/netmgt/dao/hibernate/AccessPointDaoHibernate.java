@@ -37,7 +37,7 @@ import org.hibernate.criterion.Restrictions;
 import org.opennms.netmgt.dao.AccessPointDao;
 import org.opennms.netmgt.model.OnmsAccessPoint;
 import org.opennms.netmgt.model.OnmsAccessPointCollection;
-import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate5.HibernateCallback;
 
 /**
  * <p>

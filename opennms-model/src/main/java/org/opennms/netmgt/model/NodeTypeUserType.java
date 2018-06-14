@@ -34,7 +34,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.CharacterType;
 import org.hibernate.type.EnumType;
 import org.hibernate.type.StringType;
@@ -57,7 +57,7 @@ public class NodeTypeUserType extends EnumType {
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws SQLException {
+    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws SQLException {
         Character c = CharacterType.INSTANCE.nullSafeGet(rs, names[0], session);
         if (c == null) {
             return null;
@@ -71,7 +71,7 @@ public class NodeTypeUserType extends EnumType {
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
         if (value == null) {
             StringType.INSTANCE.nullSafeSet(st, null, index, session);
         } else if (value instanceof NodeType){

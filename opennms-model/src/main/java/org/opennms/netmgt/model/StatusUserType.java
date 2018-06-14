@@ -34,7 +34,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.EnumType;
 import org.hibernate.type.IntegerType;
 import org.opennms.netmgt.model.OspfElement.Status;
@@ -56,7 +56,7 @@ public class StatusUserType extends EnumType {
     }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws SQLException {
+    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws SQLException {
         Integer c = IntegerType.INSTANCE.nullSafeGet(rs, names[0], session);
         if (c == null) {
             return null;
@@ -70,7 +70,7 @@ public class StatusUserType extends EnumType {
     }
 
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
         if (value == null) {
             IntegerType.INSTANCE.nullSafeSet(st, null, index, session);
         } else if (value instanceof Status){

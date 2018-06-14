@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNull;
 import java.sql.ResultSet;
 
 import org.easymock.EasyMock;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class InetAddressUserTypeTest {
     @Test
     public void testInetAddressType() throws Exception {
         ResultSet rs = EasyMock.createMock(ResultSet.class);
-        SharedSessionContractImplementor session = EasyMock.createMock(SharedSessionContractImplementor.class);
+        SessionImplementor session = EasyMock.createMock(SessionImplementor.class);
         EasyMock.expect(rs.getString("ipAddr")).andReturn(null);
         EasyMock.replay(rs);
         final InetAddressUserType userType = new InetAddressUserType();

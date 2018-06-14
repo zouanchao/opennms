@@ -19,7 +19,7 @@
     <commonsAnnotationsVersion>3.2.0.Final</commonsAnnotationsVersion> -->
    <!-- <entityManagerVersion>3.6.10.Final</entityManagerVersion> -->
 <!--    <ejbVersion>3.3.2.Beta1</ejbVersion> -->
-    <hibernateVersion>5.3.1.Final</hibernateVersion> 
+    <hibernateVersion>5.0.5.Final</hibernateVersion> 
   </properties>
   <dependencies>
 <!--    <dependency>
