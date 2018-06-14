@@ -277,7 +277,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException {
                 LOG.debug("criteria = {}", criteria);
-                final Criteria hibernateCriteria = m_criteriaConverter.convert(criteria, session);
+                final Criteria hibernateCriteria = m_criteriaConverter.convert(criteria, session.getSessionFactory().getCurrentSession());
                 return (List<T>)(hibernateCriteria.list());
             }
         };
@@ -310,7 +310,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         final HibernateCallback<List<T>> callback = new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException {
-            	final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session);
+                final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session.getSessionFactory().getCurrentSession());
                 if (onmsCrit.getFirstResult() != null) attachedCrit.setFirstResult(onmsCrit.getFirstResult());
                 if (onmsCrit.getMaxResults() != null) attachedCrit.setMaxResults(onmsCrit.getMaxResults());
                 return (List<T>)attachedCrit.list();
@@ -324,7 +324,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         final HibernateCallback<Integer> callback = new HibernateCallback<Integer>() {
             @Override
             public Integer doInHibernate(final Session session) throws HibernateException {
-                final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session).setProjection(Projections.rowCount());
+                final Criteria attachedCrit = onmsCrit.getDetachedCriteria().getExecutableCriteria(session.getSessionFactory().getCurrentSession()).setProjection(Projections.rowCount());
                 Long retval = (Long)attachedCrit.uniqueResult();
                 attachedCrit.setProjection(null);
                 attachedCrit.setResultTransformer(Criteria.ROOT_ENTITY);
