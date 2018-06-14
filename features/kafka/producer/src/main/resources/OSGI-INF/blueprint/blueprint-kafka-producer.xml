@@ -68,5 +68,24 @@
     <property name="alarmTopic" value="${alarmTopic}"/>
     <property name="alarmSyncIntervalMs" value="${alarmSyncIntervalMs}"/>
   </bean>
+  
+  
+   <bean id="collectionSetMapper" class="org.opennms.features.kafka.producer.collection.CollectionSetMapper">
+     <argument ref="nodeDao"/>
+     <argument ref="transactionOperations"/>
+   </bean>
+   
+   <bean id="kafkaPersister" class="org.opennms.features.kafka.producer.collection.KafkaPersister"
+          init-method="init" destroy-method="destroy">
+     <property name="configAdmin" ref="configAdmin"/>
+     <property name="collectionSetMapper" ref="collectionSetMapper"/>
+   </bean>
+
+    
+  <service interface="org.opennms.netmgt.collection.api.Persister" ref="kafkaPersister">
+    <service-properties>
+		<entry key="strategy" value="kafka" />
+	</service-properties>
+  </service>
 
 </blueprint>
