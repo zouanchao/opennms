@@ -90,7 +90,10 @@ import com.google.common.collect.Sets;
         "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-alarmd.xml"
 })
-@JUnitConfigurationEnvironment
+@JUnitConfigurationEnvironment(systemProperties={
+        // Reduce the default snapshot interval so that the tests can finish in a reasonable time
+        AlarmLifecycleListenerManager.ALARM_SNAPSHOT_INTERVAL_MS_SYS_PROP+"=5000"
+})
 @JUnitTemporaryDatabase(dirtiesContext=false,tempDbClass=MockDatabase.class)
 public class AlarmLifecycleListenerManagerIT implements TemporaryDatabaseAware<MockDatabase>, AlarmLifecycleListener {
 

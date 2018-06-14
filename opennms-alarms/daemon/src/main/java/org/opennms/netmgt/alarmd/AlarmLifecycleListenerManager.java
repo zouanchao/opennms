@@ -59,7 +59,8 @@ public class AlarmLifecycleListenerManager implements AlarmEntityListener, Initi
 
     private static final Logger LOG = LoggerFactory.getLogger(AlarmLifecycleListenerManager.class);
 
-    private static final long ALARM_SNAPSHOT_INTERVAL_MS = TimeUnit.MINUTES.toMillis(2);
+    public static final String ALARM_SNAPSHOT_INTERVAL_MS_SYS_PROP = "org.opennms.alarms.snapshot.sync.ms";
+    public static final long ALARM_SNAPSHOT_INTERVAL_MS = Long.getLong(ALARM_SNAPSHOT_INTERVAL_MS_SYS_PROP, TimeUnit.MINUTES.toMillis(2));
 
     private final Set<AlarmLifecycleListener> listeners = Sets.newConcurrentHashSet();
     private Timer timer;
