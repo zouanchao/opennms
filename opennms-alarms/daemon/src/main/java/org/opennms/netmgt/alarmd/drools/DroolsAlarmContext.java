@@ -126,9 +126,9 @@ public class DroolsAlarmContext implements AlarmLifecycleListener {
         final Set<Integer> alarmIdsInDb = alarmsInDbById.keySet();
         final Set<Integer> alarmIdsInWorkingMem = alarmsById.keySet();
 
-        final Set<Integer> alarmIdsToAdd = Sets.difference(alarmIdsInDb, alarmIdsInWorkingMem);
-        final Set<Integer> alarmIdsToRemove = Sets.difference(alarmIdsInWorkingMem, alarmIdsInDb);
-        final Set<Integer> alarmIdsToUpdate = Sets.newHashSet(Sets.intersection(alarmIdsInWorkingMem, alarmIdsInDb));
+        final Set<Integer> alarmIdsToAdd = Sets.difference(alarmIdsInDb, alarmIdsInWorkingMem).immutableCopy();
+        final Set<Integer> alarmIdsToRemove = Sets.difference(alarmIdsInWorkingMem, alarmIdsInDb).immutableCopy();
+        final Set<Integer> alarmIdsToUpdate = Sets.intersection(alarmIdsInWorkingMem, alarmIdsInDb).immutableCopy();
 
         for (Integer alarmIdToRemove : alarmIdsToRemove) {
             handleDeletedAlarm(alarmIdToRemove);
