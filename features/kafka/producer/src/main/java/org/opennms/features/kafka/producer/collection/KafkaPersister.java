@@ -28,46 +28,28 @@
 
 package org.opennms.features.kafka.producer.collection;
 
-import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.ByteArraySerializer;
-import org.apache.kafka.common.serialization.StringSerializer;
-import org.opennms.features.kafka.producer.OpennmsKafkaProducer;
 import org.opennms.features.kafka.producer.collection.CollectionSetMapper;
 import org.opennms.features.kafka.producer.model.CollectionSetProtos;
 import org.opennms.features.kafka.producer.model.CollectionSetProtos.CollectionSetResource;
-import org.opennms.netmgt.collection.api.AbstractPersister;
+import org.opennms.netmgt.collection.api.AttributeGroup;
+import org.opennms.netmgt.collection.api.CollectionAttribute;
+import org.opennms.netmgt.collection.api.CollectionResource;
 import org.opennms.netmgt.collection.api.CollectionSet;
-import org.opennms.netmgt.collection.api.PersistException;
-import org.opennms.netmgt.collection.api.ServiceParameters;
-import org.opennms.netmgt.model.ResourcePath;
-import org.opennms.netmgt.rrd.RrdRepository;
-import org.osgi.service.cm.ConfigurationAdmin;
+import org.opennms.netmgt.collection.api.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class KafkaPersister extends AbstractPersister {
+public class KafkaPersister implements Persister {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaPersister.class);
 
     private CollectionSetMapper collectionSetMapper;
 
     private KafkaProducer<String, byte[]> producer;
-    private ConfigurationAdmin configAdmin;
 
-    protected KafkaPersister(ServiceParameters params, RrdRepository repository) {
-        super(params, repository);
-    }
-
-    @Override
-    protected void persistStringAttribute(ResourcePath path, String key, String value) throws PersistException {
-
-    }
-
+ 
     /** {@inheritDoc} */
     @Override
     public void visitCollectionSet(CollectionSet collectionSet) {
@@ -89,51 +71,70 @@ public class KafkaPersister extends AbstractPersister {
 
         final ProducerRecord<String, byte[]> record = new ProducerRecord<>("collection", key,
                 collectionSetProto.toByteArray());
-        LOG.debug("persist collection to kafka");
-        producer.send(record);
 
-    }
-
-    public void init() throws IOException {
-        // Create the Kafka producer
-        final Properties producerConfig = new Properties();
-        final Dictionary<String, Object> properties = configAdmin
-                .getConfiguration(OpennmsKafkaProducer.KAFKA_CLIENT_PID).getProperties();
-        if (properties != null) {
-            final Enumeration<String> keys = properties.keys();
-            while (keys.hasMoreElements()) {
-                final String key = keys.nextElement();
-                producerConfig.put(key, properties.get(key));
+        producer.send(record, (recordMetadata, e) -> {
+            if (e != null) {
+                LOG.warn("Failed to send record to producer: {}.", record, e);
+                return;
+            } else {
+                LOG.debug("persisted collection to kafka");
             }
-        }
-        // Overwrite the serializers, since we rely on these
-        producerConfig.put("key.serializer", StringSerializer.class.getCanonicalName());
-        producerConfig.put("value.serializer", ByteArraySerializer.class.getCanonicalName());
 
-        final ClassLoader currentClassLoader = Thread.currentThread().getContextClassLoader();
-        try {
-            // Class-loader hack for accessing the
-            // org.apache.kafka.common.serialization.*
-            Thread.currentThread().setContextClassLoader(null);
-            producer = new KafkaProducer<>(producerConfig);
-        } finally {
-            Thread.currentThread().setContextClassLoader(currentClassLoader);
-        }
+        });
+ 
     }
-
-    public void destroy() {
-        if (producer != null) {
-            producer.close();
-            producer = null;
-        }
+  
+    public void setProducer(KafkaProducer<String, byte[]> producer) {
+        this.producer = producer;
     }
-
-    public void setConfigAdmin(ConfigurationAdmin configAdmin) {
-        this.configAdmin = configAdmin;
-    }
-
+    
     public void setCollectionSetMapper(CollectionSetMapper collectionSetMapper) {
         this.collectionSetMapper = collectionSetMapper;
+    }
+
+    @Override
+    public void visitResource(CollectionResource resource) {
+        // not handled here
+    }
+
+    @Override
+    public void visitGroup(AttributeGroup group) {
+        // not handled here
+    }
+
+    @Override
+    public void visitAttribute(CollectionAttribute attribute) {
+        // not handled here
+    }
+
+    @Override
+    public void completeAttribute(CollectionAttribute attribute) {
+        // not handled here
+    }
+
+    @Override
+    public void completeGroup(AttributeGroup group) {
+        // not handled here
+    }
+
+    @Override
+    public void completeResource(CollectionResource resource) {
+        // not handled here
+    }
+
+    @Override
+    public void completeCollectionSet(CollectionSet set) {
+        // not handled here
+    }
+
+    @Override
+    public void persistNumericAttribute(CollectionAttribute attribute) {
+        // not handled here
+    }
+
+    @Override
+    public void persistStringAttribute(CollectionAttribute attribute) {
+        // not handled here
     }
 
 }

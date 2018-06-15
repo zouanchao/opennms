@@ -153,7 +153,13 @@ public class CollectionSetMapper {
     }
 
     private String getNodeCriteriaFromResource(CollectionResource resource) {
-        String[] parentResourcePathElements = resource.getParent().elements();
+        
+        String[] parentResourcePathElements = null;
+        if ( resource != null && resource.getParent() != null ) {
+          parentResourcePathElements = resource.getParent().elements();
+        } else {
+            return null;
+        }
         String nodeCriteria = null;
         if (ResourceTypeUtils.FOREIGN_SOURCE_DIRECTORY.equals(parentResourcePathElements[0])) {
             final String fs = parentResourcePathElements[1];
@@ -171,12 +177,16 @@ public class CollectionSetMapper {
         CollectionSetProtos.NodeLevelResource.Builder nodeResourceBuilder = CollectionSetProtos.NodeLevelResource
                 .newBuilder();
         transactionOperations.execute((TransactionCallback<Void>) status -> {
-            OnmsNode node = nodeDao.get(nodeCriteria);
-            nodeResourceBuilder.setNodeId(node.getId());
-            nodeResourceBuilder.setNodeLabel(node.getLabel());
-            nodeResourceBuilder.setForeignId(node.getForeignId());
-            nodeResourceBuilder.setForeignSource(node.getForeignSource());
-            nodeResourceBuilder.setLocation(node.getLocation().getLocationName());
+            try {
+                OnmsNode node = nodeDao.get(nodeCriteria);
+                nodeResourceBuilder.setNodeId(node.getId());
+                nodeResourceBuilder.setNodeLabel(node.getLabel());
+                nodeResourceBuilder.setForeignId(node.getForeignId());
+                nodeResourceBuilder.setForeignSource(node.getForeignSource());
+                nodeResourceBuilder.setLocation(node.getLocation().getLocationName());
+            } catch (Exception e) {
+               //TODO: Deal with response time resources
+            }
             return null;
         });
         return nodeResourceBuilder;
