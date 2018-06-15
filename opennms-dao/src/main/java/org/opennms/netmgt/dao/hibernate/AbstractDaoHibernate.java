@@ -114,6 +114,22 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         getHibernateTemplate().merge(entity);
     }
 
+    @SuppressWarnings("unchecked")
+    public <S> S findFirst(final String query, final Object... values) {
+        final HibernateCallback<S> callback = new HibernateCallback<S>() {
+            @Override
+            public S doInHibernate(final Session session) throws HibernateException {
+                final Query q = session.createQuery(query);
+                for (int k = 0; k < values.length; k++) {
+                    q.setParameter(k, values[k]);
+                }
+                q.setMaxResults(1);
+                return (S)q.uniqueResult();
+            }
+        };
+        return getHibernateTemplate().execute(callback);
+    }
+
     /**
      * <p>find</p>
      *

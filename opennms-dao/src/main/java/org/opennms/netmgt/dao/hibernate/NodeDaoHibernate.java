@@ -42,6 +42,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.ResultTransformer;
 import org.opennms.core.criteria.Alias;
@@ -503,16 +504,14 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 
     @Override
     public Integer getNextNodeId (Integer nodeId) {
-        Integer nextNodeId = null;
-        nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id > ? and n.type != ? order by n.id asc limit 1", nodeId, String.valueOf(NodeType.DELETED.value())).get(0);
-        return nextNodeId;
+        return findFirst("select n.id from OnmsNode as n where n.id > ? and n.type != ? order by n.id asc",
+                nodeId, String.valueOf(NodeType.DELETED.value()));
     }
 
     @Override
     public Integer getPreviousNodeId (Integer nodeId) {
-        Integer nextNodeId = null;
-        nextNodeId = findObjects(Integer.class, "select n.id from OnmsNode as n where n.id < ? and n.type != ? order by n.id desc limit 1", nodeId, String.valueOf(NodeType.DELETED.value())).get(0);
-        return nextNodeId;
+        return findFirst("select n.id from OnmsNode as n where n.id < ? and n.type != ? order by n.id desc",
+                nodeId, String.valueOf(NodeType.DELETED.value()));
     }
 
     @Override
