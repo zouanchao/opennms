@@ -88,7 +88,7 @@ import org.springframework.transaction.support.TransactionTemplate;
         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
 })
 @JUnitConfigurationEnvironment
-@JUnitTemporaryDatabase(dirtiesContext=false)
+@JUnitTemporaryDatabase
 public class NodeDaoIT implements InitializingBean {
 
     @Autowired
@@ -117,11 +117,6 @@ public class NodeDaoIT implements InitializingBean {
     @Before
     public void setUp() {
         m_populator.populateDatabase();
-    }
-
-    @After
-    public void tearDown() {
-        m_populator.resetDatabase();
     }
 
     public OnmsNode getNode1() {
