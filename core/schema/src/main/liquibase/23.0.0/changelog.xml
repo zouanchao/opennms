@@ -43,4 +43,9 @@
     <addNotNullConstraint tableName="snmpinterface" columnName="hasflows"/>
   </changeSet>
 
+  <changeSet author="smith" id="23.0.0-hibernate">
+    <addColumn tableName="bsm_service_attributes">
+      <column name="type" type="TEXT"/>
+    </addColumn>
+  </changeSet>
 </databaseChangeLog>

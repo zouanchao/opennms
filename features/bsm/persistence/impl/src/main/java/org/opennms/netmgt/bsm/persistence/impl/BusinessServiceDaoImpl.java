@@ -28,7 +28,6 @@
 
 package org.opennms.netmgt.bsm.persistence.impl;
 
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
