@@ -81,7 +81,6 @@
      <property name="collectionSetMapper" ref="collectionSetMapper"/>
    </bean>
 
-    
   <service interface="org.opennms.netmgt.collection.api.PersisterFactory" ref="kafkaPersisterFactory">
     <service-properties>
 		<entry key="strategy" value="kafka" />

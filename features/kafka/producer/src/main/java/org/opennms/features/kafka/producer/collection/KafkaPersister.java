@@ -49,7 +49,6 @@ public class KafkaPersister implements Persister {
 
     private KafkaProducer<String, byte[]> producer;
 
- 
     /** {@inheritDoc} */
     @Override
     public void visitCollectionSet(CollectionSet collectionSet) {
@@ -81,13 +80,13 @@ public class KafkaPersister implements Persister {
             }
 
         });
- 
+
     }
-  
+
     public void setProducer(KafkaProducer<String, byte[]> producer) {
         this.producer = producer;
     }
-    
+
     public void setCollectionSetMapper(CollectionSetMapper collectionSetMapper) {
         this.collectionSetMapper = collectionSetMapper;
     }
