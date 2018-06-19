@@ -48,6 +48,8 @@ public class KafkaPersister implements Persister {
     private CollectionSetMapper collectionSetMapper;
 
     private KafkaProducer<String, byte[]> producer;
+    
+    private static final String COLLECTION_TOPIC_NAME = "collection";
 
     /** {@inheritDoc} */
     @Override
@@ -68,7 +70,7 @@ public class KafkaPersister implements Persister {
             }
         }
 
-        final ProducerRecord<String, byte[]> record = new ProducerRecord<>("collection", key,
+        final ProducerRecord<String, byte[]> record = new ProducerRecord<>(COLLECTION_TOPIC_NAME, key,
                 collectionSetProto.toByteArray());
 
         producer.send(record, (recordMetadata, e) -> {

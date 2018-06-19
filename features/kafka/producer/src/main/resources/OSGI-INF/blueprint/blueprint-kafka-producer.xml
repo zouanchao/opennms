@@ -69,7 +69,7 @@
     <property name="alarmSyncIntervalMs" value="${alarmSyncIntervalMs}"/>
   </bean>
   
-  
+   <!-- Kafka persister related beans -->
    <bean id="collectionSetMapper" class="org.opennms.features.kafka.producer.collection.CollectionSetMapper">
      <argument ref="nodeDao"/>
      <argument ref="transactionOperations"/>

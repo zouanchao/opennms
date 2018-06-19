@@ -153,7 +153,7 @@ public class CollectionSetMapper {
     }
 
     private String getNodeCriteriaFromResource(CollectionResource resource) {
-        
+
         String[] parentResourcePathElements = null;
         if ( resource != null && resource.getParent() != null ) {
           parentResourcePathElements = resource.getParent().elements();
