@@ -28,6 +28,8 @@ const severityImagesRetina = severities.map((severity) => {
 let retryCount = 0;
 let timer = undefined;
 
+const persistenceKey = "opennms.geomap.query";
+
 const isUndefinedOrNull = function(input) {
     return input === undefined || input === 'null' || input === null;
 };
@@ -46,7 +48,7 @@ const render = function(options) {
     const hideControlsOnStartup = isUndefinedOrNull(options.hideControlsOnStartup) ? false : options.hideControlsOnStartup;
     const mapId = isUndefinedOrNull(options.mapId) ? 'map' : options.mapId;
 
-    let query = {
+    let defaultQuery = {
         strategy: isUndefinedOrNull(options.strategy) ? 'Alarms' : options.strategy,
         severityFilter: isUndefinedOrNull(options.severity) ?  'Normal' : options.severity,
         includeAcknowledgedAlarms: isUndefinedOrNull(options.includeAcknowledgedAlarms) ? false : options.includeAcknowledgedAlarms
@@ -86,6 +88,26 @@ const render = function(options) {
         return icons;
     };
 
+    // In order to not change the map view when the page is refreshed (due to refreshHandler on index.jsp, e.g.)
+    // the last query is persisted in the localStorage if available
+    var persistQuery = function(query) {
+        if (typeof(Storage) !== 'undefined') {
+            window.localStorage.setItem(persistenceKey, JSON.stringify(query));
+        }
+    };
+
+    // In order to not change the map view when the page is refreshed (due to refreshHandler on index.jsp, e.g.)
+    // the last known query is restored from the localStorage if available
+    var restoreQuery = function() {
+        if (typeof (Storage) !== 'undefined') {
+            var persistedQuery = window.localStorage.getItem(persistenceKey);
+            if (persistedQuery !== undefined) {
+                return JSON.parse(persistedQuery);
+            }
+        }
+        return undefined;
+    };
+
     var loadConfig = function() {
         $.ajax({
             method: 'GET',
@@ -109,6 +131,7 @@ const render = function(options) {
     };
 
     var loadGeolocations = function(query, fn) {
+        persistQuery(query);
         $.ajax({
             method: 'POST',
             url: restEndpoint,
@@ -509,6 +532,8 @@ const render = function(options) {
             setControlVisibility(false);
         }
     };
+
+    let query = restoreQuery() || defaultQuery;
     loadConfig();
 };
 
