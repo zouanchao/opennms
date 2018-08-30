@@ -606,6 +606,18 @@
       <bundle>mvn:org.opennms.core.ipc.sink/org.opennms.core.ipc.sink.xml/${project.version}</bundle>
     </feature>
 
+    <feature name="opennms-core-ipc-sink-cq" description="OpenNMS :: Core :: IPC :: Sink :: Chronicle Queue" version="${project.version}">
+        <bundle>mvn:commons-lang/commons-lang/2.6</bundle>
+        <bundle>mvn:net.openhft/chronicle-queue/5.16.11</bundle>
+        <bundle>mvn:net.openhft/chronicle-bytes/1.16.21</bundle>
+        <bundle>mvn:net.openhft/chronicle-core/1.16.16</bundle>
+        <bundle>mvn:net.openhft/chronicle-threads/1.16.3</bundle>
+        <bundle>mvn:net.openhft/chronicle-wire/1.16.15</bundle>
+        <bundle>mvn:net.openhft/affinity/3.1.7</bundle>
+        <bundle>mvn:commons-cli/commons-cli/1.4</bundle>
+        <bundle>mvn:org.opennms.core.ipc.sink/org.opennms.core.ipc.sink.chronicle-queue/${project.version}</bundle>
+    </feature>
+    
     <feature name="opennms-core-ipc-sink-camel" description="OpenNMS :: Core :: IPC :: Sink :: Camel Impl." version="${project.version}">
       <feature>opennms-core-ipc-sink-api</feature>
       <feature>opennms-core-camel</feature>

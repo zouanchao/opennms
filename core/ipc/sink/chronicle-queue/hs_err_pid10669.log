@@ -1,0 +1,815 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0x7) at pc=0x00007f1980cc0613, pid=10669, tid=0x00007f1961e98700
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_152-b16) (build 1.8.0_152-b16)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.152-b16 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# V  [libjvm.so+0xaa1613]  Unsafe_GetIntVolatile+0x43
+#
+# Core dump written. Default location: /home/chandra/dev/opennms/core/ipc/sink/chronicle-queue/core or core.10669
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f1978e17000):  JavaThread "pool-1-thread-1" [_thread_in_vm, id=10696, stack(0x00007f1961d98000,0x00007f1961e99000)]
+
+siginfo: si_signo: 7 (SIGBUS), si_code: 2 (BUS_ADRERR), si_addr: 0x00007f18f6737594
+
+Registers:
+RAX=0x00007f18f6737594, RBX=0x00007f1978e17000, RCX=0x00007f18f6737594, RDX=0x00007f19811ea130
+RSP=0x00007f1961e972a0, RBP=0x00007f1961e972e0, RSI=0x0000000000000006, RDI=0x00007f1961e972a0
+R8 =0x00007f1961e96f78, R9 =0x00007f1961e96f80, R10=0x00007f19694f54cc, R11=0x00007f19694f5498
+R12=0x0000000000000000, R13=0x00007f18f6737594, R14=0x00007f1961e973d8, R15=0x00007f1978e17000
+RIP=0x00007f1980cc0613, EFLAGS=0x0000000000010202, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f1961e972a0)
+0x00007f1961e972a0:   00007f1978e17000 00007f1961e972d8
+0x00007f1961e972b0:   00007f1978e17000 00007f19690082bd
+0x00007f1961e972c0:   0000000000000000 00007f197c848508
+0x00007f1961e972d0:   0000000000000000 00007f1961e97348
+0x00007f1961e972e0:   00007f1961e97330 00007f19694f553e
+0x00007f1961e972f0:   0000000771b2e980 0000000000000000
+0x00007f1961e97300:   000000076ee90008 00007f1961e97360
+0x00007f1961e97310:   00007f1962971728 00007f1962589450
+0x00007f1961e97320:   00007f1961e973a8 00007f1969007dd0
+0x00007f1961e97330:   00007f1961e973a8 00007f1969007d00
+0x00007f1961e97340:   00007f1969007d00 00007f18f6737594
+0x00007f1961e97350:   00000007715c0a88 0000000000000000
+0x00007f1961e97360:   0000000771b2e980 00007f1961e97368
+0x00007f1961e97370:   00007f19629581f5 00007f1961e973d8
+0x00007f1961e97380:   00007f1962971728 0000000000000000
+0x00007f1961e97390:   00007f1962958248 00007f1961e97348
+0x00007f1961e973a0:   00007f1961e973d8 00007f1961e97420
+0x00007f1961e973b0:   00007f1969007d45 000000076ee90008
+0x00007f1961e973c0:   00007f18f6737594 0000000000000000
+0x00007f1961e973d0:   00000007715c0a88 00000007714f3a28
+0x00007f1961e973e0:   00007f1961e973e0 00007f19623c4804
+0x00007f1961e973f0:   00007f1961e97448 00007f19623cc028
+0x00007f1961e97400:   0000000000000000 00007f19623c48a8
+0x00007f1961e97410:   00007f1961e973d8 00007f1961e97440
+0x00007f1961e97420:   00007f1961e97498 00007f1969008114
+0x00007f1961e97430:   0000000021727440 000000006172743c
+0x00007f1961e97440:   0000000000000000 00000007714f4660
+0x00007f1961e97450:   00000007715b1358 00007f1961e97458
+0x00007f1961e97460:   00007f1961ed0f55 00007f1961e974c0
+0x00007f1961e97470:   00007f1961ed5438 0000000000000000
+0x00007f1961e97480:   00007f1961ed1000 00007f1961e97440
+0x00007f1961e97490:   00007f1961e974b8 00007f1961e97508 
+
+Instructions: (pc=0x00007f1980cc0613)
+0x00007f1980cc05f3:   c3 48 89 45 d0 e8 23 ab ec ff 31 c0 4d 85 e4 48
+0x00007f1980cc0603:   89 5d c0 74 04 49 8b 04 24 4c 01 e8 48 8d 7d c0
+0x00007f1980cc0613:   8b 00 89 45 dc 44 8b 65 dc e8 ef 44 94 ff 48 8b
+0x00007f1980cc0623:   5d d0 48 8b 05 9c 9e 4d 00 c7 83 70 02 00 00 07 
+
+Register to memory mapping:
+
+RAX=0x00007f18f6737594 is an unknown value
+RBX=0x00007f1978e17000 is a thread
+RCX=0x00007f18f6737594 is an unknown value
+RDX=0x00007f19811ea130: <offset 0xfcb130> in /usr/java/jdk1.8.0_152/jre/lib/amd64/server/libjvm.so at 0x00007f198021f000
+RSP=0x00007f1961e972a0 is pointing into the stack for thread: 0x00007f1978e17000
+RBP=0x00007f1961e972e0 is pointing into the stack for thread: 0x00007f1978e17000
+RSI=0x0000000000000006 is an unknown value
+RDI=0x00007f1961e972a0 is pointing into the stack for thread: 0x00007f1978e17000
+R8 =0x00007f1961e96f78 is pointing into the stack for thread: 0x00007f1978e17000
+R9 =0x00007f1961e96f80 is pointing into the stack for thread: 0x00007f1978e17000
+R10=0x00007f19694f54cc is at entry_point+76 in (nmethod*)0x00007f19694f5310
+R11=0x00007f19694f5498 is at entry_point+24 in (nmethod*)0x00007f19694f5310
+R12=0x0000000000000000 is an unknown value
+R13=0x00007f18f6737594 is an unknown value
+R14=0x00007f1961e973d8 is pointing into the stack for thread: 0x00007f1978e17000
+R15=0x00007f1978e17000 is a thread
+
+
+Stack: [0x00007f1961d98000,0x00007f1961e99000],  sp=0x00007f1961e972a0,  free space=1020k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xaa1613]  Unsafe_GetIntVolatile+0x43
+J 1477  sun.misc.Unsafe.getIntVolatile(Ljava/lang/Object;J)I (0 bytes) @ 0x00007f19694f553e [0x00007f19694f5480+0xbe]
+j  net.openhft.chronicle.bytes.MappedBytes.peekVolatileInt()I+77
+j  net.openhft.chronicle.wire.AbstractWire.readDataHeader(Z)Lnet/openhft/chronicle/wire/WireIn$HeaderType;+4
+j  net.openhft.chronicle.queue.impl.single.SingleChronicleQueueExcerpts$StoreTailer.inACycle(Z)Z+77
+j  net.openhft.chronicle.queue.impl.single.SingleChronicleQueueExcerpts$StoreTailer.readingDocument(Z)Lnet/openhft/chronicle/wire/DocumentContext;+48
+j  net.openhft.chronicle.queue.impl.single.SingleChronicleQueueExcerpts$StoreTailer.readingDocument()Lnet/openhft/chronicle/wire/DocumentContext;+44
+j  net.openhft.chronicle.wire.MarshallableIn.readBytes(Lnet/openhft/chronicle/bytes/Bytes;)Z+8
+j  org.opennms.core.ipc.sink.chronicle.queue.ChronicleQueueAdapter$QueueConsumer.run()V+37
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+95
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x695e06]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x696311]  JavaCalls::call_virtual(JavaValue*, KlassHandle, Symbol*, Symbol*, JavaCallArguments*, Thread*)+0x321
+V  [libjvm.so+0x6967b7]  JavaCalls::call_virtual(JavaValue*, Handle, KlassHandle, Symbol*, Symbol*, Thread*)+0x47
+V  [libjvm.so+0x731f10]  thread_entry(JavaThread*, Thread*)+0xa0
+V  [libjvm.so+0xa7da43]  JavaThread::thread_main_inner()+0x103
+V  [libjvm.so+0xa7db8c]  JavaThread::run()+0x11c
+V  [libjvm.so+0x92d8d8]  java_start(Thread*)+0x108
+C  [libpthread.so.0+0x7594]  start_thread+0xe4
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 1477  sun.misc.Unsafe.getIntVolatile(Ljava/lang/Object;J)I (0 bytes) @ 0x00007f19694f54cc [0x00007f19694f5480+0x4c]
+j  net.openhft.chronicle.bytes.MappedBytes.peekVolatileInt()I+77
+j  net.openhft.chronicle.wire.AbstractWire.readDataHeader(Z)Lnet/openhft/chronicle/wire/WireIn$HeaderType;+4
+j  net.openhft.chronicle.queue.impl.single.SingleChronicleQueueExcerpts$StoreTailer.inACycle(Z)Z+77
+j  net.openhft.chronicle.queue.impl.single.SingleChronicleQueueExcerpts$StoreTailer.readingDocument(Z)Lnet/openhft/chronicle/wire/DocumentContext;+48
+j  net.openhft.chronicle.queue.impl.single.SingleChronicleQueueExcerpts$StoreTailer.readingDocument()Lnet/openhft/chronicle/wire/DocumentContext;+44
+j  net.openhft.chronicle.wire.MarshallableIn.readBytes(Lnet/openhft/chronicle/bytes/Bytes;)Z+8
+j  org.opennms.core.ipc.sink.chronicle.queue.ChronicleQueueAdapter$QueueConsumer.run()V+37
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+95
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+=>0x00007f1978e17000 JavaThread "pool-1-thread-1" [_thread_in_vm, id=10696, stack(0x00007f1961d98000,0x00007f1961e99000)]
+  0x00007f1978df6800 JavaThread "main/disk-space-checker" daemon [_thread_blocked, id=10695, stack(0x00007f19620a9000,0x00007f19621aa000)]
+  0x00007f1978df1800 JavaThread "main/queue-thread-local-cleaner-daemon" daemon [_thread_blocked, id=10694, stack(0x00007f19621aa000,0x00007f19622ab000)]
+  0x00007f1978d9f000 JavaThread "chronicle-weak-reference-cleaner" daemon [_thread_blocked, id=10693, stack(0x00007f19622ab000,0x00007f19623ac000)]
+  0x00007f197887f000 JavaThread "ReaderThread" [_thread_in_native, id=10691, stack(0x00007f1963404000,0x00007f1963505000)]
+  0x00007f19780ca000 JavaThread "Service Thread" daemon [_thread_blocked, id=10688, stack(0x00007f1963cfd000,0x00007f1963dfe000)]
+  0x00007f19780c7000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=10687, stack(0x00007f1963dff000,0x00007f1963eff000)]
+  0x00007f19780c5800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=10686, stack(0x00007f1963f00000,0x00007f1964000000)]
+  0x00007f19780c2800 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=10685, stack(0x00007f196806e000,0x00007f196816e000)]
+  0x00007f19780c0800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=10684, stack(0x00007f196816e000,0x00007f196826f000)]
+  0x00007f197808d800 JavaThread "Finalizer" daemon [_thread_blocked, id=10683, stack(0x00007f196826f000,0x00007f1968370000)]
+  0x00007f1978089000 JavaThread "Reference Handler" daemon [_thread_blocked, id=10682, stack(0x00007f1968370000,0x00007f1968471000)]
+  0x00007f1978013800 JavaThread "main" [_thread_in_native, id=10676, stack(0x00007f1981d13000,0x00007f1981e13000)]
+
+Other Threads:
+  0x00007f1978081000 VMThread [stack: 0x00007f1968472000,0x00007f1968572000] [id=10681]
+  0x00007f19780cf800 WatcherThread [stack: 0x00007f1963bfd000,0x00007f1963cfd000] [id=10689]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 74240K, used 69937K [0x000000076dc00000, 0x0000000772e80000, 0x00000007c0000000)
+  eden space 64000K, 94% used [0x000000076dc00000,0x000000077174b040,0x0000000771a80000)
+  from space 10240K, 90% used [0x0000000771a80000,0x00000007723815a0,0x0000000772480000)
+  to   space 10240K, 0% used [0x0000000772480000,0x0000000772480000,0x0000000772e80000)
+ ParOldGen       total 169472K, used 8K [0x00000006c9400000, 0x00000006d3980000, 0x000000076dc00000)
+  object space 169472K, 0% used [0x00000006c9400000,0x00000006c9402000,0x00000006d3980000)
+ Metaspace       used 20891K, capacity 21222K, committed 21296K, reserved 1069056K
+  class space    used 2294K, capacity 2427K, committed 2432K, reserved 1048576K
+
+Card table byte_map: [0x00007f197e0a7000,0x00007f197e85e000] byte_map_base: 0x00007f197aa5d000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f19811ee1a0
+ Begin Bits: [0x00007f19444a0000, 0x00007f1948250000)
+ End Bits:   [0x00007f1948250000, 0x00007f194c000000)
+
+Polling page: 0x00007f1981e32000
+
+CodeCache: size=245760Kb used=5842Kb max_used=5848Kb free=239917Kb
+ bounds [0x00007f1969000000, 0x00007f19695c0000, 0x00007f1978000000]
+ total_blobs=2142 nmethods=1716 adapters=339
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 1.961 Thread 0x00007f19780c7000 nmethod 1716 0x00007f19695b3a10 code [0x00007f19695b3dc0, 0x00007f19695b5ef8]
+Event: 1.962 Thread 0x00007f19780c5800 nmethod 1715 0x00007f1969589b90 code [0x00007f1969589ce0, 0x00007f1969589d98]
+Event: 1.962 Thread 0x00007f19780c5800 1718       4       jdk.internal.org.objectweb.asm.ClassWriter::put (152 bytes)
+Event: 1.963 Thread 0x00007f19780c5800 nmethod 1718 0x00007f19695ab790 code [0x00007f19695ab8e0, 0x00007f19695aba18]
+Event: 1.965 Thread 0x00007f19780c7000 1719       3       java.lang.invoke.LambdaForm$BMH/1509791656::reinvoke (25 bytes)
+Event: 1.965 Thread 0x00007f19780c7000 nmethod 1719 0x00007f19695aaed0 code [0x00007f19695ab060, 0x00007f19695ab658]
+Event: 1.965 Thread 0x00007f19780c7000 1720       3       java.lang.invoke.LambdaForm$DMH/1781071780::invokeStatic_LL_L (15 bytes)
+Event: 1.965 Thread 0x00007f19780c7000 nmethod 1720 0x00007f19695b03d0 code [0x00007f19695b0560, 0x00007f19695b0b18]
+Event: 1.965 Thread 0x00007f19780c7000 1721       3       java.lang.invoke.MethodHandleImpl::castReference (20 bytes)
+Event: 1.966 Thread 0x00007f19780c7000 nmethod 1721 0x00007f19695afed0 code [0x00007f19695b0040, 0x00007f19695b02e8]
+
+GC Heap History (2 events):
+Event: 1.117 GC heap before
+{Heap before GC invocations=1 (full 0):
+ PSYoungGen      total 74240K, used 64000K [0x000000076dc00000, 0x0000000772e80000, 0x00000007c0000000)
+  eden space 64000K, 100% used [0x000000076dc00000,0x0000000771a80000,0x0000000771a80000)
+  from space 10240K, 0% used [0x0000000772480000,0x0000000772480000,0x0000000772e80000)
+  to   space 10240K, 0% used [0x0000000771a80000,0x0000000771a80000,0x0000000772480000)
+ ParOldGen       total 169472K, used 0K [0x00000006c9400000, 0x00000006d3980000, 0x000000076dc00000)
+  object space 169472K, 0% used [0x00000006c9400000,0x00000006c9400000,0x00000006d3980000)
+ Metaspace       used 12576K, capacity 12652K, committed 12928K, reserved 1060864K
+  class space    used 1330K, capacity 1362K, committed 1408K, reserved 1048576K
+Event: 1.129 GC heap after
+Heap after GC invocations=1 (full 0):
+ PSYoungGen      total 74240K, used 9221K [0x000000076dc00000, 0x0000000772e80000, 0x00000007c0000000)
+  eden space 64000K, 0% used [0x000000076dc00000,0x000000076dc00000,0x0000000771a80000)
+  from space 10240K, 90% used [0x0000000771a80000,0x00000007723815a0,0x0000000772480000)
+  to   space 10240K, 0% used [0x0000000772480000,0x0000000772480000,0x0000000772e80000)
+ ParOldGen       total 169472K, used 8K [0x00000006c9400000, 0x00000006d3980000, 0x000000076dc00000)
+  object space 169472K, 0% used [0x00000006c9400000,0x00000006c9402000,0x00000006d3980000)
+ Metaspace       used 12576K, capacity 12652K, committed 12928K, reserved 1060864K
+  class space    used 1330K, capacity 1362K, committed 1408K, reserved 1048576K
+}
+
+Deoptimization events (10 events):
+Event: 1.197 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f196928323c method=java.lang.ref.SoftReference.get()Ljava/lang/Object; @ 17
+Event: 1.257 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f196923eb84 method=java.lang.AbstractStringBuilder.append(Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; @ 1
+Event: 1.258 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f19692a1018 method=sun.misc.MetaIndex.mayContain(Ljava/lang/String;)Z @ 38
+Event: 1.299 Thread 0x00007f1978013800 Uncommon trap: reason=null_check action=maybe_recompile pc=0x00007f19693607c4 method=java.net.URL.<init>(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V @ 50
+Event: 1.303 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f19692a9ac8 method=java.lang.ref.SoftReference.get()Ljava/lang/Object; @ 17
+Event: 1.305 Thread 0x00007f1978013800 Uncommon trap: reason=null_check action=maybe_recompile pc=0x00007f19693607c4 method=java.net.URL.<init>(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V @ 50
+Event: 1.305 Thread 0x00007f1978013800 Uncommon trap: reason=null_check action=maybe_recompile pc=0x00007f19693607c4 method=java.net.URL.<init>(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V @ 50
+Event: 1.473 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f19692922b0 method=java.util.HashMap.hash(Ljava/lang/Object;)I @ 1
+Event: 1.487 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f196926dbe8 method=java.lang.ThreadLocal$ThreadLocalMap.getEntry(Ljava/lang/ThreadLocal;)Ljava/lang/ThreadLocal$ThreadLocalMap$Entry; @ 29
+Event: 1.545 Thread 0x00007f1978013800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f19691b865c method=java.lang.AbstractStringBuilder.append(Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; @ 1
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 1.912 Thread 0x00007f1978013800 Implicit null exception at 0x00007f196950eaf5 to 0x00007f196950ebd7
+Event: 1.912 Thread 0x00007f1978013800 Exception <a 'java/lang/NullPointerException'> (0x00000007713b9ed8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/runtime/sharedRuntime.cpp, line 605]
+Event: 1.912 Thread 0x00007f1978013800 Implicit null exception at 0x00007f196950eaf5 to 0x00007f196950ebd7
+Event: 1.912 Thread 0x00007f1978013800 Exception <a 'java/lang/NullPointerException'> (0x00000007713bb1d8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/runtime/sharedRuntime.cpp, line 605]
+Event: 1.912 Thread 0x00007f1978013800 Implicit null exception at 0x00007f196950eaf5 to 0x00007f196950ebd7
+Event: 1.912 Thread 0x00007f1978013800 Exception <a 'java/lang/NullPointerException'> (0x00000007713bc4d8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/runtime/sharedRuntime.cpp, line 605]
+Event: 1.914 Thread 0x00007f1978013800 Exception <a 'java/lang/NullPointerException'> (0x00000007713c71c0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/interpreter/linkResolver.cpp, line 1185]
+Event: 1.918 Thread 0x00007f1978013800 Exception <a 'java/lang/IncompatibleClassChangeError': Found class java.lang.Object, but interface was expected> (0x00000007713dbe88) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/interpreter/linkResolver.cpp, line 
+Event: 1.927 Thread 0x00007f1978013800 Exception <a 'java/lang/NoSuchMethodError': java.lang.Object.lambda$identity$2(Ljava/lang/Object;)Ljava/lang/Object;> (0x000000077146a8d0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/interpreter/linkResolver.cpp, 
+Event: 1.928 Thread 0x00007f1978013800 Exception <a 'java/lang/NullPointerException'> (0x000000077146dbc8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u152/9742/hotspot/src/share/vm/interpreter/linkResolver.cpp, line 1185]
+
+Events (10 events):
+Event: 1.967 loading class com/jayway/awaitility/Awaitility$1
+Event: 1.967 loading class com/jayway/awaitility/Awaitility$1 done
+Event: 1.967 loading class com/jayway/awaitility/core/ConditionFactory
+Event: 1.967 loading class com/jayway/awaitility/core/ConditionFactory done
+Event: 1.968 loading class net/openhft/chronicle/bytes/BytesUtil
+Event: 1.968 loading class net/openhft/chronicle/bytes/BytesUtil done
+Event: 1.968 loading class com/jayway/awaitility/core/Condition
+Event: 1.968 loading class com/jayway/awaitility/core/Condition done
+Event: 1.969 loading class org/hamcrest/Matcher
+Event: 1.969 loading class org/hamcrest/Matcher done
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 fd:00 269927                             /usr/java/jdk1.8.0_152/bin/java
+00600000-00601000 rw-p 00000000 fd:00 269927                             /usr/java/jdk1.8.0_152/bin/java
+00df9000-00e1a000 rw-p 00000000 00:00 0                                  [heap]
+6c9400000-6d3980000 rw-p 00000000 00:00 0 
+6d3980000-76dc00000 ---p 00000000 00:00 0 
+76dc00000-772e80000 rw-p 00000000 00:00 0 
+772e80000-7c0000000 ---p 00000000 00:00 0 
+7c0000000-7c0260000 rw-p 00000000 00:00 0 
+7c0260000-800000000 ---p 00000000 00:00 0 
+7f18f5000000-7f18fa000000 r--s 20000000 fd:02 20060585                   /home/chandra/dev/test/cq/Traps/20180904-16.cq4
+7f18fa000000-7f18ff000000 r--s 00000000 fd:02 20060585                   /home/chandra/dev/test/cq/Traps/20180904-16.cq4
+7f18ff000000-7f1904000000 rw-s 00000000 fd:02 20060585                   /home/chandra/dev/test/cq/Traps/20180904-16.cq4
+7f1904000000-7f1904021000 rw-p 00000000 00:00 0 
+7f1904021000-7f1908000000 ---p 00000000 00:00 0 
+7f1908000000-7f19082a0000 rw-p 00000000 00:00 0 
+7f19082a0000-7f190c000000 ---p 00000000 00:00 0 
+7f190c000000-7f190c021000 rw-p 00000000 00:00 0 
+7f190c021000-7f1910000000 ---p 00000000 00:00 0 
+7f1910000000-7f1910021000 rw-p 00000000 00:00 0 
+7f1910021000-7f1914000000 ---p 00000000 00:00 0 
+7f1914000000-7f1914021000 rw-p 00000000 00:00 0 
+7f1914021000-7f1918000000 ---p 00000000 00:00 0 
+7f1918000000-7f1918021000 rw-p 00000000 00:00 0 
+7f1918021000-7f191c000000 ---p 00000000 00:00 0 
+7f191c000000-7f191c434000 rw-p 00000000 00:00 0 
+7f191c434000-7f1920000000 ---p 00000000 00:00 0 
+7f1920000000-7f1920021000 rw-p 00000000 00:00 0 
+7f1920021000-7f1924000000 ---p 00000000 00:00 0 
+7f1924000000-7f1924495000 rw-p 00000000 00:00 0 
+7f1924495000-7f1928000000 ---p 00000000 00:00 0 
+7f192b82f000-7f1938000000 r--p 00000000 fd:00 3148729                    /usr/lib/locale/locale-archive
+7f1938000000-7f1938021000 rw-p 00000000 00:00 0 
+7f1938021000-7f193c000000 ---p 00000000 00:00 0 
+7f193c000000-7f193c021000 rw-p 00000000 00:00 0 
+7f193c021000-7f1940000000 ---p 00000000 00:00 0 
+7f1940000000-7f1940021000 rw-p 00000000 00:00 0 
+7f1940021000-7f1944000000 ---p 00000000 00:00 0 
+7f19444a0000-7f194c000000 rw-p 00000000 00:00 0 
+7f194c000000-7f194c021000 rw-p 00000000 00:00 0 
+7f194c021000-7f1950000000 ---p 00000000 00:00 0 
+7f1950000000-7f1950021000 rw-p 00000000 00:00 0 
+7f1950021000-7f1954000000 ---p 00000000 00:00 0 
+7f1954000000-7f1954021000 rw-p 00000000 00:00 0 
+7f1954021000-7f1958000000 ---p 00000000 00:00 0 
+7f1958000000-7f1958627000 rw-p 00000000 00:00 0 
+7f1958627000-7f195c000000 ---p 00000000 00:00 0 
+7f195c000000-7f195c021000 rw-p 00000000 00:00 0 
+7f195c021000-7f1960000000 ---p 00000000 00:00 0 
+7f1961d98000-7f1961d9b000 ---p 00000000 00:00 0 
+7f1961d9b000-7f1961e99000 rw-p 00000000 00:00 0 
+7f1961e99000-7f1961ea9000 r--s 00000000 fd:02 20060584                   /home/chandra/dev/test/cq/Traps/metadata.cq4t
+7f1961ea9000-7f1961f15000 rw-p 00000000 00:00 0 
+7f1961f15000-7f19620a9000 ---p 00000000 00:00 0 
+7f19620a9000-7f19620ac000 ---p 00000000 00:00 0 
+7f19620ac000-7f19621aa000 rw-p 00000000 00:00 0 
+7f19621aa000-7f19621ad000 ---p 00000000 00:00 0 
+7f19621ad000-7f19622ab000 rw-p 00000000 00:00 0 
+7f19622ab000-7f19622ae000 ---p 00000000 00:00 0 
+7f19622ae000-7f19625ac000 rw-p 00000000 00:00 0 
+7f19625ac000-7f19625bc000 rw-s 00000000 fd:02 20060584                   /home/chandra/dev/test/cq/Traps/metadata.cq4t
+7f19625bc000-7f19625c5000 r-xp 00000000 fd:00 270097                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libmanagement.so
+7f19625c5000-7f19627c4000 ---p 00009000 fd:00 270097                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libmanagement.so
+7f19627c4000-7f19627c5000 rw-p 00008000 fd:00 270097                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libmanagement.so
+7f19627c5000-7f19629c5000 rw-p 00000000 00:00 0 
+7f19629c5000-7f19629d6000 r-xp 00000000 fd:00 270100                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libnio.so
+7f19629d6000-7f1962bd5000 ---p 00011000 fd:00 270100                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libnio.so
+7f1962bd5000-7f1962bd6000 rw-p 00010000 fd:00 270100                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libnio.so
+7f1962bd6000-7f1962dd6000 rw-p 00000000 00:00 0 
+7f1962dd6000-7f1962fd6000 rw-p 00000000 00:00 0 
+7f1962fd6000-7f19631d6000 rw-p 00000000 00:00 0 
+7f19631d6000-7f19631e1000 r-xp 00000000 fd:00 3153068                    /usr/lib64/libnss_files-2.27.so
+7f19631e1000-7f19633e0000 ---p 0000b000 fd:00 3153068                    /usr/lib64/libnss_files-2.27.so
+7f19633e0000-7f19633e1000 r--p 0000a000 fd:00 3153068                    /usr/lib64/libnss_files-2.27.so
+7f19633e1000-7f19633e2000 rw-p 0000b000 fd:00 3153068                    /usr/lib64/libnss_files-2.27.so
+7f19633e2000-7f19633e8000 rw-p 00000000 00:00 0 
+7f19633e8000-7f19633fd000 r--s 000ff000 fd:00 270364                     /usr/java/jdk1.8.0_152/jre/lib/resources.jar
+7f19633fd000-7f1963400000 r--s 0001a000 fd:00 270294                     /usr/java/jdk1.8.0_152/jre/lib/jce.jar
+7f1963400000-7f1963404000 r--s 0009a000 fd:00 270365                     /usr/java/jdk1.8.0_152/jre/lib/jsse.jar
+7f1963404000-7f1963407000 ---p 00000000 00:00 0 
+7f1963407000-7f1963505000 rw-p 00000000 00:00 0 
+7f1963505000-7f196351b000 r-xp 00000000 fd:00 270099                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libnet.so
+7f196351b000-7f196371b000 ---p 00016000 fd:00 270099                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libnet.so
+7f196371b000-7f196371c000 rw-p 00016000 fd:00 270099                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libnet.so
+7f196371c000-7f196371e000 r--s 00000000 fd:02 7604742                    /home/chandra/.m2/repository/org/opennms/core/ipc/sink/org.opennms.core.ipc.sink.xml/23.0.0-SNAPSHOT/org.opennms.core.ipc.sink.xml-23.0.0-SNAPSHOT.jar
+7f196371e000-7f1963720000 r--s 00003000 fd:02 7604309                    /home/chandra/.m2/repository/org/opennms/features/reporting/org.opennms.features.reporting.model/23.0.0-SNAPSHOT/org.opennms.features.reporting.model-23.0.0-SNAPSHOT.jar
+7f1963720000-7f196372d000 r--s 0008a000 fd:02 6423596                    /home/chandra/.m2/repository/org/opennms/opennms-config-model/23.0.0-SNAPSHOT/opennms-config-model-23.0.0-SNAPSHOT.jar
+7f196372d000-7f1963732000 r--s 0002d000 fd:02 6423501                    /home/chandra/.m2/repository/org/opennms/opennms-config-jaxb/23.0.0-SNAPSHOT/opennms-config-jaxb-23.0.0-SNAPSHOT.jar
+7f1963732000-7f1963734000 r--s 00002000 fd:02 7604156                    /home/chandra/.m2/repository/org/opennms/opennms-config-api/23.0.0-SNAPSHOT/opennms-config-api-23.0.0-SNAPSHOT.jar
+7f1963734000-7f1963736000 r--s 0000c000 fd:02 7604217                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.soa/23.0.0-SNAPSHOT/org.opennms.core.soa-23.0.0-SNAPSHOT.jar
+7f1963736000-7f1963738000 r--s 0000b000 fd:02 7604133                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.criteria/23.0.0-SNAPSHOT/org.opennms.core.criteria-23.0.0-SNAPSHOT.jar
+7f1963738000-7f196373c000 r--s 0000c000 fd:02 7604316                    /home/chandra/.m2/repository/org/opennms/opennms-dao-api/23.0.0-SNAPSHOT/opennms-dao-api-23.0.0-SNAPSHOT.jar
+7f196373c000-7f1963743000 r--s 00064000 fd:02 2361956                    /home/chandra/.m2/repository/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar
+7f1963743000-7f19637bd000 r--s 010ea000 fd:00 271746                     /usr/java/jdk1.8.0_152/lib/tools.jar
+7f19637bd000-7f19637bf000 r--s 00003000 fd:02 2623621                    /home/chandra/.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-management_1.1_spec/1.0.1/geronimo-j2ee-management_1.1_spec-1.0.1.jar
+7f19637bf000-7f19637c1000 r--s 0000b000 fd:02 2623646                    /home/chandra/.m2/repository/org/fusesource/hawtbuf/hawtbuf/1.11/hawtbuf-1.11.jar
+7f19637c1000-7f19637da000 r--s 00144000 fd:02 2623644                    /home/chandra/.m2/repository/org/apache/activemq/activemq-client/5.14.5/activemq-client-5.14.5.jar
+7f19637da000-7f19637dc000 r--s 0000b000 fd:02 2623655                    /home/chandra/.m2/repository/org/apache/activemq/activemq-jms-pool/5.14.5/activemq-jms-pool-5.14.5.jar
+7f19637dc000-7f19637de000 r--s 00004000 fd:02 2623652                    /home/chandra/.m2/repository/org/apache/activemq/activemq-pool/5.14.5/activemq-pool-5.14.5.jar
+7f19637de000-7f19637e1000 r--s 00019000 fd:02 2623648                    /home/chandra/.m2/repository/org/apache/commons/commons-pool2/2.4.2/commons-pool2-2.4.2.jar
+7f19637e1000-7f19637e3000 r--s 00002000 fd:02 2623657                    /home/chandra/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.0.1B_spec/1.0.1/geronimo-jta_1.0.1B_spec-1.0.1.jar
+7f19637e3000-7f19637f0000 r--s 0009b000 fd:02 2623636                    /home/chandra/.m2/repository/org/apache/activemq/activemq-openwire-legacy/5.14.5/activemq-openwire-legacy-5.14.5.jar
+7f19637f0000-7f1963803000 r--s 0010b000 fd:02 2623634                    /home/chandra/.m2/repository/org/apache/activemq/activemq-broker/5.14.5/activemq-broker-5.14.5.jar
+7f1963803000-7f1963807000 r--s 0001d000 fd:02 2623650                    /home/chandra/.m2/repository/org/apache/xbean/xbean-spring/4.2/xbean-spring-4.2.jar
+7f1963807000-7f1963809000 r--s 00028000 fd:02 2623633                    /home/chandra/.m2/repository/org/apache/activemq/activemq-spring/5.14.5/activemq-spring-5.14.5.jar
+7f1963809000-7f196380e000 r--s 0004d000 fd:02 3807520                    /home/chandra/.m2/repository/org/apache/camel/camel-spring/2.19.1/camel-spring-2.19.1.jar
+7f196380e000-7f1963812000 r--s 00029000 fd:02 3542221                    /home/chandra/.m2/repository/org/apache/camel/camel-jms/2.19.1/camel-jms-2.19.1.jar
+7f1963812000-7f1963814000 r--s 00011000 fd:02 3279034                    /home/chandra/.m2/repository/org/apache/activemq/activemq-camel/5.14.5/activemq-camel-5.14.5.jar
+7f1963814000-7f196381e000 r--s 000a5000 fd:02 2623459                    /home/chandra/.m2/repository/org/javassist/javassist/3.18.2-GA/javassist-3.18.2-GA.jar
+7f196381e000-7f1963820000 r--s 00006000 fd:02 2623457                    /home/chandra/.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1.1/geronimo-jms_1.1_spec-1.1.1.jar
+7f1963820000-7f1963821000 r--s 00006000 fd:02 24776453                   /home/chandra/.m2/repository/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar
+7f1963821000-7f1963822000 r--s 00004000 fd:02 24645446                   /home/chandra/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar
+7f1963822000-7f1963830000 r--s 000b1000 fd:02 24645444                   /home/chandra/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar
+7f1963830000-7f1963834000 r--s 00035000 fd:02 24514674                   /home/chandra/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar
+7f1963834000-7f1963841000 r--s 00083000 fd:02 26610807                   /home/chandra/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar
+7f1963841000-7f1963842000 r--s 00001000 fd:02 2623455                    /home/chandra/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+7f1963842000-7f1963859000 r--s 001a7000 fd:02 2623453                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.aspectj/1.8.6_1/org.apache.servicemix.bundles.aspectj-1.8.6_1.jar
+7f1963859000-7f196385b000 r--s 00003000 fd:02 2623451                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.aopalliance/1.0_6/org.apache.servicemix.bundles.aopalliance-1.0_6.jar
+7f196385b000-7f1963863000 r--s 0003b000 fd:02 2623449                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-tx/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-tx-4.2.9.RELEASE_1.jar
+7f1963863000-7f196386d000 r--s 0006b000 fd:02 2623447                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-orm/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-orm-4.2.9.RELEASE_1.jar
+7f196386d000-7f1963877000 r--s 00055000 fd:02 2623445                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-messaging/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-messaging-4.2.9.RELEASE_1.jar
+7f1963877000-7f1963885000 r--s 00094000 fd:02 2493098                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-jms/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-jms-4.2.9.RELEASE_1.jar
+7f1963885000-7f196388f000 r--s 00060000 fd:02 2493096                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-jdbc/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-jdbc-4.2.9.RELEASE_1.jar
+7f196388f000-7f1963891000 r--s 00014000 fd:02 2493095                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-oxm/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-oxm-4.2.9.RELEASE_1.jar
+7f1963891000-7f1963893000 r--s 00001000 fd:02 2493092                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-instrument/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-instrument-4.2.9.RELEASE_1.jar
+7f1963893000-7f1963898000 r--s 0003d000 fd:02 2493091                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-expression/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-expression-4.2.9.RELEASE_1.jar
+7f1963898000-7f19638ae000 r--s 000fa000 fd:02 2493088                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-core/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-core-4.2.9.RELEASE_1.jar
+7f19638ae000-7f19638b2000 r--s 00029000 fd:02 2493086                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-context-support/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-context-support-4.2.9.RELEASE_1.jar
+7f19638b2000-7f19638cc000 r--s 000f8000 fd:02 2493082                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-context/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-context-4.2.9.RELEASE_1.jar
+7f19638cc000-7f19638da000 r--s 000a8000 fd:02 2493085                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-beans/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-beans-4.2.9.RELEASE_1.jar
+7f19638da000-7f19638dd000 r--s 00013000 fd:02 2493080                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-aspects/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-aspects-4.2.9.RELEASE_1.jar
+7f19638dd000-7f19638e7000 r--s 00054000 fd:02 2493078                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.spring-aop/4.2.9.RELEASE_1/org.apache.servicemix.bundles.spring-aop-4.2.9.RELEASE_1.jar
+7f19638e7000-7f19638e8000 r--s 00000000 fd:02 7604205                    /home/chandra/.m2/repository/org/opennms/features/activemq/org.opennms.features.activemq.pool/23.0.0-SNAPSHOT/org.opennms.features.activemq.pool-23.0.0-SNAPSHOT.jar
+7f19638e8000-7f19638e9000 r--s 00000000 fd:02 7604211                    /home/chandra/.m2/repository/org/opennms/features/activemq/org.opennms.features.activemq.component/23.0.0-SNAPSHOT/org.opennms.features.activemq.component-23.0.0-SNAPSHOT.jar
+7f19638e9000-7f19638eb000 r--s 00008000 fd:02 2755126                    /home/chandra/.m2/repository/org/apache/activemq/activemq-jaas/5.14.5/activemq-jaas-5.14.5.jar
+7f19638eb000-7f19638ec000 r--s 00005000 fd:02 2755140                    /home/chandra/.m2/repository/commons-daemon/commons-daemon/1.0.15/commons-daemon-1.0.15.jar
+7f19638ec000-7f19638ef000 r--s 00030000 fd:02 2755135                    /home/chandra/.m2/repository/org/apache/servicemix/bundles/org.apache.servicemix.bundles.josql/1.5_5/org.apache.servicemix.bundles.josql-1.5_5.jar
+7f19638ef000-7f19638f7000 r--s 00066000 fd:02 2755134                    /home/chandra/.m2/repository/org/apache/velocity/velocity/1.7/velocity-1.7.jar
+7f19638f7000-7f1963908000 r--s 0010d000 fd:02 2755131                    /home/chandra/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.6.6/jackson-databind-2.6.6.jar
+7f1963908000-7f196390b000 r--s 00009000 fd:02 2755129                    /home/chandra/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.6.6/jackson-annotations-2.6.6.jar
+7f196390b000-7f196390f000 r--s 0003c000 fd:02 2755127                    /home/chandra/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.6.6/jackson-core-2.6.6.jar
+7f196390f000-7f1963910000 r--s 00006000 fd:02 2755122                    /home/chandra/.m2/repository/org/fusesource/hawtbuf/hawtbuf-proto/1.11/hawtbuf-proto-1.11.jar
+7f1963910000-7f1963914000 r--s 00016000 fd:02 2755123                    /home/chandra/.m2/repository/org/apache/activemq/activeio-core/3.1.4/activeio-core-3.1.4.jar
+7f1963914000-7f196391f000 r--s 00098000 fd:02 2755121                    /home/chandra/.m2/repository/org/apache/activemq/activemq-kahadb-store/5.14.5/activemq-kahadb-store-5.14.5.jar
+7f196391f000-7f1963923000 r--s 0002c000 fd:02 2755110                    /home/chandra/.m2/repository/org/apache/activemq/activemq-console/5.14.5/activemq-console-5.14.5.jar
+7f1963923000-7f1963924000 r--s 00003000 fd:02 2755119                    /home/chandra/.m2/repository/org/apache/activemq/activemq-log4j-appender/5.14.5/activemq-log4j-appender-5.14.5.jar
+7f1963924000-7f1963926000 r--s 00005000 fd:02 2755116                    /home/chandra/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+7f1963926000-7f1963927000 r--s 00001000 fd:02 2755113                    /home/chandra/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar
+7f1963927000-7f1963935000 r--s 00079000 fd:02 1576434                    /home/chandra/.m2/repository/com/thoughtworks/xstream/xstream/1.4.9/xstream-1.4.9.jar
+7f1963935000-7f196393c000 r--s 00049000 fd:02 2755109                    /home/chandra/.m2/repository/org/apache/httpcomponents/httpcore/4.4.4/httpcore-4.4.4.jar
+7f196393c000-7f1963949000 r--s 000a7000 fd:02 2755107                    /home/chandra/.m2/repository/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar
+7f1963949000-7f196394f000 r--s 00046000 fd:02 2755100                    /home/chandra/.m2/repository/commons-net/commons-net/3.6/commons-net-3.6.jar
+7f196394f000-7f1963953000 r--s 0001a000 fd:02 2755103                    /home/chandra/.m2/repository/org/fusesource/hawtdispatch/hawtdispatch/1.22/hawtdispatch-1.22.jar
+7f1963953000-7f1963957000 r--s 0001c000 fd:02 2755101                    /home/chandra/.m2/repository/org/fusesource/hawtdispatch/hawtdispatch-transport/1.22/hawtdispatch-transport-1.22.jar
+7f1963957000-7f196395a000 r--s 0001c000 fd:02 2755099                    /home/chandra/.m2/repository/org/fusesource/mqtt-client/mqtt-client/1.14/mqtt-client-1.14.jar
+7f196395a000-7f196395d000 r--s 00022000 fd:02 2755097                    /home/chandra/.m2/repository/org/apache/activemq/protobuf/activemq-protobuf/1.1/activemq-protobuf-1.1.jar
+7f196395d000-7f1963960000 r--s 00017000 fd:02 2623640                    /home/chandra/.m2/repository/org/apache/activemq/activemq-mqtt/5.14.5/activemq-mqtt-5.14.5.jar
+7f1963960000-7f1963963000 r--s 00018000 fd:02 2623639                    /home/chandra/.m2/repository/org/apache/activemq/activemq-stomp/5.14.5/activemq-stomp-5.14.5.jar
+7f1963963000-7f1963966000 r--s 00017000 fd:02 2623632                    /home/chandra/.m2/repository/org/apache/activemq/activemq-http/5.14.5/activemq-http-5.14.5.jar
+7f1963966000-7f1963968000 r--s 00002000 fd:02 2623631                    /home/chandra/.m2/repository/org/apache/aries/proxy/org.apache.aries.proxy.api/1.0.0/org.apache.aries.proxy.api-1.0.0.jar
+7f1963968000-7f1963969000 r--s 00002000 fd:02 2623626                    /home/chandra/.m2/repository/org/apache/aries/quiesce/org.apache.aries.quiesce.api/1.0.0/org.apache.aries.quiesce.api-1.0.0.jar
+7f1963969000-7f196396c000 r--s 00018000 fd:02 2623624                    /home/chandra/.m2/repository/org/apache/aries/org.apache.aries.util/1.0.0/org.apache.aries.util-1.0.0.jar
+7f196396c000-7f196396f000 r--s 00006000 fd:02 2623622                    /home/chandra/.m2/repository/org/apache/aries/blueprint/org.apache.aries.blueprint.api/1.0.0/org.apache.aries.blueprint.api-1.0.0.jar
+7f196396f000-7f1963978000 r--s 0005f000 fd:02 2623620                    /home/chandra/.m2/repository/org/apache/aries/blueprint/org.apache.aries.blueprint.core/1.4.4/org.apache.aries.blueprint.core-1.4.4.jar
+7f1963978000-7f1963979000 r--s 00006000 fd:02 2623618                    /home/chandra/.m2/repository/org/apache/activemq/activemq-karaf/5.14.5/activemq-karaf-5.14.5.jar
+7f1963979000-7f196397d000 r--s 00040000 fd:02 2885728                    /home/chandra/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar
+7f196397d000-7f1963980000 r--s 0001e000 fd:02 6423378                    /home/chandra/.m2/repository/org/opennms/opennms-util/23.0.0-SNAPSHOT/opennms-util-23.0.0-SNAPSHOT.jar
+7f1963980000-7f1963982000 r--s 00013000 fd:02 6423265                    /home/chandra/.m2/repository/org/opennms/core/snmp/org.opennms.core.snmp.joesnmp/23.0.0-SNAPSHOT/org.opennms.core.snmp.joesnmp-23.0.0-SNAPSHOT.jar
+7f1963982000-7f1963983000 r--s 00007000 fd:02 6423275                    /home/chandra/.m2/repository/org/opennms/core/snmp/org.opennms.core.snmp.implementations.joesnmp/23.0.0-SNAPSHOT/org.opennms.core.snmp.implementations.joesnmp-23.0.0-SNAPSHOT.jar
+7f1963983000-7f196398a000 r--s 00057000 fd:02 6423480                    /home/chandra/.m2/repository/org/opennms/opennms-model/23.0.0-SNAPSHOT/opennms-model-23.0.0-SNAPSHOT.jar
+7f196398a000-7f196398c000 r--s 00002000 fd:02 5117332                    /home/chandra/.m2/repository/com/googlecode/concurrent-locks/concurrent-locks/1.0.0/concurrent-locks-1.0.0.jar
+7f196398c000-7f196398d000 r--s 00005000 fd:02 6423443                    /home/chandra/.m2/repository/org/opennms/features/poller/org.opennms.features.poller.api/23.0.0-SNAPSHOT/org.opennms.features.poller.api-23.0.0-SNAPSHOT.jar
+7f196398d000-7f1963993000 r--s 0003c000 fd:02 3807485                    /home/chandra/.m2/repository/org/apache/commons/commons-jexl/2.1.1/commons-jexl-2.1.1.jar
+7f1963993000-7f1963997000 r--s 00017000 fd:02 6423495                    /home/chandra/.m2/repository/org/opennms/features/collection/org.opennms.features.collection.api/23.0.0-SNAPSHOT/org.opennms.features.collection.api-23.0.0-SNAPSHOT.jar
+7f1963997000-7f1963999000 r--s 00009000 fd:02 6423460                    /home/chandra/.m2/repository/org/opennms/opennms-rrd-api/23.0.0-SNAPSHOT/opennms-rrd-api-23.0.0-SNAPSHOT.jar
+7f1963999000-7f19639a0000 r--s 0009f000 fd:02 6032763                    /home/chandra/.m2/repository/org/postgresql/postgresql/9.4.1211/postgresql-9.4.1211.jar
+7f19639a0000-7f19639a2000 r--s 00009000 fd:02 2885934                    /home/chandra/.m2/repository/com/atomikos/transactions-jdbc/3.9.2/transactions-jdbc-3.9.2.jar
+7f19639a2000-7f19639a6000 r--s 0001b000 fd:02 2885932                    /home/chandra/.m2/repository/com/atomikos/atomikos-util/3.9.2/atomikos-util-3.9.2.jar
+7f19639a6000-7f19639a9000 r--s 00006000 fd:02 2885929                    /home/chandra/.m2/repository/com/atomikos/transactions-api/3.9.2/transactions-api-3.9.2.jar
+7f19639a9000-7f19639ad000 r--s 0002c000 fd:02 2885931                    /home/chandra/.m2/repository/com/atomikos/transactions/3.9.2/transactions-3.9.2.jar
+7f19639ad000-7f19639b0000 r--s 0001b000 fd:02 2885926                    /home/chandra/.m2/repository/com/atomikos/transactions-jta/3.9.2/transactions-jta-3.9.2.jar
+7f19639b0000-7f19639b3000 r--s 0001f000 fd:02 6032761                    /home/chandra/.m2/repository/com/zaxxer/HikariCP/2.5.1/HikariCP-2.5.1.jar
+7f19639b3000-7f19639c3000 r--s 00085000 fd:02 6032759                    /home/chandra/.m2/repository/com/mchange/mchange-commons-java/0.2.11/mchange-commons-java-0.2.11.jar
+7f19639c3000-7f19639ca000 r--s 00073000 fd:02 4984605                    /home/chandra/.m2/repository/com/mchange/c3p0/0.9.5.2/c3p0-0.9.5.2.jar
+7f19639ca000-7f19639cb000 r--s 00007000 fd:02 7604149                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.db/23.0.0-SNAPSHOT/org.opennms.core.db-23.0.0-SNAPSHOT.jar
+7f19639cb000-7f19639cd000 r--s 00000000 fd:02 7604127                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.config/23.0.0-SNAPSHOT/org.opennms.core.config-23.0.0-SNAPSHOT.jar
+7f19639cd000-7f19639d1000 r--s 0001b000 fd:02 3542064                    /home/chandra/.m2/repository/org/jasypt/jasypt/1.9.0/jasypt-1.9.0.jar
+7f19639d1000-7f19639da000 r--s 0002d000 fd:02 2493003                    /home/chandra/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar
+7f19639da000-7f19639db000 r--s 00003000 fd:02 2492998                    /home/chandra/.m2/repository/javax/transaction/jta/1.1/jta-1.1.jar
+7f19639db000-7f19639e0000 r--s 00015000 fd:02 2492996                    /home/chandra/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar
+7f19639e0000-7f19639e3000 r--s 0000f000 fd:02 2492994                    /home/chandra/.m2/repository/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar
+7f19639e3000-7f19639e8000 r--s 00048000 fd:02 2492992                    /home/chandra/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+7f19639e8000-7f19639ed000 r--s 00068000 fd:02 2492829                    /home/chandra/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar
+7f19639ed000-7f1963a1f000 r--s 002c9000 fd:02 2492990                    /home/chandra/.m2/repository/org/hibernate/hibernate-core/3.6.10.Final/hibernate-core-3.6.10.Final.jar
+7f1963a1f000-7f1963a24000 r--s 00047000 fd:02 6423609                    /home/chandra/.m2/repository/org/opennms/opennms-config/23.0.0-SNAPSHOT/opennms-config-23.0.0-SNAPSHOT.jar
+7f1963a24000-7f1963a25000 r--s 00003000 fd:02 4854155                    /home/chandra/.m2/repository/org/opennms/lib/org.opennms.lib.tracker/0.7/org.opennms.lib.tracker-0.7.jar
+7f1963a25000-7f1963a27000 r--s 00005000 fd:02 7604143                    /home/chandra/.m2/repository/org/opennms/opennms-icmp-api/23.0.0-SNAPSHOT/opennms-icmp-api-23.0.0-SNAPSHOT.jar
+7f1963a27000-7f1963a2b000 r--s 0002f000 fd:02 134852                     /home/chandra/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar
+7f1963a2b000-7f1963a2c000 r--s 00000000 fd:02 3542046                    /home/chandra/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar
+7f1963a2c000-7f1963a2e000 r--s 0000a000 fd:02 6423368                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.xml/23.0.0-SNAPSHOT/org.opennms.core.xml-23.0.0-SNAPSHOT.jar
+7f1963a2e000-7f1963a30000 r--s 00003000 fd:02 7604121                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.camel/23.0.0-SNAPSHOT/org.opennms.core.camel-23.0.0-SNAPSHOT.jar
+7f1963a30000-7f1963a32000 r--s 0000f000 fd:02 3017795                    /home/chandra/.m2/repository/javax/activation/activation/1.1.1/activation-1.1.1.jar
+7f1963a32000-7f1963a3a000 r--s 00075000 fd:02 3017792                    /home/chandra/.m2/repository/javax/mail/mail/1.4.5/mail-1.4.5.jar
+7f1963a3a000-7f1963a3f000 r--s 0002a000 fd:02 3017790                    /home/chandra/.m2/repository/org/eclipse/persistence/org.eclipse.persistence.antlr/2.5.1/org.eclipse.persistence.antlr-2.5.1.jar
+7f1963a3f000-7f1963a46000 r--s 0003c000 fd:02 3017788                    /home/chandra/.m2/repository/org/eclipse/persistence/org.eclipse.persistence.asm/2.5.1/org.eclipse.persistence.asm-2.5.1.jar
+7f1963a46000-7f1963a84000 r--s 00492000 fd:02 1970837                    /home/chandra/.m2/repository/org/eclipse/persistence/org.eclipse.persistence.core/2.5.1/org.eclipse.persistence.core-2.5.1.jar
+7f1963a84000-7f1963a8b000 r--s 00076000 fd:02 1576447                    /home/chandra/.m2/repository/org/eclipse/persistence/org.eclipse.persistence.moxy/2.5.1/org.eclipse.persistence.moxy-2.5.1.jar
+7f1963a8b000-7f1963a8d000 r--s 00003000 fd:02 25430995                   /home/chandra/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.21/jcl-over-slf4j-1.7.21.jar
+7f1963a8d000-7f1963a8f000 r--s 0000b000 fd:02 3148746                    /home/chandra/.m2/repository/org/apache/camel/camel-core-osgi/2.19.1/camel-core-osgi-2.19.1.jar
+7f1963a8f000-7f1963a91000 r--s 00012000 fd:02 3148745                    /home/chandra/.m2/repository/org/apache/camel/camel-core-xml/2.19.1/camel-core-xml-2.19.1.jar
+7f1963a91000-7f1963a95000 r--s 0003a000 fd:02 3148742                    /home/chandra/.m2/repository/org/apache/camel/camel-blueprint/2.19.1/camel-blueprint-2.19.1.jar
+7f1963a95000-7f1963a98000 r--s 00019000 fd:02 3148740                    /home/chandra/.m2/repository/commons-pool/commons-pool/1.6/commons-pool-1.6.jar
+7f1963a98000-7f1963ad5000 r--s 0031d000 fd:02 3148738                    /home/chandra/.m2/repository/io/netty/netty-all/4.1.9.Final/netty-all-4.1.9.Final.jar
+7f1963ad5000-7f1963ad9000 r--s 0001e000 fd:02 3148737                    /home/chandra/.m2/repository/org/apache/camel/camel-netty4/2.19.1/camel-netty4-2.19.1.jar
+7f1963ad9000-7f1963ae0000 r--s 0003f000 fd:02 2755111                    /home/chandra/.m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar
+7f1963ae0000-7f1963b3b000 r--s 0042e000 fd:02 3017867                    /home/chandra/.m2/repository/org/apache/camel/camel-core/2.19.1/camel-core-2.19.1.jar
+7f1963b3b000-7f1963b66000 r--s 001fc000 fd:02 3542196                    /home/chandra/.m2/repository/com/google/guava/guava/18.0/guava-18.0.jar
+7f1963b66000-7f1963bfc000 r--s 007c2000 fd:00 270245                     /usr/java/jdk1.8.0_152/jre/lib/ext/jfxrt.jar
+7f1963bfc000-7f1963bfd000 ---p 00000000 00:00 0 
+7f1963bfd000-7f1963cfd000 rw-p 00000000 00:00 0 
+7f1963cfd000-7f1963d00000 ---p 00000000 00:00 0 
+7f1963d00000-7f1963dfe000 rw-p 00000000 00:00 0 
+7f1963dfe000-7f1963dff000 ---p 00000000 00:00 0 
+7f1963dff000-7f1963e02000 ---p 00000000 00:00 0 
+7f1963e02000-7f1963eff000 rw-p 00000000 00:00 0 
+7f1963eff000-7f1963f00000 ---p 00000000 00:00 0 
+7f1963f00000-7f1963f03000 ---p 00000000 00:00 0 
+7f1963f03000-7f1964000000 rw-p 00000000 00:00 0 
+7f1964000000-7f1964021000 rw-p 00000000 00:00 0 
+7f1964021000-7f1968000000 ---p 00000000 00:00 0 
+7f1968000000-7f1968001000 r--s 00002000 fd:02 6423358                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.spring/23.0.0-SNAPSHOT/org.opennms.core.spring-23.0.0-SNAPSHOT.jar
+7f1968001000-7f1968007000 r--s 00045000 fd:02 3148734                    /home/chandra/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar
+7f1968007000-7f196800a000 r--s 00015000 fd:02 2885774                    /home/chandra/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar
+7f196800a000-7f196800c000 r--s 0000f000 fd:02 3148732                    /home/chandra/.m2/repository/org/apache/camel/camel-http-common/2.19.1/camel-http-common-2.19.1.jar
+7f196800c000-7f196800e000 r--s 0000d000 fd:02 3148730                    /home/chandra/.m2/repository/org/apache/camel/camel-http/2.19.1/camel-http-2.19.1.jar
+7f196800e000-7f1968014000 r--s 00038000 fd:02 3017866                    /home/chandra/.m2/repository/com/sun/xml/bind/jaxb-core/2.2.11/jaxb-core-2.2.11.jar
+7f1968014000-7f1968017000 r--s 0002a000 fd:02 3674368                    /home/chandra/.m2/repository/com/googlecode/owasp-java-html-sanitizer/owasp-java-html-sanitizer/20170515.1/owasp-java-html-sanitizer-20170515.1.jar
+7f1968017000-7f1968018000 r--s 00008000 fd:02 3674366                    /home/chandra/.m2/repository/org/owasp/encoder/encoder/1.2.1/encoder-1.2.1.jar
+7f1968018000-7f1968019000 r--s 00004000 fd:02 6423325                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.api/23.0.0-SNAPSHOT/org.opennms.core.api-23.0.0-SNAPSHOT.jar
+7f1968019000-7f196801c000 r--s 0001c000 fd:02 6423348                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.lib/23.0.0-SNAPSHOT/org.opennms.core.lib-23.0.0-SNAPSHOT.jar
+7f196801c000-7f196801e000 r--s 00004000 fd:02 25691405                   /home/chandra/.m2/repository/org/slf4j/log4j-over-slf4j/1.7.21/log4j-over-slf4j-1.7.21.jar
+7f196801e000-7f1968025000 r--s 0006f000 fd:02 3674296                    /home/chandra/.m2/repository/org/snmp4j/snmp4j/2.5.5/snmp4j-2.5.5.jar
+7f1968025000-7f196802a000 r--s 00041000 fd:02 2361356                    /home/chandra/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar
+7f196802a000-7f1968033000 r--s 00174000 fd:02 6423307                    /home/chandra/.m2/repository/org/opennms/core/snmp/org.opennms.core.snmp.implementations.snmp4j/23.0.0-SNAPSHOT/org.opennms.core.snmp.implementations.snmp4j-23.0.0-SNAPSHOT.jar
+7f1968033000-7f1968035000 r--s 0000e000 fd:02 3542192                    /home/chandra/.m2/repository/org/json/json/20171018/json-20171018.jar
+7f1968035000-7f1968039000 r--s 00018000 fd:02 6423254                    /home/chandra/.m2/repository/org/opennms/core/snmp/org.opennms.core.snmp.api/23.0.0-SNAPSHOT/org.opennms.core.snmp.api-23.0.0-SNAPSHOT.jar
+7f1968039000-7f196803b000 r--s 00009000 fd:02 3807540                    /home/chandra/.m2/repository/org/objenesis/objenesis/2.1/objenesis-2.1.jar
+7f196803b000-7f1968041000 r--s 0004a000 fd:02 6032783                    /home/chandra/.m2/repository/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar
+7f1968041000-7f1968045000 r--s 00013000 fd:02 6291645                    /home/chandra/.m2/repository/com/jayway/awaitility/awaitility/1.7.0/awaitility-1.7.0.jar
+7f1968045000-7f1968047000 r--s 00009000 fd:02 25303227                   /home/chandra/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+7f1968047000-7f196804f000 r--s 00045000 fd:02 2361947                    /home/chandra/.m2/repository/junit/junit/4.12/junit-4.12.jar
+7f196804f000-7f1968051000 r--s 00009000 fd:02 2493001                    /home/chandra/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar
+7f1968051000-7f1968053000 r--s 00009000 fd:02 25691382                   /home/chandra/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar
+7f1968053000-7f196806d000 r--s 00214000 fd:02 2361501                    /home/chandra/.m2/repository/net/java/dev/jna/jna-platform/4.4.0/jna-platform-4.4.0.jar
+7f196806d000-7f196806e000 ---p 00000000 00:00 0 
+7f196806e000-7f1968071000 ---p 00000000 00:00 0 
+7f1968071000-7f196816e000 rw-p 00000000 00:00 0 
+7f196816e000-7f1968171000 ---p 00000000 00:00 0 
+7f1968171000-7f196826f000 rw-p 00000000 00:00 0 
+7f196826f000-7f1968272000 ---p 00000000 00:00 0 
+7f1968272000-7f1968370000 rw-p 00000000 00:00 0 
+7f1968370000-7f1968373000 ---p 00000000 00:00 0 
+7f1968373000-7f1968471000 rw-p 00000000 00:00 0 
+7f1968471000-7f1968472000 ---p 00000000 00:00 0 
+7f1968472000-7f1969000000 rw-p 00000000 00:00 0 
+7f1969000000-7f19695c0000 rwxp 00000000 00:00 0 
+7f19695c0000-7f1978000000 ---p 00000000 00:00 0 
+7f1978000000-7f1979007000 rw-p 00000000 00:00 0 
+7f1979007000-7f197c000000 ---p 00000000 00:00 0 
+7f197c000000-7f197c004000 r--s 00107000 fd:02 2361500                    /home/chandra/.m2/repository/net/java/dev/jna/jna/4.4.0/jna-4.4.0.jar
+7f197c004000-7f197c579000 rw-p 00000000 00:00 0 
+7f197c579000-7f197c753000 r--s 03d17000 fd:00 270132                     /usr/java/jdk1.8.0_152/jre/lib/rt.jar
+7f197c753000-7f197d77f000 rw-p 00000000 00:00 0 
+7f197d77f000-7f197d780000 ---p 00000000 00:00 0 
+7f197d780000-7f197d880000 rw-p 00000000 00:00 0 
+7f197d880000-7f197d881000 ---p 00000000 00:00 0 
+7f197d881000-7f197d981000 rw-p 00000000 00:00 0 
+7f197d981000-7f197d982000 ---p 00000000 00:00 0 
+7f197d982000-7f197da82000 rw-p 00000000 00:00 0 
+7f197da82000-7f197da83000 ---p 00000000 00:00 0 
+7f197da83000-7f197dbd6000 rw-p 00000000 00:00 0 
+7f197dbd6000-7f197e0a7000 ---p 00000000 00:00 0 
+7f197e0a7000-7f197e0fa000 rw-p 00000000 00:00 0 
+7f197e0fa000-7f197e5cb000 ---p 00000000 00:00 0 
+7f197e5cb000-7f197e5f5000 rw-p 00000000 00:00 0 
+7f197e5f5000-7f197e85d000 ---p 00000000 00:00 0 
+7f197e85d000-7f197e875000 rw-p 00000000 00:00 0 
+7f197e875000-7f197ec1e000 ---p 00000000 00:00 0 
+7f197ec1e000-7f197ec39000 r-xp 00000000 fd:00 270114                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libzip.so
+7f197ec39000-7f197ee39000 ---p 0001b000 fd:00 270114                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libzip.so
+7f197ee39000-7f197ee3a000 rw-p 0001b000 fd:00 270114                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libzip.so
+7f197ee3a000-7f197f63f000 r--s 00000000 fd:00 1446405                    /var/lib/sss/mc/passwd
+7f197f63f000-7f197f647000 r-xp 00000000 fd:00 3146906                    /usr/lib64/libnss_sss.so.2
+7f197f647000-7f197f846000 ---p 00008000 fd:00 3146906                    /usr/lib64/libnss_sss.so.2
+7f197f846000-7f197f847000 r--p 00007000 fd:00 3146906                    /usr/lib64/libnss_sss.so.2
+7f197f847000-7f197f848000 rw-p 00008000 fd:00 3146906                    /usr/lib64/libnss_sss.so.2
+7f197f848000-7f197f873000 r-xp 00000000 fd:00 270078                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libjava.so
+7f197f873000-7f197fa72000 ---p 0002b000 fd:00 270078                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libjava.so
+7f197fa72000-7f197fa74000 rw-p 0002a000 fd:00 270078                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libjava.so
+7f197fa74000-7f197fa81000 r-xp 00000000 fd:00 270113                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libverify.so
+7f197fa81000-7f197fc81000 ---p 0000d000 fd:00 270113                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libverify.so
+7f197fc81000-7f197fc83000 rw-p 0000d000 fd:00 270113                     /usr/java/jdk1.8.0_152/jre/lib/amd64/libverify.so
+7f197fc83000-7f197fc8a000 r-xp 00000000 fd:00 3153081                    /usr/lib64/librt-2.27.so
+7f197fc8a000-7f197fe89000 ---p 00007000 fd:00 3153081                    /usr/lib64/librt-2.27.so
+7f197fe89000-7f197fe8a000 r--p 00006000 fd:00 3153081                    /usr/lib64/librt-2.27.so
+7f197fe8a000-7f197fe8b000 rw-p 00007000 fd:00 3153081                    /usr/lib64/librt-2.27.so
+7f197fe8b000-7f198001d000 r-xp 00000000 fd:00 3153060                    /usr/lib64/libm-2.27.so
+7f198001d000-7f198021d000 ---p 00192000 fd:00 3153060                    /usr/lib64/libm-2.27.so
+7f198021d000-7f198021e000 r--p 00192000 fd:00 3153060                    /usr/lib64/libm-2.27.so
+7f198021e000-7f198021f000 rw-p 00193000 fd:00 3153060                    /usr/lib64/libm-2.27.so
+7f198021f000-7f1980ef7000 r-xp 00000000 fd:00 270118                     /usr/java/jdk1.8.0_152/jre/lib/amd64/server/libjvm.so
+7f1980ef7000-7f19810f6000 ---p 00cd8000 fd:00 270118                     /usr/java/jdk1.8.0_152/jre/lib/amd64/server/libjvm.so
+7f19810f6000-7f19811d0000 rw-p 00cd7000 fd:00 270118                     /usr/java/jdk1.8.0_152/jre/lib/amd64/server/libjvm.so
+7f19811d0000-7f198121b000 rw-p 00000000 00:00 0 
+7f198121b000-7f19813d0000 r-xp 00000000 fd:00 3153056                    /usr/lib64/libc-2.27.so
+7f19813d0000-7f19815d0000 ---p 001b5000 fd:00 3153056                    /usr/lib64/libc-2.27.so
+7f19815d0000-7f19815d4000 r--p 001b5000 fd:00 3153056                    /usr/lib64/libc-2.27.so
+7f19815d4000-7f19815d6000 rw-p 001b9000 fd:00 3153056                    /usr/lib64/libc-2.27.so
+7f19815d6000-7f19815da000 rw-p 00000000 00:00 0 
+7f19815da000-7f19815dd000 r-xp 00000000 fd:00 3153058                    /usr/lib64/libdl-2.27.so
+7f19815dd000-7f19817dc000 ---p 00003000 fd:00 3153058                    /usr/lib64/libdl-2.27.so
+7f19817dc000-7f19817dd000 r--p 00002000 fd:00 3153058                    /usr/lib64/libdl-2.27.so
+7f19817dd000-7f19817de000 rw-p 00003000 fd:00 3153058                    /usr/lib64/libdl-2.27.so
+7f19817de000-7f19817f4000 r-xp 00000000 fd:00 270390                     /usr/java/jdk1.8.0_152/lib/amd64/jli/libjli.so
+7f19817f4000-7f19819f3000 ---p 00016000 fd:00 270390                     /usr/java/jdk1.8.0_152/lib/amd64/jli/libjli.so
+7f19819f3000-7f19819f4000 rw-p 00015000 fd:00 270390                     /usr/java/jdk1.8.0_152/lib/amd64/jli/libjli.so
+7f19819f4000-7f1981a0d000 r-xp 00000000 fd:00 3153070                    /usr/lib64/libpthread-2.27.so
+7f1981a0d000-7f1981c0d000 ---p 00019000 fd:00 3153070                    /usr/lib64/libpthread-2.27.so
+7f1981c0d000-7f1981c0e000 r--p 00019000 fd:00 3153070                    /usr/lib64/libpthread-2.27.so
+7f1981c0e000-7f1981c0f000 rw-p 0001a000 fd:00 3153070                    /usr/lib64/libpthread-2.27.so
+7f1981c0f000-7f1981c13000 rw-p 00000000 00:00 0 
+7f1981c13000-7f1981c38000 r-xp 00000000 fd:00 3153049                    /usr/lib64/ld-2.27.so
+7f1981c38000-7f1981c39000 r--s 00001000 fd:02 6423285                    /home/chandra/.m2/repository/org/opennms/core/org.opennms.core.logging/23.0.0-SNAPSHOT/org.opennms.core.logging-23.0.0-SNAPSHOT.jar
+7f1981c39000-7f1981c3b000 r--s 00011000 fd:02 3019860                    /home/chandra/.m2/repository/net/openhft/affinity/3.1.7/affinity-3.1.7.jar
+7f1981c3b000-7f1981c41000 r--s 00066000 fd:02 3019856                    /home/chandra/.m2/repository/net/openhft/chronicle-wire/1.16.15/chronicle-wire-1.16.15.jar
+7f1981c41000-7f1981d12000 rw-p 00000000 00:00 0 
+7f1981d12000-7f1981d13000 ---p 00000000 00:00 0 
+7f1981d13000-7f1981d16000 ---p 00000000 00:00 0 
+7f1981d16000-7f1981e17000 rw-p 00000000 00:00 0 
+7f1981e17000-7f1981e18000 r--s 0000c000 fd:02 25303243                   /home/chandra/.m2/repository/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
+7f1981e18000-7f1981e1a000 r--s 0000b000 fd:02 3019867                    /home/chandra/.m2/repository/net/openhft/chronicle-threads/1.16.3/chronicle-threads-1.16.3.jar
+7f1981e1a000-7f1981e1f000 r--s 00044000 fd:02 3019865                    /home/chandra/.m2/repository/net/openhft/chronicle-bytes/1.16.21/chronicle-bytes-1.16.21.jar
+7f1981e1f000-7f1981e20000 r--s 00004000 fd:02 7479864                    /home/chandra/.m2/repository/com/intellij/annotations/12.0/annotations-12.0.jar
+7f1981e20000-7f1981e25000 r--s 00031000 fd:02 3019850                    /home/chandra/.m2/repository/net/openhft/chronicle-core/1.16.16/chronicle-core-1.16.16.jar
+7f1981e25000-7f1981e29000 r--s 00039000 fd:02 2760019                    /home/chandra/.m2/repository/net/openhft/chronicle-queue/5.16.11/chronicle-queue-5.16.11.jar
+7f1981e29000-7f1981e31000 rw-s 00000000 00:2d 5797921                    /tmp/hsperfdata_chandra/10669
+7f1981e31000-7f1981e32000 rw-p 00000000 00:00 0 
+7f1981e32000-7f1981e33000 r--p 00000000 00:00 0 
+7f1981e33000-7f1981e36000 r--p 00000000 00:00 0                          [vvar]
+7f1981e36000-7f1981e38000 r-xp 00000000 00:00 0                          [vdso]
+7f1981e38000-7f1981e39000 r--p 00025000 fd:00 3153049                    /usr/lib64/ld-2.27.so
+7f1981e39000-7f1981e3a000 rw-p 00026000 fd:00 3153049                    /usr/lib64/ld-2.27.so
+7f1981e3a000-7f1981e3b000 rw-p 00000000 00:00 0 
+7ffe21176000-7ffe2119c000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -ea -Dfile.encoding=UTF-8 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 34631 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -classNames org.opennms.core.ipc.sink.chronicle.queue.ChronicleQueueAdapterTest
+java_class_path (initial): /home/chandra/dev/opennms/core/ipc/sink/chronicle-queue/target/test-classes:/home/chandra/dev/opennms/core/ipc/sink/chronicle-queue/target/classes:/home/chandra/.m2/repository/net/openhft/chronicle-queue/5.16.11/chronicle-queue-5.16.11.jar:/home/chandra/.m2/repository/net/openhft/chronicle-core/1.16.16/chronicle-core-1.16.16.jar:/home/chandra/.m2/repository/com/intellij/annotations/12.0/annotations-12.0.jar:/home/chandra/.m2/repository/net/openhft/chronicle-bytes/1.16.21/chronicle-bytes-1.16.21.jar:/home/chandra/.m2/repository/net/openhft/chronicle-wire/1.16.15/chronicle-wire-1.16.15.jar:/home/chandra/.m2/repository/net/openhft/chronicle-threads/1.16.3/chronicle-threads-1.16.3.jar:/home/chandra/.m2/repository/net/openhft/affinity/3.1.7/affinity-3.1.7.jar:/home/chandra/.m2/repository/net/java/dev/jna/jna/4.4.0/jna-4.4.0.jar:/home/chandra/.m2/repository/net/java/dev/jna/jna-platform/4.4.0/jna-platform-4.4.0.jar:/home/chandra/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar:/home/chandra/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar:/home/chandra/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/chandra/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/chandra/.m2/repository/com/jayway/awaitility/awaitility/1.7.0/awaitility-1.7.0.jar:/home/chandra/.m2/repository/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar:/home/chandra/.m2/repository/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar:/home/chandra/.m2/repository/org/objenesis/objenesis/2.1/objenesis-2.1.jar:/home/chandra/.m2/repository/org/opennms/core/snmp/org.opennms.core.snmp.api/23.0.0-SNAPSHOT/org.opennms.core.snmp.api-23.0.0-SNAPSHOT.jar:/home/chandra/.m2/repository/org/json/json/20171018/json-20171018.jar:/home/chandra/.m2/repository/org/opennms/core/snmp/org.opennms.core.snmp.implementations.snmp4j/23.0.0-SNAPSHOT/org.opennms.core.snmp.implementations.snmp4j-23.0.0-SNAPSHOT.jar:/home/chandra/.m2/repository/org/openn
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/chandra/.local/bin:/home/chandra/bin
+USERNAME=chandra
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xacfec0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xacfec0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x927e60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x927e60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x927e60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x927e60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x9296a0], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x92aaa0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x92aaa0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x92aaa0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x92aaa0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Fedora release 28 (Twenty Eight)
+
+uname:Linux 4.16.13-300.fc28.x86_64 #1 SMP Wed May 30 14:31:00 UTC 2018 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE infinity, NPROC 62804, NOFILE 4096, AS infinity
+load average:0.83 1.08 1.30
+
+/proc/meminfo:
+MemTotal:       16165712 kB
+MemFree:          340528 kB
+MemAvailable:    7179212 kB
+Buffers:          476868 kB
+Cached:          7792496 kB
+SwapCached:       100080 kB
+Active:          9498364 kB
+Inactive:        5458540 kB
+Active(anon):    6051884 kB
+Inactive(anon):  2129280 kB
+Active(file):    3446480 kB
+Inactive(file):  3329260 kB
+Unevictable:         900 kB
+Mlocked:             900 kB
+SwapTotal:       8155132 kB
+SwapFree:        6768004 kB
+Dirty:              1868 kB
+Writeback:             0 kB
+AnonPages:       6678996 kB
+Mapped:           751744 kB
+Shmem:           1526992 kB
+Slab:             596336 kB
+SReclaimable:     407400 kB
+SUnreclaim:       188936 kB
+KernelStack:       24672 kB
+PageTables:       110840 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    16237988 kB
+Committed_AS:   18870056 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:     3044896 kB
+DirectMap2M:    13471744 kB
+DirectMap1G:           0 kB
+
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 142 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz
+stepping	: 9
+microcode	: 0x84
+cpu MHz		: 3612.405
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz
+stepping	: 9
+microcode	: 0x84
+cpu MHz		: 3589.769
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz
+stepping	: 9
+microcode	: 0x84
+cpu MHz		: 3617.270
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i7-7600U CPU @ 2.80GHz
+stepping	: 9
+microcode	: 0x84
+cpu MHz		: 3640.519
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 16165712k(340404k free), swap 8155132k(6768004k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.152-b16) for linux-amd64 JRE (1.8.0_152-b16), built on Sep 14 2017 02:16:14 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Tue Sep  4 12:33:15 2018
+elapsed time: 1 seconds (0d 0h 0m 1s)
+
