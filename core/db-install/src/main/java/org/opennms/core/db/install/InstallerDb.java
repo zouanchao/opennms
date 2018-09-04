@@ -1,8 +1,8 @@
 /*******************************************************************************
  * This file is part of OpenNMS(R).
  *
- * Copyright (C) 2004-2014 The OpenNMS Group, Inc.
- * OpenNMS(R) is Copyright (C) 1999-2014 The OpenNMS Group, Inc.
+ * Copyright (C) 2004-2017 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2017 The OpenNMS Group, Inc.
  *
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
@@ -74,9 +74,6 @@ import org.springframework.util.StringUtils;
 public class InstallerDb {
 
     private static final String IPLIKE_SQL_RESOURCE = "iplike.sql";
-
-    public static final float POSTGRES_MIN_VERSION = 7.4f;
-    public static final float POSTGRES_MAX_VERSION_PLUS_ONE = 9.9f;
 
     private static final int s_fetch_size = 1024;
     
@@ -2017,11 +2014,10 @@ public class InstallerDb {
         while (rs.next()) {
             objects.add(rs.getString("TABLE_NAME"));
         }
-        final PreparedStatement st = getAdminConnection().prepareStatement("ALTER TABLE ? OWNER TO ?");
+        final Statement st = getAdminConnection().createStatement();
         for (final String objName : objects) {
-            st.setString(1, objName);
-            st.setString(2, m_user);
-            st.execute();
+            System.err.println("ALTER TABLE IF EXISTS " + objName + " OWNER TO " + m_user);
+            st.execute("ALTER TABLE IF EXISTS " + objName + " OWNER TO " + m_user);
         }
         st.close();
     }
