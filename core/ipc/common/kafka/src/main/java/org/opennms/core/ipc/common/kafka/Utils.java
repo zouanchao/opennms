@@ -47,4 +47,15 @@ public class Utils {
             Thread.currentThread().setContextClassLoader(classLoader);
         }
     }
+
+    public static <T> T runWithGivenClassLoader(final Supplier<T> supplier, ClassLoader classLoader) {
+        Objects.requireNonNull(supplier);
+        final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(classLoader);
+            return supplier.get();
+        } finally {
+            Thread.currentThread().setContextClassLoader(contextClassLoader);
+        }
+    }
 }
