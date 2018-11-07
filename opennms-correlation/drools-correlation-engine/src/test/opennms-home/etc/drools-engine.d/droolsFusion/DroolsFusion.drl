@@ -9,7 +9,8 @@ import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.events.api.EventConstants;
 import org.drools.core.spi.KnowledgeHelper
 import java.util.List
-import java.util.ArrayList;
+import java.util.ArrayList
+import java.util.ConcurrentModificationException;
 
 global DroolsCorrelationEngine engine;
 
@@ -50,6 +51,7 @@ then
          for(Event event : eventList) {
            eventList.remove(event);
          }
+         throw new ConcurrentModificationException();
 end
 
 rule "test-two-things-in-a-hmmm-wtf"

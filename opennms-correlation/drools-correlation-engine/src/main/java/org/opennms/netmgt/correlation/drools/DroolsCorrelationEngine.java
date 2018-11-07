@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.drools.compiler.compiler.DroolsParserException;
 import org.drools.core.RuleBaseConfiguration;
 import org.drools.core.RuleBaseConfiguration.AssertBehaviour;
@@ -62,6 +63,7 @@ import org.opennms.netmgt.correlation.drools.config.EngineConfiguration;
 import org.opennms.netmgt.correlation.drools.config.RuleSet;
 import org.opennms.netmgt.events.api.EventConstants;
 import org.opennms.netmgt.model.events.EventBuilder;
+import org.opennms.netmgt.xml.event.AlarmData;
 import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,10 +228,23 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
                     m_kieSession.fireUntilHalt();
                 } catch (Exception e) {
                     LOG.error("Exception while running rules, reloading engine ", e);
+                    triggerAlarm(e);
                     reloadConfig();
                 }
             }, "FireTask").start();
         }
+    }
+
+    private void triggerAlarm(Exception exception) {
+        EventBuilder ebldr = new EventBuilder(EventConstants.DROOLS_ENGINE_ENCOUNTERED_EXCEPTION, getName());
+        ebldr.addParam(EventConstants.PARM_STACK_TRACE_STRING, ExceptionUtils.getStackTrace(exception));
+        // Add alarmData with alarm type as notification.
+        AlarmData alarmData = new AlarmData();
+        alarmData.setAlarmType(3);
+        alarmData.setReductionKey(EventConstants.DROOLS_ENGINE_ENCOUNTERED_EXCEPTION + ":" + getName());
+        ebldr.setAlarmData(alarmData);
+        sendEvent(ebldr.getEvent());
+
     }
 
     private void loadRules(final KieFileSystem kfs) throws DroolsParserException, IOException {

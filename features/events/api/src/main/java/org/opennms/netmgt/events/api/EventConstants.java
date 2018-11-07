@@ -386,6 +386,13 @@ public abstract class EventConstants {
     public static final String RELOAD_TOPOLOGY_UEI = "uei.opennms.org/internal/reloadTopology";
 
     /**
+     * Reload Drools Correlation Engine.
+     */
+    public static final String DROOLS_ENGINE_ENCOUNTERED_EXCEPTION = "uei.opennms.org/internal/droolsEngineException";
+
+    public static final  String PARM_STACK_TRACE_STRING = "strackTraceString";
+
+    /**
      * Reload Daemon configuration UEI.
      */
     public static final String RELOAD_DAEMON_CONFIG_UEI = "uei.opennms.org/internal/reloadDaemonConfig";
