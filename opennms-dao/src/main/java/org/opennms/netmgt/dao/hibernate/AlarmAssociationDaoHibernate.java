@@ -26,24 +26,13 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.driver;
+package org.opennms.netmgt.dao.hibernate;
 
-import org.opennms.netmgt.model.OnmsAlarm;
+import org.opennms.netmgt.dao.api.AlarmAssociationDao;
+import org.opennms.netmgt.model.AlarmAssociation;
 
-public class State {
-    private final long time;
-    private final OnmsAlarm alarm;
-
-    public State(long time, OnmsAlarm alarm) {
-        this.time = time;
-        this.alarm = alarm;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public OnmsAlarm getAlarm() {
-        return alarm;
+public class AlarmAssociationDaoHibernate extends AbstractDaoHibernate<AlarmAssociation, Integer> implements AlarmAssociationDao{
+    public AlarmAssociationDaoHibernate() {
+        super(AlarmAssociation.class);
     }
 }

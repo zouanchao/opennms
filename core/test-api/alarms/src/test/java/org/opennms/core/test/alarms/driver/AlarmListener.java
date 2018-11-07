@@ -26,20 +26,43 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.driver;
+package org.opennms.core.test.alarms.driver;
 
-import java.util.function.Function;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
+import org.opennms.netmgt.alarmd.api.AlarmLifecycleListener;
 import org.opennms.netmgt.model.OnmsAlarm;
-import org.opennms.netmgt.xml.event.Event;
-import java.util.Date;
 
-public interface ActionVisitor {
+public class AlarmListener implements AlarmLifecycleListener {
 
-    void sendEvent(Event e);
+    private static AlarmListener instance = new AlarmListener();
 
-    void acknowledgeAlarm(String ackUser, Date ackTime, Function<OnmsAlarm, Boolean> filter);
+    private final Set<Integer> allObservedAlarmIds = new LinkedHashSet<>();
 
-    void unacknowledgeAlarm(String ackUser, Date ackTime, Function<OnmsAlarm, Boolean> filter);
+    private AlarmListener() {}
 
+    public static AlarmListener getInstance() {
+        return instance;
+    }
+
+    @Override
+    public synchronized void handleAlarmSnapshot(List<OnmsAlarm> alarms) {
+        alarms.forEach(a -> allObservedAlarmIds.add(a.getId()));
+    }
+
+    @Override
+    public synchronized void handleNewOrUpdatedAlarm(OnmsAlarm alarm) {
+        allObservedAlarmIds.add(alarm.getId());
+    }
+
+    @Override
+    public synchronized void handleDeletedAlarm(int alarmId, String reductionKey) {
+        allObservedAlarmIds.add(alarmId);
+    }
+
+    public synchronized Integer getNumUniqueObserveredAlarmIds() {
+        return allObservedAlarmIds.size();
+    }
 }

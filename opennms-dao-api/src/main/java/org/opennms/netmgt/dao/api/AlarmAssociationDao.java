@@ -26,29 +26,12 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.netmgt.alarmd.driver;
+package org.opennms.netmgt.dao.api;
 
-import java.util.Date;
-import java.util.Objects;
+import org.opennms.netmgt.model.AlarmAssociation;
 
-public class AcknowledgeAlarmAction implements Action {
-    private final String ackUser;
-    private final Date ackTime;
-    private final String reductionKey;
-
-    public AcknowledgeAlarmAction(String ackUser, Date ackTime, String reductionKey) {
-        this.ackUser = Objects.requireNonNull(ackUser);
-        this.ackTime = Objects.requireNonNull(ackTime);
-        this.reductionKey = Objects.requireNonNull(reductionKey);
-    }
-
-    @Override
-    public Date getTime() {
-        return ackTime;
-    }
-
-    @Override
-    public void visit(ActionVisitor visitor) {
-        visitor.acknowledgeAlarm(ackUser, ackTime, (a) -> Objects.equals(reductionKey, a.getReductionKey()));
-    }
+/**
+ * <p> {@link AlarmDao} manages all persistence. Never need to call this dao to persist elements </p>
+ */
+public interface AlarmAssociationDao extends OnmsDao<AlarmAssociation, Integer>{
 }
