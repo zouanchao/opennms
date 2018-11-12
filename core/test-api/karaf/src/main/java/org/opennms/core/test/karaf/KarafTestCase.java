@@ -231,6 +231,7 @@ public abstract class KarafTestCase {
                 String.join(",", new String[] {
                     "file:${karaf.home}/${karaf.default.repository}@snapshots@id=karaf.${karaf.default.repository}",
 
+                        // TODO MVR update documentation
                     // This path needs to match the path in the POM to the repo created by the features-maven-plugin's 'add-features-to-repo' execution, ie:
                     // <repository>target/paxexam/test-repo</repository>
                     //
