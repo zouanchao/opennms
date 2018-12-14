@@ -29,7 +29,9 @@
 package org.opennms.netmgt.alarmd.drools;
 
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -81,6 +83,8 @@ public class DroolsAlarmContext extends ManagedDroolsContext implements AlarmLif
 
     private final Map<Integer, Map<Integer, AlarmAssociationAndFact>> alarmAssociationById = new HashMap<>();
 
+    private final Map<Integer, OnmsAcknowledgment> ackCache = new HashMap<>();
+
     public DroolsAlarmContext() {
         super(Paths.get(ConfigFileConstants.getHome(), "etc", "alarmd", "drools-rules.d").toFile(), Alarmd.NAME, "DroolsAlarmContext");
         setOnNewKiewSessionCallback(kieSession -> {
@@ -122,12 +126,10 @@ public class DroolsAlarmContext extends ManagedDroolsContext implements AlarmLif
             for (Integer alarmIdToRemove : alarmIdsToRemove) {
                 handleDeletedAlarmNoLock(alarmIdToRemove);
             }
-            for (Integer alarmIdToAdd : alarmIdsToAdd) {
-                handleNewOrUpdatedAlarmNoLock(alarmsInDbById.get(alarmIdToAdd));
-            }
-            for (Integer alarmIdToUpdate : alarmIdsToUpdate) {
-                handleNewOrUpdatedAlarmNoLock(alarmsInDbById.get(alarmIdToUpdate));
-            }
+
+            handleNewOrUpdatedAlarms(Sets.union(alarmIdsToAdd, alarmIdsToUpdate).stream()
+                    .map(alarmsInDbById::get)
+                    .collect(Collectors.toSet()));
         } finally {
             unlockIfNotFiring();
         }
@@ -141,9 +143,46 @@ public class DroolsAlarmContext extends ManagedDroolsContext implements AlarmLif
         }
         lockIfNotFiring();
         try {
-            handleNewOrUpdatedAlarmNoLock(alarm);
+            handleNewOrUpdatedAlarms(Collections.singleton(alarm));
         } finally {
             unlockIfNotFiring();
+        }
+    }
+
+    private void updateAckCache(Set<OnmsAlarm> alarms) {
+        Set<OnmsAcknowledgment> acks = new HashSet<>();
+
+        // Update the cache depending on if we are interested in one or many alarms
+        if (alarms.size() == 1) {
+            acknowledgmentDao.findLatestAckForRefId(alarms.iterator()
+                    .next()
+                    .getId())
+                    .ifPresent(acks::add);
+        } else {
+            acks.addAll(acknowledgmentDao.findLatestAcks());
+        }
+
+        // Handle all the alarms for which an ack could be found by caching the ack resulting from the DB lookup
+        Map<Integer, OnmsAcknowledgment> acksById =
+                acks.stream().collect(Collectors.toMap(OnmsAcknowledgment::getRefId, ack -> ack));
+        ackCache.putAll(acksById);
+
+        // Handle all the alarms that no ack could be found for by generating a default ack
+        ackCache.putAll(alarms.stream()
+                .filter(alarm -> !acksById.containsKey(alarm.getId()))
+                .collect(Collectors.toMap(OnmsAlarm::getId, alarm ->
+                        new OnmsAcknowledgment(alarm, DefaultAlarmService.DEFAULT_USER, alarm.getFirstEventTime()))));
+    }
+
+    private void handleNewOrUpdatedAlarms(Set<OnmsAlarm> alarms) {
+        if (alarms.isEmpty()) {
+            return;
+        }
+
+        updateAckCache(alarms);
+
+        for (OnmsAlarm alarm : alarms) {
+            handleNewOrUpdatedAlarmNoLock(alarm);
         }
     }
 
@@ -221,13 +260,13 @@ public class DroolsAlarmContext extends ManagedDroolsContext implements AlarmLif
     private void handleAlarmAcknowledgements(OnmsAlarm alarm) {
         final AlarmAcknowledgementAndFact acknowledgmentFact = acknowledgementsByAlarmId.get(alarm.getId());
         if (acknowledgmentFact == null) {
-            OnmsAcknowledgment ack = getLatestAcknowledgement(alarm);
+            OnmsAcknowledgment ack = ackCache.get(alarm.getId());
             LOG.debug("Inserting first alarm acknowledgement into session: {}", ack);
             final FactHandle fact = getKieSession().insert(ack);
             acknowledgementsByAlarmId.put(alarm.getId(), new AlarmAcknowledgementAndFact(ack, fact));
         } else {
             FactHandle fact = acknowledgmentFact.getFact();
-            OnmsAcknowledgment ack = getLatestAcknowledgement(alarm);
+            OnmsAcknowledgment ack = ackCache.get(alarm.getId());
             LOG.trace("Updating acknowledgment in session: {}", ack);
             getKieSession().update(fact, ack);
             acknowledgementsByAlarmId.put(alarm.getId(), new AlarmAcknowledgementAndFact(ack, fact));
@@ -261,6 +300,7 @@ public class DroolsAlarmContext extends ManagedDroolsContext implements AlarmLif
         }
         deleteAlarmAcknowledgement(alarmId);
         deleteAlarmAssociations(alarmId);
+        ackCache.remove(alarmId);
     }
 
     private void deleteAlarmAcknowledgement(int alarmId) {
