@@ -324,6 +324,16 @@ public class AlarmsToES implements AlarmLifecycleListener, Runnable  {
     }
 
     @Override
+    public void preHandleAlarmSnapshot() {
+        // pass
+    }
+
+    @Override
+    public void postHandleAlarmSnapshot() {
+        // pass
+    }
+
+    @Override
     public synchronized void handleNewOrUpdatedAlarm(OnmsAlarm alarm) {
         LOG.debug("Got new or updated alarm callback for alarm with id: {} and reduction key: {}",
                 alarm.getId(), alarm.getReductionKey());
