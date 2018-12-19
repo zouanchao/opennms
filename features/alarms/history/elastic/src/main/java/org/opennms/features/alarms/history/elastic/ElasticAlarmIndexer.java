@@ -329,7 +329,7 @@ public class ElasticAlarmIndexer implements AlarmLifecycleListener, Runnable {
 
         // Bulk delete alarms that are not yet marked as deleted in ES, and are not present in the given list
         final Set<Integer> alarmIdsToKeep = new HashSet<>();
-        alarmIdsToKeep.addAll(stateTracker.getUpdatedAlarmIds());
+//        alarmIdsToKeep.addAll(stateTracker.getUpdatedAlarmIds());
         alarms.stream().map(OnmsAlarm::getId).forEach(id -> alarmIdsToKeep.add(id));
         taskQueue.add(new BulkDeleteTask(alarmIdsToKeep, getCurrentTimeMillis()));
         alarmDocumentsById.keySet().removeIf(alarmId -> !alarmIdsToKeep.contains(alarmId));
