@@ -403,7 +403,7 @@ public class SyslogMessageTest {
         checkDateParserWith(TimeZone.getDefault(), "");
     }
 
-    private void checkDateParserWith(TimeZone expectedTimeZone, String timezoneProperty) throws IOException, NumberFormatException, ParseException {
+    private void checkDateParserWith(TimeZone expectedTimeZone, String timezoneProperty) throws IOException, ParseException {
         String configuration = "<syslogd-configuration>" +
                 "<configuration " +
                 "syslog-port=\"10514\" " +
@@ -417,7 +417,7 @@ public class SyslogMessageTest {
 
         // Date Format 1:
         String dateString = "Feb 03 12:21:20";
-        int expectedYear = Integer.parseInt(getExpectedYear(dateString));
+        int expectedYear = getExpectedYear(dateString);
         LocalDateTime expectedLocalDateTime = LocalDateTime.of(expectedYear, 2, 3 , 12, 21, 20);
         ZonedDateTime expectedDateTime = ZonedDateTime.of(expectedLocalDateTime, expectedTimeZone.toZoneId());
         Date parsedDate = parser.parseDate(dateString);
@@ -430,11 +430,11 @@ public class SyslogMessageTest {
         assertEquals(expectedDateTime.toInstant(), parsedDate.toInstant());
     }
 
-    public static String getExpectedYear(String dateFragment) throws ParseException {
+    public static int getExpectedYear(String dateFragment) throws ParseException {
         // Return the prior year if date is after today on the calendar - this is what the syslog parsers will do
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         Date date = new SimpleDateFormat("yyyy MMM dd hh:mm:ss").parse(Integer.toString(currentYear) + " " + dateFragment);
-        return date.getTime() > System.currentTimeMillis() ? Integer.toString(currentYear - 1) : Integer.toString(currentYear);
+        return date.getTime() > System.currentTimeMillis() ? currentYear - 1 : currentYear;
     }
 
 }
