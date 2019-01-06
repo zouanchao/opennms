@@ -52,6 +52,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.opennms.netmgt.events.api.EventParameterUtils;
 import org.opennms.netmgt.model.OnmsSeverity;
+import org.opennms.netmgt.xml.event.AlarmData;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.plugins.elasticsearch.rest.bulk.BulkException;
@@ -390,6 +391,18 @@ public class EventToIndex implements AutoCloseable {
 
 		body.put("host",event.getHost());
 
+		if (event.getCreationTime() != null) {
+			cal.setTime(event.getCreationTime());
+			body.put("eventcreationtime", DatatypeConverter.printDateTime(cal));
+		}
+
+		final AlarmData alarmData = event.getAlarmData();
+		if (alarmData != null) {
+			body.put("alarmreductionkey", alarmData.getReductionKey());
+			body.put("alarmclearkey", alarmData.getClearKey());
+			body.put("alarmtype", alarmData.getAlarmType());
+		}
+
 		// Parse event parameters
 		handleParameters(event, body);
 
@@ -401,6 +414,8 @@ public class EventToIndex implements AutoCloseable {
 		if(! archiveOldAlarmValues){
 			body.remove("p_"+NEW_ALARM_VALUES_PARAM);
 		}
+
+
 
 		body.put("interface", event.getInterface());
 		body.put("logmsg", ( event.getLogmsg()!=null ? event.getLogmsg().getContent() : null ));
