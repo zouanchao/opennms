@@ -1,0 +1,198 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2019 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2019 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
+
+package org.opennms.netmgt.alarmd.usecases;
+
+import java.util.Date;
+import java.util.List;
+import org.kie.api.time.SessionClock;
+import org.opennms.netmgt.model.OnmsAlarm;
+import org.opennms.netmgt.model.OnmsEvent;
+import org.opennms.netmgt.model.OnmsEventParameter;
+import org.opennms.netmgt.model.OnmsSeverity;
+import org.opennms.netmgt.model.TroubleTicketState
+import org.opennms.netmgt.model.events.EventBuilder;
+
+global org.opennms.netmgt.alarmd.drools.AlarmService alarmService;
+
+/**
+This ruleset can be used to passively detect clock skew in network devices
+by inspecting the timestamps of alarms triggered by syslog messages.
+
+To help ensure the results are accurate, we only trigger alarms if:
+  A) There is at least one "recent" non-skewed alarm for some node
+      * This implies that the system is functioning properly some some subset of the nodes
+  B) We have received non-skewed alarms from at least one other source for the given node
+      * This implies that not everything from the node is being delayed
+
+Event conf:
+   <event>
+      <uei>uei.opennms.org/nodes/clockSkewDetected</uei>
+      <event-label>Clock Skew Detected</event-label>
+      <logmsg dest="logndisplay">Clock skew was detected: %parm[maxSkewMs]% ms</logmsg>
+      <descr>Clock skew was passively detected with min: %parm[minSkewMs]% ms, max: %parm[maxSkewMs]% ms and avg: %parm[avgSkewMs]% ms.</descr>
+      <severity>Major</severity>
+      <alarm-data reduction-key="%uei%:%nodeid%" alarm-type="3" />
+      <parameter name="doNotCorrelate" value="true" expand="false"/>
+   </event>
+
+*/
+declare org.opennms.netmgt.model.OnmsAlarm
+    @role(event)
+    @timestamp(lastUpdateTime)
+end
+
+declare SkewedAlarm
+   @role(event)
+   @expires(1h)
+   @timestamp(createdAt)
+   skew: long
+   nodeId: int
+   createdAt: Date
+end
+
+declare UnSkewedAlarm
+   @role(event)
+   @expires(1h)
+   @timestamp(createdAt)
+   nodeId: int
+   createdAt: Date
+end
+
+declare TriggeredClockSkewedAlarm
+   @role(event)
+   @expires(24h)
+   @timestamp(createdAt)
+   nodeId: int
+   createdAt: Date
+end
+
+declare ExistsNonSkewedAlarms
+   @role(event)
+   @expires(1h)
+   @timestamp(createdAt)
+   createdAt: Date
+end
+
+function long getSkew(OnmsEvent event) {
+    if (event.getEventTime() == null || event.getEventCreateTime() == null) {
+        return 0;
+    }
+    return Math.abs(event.getEventTime().getTime() - event.getEventCreateTime().getTime());
+}
+
+rule "validate that some alarms are not skewed"
+  when
+    not(ExistsNonSkewedAlarms())
+    $alarm : OnmsAlarm(alarmType == OnmsAlarm.PROBLEM_TYPE,
+                     severity.isGreaterThan(OnmsSeverity.CLEARED),
+                     lastEvent != null,
+                     lastEvent.eventSource == "syslogd",
+                     getSkew(lastEvent) <= 30000)
+  then
+    alarmService.info("Found un-skewed alarm: {} on node: {} with skew: {}.", $alarm, $alarm.getNodeId());
+
+    Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+    insert(new ExistsNonSkewedAlarms(now));
+end
+
+rule "detect skewed alarms"
+  when
+    ExistsNonSkewedAlarms()
+    $alarm : OnmsAlarm(alarmType == OnmsAlarm.PROBLEM_TYPE,
+                       severity.isGreaterThan(OnmsSeverity.CLEARED),
+                       nodeId != null,
+                       lastEvent != null,
+                       lastEvent.eventSource == "syslogd",
+                       getSkew(lastEvent) >= 30000)
+    not(SkewedAlarm( nodeId == $alarm.nodeId ) over window:time( 10m )) // only track one skewed alarm for the node over a 10 minute window
+  then
+      long skew = getSkew($alarm.getLastEvent());
+      alarmService.info("Found skewed alarm: {} on node: {} with skew: {}.", $alarm, $alarm.getNodeId(), skew);
+
+      Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+      SkewedAlarm skewedAlarm = new SkewedAlarm();
+      skewedAlarm.setSkew(getSkew($alarm.getLastEvent()));
+      skewedAlarm.setNodeId($alarm.getNodeId());
+      skewedAlarm.setCreatedAt(now);
+      insert(skewedAlarm);
+end
+
+rule "detect un-skewed alarms"
+  when
+    $skewedAlarm: SkewedAlarm()
+    $alarm : OnmsAlarm(alarmType == OnmsAlarm.PROBLEM_TYPE,
+                       severity.isGreaterThan(OnmsSeverity.CLEARED),
+                       nodeId == $skewedAlarm.nodeId,
+                       lastEvent != null,
+                       lastEvent.eventSource == "trapd",
+                       getSkew(lastEvent) < 30000)
+    not(UnSkewedAlarm( nodeId == $alarm.nodeId )) // we only need to find one unskewed alarm per node
+  then
+      long skew = getSkew($alarm.getLastEvent());
+      alarmService.info("Found un-skewed alarm: {} with skew: {}.", $alarm, skew);
+
+      Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+      UnSkewedAlarm unskewedAlarm = new UnSkewedAlarm();
+      unskewedAlarm.setNodeId($alarm.getNodeId());
+      unskewedAlarm.setCreatedAt(now);
+      insert(unskewedAlarm);
+end
+
+rule "trigger alarm for skew"
+  when
+     $unskewedAlarm : UnSkewedAlarm() // the presense of a unskewed alarm indicates that there is at least one skewed alarm for this node
+     not(TriggeredClockSkewedAlarm(nodeId == $unskewedAlarm.nodeId)) // don't fire if we've already triggered the alarm
+     accumulate( $s : SkewedAlarm( nodeId == $unskewedAlarm.nodeId, $skew: skew ) over window:time( 1h ),
+          $skewedAlarms : collectList( $s ),
+          $max : max( $skew ),
+          $min : min( $skew ),
+          $avg : average( $skew ))
+     eval($skewedAlarms.size() >= 2) // there are at least 2 skewed alarms in the last hour for this node
+  then
+    alarmService.info("Triggering skew alarms for node: {} with skew: {}", $unskewedAlarm.getNodeId(), $avg);
+
+    Date now = new Date(drools.getWorkingMemory().getSessionClock().getCurrentTime());
+    EventBuilder eb = new EventBuilder("uei.opennms.org/nodes/clockSkewDetected", "clockSkewDetection");
+    // Use the time from the session clock on the event
+    eb.setTime(now);
+    // Set the node id
+    eb.setNodeid($unskewedAlarm.getNodeId());
+    // Add the skew details
+    eb.setParam("minSkewMs", String.format("%d", $min));
+    eb.setParam("maxSkewMs", String.format("%d", $max));
+    eb.setParam("avgSkewMs", String.format("%.2f", $avg));
+    // Asynchronously send the event
+    alarmService.sendEvent(eb.getEvent());
+
+    // Add a fact so that we don't immediately re-trigger the alarm again
+    TriggeredClockSkewedAlarm triggered = new TriggeredClockSkewedAlarm();
+    triggered.setCreatedAt(now);
+    triggered.setNodeId($unskewedAlarm.getNodeId());
+    insert(triggered);
+end

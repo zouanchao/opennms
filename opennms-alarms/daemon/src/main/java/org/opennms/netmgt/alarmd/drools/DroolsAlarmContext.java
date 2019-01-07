@@ -175,6 +175,17 @@ public class DroolsAlarmContext extends ManagedDroolsContext implements AlarmLif
         }
     }
 
+    /**
+     * Can be called after a call to {@link #start()} to block until
+     * the seed thread had completed and the context is started.
+     */
+    public void waitUntilStarted() {
+        // The seed thread will hold the lock once started, so we know that the seed thread
+        // is done if we can grab the same lock
+        getLock().lock();
+        getLock().unlock();
+    }
+
     @Override
     public void preHandleAlarmSnapshot() {
         getLock().lock();

@@ -134,6 +134,7 @@ public class NaggingNotificationsIT {
         dac.setAcknowledgmentDao(acknowledgmentDao);
 
         dac.start();
+        dac.waitUntilStarted();
     }
 
     @After
