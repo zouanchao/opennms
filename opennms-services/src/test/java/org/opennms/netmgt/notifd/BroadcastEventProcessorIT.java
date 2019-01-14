@@ -31,6 +31,8 @@ package org.opennms.netmgt.notifd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.opennms.core.utils.InetAddressUtils.addr;
 
 import java.util.Collections;
@@ -166,6 +168,24 @@ public class BroadcastEventProcessorIT extends NotificationsITCase {
         verifyAnticipated(finishedNotifs, 1000);
     }
 
+    
+    @Test
+    public void testInValidNode() throws Exception {
+        int initialSize = m_notificationDao.countAll();
+        MockService svc = m_network.getService(1, "192.168.1.1", "ICMP");
+        EventBuilder builder = new EventBuilder("uei.opennms.org/test/noticeIdExpansion", "test");
+        builder.setTime(new Date());
+        Event event = builder.getEvent();
+        // Don't set node for the event.
+        event.setInterface(svc.getIpAddr());
+        event.setService(svc.getSvcName());
+        m_eventMgr.sendEventToListeners(event);
+        // Wait for 5 secs so that event is processed by notifd.
+        Thread.sleep(5000);
+        int finalSize = m_notificationDao.countAll();
+        assertSame(initialSize, finalSize);
+    }
+    
     /**
      * Test Varbindsdecode replacement on notifications.
      * 
