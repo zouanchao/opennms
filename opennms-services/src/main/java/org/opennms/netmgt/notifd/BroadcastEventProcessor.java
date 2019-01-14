@@ -447,15 +447,16 @@ public final class BroadcastEventProcessor implements EventListener {
         String service = event.getService();
 
         boolean continueNotice = false;
-
-        // can't check the database if any of these are null, so let the notice
-        // continue
-        if (nodeID == null || ipAddr == null || service == null || ipAddr.equals("0.0.0.0")) {
-            LOG.debug("nodeID={} ipAddr={} service={}. Not checking DB, continuing...", nodeID, ipAddr, service);
-            return true;
+        // If event is not associated with node/interface, disregard Notice
+        if (nodeID == null || ipAddr == null || ipAddr.equals("0.0.0.0")) {
+            return false;
         }
 
         try {
+            // can't check database if service is null, let notice continue.
+            if (service == null) {
+                return true;
+            }
             // check the database to see if notices were turned off for this
             // service
             String notify = getNotificationManager().getServiceNoticeStatus(nodeID, ipAddr, service);
