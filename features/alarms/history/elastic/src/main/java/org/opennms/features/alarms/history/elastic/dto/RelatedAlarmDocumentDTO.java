@@ -74,6 +74,7 @@ public class RelatedAlarmDocumentDTO implements RelatedAlarmState {
         this.firstEventTime = firstEventTime;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

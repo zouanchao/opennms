@@ -56,7 +56,7 @@ public class MapStructDocumentImplTest {
     public void canMapIpAddress() {
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setIpAddr(InetAddressUtils.ONE_TWENTY_SEVEN);
-        AlarmDocumentDTO documentDTO = mapper.to(alarm);
+        AlarmDocumentDTO documentDTO = mapper.apply(alarm);
         assertThat(documentDTO.getIpAddress(), equalTo("127.0.0.1"));
     }
 }

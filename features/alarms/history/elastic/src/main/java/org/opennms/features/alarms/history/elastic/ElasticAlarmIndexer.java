@@ -47,6 +47,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,7 +57,6 @@ import org.opennms.core.cache.Cache;
 import org.opennms.core.cache.CacheBuilder;
 import org.opennms.core.cache.CacheConfig;
 import org.opennms.core.time.PseudoClock;
-import org.opennms.core.utils.UniMapper;
 import org.opennms.features.alarms.history.elastic.dto.AlarmDocumentDTO;
 import org.opennms.features.alarms.history.elastic.dto.AlarmDocumentFactory;
 import org.opennms.features.alarms.history.elastic.dto.NodeDocumentDTO;
@@ -134,7 +134,7 @@ public class ElasticAlarmIndexer implements AlarmLifecycleListener, Runnable {
             .build());
     private final AtomicBoolean stopped = new AtomicBoolean(false);
     private java.util.Timer timer;
-    private final UniMapper<OnmsAlarm, AlarmDocumentDTO> documentMapper;
+    private final Function<OnmsAlarm, AlarmDocumentDTO> documentMapper;
     private final AlarmDocumentFactory documentFactory;
 
     private final ElasticAlarmMetrics alarmsToESMetrics;
@@ -456,7 +456,7 @@ public class ElasticAlarmIndexer implements AlarmLifecycleListener, Runnable {
         }
 
         if (needsIndexing) {
-            final AlarmDocumentDTO doc = documentMapper.to(alarm);
+            final AlarmDocumentDTO doc = documentMapper.apply(alarm);
             alarmDocumentsById.put(alarm.getId(), doc);
             return Optional.of(doc);
         }

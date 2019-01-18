@@ -32,4 +32,7 @@ package org.opennms.features.alarms.history.api;
  * Used to represent the state of a related alarm at some particular point in time.
  */
 public interface RelatedAlarmState {
+
+    Integer getId();
+
 }

@@ -58,13 +58,13 @@ public interface AlarmHistoryRestService {
     @Path("{alarmId}/journal")
     @Produces(MediaType.APPLICATION_JSON)
     Collection<AlarmState> getStatesForAlarm(@PathParam("alarmId") String alarmId,
-            @QueryParam("match-type") String matchType);
+            @QueryParam("matchType") String matchType);
 
     @GET
     @Path("{alarmId}")
     @Produces(MediaType.APPLICATION_JSON)
     AlarmState getAlarm(@PathParam("alarmId") String alarmId,
-            @QueryParam("match-type") String matchType,
+            @QueryParam("matchType") String matchType,
             @QueryParam("at") Long time);
 
     @GET

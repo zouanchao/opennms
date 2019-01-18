@@ -29,6 +29,7 @@
 package org.opennms.features.alarms.history.elastic.mapping;
 
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.LongSupplier;
 
 import org.mapstruct.factory.Mappers;
@@ -36,14 +37,13 @@ import org.opennms.core.cache.Cache;
 import org.opennms.features.alarms.history.elastic.dto.AlarmDocumentDTO;
 import org.opennms.features.alarms.history.elastic.dto.AlarmDocumentFactory;
 import org.opennms.features.alarms.history.elastic.dto.NodeDocumentDTO;
-import org.opennms.core.utils.UniMapper;
 import org.opennms.netmgt.model.OnmsAlarm;
 
 /**
  * A mapper that delegates mapping logic to MapStruct mappers to generate elasticsearch
  * DTO objects.
  */
-public class MapStructDocumentImpl implements UniMapper<OnmsAlarm, AlarmDocumentDTO>, AlarmDocumentFactory,
+public class MapStructDocumentImpl implements Function<OnmsAlarm, AlarmDocumentDTO>, AlarmDocumentFactory,
         AlarmMapper.MappingContext {
     private static final AlarmMapper alarmMapper = Mappers.getMapper(AlarmMapper.class);
     private final Cache<Integer, Optional<NodeDocumentDTO>> nodeInfoCache;
@@ -56,7 +56,7 @@ public class MapStructDocumentImpl implements UniMapper<OnmsAlarm, AlarmDocument
     }
 
     @Override
-    public AlarmDocumentDTO to(OnmsAlarm alarm) {
+    public AlarmDocumentDTO apply(OnmsAlarm alarm) {
         return alarmMapper.map(alarm, this);
     }
 
